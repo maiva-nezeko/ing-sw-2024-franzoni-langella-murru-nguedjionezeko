@@ -1,4 +1,4 @@
-package ServerSide.Table;
+package it.polimi.ingsw.Table;
 
 public class Player {
 

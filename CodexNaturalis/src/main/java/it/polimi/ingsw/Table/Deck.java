@@ -1,11 +1,11 @@
-package ServerSide.Table;
+package it.polimi.ingsw.Table;
 
 
-import ServerSide.Cards.*;
-import ServerSide.Cards.Enums.GoalStates;
-import ServerSide.Cards.Enums.PlayCondition;
-import ServerSide.Cards.Enums.PointCondition;
-import ServerSide.Cards.Enums.StartingPoints;
+import it.polimi.ingsw.Cards.*;
+import it.polimi.ingsw.Cards.Enums.GoalStates;
+import it.polimi.ingsw.Cards.Enums.PlayCondition;
+import it.polimi.ingsw.Cards.Enums.PointCondition;
+import it.polimi.ingsw.Cards.Enums.StartingPoints;
 
 public class Deck {
 
