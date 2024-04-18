@@ -1,6 +1,4 @@
-package main.java.it.polimi.ingsw.ServerSide.Cards;
-
-import main.java.it.polimi.ingsw.ServerSide.Cards.Card;
+package it.polimi.ingsw.ServerSide.Cards;
 
 public abstract class PlayableCard extends Card{
 

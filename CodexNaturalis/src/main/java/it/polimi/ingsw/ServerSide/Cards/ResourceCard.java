@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ServerSide.Cards;
+package it.polimi.ingsw.ServerSide.Cards;
 
 public class ResourceCard extends PlayableCard{
 

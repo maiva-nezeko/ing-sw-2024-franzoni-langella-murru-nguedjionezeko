@@ -1,6 +1,6 @@
-package main.java.it.polimi.ingsw.ServerSide.Cards;
+package it.polimi.ingsw.ServerSide.Cards;
 
-import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.StartingPoints;
+import it.polimi.ingsw.ServerSide.Cards.Enums.StartingPoints;
 
 public class StartingCard extends PlayableCard {
     private final int[] AlternateCorners;

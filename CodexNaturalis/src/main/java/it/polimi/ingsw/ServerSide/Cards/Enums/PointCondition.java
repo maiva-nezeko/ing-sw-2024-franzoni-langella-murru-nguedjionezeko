@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ServerSide.Cards.Enums;
+package it.polimi.ingsw.ServerSide.Cards.Enums;
 
 public enum PointCondition {
     ONE_POINT_FLAT, THREE_POINT_FLAT, FIVE_POINT_FLAT,
