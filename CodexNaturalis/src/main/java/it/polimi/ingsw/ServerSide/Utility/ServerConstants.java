@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ServerSide.Utility;
+package main.java.it.polimi.ingsw.ServerSide.Utility;
 
 import java.nio.file.FileSystems;
 

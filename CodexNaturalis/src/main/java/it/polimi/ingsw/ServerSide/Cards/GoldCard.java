@@ -1,8 +1,8 @@
-package it.polimi.ingsw.ServerSide.Cards;
+package main.java.it.polimi.ingsw.ServerSide.Cards;
 
 
-import it.polimi.ingsw.ServerSide.Cards.Enums.PlayCondition;
-import it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
+import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PlayCondition;
+import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
 
 public class GoldCard extends PlayableCard {
     protected final PlayCondition PlayCond;

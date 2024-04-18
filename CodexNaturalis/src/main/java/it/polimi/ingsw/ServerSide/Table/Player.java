@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ServerSide.Table;
+package main.java.it.polimi.ingsw.ServerSide.Table;
 
 public class Player {
     private int[] PrivateCardsID = new int[6];

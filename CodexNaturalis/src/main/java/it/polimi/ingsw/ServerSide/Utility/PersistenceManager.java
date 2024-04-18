@@ -1,6 +1,7 @@
-package it.polimi.ingsw.ServerSide.Utility;
+package main.java.it.polimi.ingsw.ServerSide.Utility;
 
-import it.polimi.ingsw.ServerSide.Table.Player;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
+import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -127,4 +128,4 @@ public class PersistenceManager {
     }
 }
 
-}
+
