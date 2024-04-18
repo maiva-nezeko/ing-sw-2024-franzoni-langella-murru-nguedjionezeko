@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+/**package it.polimi.ingsw;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -34,5 +34,5 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
-    }
+    }  */
 }

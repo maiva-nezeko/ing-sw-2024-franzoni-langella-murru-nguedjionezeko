@@ -1,6 +1,6 @@
-package it.polimi.ingsw;
+package main.java.it.polimi.ingsw;
 
-import it.polimi.ingsw.Cards.ResourceCard;
+import main.java.it.polimi.ingsw.ServerSide.Cards.ResourceCard;
 
 import java.util.Arrays;
 

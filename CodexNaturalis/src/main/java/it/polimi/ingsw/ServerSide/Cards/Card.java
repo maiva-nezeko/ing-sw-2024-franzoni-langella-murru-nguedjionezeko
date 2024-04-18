@@ -1,5 +1,5 @@
 
-package it.polimi.ingsw.ServerSide.Cards;
+package main.java.it.polimi.ingsw.ServerSide.Cards;
 
 public abstract class Card {
     protected boolean isFlipped;
