@@ -83,8 +83,8 @@ public class Game {
 
    }
 
-    //TurnManager
 
+    //TurnManager
     private static int CurrentPlayerTurn=0;
     public int getCurrentPlayerTurn(){return CurrentPlayerTurn;}
     public void changePlayerTurn(){ if(CurrentPlayerTurn+1== this.getPlayerCount()){CurrentPlayerTurn=0;}else{CurrentPlayerTurn++;}}

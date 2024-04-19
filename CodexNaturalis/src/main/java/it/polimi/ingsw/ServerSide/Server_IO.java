@@ -133,6 +133,13 @@ public class Server_IO {
                 return "Reconnecting to previous game"; }
             return "Reconnection attempt failed: Username not found";
         }
+
+        public String CreateGame(String username, int playerCount) throws RemoteException
+        {
+            if(MultipleGameManager.CreateGame(username, playerCount)){ this.game = MultipleGameManager.getGameInstance(username);
+                return "Joining new Game"; }
+            return "Creation attempt failed: Server Error or wrong PlayerCount";
+        }
         public int RMI_getNewPort(String username) throws RemoteException{  return getNewPort(username)  ;   }
 
         public void update(String username) throws RemoteException {

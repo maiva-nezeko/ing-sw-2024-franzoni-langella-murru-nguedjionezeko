@@ -85,6 +85,14 @@ public class MultipleGameManager {
         return false;
     }
 
+    public static boolean CreateGame(String username, int playerCount){
+        List<Player> Players = new ArrayList<>();
+        Players.add(new Player(username));
+        if(playerCount >=1 && playerCount<=4){ addGame(playerCount, Players); return true; }
+        return false;
+    }
+
+
     public static void end(Game game) {
 
         if(!CurrentGames.contains(game) || !game.isGameStarted()){return;}

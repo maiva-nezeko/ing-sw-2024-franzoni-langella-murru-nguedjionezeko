@@ -1,6 +1,9 @@
 package main.java.it.polimi.ingsw;
 
 import main.java.it.polimi.ingsw.ServerSide.Cards.ResourceCard;
+import main.java.it.polimi.ingsw.ServerSide.GameServer;
+import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import main.java.it.polimi.ingsw.Server_Testing.TestAggregator;
 
 import java.util.Arrays;
 
@@ -13,9 +16,12 @@ public class App
     public static void main( String[] args )
     {
 
-        ResourceCard card = new ResourceCard(new int[]{7, 1, 1, 1}, 15);
-        System.out.println(card.getClass() + " " + Arrays.toString(card.getCorners()));
+        boolean test = false;
+        ServerConstants.setDebug(false);
 
-        System.out.println( "Hello World!" );
+        if(test){ TestAggregator.RunTest(); }
+        else {  GameServer mainServer = new GameServer(1330); mainServer.start();
+            //MultipleGameManager.addGame(1, new ArrayList<>());
+        }
     }
 }

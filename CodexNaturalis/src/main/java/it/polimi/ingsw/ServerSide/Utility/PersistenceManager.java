@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-public class PersistenceManager {
+public interface PersistenceManager {
 
     static void RestoreGame(Game game)
     {

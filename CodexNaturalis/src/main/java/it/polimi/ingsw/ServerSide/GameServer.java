@@ -147,6 +147,13 @@ public class GameServer extends Thread{
                     else{ response = "Username Not Present";}
 
                     sendData(response.getBytes(), packet.getAddress(), packet.getPort());
+                    break;
+
+                case "CreateGame":
+                    if(MultipleGameManager.CreateGame(username, Integer.parseInt(message[2]))){ response = "Joining new Game"; }
+                    else{ response = "Creation attempt failed: Server Error or wrong PlayerCount"; }
+                    sendData(response.getBytes(), packet.getAddress(), packet.getPort());
+                    break;
             }
 
 
