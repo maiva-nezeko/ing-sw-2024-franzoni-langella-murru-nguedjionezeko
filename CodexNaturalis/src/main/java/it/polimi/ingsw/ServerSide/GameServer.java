@@ -15,6 +15,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+/**
+ * The Game server as in the mean for the Server communication via Socket.
+ */
 public class GameServer extends Thread{
 
     private DatagramSocket socket;
@@ -23,6 +26,11 @@ public class GameServer extends Thread{
     private Game game;
     private int IntegerInString;
 
+    /**
+     * Instantiates a new Game server.
+     *
+     * @param Port where the Socket communication happens.
+     */
     public GameServer(int Port)
     {
 
@@ -160,6 +168,13 @@ public class GameServer extends Thread{
         }
     }
 
+    /**
+     * Sends the gathered data.
+     *
+     * @param data      the data information we want to send as a byte[] type
+     * @param ipAddress the ip address of the receiver
+     * @param port      the port used for communication
+     */
     public void sendData(byte[] data, InetAddress ipAddress, int port)
     {
         DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, port);

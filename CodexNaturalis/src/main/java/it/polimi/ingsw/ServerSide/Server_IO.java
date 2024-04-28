@@ -16,18 +16,60 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The Server IO class serves the communication between Server and Client.
+ * For complete implementations of the functions instead of the messages, go
+ * to UpdateClasses.TableManager.
+ */
 public class Server_IO {
 
     //Modifiers
+    /**
+     * Flips the card located in a given position.
+     *
+     * @param position the position of the card to flip
+     * @param username the username of the player making the action
+     */
+
     public static void Flip(int position, String username){
         Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPlayerByUsername(username) .FlipCard(position);}
 
+    /**
+     * Plays a card by using the index for the final position.
+     *
+     * @param rowIndex     the number indicating the row index
+     * @param columnsIndex the number indicating the columns index
+     * @param id           the unique card id
+     * @param username     the username of the player requesting the action
+     * @return the boolean indicating if a Card has been played or not
+     */
     public static boolean PlayCardByIndex(int rowIndex, int columnsIndex, int id, String username) {
-       return TableManager.playCardByIndex(rowIndex, columnsIndex, id, username);   }
+        return TableManager.playCardByIndex(rowIndex, columnsIndex, id, username);   }
+
+    /**
+     * Drawing a new card.
+     *
+     * @param position the position of the Deck to draw from
+     * @param username the username of the player requesting the action
+     */
     public static void DrawCard(int position, String username){ Table table = Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getRelatedTable();
-     table.DrawCard(position, username);  }
+        table.DrawCard(position, username);  }
+
+    /**
+     * Places the starting card (flipped or not flipped) as the first card on the Player's board.
+     *
+     * @param selectedCard the selected starting card
+     * @param username     the username of the player requesting the action
+     */
     public static void PlaceStartingCard(int selectedCard, String username){ Game game = Objects.requireNonNull(MultipleGameManager.getGameInstance(username));
         TableManager.PlaceStartingCard(selectedCard, game.getPlayerNumber(username) ,username); }
+
+    /**
+     * Choose goal card from the once displayed in position 3 and 5.
+     *
+     * @param position the position in which the chosen card is situated
+     * @param username the username of the player requesting the action
+     */
     public static void ChooseGoalCard(int position, String username){
         Player player = Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPlayerByUsername(username);
         if(position==3){ player.setCard(5, 0); }
@@ -35,9 +77,22 @@ public class Server_IO {
     }
 
 
+    /**
+     * The maximum Time per each player's turn. Once previousTime is greater
+     * or equal to timePerTurn, the player skips that turn.
+     */
+    static double timePerTurn = (100000000.0);
+    /**
+     * The Previous time tracking the time passed.
+     */
+    static long previousTime = System.nanoTime();
 
-    static double timePerTurn = (100000000.0); static long previousTime = System.nanoTime();
-
+    /**
+     * Socket update string.
+     *
+     * @param username the username of the player associated with the update
+     * @return the update as a string
+     */
     public static String SocketUpdate(String username)
     {
         Game gameInstance = MultipleGameManager.getGameInstance(username);
@@ -73,14 +128,20 @@ public class Server_IO {
     { return  Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPort();  }
 
 
-
-
+    /**
+     * The implementation of the Server rmi. Further documentations is found in ServerRMI interface.
+     */
     public static class ServerRMI_impl extends UnicastRemoteObject implements ServerRMI
     {
 
         private int RMI_PlayerCount; private String username; private int RMI_CurrentTurn;
         private UpdatePackage RMI_UpdatePackage; private Game game;
 
+        /**
+         * Instantiates a new Server rmi.
+         *
+         * @throws RemoteException in case any errors occur
+         */
         protected ServerRMI_impl() throws RemoteException{super();}
 
 
@@ -166,6 +227,12 @@ public class Server_IO {
 
 
     //OnlyServerSide
+
+    /**
+     * Send grid dimensions.
+     *
+     * @return the dimensions as an int [ ]
+     */
     public static int[] sendGridDimensions(){ return new int[]{20, 10};}
 
 

@@ -5,17 +5,43 @@ import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PlayCondition;
 import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
 
 public class GoldCard extends PlayableCard {
+    /**
+     * The Play Condition as seen in Cards.Enums.PlayCondition.
+     */
     protected final PlayCondition PlayCond;
+    /**
+     * The Point Condition as seen in Cards.Enums.PointCondition.
+     */
     protected final PointCondition PointCond;
 
+    /**
+     * Instantiates a new Gold card.
+     *
+     * @param Corners   the corners that characterize the card
+     * @param id        the unique id
+     * @param PointCond the condition to assign the points
+     * @param PlayCond  the condition to play the card
+     */
     public GoldCard(int[] Corners, int id, PointCondition PointCond, PlayCondition PlayCond) {
         super(Corners, id);
         this.PlayCond = PlayCond;
         this.PointCond = PointCond;
     }
 
+    /**
+     * Gets the points condition called PointCond as type PointCondition.
+     *
+     * @return the point condition
+     */
     public PointCondition getPointCond(){return this.PointCond;}
 
+    /**
+     * GoldCard.getCorners first checks if the Card is flipped, which would result in the
+     * corners all being set to Blank;
+     * Otherwise keeps the corners as set in PlayableCard (also see Table.Deck)
+     *
+     * @return the corners for a specific card as an int [ ]
+     */
     public int[] getCorners() {
         if(this.isFlipped){return new int[]{1, 1, 1, 1};}
         return this.Corners;
@@ -53,6 +79,7 @@ public class GoldCard extends PlayableCard {
 
     public Boolean isPlayable(int[] OldPoints)
     {
+        /* if the card is flipped there is no need to further check if is playable */
         if(this.isFlipped){return true;}
 
         return switch (this.PlayCond) {
