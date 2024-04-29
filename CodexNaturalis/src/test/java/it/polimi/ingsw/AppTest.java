@@ -1,3 +1,11 @@
+package test.java.it.polimi.ingsw;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+import static junit.framework.Assert.*;
+
 /**package it.polimi.ingsw;
 
 import junit.framework.Test;
@@ -7,8 +15,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
+public class AppTest extends TestCase
 {
     /**
      * Create the test case
@@ -34,5 +41,5 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
-    }  */
+    }
 }

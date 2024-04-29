@@ -94,10 +94,14 @@ public class Deck {
     {
         ID = abs(ID);
 
+        if( !(ID>0 && ID<=80) && !(ID>=200 && ID<=205)) { return null; }
+
         if(ID<=80){return Deck[ID-1];}
         return StartingDeck[ID-200];
     }
 
-    public static GoalCard getGoalCardByID(int ID){ return GoalDeck[ID-100];}
+    public static GoalCard getGoalCardByID(int ID){
+        if(ID<100 || ID>115) { return null; }
+        return GoalDeck[ID-100];}
 
 }

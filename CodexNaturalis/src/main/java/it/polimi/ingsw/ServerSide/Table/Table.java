@@ -92,7 +92,7 @@ public class Table {
     public void DrawCard(int position, String username)
     {
         Player chosenPlayer = relatedGame.getPlayerByUsername(username);
-        assert chosenPlayer != null;
+        if(chosenPlayer==null){return;}
 
         int EmptyHandSlot = chosenPlayer.getEmptySlot();
         if(EmptyHandSlot != -1)

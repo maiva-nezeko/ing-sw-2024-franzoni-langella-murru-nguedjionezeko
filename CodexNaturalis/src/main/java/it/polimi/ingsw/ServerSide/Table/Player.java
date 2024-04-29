@@ -1,9 +1,11 @@
 package main.java.it.polimi.ingsw.ServerSide.Table;
 
+import static java.lang.Math.abs;
+
 public class Player {
-    private int[] PrivateCardsID = new int[6];
+    private final int[] PrivateCardsID = new int[6];
     private int[] ScoreBoard = new int[8];
-    private String username;
+    private final String username;
 
     public Player(String username){
         this.username = username;
@@ -16,6 +18,8 @@ public class Player {
         return PrivateCardsID;
     }
     public void setCard(int position, int id){
+        if(position<0 || position>5){ return; }
+        if(id!=0 && Deck.getCardBYid(id)==null && Deck.getGoalCardByID(id)==null ){ return; }
         this.PrivateCardsID[position]=id;
     }
     public int getEmptySlot(){
@@ -33,16 +37,19 @@ public class Player {
         this.ScoreBoard = NewScore;
     }
     public void FlipCard(int position){
+        if(position==3 | position==5){ return; }
         this.PrivateCardsID[position] = -this.PrivateCardsID[position];
     }
     public void consumeCard(int id){
-        int index = 0;
-        for(int ID : this.getPrivateCardsID()){
-            if(ID == id){
-                break;
-            }
+
+        int index = 0; boolean found = false;
+
+        for(int ID : this.PrivateCardsID){
+            if(ID == id){  found = true; break;  }
             index++;
         }
+
+        if(!found){ return; }
         this.setCard(index, 0);
     }
 }

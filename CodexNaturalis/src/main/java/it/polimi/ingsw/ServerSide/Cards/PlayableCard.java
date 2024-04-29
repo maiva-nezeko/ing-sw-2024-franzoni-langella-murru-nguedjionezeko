@@ -27,7 +27,7 @@ public abstract class PlayableCard extends Card{
     public PlayableCard(int[] Corners, int id){
         super(id);
         this.Corners = Corners;
-        this.Color =  (id-1)/10 + 1; //0-10,40-50 Red==1, 10-20,50-60 Blue==2, 20-30,60-70 Green==3, 30-40,70-80 Purple==4
+        this.Color =  (id-1)/10 + 1; //1-10,41-50 Red==1, 11-20,51-60 Blue==2, 21-30,61-70 Green==3, 31-40,71-80 Purple==4
         if(this.Color >4) {this.Color -= 4;}
     }
 
@@ -72,4 +72,11 @@ public abstract class PlayableCard extends Card{
      * @param isFlipped the boolean that indicates whether the Card is flipped or not
      */
     public void setFlipped(boolean isFlipped){this.isFlipped = isFlipped;}
+
+    /**
+     * isFlipped returns the current flipped status of the selected card
+     *
+     * @return the boolean value representing the flipped status
+     */
+    public boolean isFlipped(){return this.isFlipped;}
 }
