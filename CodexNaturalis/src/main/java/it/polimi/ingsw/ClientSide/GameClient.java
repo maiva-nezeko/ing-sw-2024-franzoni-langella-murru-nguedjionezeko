@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * The type Game client.
+ */
 public class GameClient extends Thread{
     private static InetAddress ipAddress;
     private static DatagramSocket socket;
@@ -14,6 +17,12 @@ public class GameClient extends Thread{
 
     private String message;
 
+    /**
+     * Instantiates a new Game client.
+     *
+     * @param game          the game
+     * @param ipAddress_str the ip address str
+     */
     public GameClient(Client_Game game, String ipAddress_str)
     {
         this.game = game;
@@ -27,6 +36,12 @@ public class GameClient extends Thread{
 
     }
 
+    /**
+     * Listen for response string.
+     *
+     * @param message the message
+     * @return the string
+     */
     public static String listenForResponse(String message)
     {
         byte[] data = new byte[2048];
@@ -64,6 +79,11 @@ public class GameClient extends Thread{
 
     }
 
+    /**
+     * Send data.
+     *
+     * @param data the data
+     */
     public static void sendData(byte[] data)
     {
         if(ClientConstants.getSocket()){

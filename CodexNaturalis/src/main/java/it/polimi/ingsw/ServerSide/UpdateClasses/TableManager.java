@@ -18,6 +18,9 @@ import java.util.List;
 
 import static java.lang.Math.abs;
 
+/**
+ * The type Table manager.
+ */
 public class TableManager {
 
 
@@ -26,6 +29,13 @@ public class TableManager {
     private static final int NumOf_Columns = NumOf_Rows/2;
 
 
+    /**
+     * Place starting card.
+     *
+     * @param id       the id
+     * @param game     the game
+     * @param username the username
+     */
     public static void PlaceStartingCard(int id, Game game, String username)
     {
         if(game==null){return;}
@@ -48,6 +58,15 @@ public class TableManager {
 
     }
 
+    /**
+     * Play card by index boolean.
+     *
+     * @param Row_index     the row index
+     * @param Columns_index the columns index
+     * @param id            the id
+     * @param username      the username
+     * @return the boolean
+     */
     public static boolean playCardByIndex(int Row_index, int Columns_index, int id, String username)
     {
         Game game = MultipleGameManager.getGameInstance(username);
@@ -243,6 +262,14 @@ public class TableManager {
         if(ServerConstants.getDebug()){ System.out.println(chosenPlayer.getUsername() +" "+ Arrays.toString(OldScoreBoard)); }
     }
 
+    /**
+     * Stair points int.
+     *
+     * @param color    the color
+     * @param player   the player
+     * @param username the username
+     * @return the int
+     */
     public static int Stair_points(int color, int player, String username)
     {
         int count=0;
@@ -278,6 +305,14 @@ public class TableManager {
 
     }
 
+    /**
+     * L points int.
+     *
+     * @param color    the color
+     * @param player   the player
+     * @param username the username
+     * @return the int
+     */
     public static int L_points(int color, int player, String username)
     {
         int count=0;

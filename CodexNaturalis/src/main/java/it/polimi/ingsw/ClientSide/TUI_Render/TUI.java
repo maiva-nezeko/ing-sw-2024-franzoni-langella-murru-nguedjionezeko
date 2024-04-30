@@ -9,6 +9,9 @@ import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * The type Tui.
+ */
 public class TUI {
 
     private static final String ANSI_RESET = "\u001B[0m";
@@ -19,11 +22,18 @@ public class TUI {
 
     private static final String ANSI_YELLOW = "\u001B[33m";
 
+
+
     private static final String[] Colors = new String[]{ANSI_RED, ANSI_BLUE, ANSI_GREEN, ANSI_PURPLE, ANSI_YELLOW, ANSI_RESET };
 
 
-
+    /**
+     * The Tui grid sizes.
+     */
     static int[] TUIGridSizes = ClientConstants.getTUIGridSizes();
+    /**
+     * The Grid string.
+     */
     static String[][] GridString = new String[TUIGridSizes[0]][TUIGridSizes[1]];
     private static void fillGridString() {
 
@@ -45,11 +55,25 @@ public class TUI {
     private static void flushExploredIDS(){ ExploredIDS = new ArrayList<>(); }
 
     private static ArrayList<Integer> PlayableIDS = new ArrayList<>();
+
+    /**
+     * Get playable ids array list.
+     *
+     * @return the array list
+     */
     public static ArrayList<Integer> getPlayableIDS(){return PlayableIDS;}
 
+    /**
+     * Remove space.
+     *
+     * @param formattedIndex the formatted index
+     */
     public static void removeSpace(int formattedIndex) { PlayableIDS.remove((Integer) formattedIndex); }
 
 
+    /**
+     * Render tui.
+     */
     public static void renderTUI()
     {
         int[][] Grid = Client_IO.requestGrid();

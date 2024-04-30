@@ -12,11 +12,23 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Arrays;
 
+/**
+ * The type Client io.
+ */
 public class Client_IO {
 
 
+    /**
+     * The constant reg.
+     */
     protected static Registry reg;
+    /**
+     * The constant UpdateObject.
+     */
     protected static ServerRMI UpdateObject;
+    /**
+     * The constant RMI_Set.
+     */
     protected static boolean RMI_Set=false;
 
     private static int[][] lastUpdatedGrid = new int[20][10];
@@ -27,12 +39,34 @@ public class Client_IO {
     private static int playerCount;
 
     private static String username;
+
+    /**
+     * Set username.
+     *
+     * @param user the user
+     */
     public static void setUsername(String user){username=user;}
+
+    /**
+     * Get username string.
+     *
+     * @return the string
+     */
     public static String getUsername(){return username;}
 
-    //OnlyLocalGame
+    /**
+     * Request grid sizes int [ ].
+     *
+     * @return the int [ ]
+     */
+//OnlyLocalGame
     public static int[] requestGridSizes(){return new int[]{20,10};}
 
+    /**
+     * Request current player count int.
+     *
+     * @return the int
+     */
     public static int requestCurrentPlayerCount(){ return playerCount ;}
 
     private static void setRMI()
@@ -47,8 +81,10 @@ public class Client_IO {
     }
 
 
-
-    //updaters
+    /**
+     * Request update.
+     */
+//updaters
      public static void requestUpdate()
     {
         if(ClientConstants.getSocket()) {
@@ -127,15 +163,41 @@ public class Client_IO {
     }
 
 
+    /**
+     * Request public cards id int [ ].
+     *
+     * @return the int [ ]
+     */
     public static int[] requestPublicCardsID(){return lastUpdatedPublicCards;}
+
+    /**
+     * Request grid int [ ] [ ].
+     *
+     * @return the int [ ] [ ]
+     */
     public static int[][] requestGrid(){return lastUpdatedGrid;}
+
+    /**
+     * Request player score int [ ].
+     *
+     * @return the int [ ]
+     */
     public static int[] requestPlayerScore(){ return lastUpdatedScore;}
 
+    /**
+     * Request player hand int [ ].
+     *
+     * @return the int [ ]
+     */
     public static int[] requestPlayerHand() { return lastUpdatedHand;}
 
 
-
-    //Modifiers
+    /**
+     * Flip card in pos.
+     *
+     * @param position the position
+     */
+//Modifiers
     public static void FlipCard_inPos(int position)
     {
         if(!Client_Game.getCurrentScene().equals("Play")){return;}
@@ -147,6 +209,11 @@ public class Client_IO {
     }
     //Server_IO.Flip(position, assignedNumber); requestUpdate();}
 
+    /**
+     * Draw card.
+     *
+     * @param position the position
+     */
     public static void DrawCard(int position)
     //{Server_IO.DrawCard(position, assignedNumber);  requestUpdate();}
     {
@@ -159,6 +226,11 @@ public class Client_IO {
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
 
+    /**
+     * Place starting card.
+     *
+     * @param selectedCard the selected card
+     */
     public static void PlaceStartingCard(int selectedCard)
     //{ Server_IO.PlaceStartingCard(selectedCard, assignedNumber);  requestUpdate();}
     {
@@ -171,6 +243,11 @@ public class Client_IO {
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
 
+    /**
+     * Choose goal card.
+     *
+     * @param position the position
+     */
     public static void ChooseGoalCard(int position) {
 
         if(!Client_Game.getCurrentScene().equals("Choose_Goal")){return;}
@@ -183,6 +260,14 @@ public class Client_IO {
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
 
+    /**
+     * Play card by index boolean.
+     *
+     * @param Row_index     the row index
+     * @param Columns_index the columns index
+     * @param id            the id
+     * @return the boolean
+     */
     public static boolean playCardByIndex(int Row_index, int Columns_index, int id) {
         //System.out.println("RequestedPlay," + Row_index + "," + Columns_index + "," + id);
 
@@ -200,6 +285,9 @@ public class Client_IO {
         return returnValue;
     }
 
+    /**
+     * Get new port.
+     */
     public static void getNewPort(){
         int NewPort = 0;
         if(ClientConstants.getSocket()) { NewPort = Integer.parseInt(GameClient.listenForResponse("getNewPort," +username)); }
@@ -209,6 +297,13 @@ public class Client_IO {
 
         RMI_Set = false;
     }
+
+    /**
+     * Join game string.
+     *
+     * @param Username the username
+     * @return the string
+     */
     public static String JoinGame(String Username)
     {
         if(ClientConstants.getSocket()) { return GameClient.listenForResponse("JoinPackage,"+Username);}
@@ -217,6 +312,12 @@ public class Client_IO {
         return "Client_Failed";
     }
 
+    /**
+     * Reconnect string.
+     *
+     * @param Username the username
+     * @return the string
+     */
     public static String Reconnect(String Username)
     {
         if(ClientConstants.getSocket()) { return GameClient.listenForResponse("AttemptingReconnection,"+Username);}
@@ -224,6 +325,13 @@ public class Client_IO {
         return "Client_Failed";
     }
 
+    /**
+     * Create game string.
+     *
+     * @param Username    the username
+     * @param playerCount the player count
+     * @return the string
+     */
     public static String CreateGame(String Username, int playerCount)
     {
         if(ClientConstants.getSocket()) { return GameClient.listenForResponse("CreateGame,"+Username+','+playerCount);}

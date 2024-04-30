@@ -10,6 +10,9 @@ import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 import java.nio.file.FileSystems;
 import java.util.Scanner;
 
+/**
+ * The type Client game.
+ */
 public class Client_Game implements Runnable {
 
     private static final String MainDirPAth = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
@@ -19,10 +22,25 @@ public class Client_Game implements Runnable {
 
     private static final String[] Scenes = {"Main_Menu", "Game_Menu", "Draw", "Play", "Options", "NewLocalGame_Player_Selection", "Choose_Goal"};
     private static String CurrentScene = "Main_Menu";
+
+    /**
+     * Change scene.
+     *
+     * @param scene the scene
+     */
     public static void  ChangeScene(int scene){CurrentScene = Scenes[scene];}
+
+    /**
+     * Get current scene string.
+     *
+     * @return the string
+     */
     public static String getCurrentScene(){return CurrentScene;}
 
 
+    /**
+     * Instantiates a new Client game.
+     */
     public Client_Game() {
 
         if(ClientConstants.getGUI()){
@@ -39,6 +57,9 @@ public class Client_Game implements Runnable {
 
     }
 
+    /**
+     * Join game.
+     */
     public static void JoinGame()
     {
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
