@@ -5,6 +5,14 @@ import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.*;
 
 import static java.lang.Math.abs;
 
+/**
+ * every game has decks instantiated:
+ * Deck : contains resource cards  and gold card
+ * GoalDeck : contains goal card
+ * StartingCard : contains the starting card
+ * decks are divided according to their use and proprieties
+ * */
+
 public class Deck {
 
     private static final PlayableCard[] Deck ={

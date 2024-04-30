@@ -12,6 +12,10 @@ import java.util.List;
 
 import static java.lang.Math.abs;
 
+/**
+ * it's the board of the game, each game has its own board filled with decks and cards
+ * */
+
 public class Table {
 
     private final Game relatedGame;
@@ -22,6 +26,10 @@ public class Table {
     private final List<GoalCard> ShuffledGoalDeck = CardRandomizer.ShuffleGoalDeck();
     private final List<PlayableCard> ShuffledStartingDeck = CardRandomizer.ShuffleStartingDeck();
 
+    /**
+     * Allow to draw a GoldCard from GoldShuffledDeck if the boolean is true and a ResourceCard from ShuffleDeck otherwise
+     * @param isGold states if a card is gold or not
+     * @return PlayableCard drawn casually from Deck*/
     public PlayableCard drawResourceCard(boolean isGold)
     {
         PlayableCard returnCard = null;
@@ -32,9 +40,17 @@ public class Table {
         return returnCard;
     }
 
+    /**
+     * Allow to draw a card from ShuffledStartingDeck that contains startingCard
+     *@return PlayableCard drawn casually from StartingDeck */
 
     public PlayableCard drawStartingCard()
     { PlayableCard returnCard = null;  if(!ShuffledStartingDeck.isEmpty()){ returnCard= ShuffledStartingDeck.remove(0);} return returnCard;}
+
+    /**
+     * Allow to draw a card from ShuffledGoalDeck that contains GoalCard
+     *@return PlayableCard drawn casually from GoalDeck */
+
     public GoalCard drawGoalCard()
     {GoalCard returnCard = null; if(!ShuffledGoalDeck.isEmpty()){ returnCard = ShuffledGoalDeck.remove(0);} return returnCard;}
 
@@ -47,7 +63,11 @@ public class Table {
     public int[] getPublicSpacesID(){ return this.PublicSpacesID; }
     public void setPublicSpacesID(int[] newPublicSpaces){ this.PublicSpacesID = newPublicSpaces; }
 
-
+/**
+ * Instantiates a new Table
+ * @param PlayerCount
+ * @param relatedGame
+ * */
     public Table(int PlayerCount, Game relatedGame)
     {
         int numOf_Rows = ServerConstants.getNumOfRows();
@@ -63,7 +83,10 @@ public class Table {
         return new GoalCard[] { Deck.getGoalCardByID(PublicSpacesID[6]), Deck.getGoalCardByID(PublicSpacesID[7])}; }
 
 
-
+    /**
+     *fill the empty spaces in the table intended to the four drawable cards from resource and gold deck
+     * whenever a player pick one of them
+     * */
     public void AutoFillSpaces(){
 
         if(PublicSpacesID[0]==0){
@@ -84,11 +107,19 @@ public class Table {
         if(PublicSpacesID[0]==0 && PublicSpacesID[1]==0){ relatedGame.end(); }
     }
 
+    /**
+     * you can move the card from a position to another of the array PublicSpace[] that represent the hand of the player
+     * @param from starting position of the card
+     * @param to destination of the card*/
     public void MoveCard(int from, int to)
     {
         if(PublicSpacesID[from] != 0) { PublicSpacesID[to] = -PublicSpacesID[from];  PublicSpacesID[from] = 0;    }
     }
 
+    /**
+     * allow player to draw a card, if his hand it's empty, from the table in his hand
+     * @param position the position in your hand of the drawn card
+     * @param username it's unique*/
     public void DrawCard(int position, String username)
     {
         Player chosenPlayer = relatedGame.getPlayerByUsername(username);
@@ -106,7 +137,9 @@ public class Table {
 
     }
 
-
+    /**
+     * it takes care of the distribution of the card in every player's hand
+     * 0,1,2 -> are resource cards ; 4 -> is the starting cards ; 3,5 -> are the goal cards*/
     public void DealCards()
     {
         this.PublicSpacesID[6] = drawGoalCard().getID();
@@ -131,6 +164,10 @@ public class Table {
 
     }
 
+    /**
+     * reset grip of the player at his initial value "0"
+     * @param player unique username
+     * */
     public void emptyGrid(int player)
     {for(int Rowindex=0; Rowindex<ServerConstants.getNumOfRows(); Rowindex++){
         for(int ColumnIndex=0; ColumnIndex<ServerConstants.getNumOfRows()/2; ColumnIndex++)

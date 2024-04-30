@@ -2,10 +2,19 @@ package main.java.it.polimi.ingsw.ServerSide.Table;
 
 import static java.lang.Math.abs;
 
+/**
+ * This class represent a player. Each has private attributes
+* */
 public class Player {
     private final int[] PrivateCardsID = new int[6];
     private int[] ScoreBoard = new int[8];
     private final String username;
+
+    /**
+     * Instantiates a new Player
+     *
+     * @param username the unique name of the player
+     * */
 
     public Player(String username){
         this.username = username;
@@ -29,6 +38,7 @@ public class Player {
         }
         return -1;
     }
+
     public int[] getScoreBoard() {
         return this.ScoreBoard;
     }
@@ -36,10 +46,20 @@ public class Player {
     public void setScoreBoard(int[] NewScore) {
         this.ScoreBoard = NewScore;
     }
+
+    /**
+     * It flips a card in your score board, if you want to play it flipped
+     * @param position the position of the card in your score board
+     *
+     * */
     public void FlipCard(int position){
         if(position==3 | position==5){ return; }
         this.PrivateCardsID[position] = -this.PrivateCardsID[position];
     }
+
+    /**
+     * set the card id to a default value of "0"
+     * @param id */
     public void consumeCard(int id){
 
         int index = 0; boolean found = false;

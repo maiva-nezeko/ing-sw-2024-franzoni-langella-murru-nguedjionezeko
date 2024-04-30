@@ -2,6 +2,8 @@ package main.java.it.polimi.ingsw.ServerSide.MainClasses;
 
 import java.util.Arrays;
 
+/**
+ * contains all the information to update correctly the game after every change of the status of the game */
 public class UpdatePackage {
 
     private int[][] chosenPlayerBoard;
@@ -16,7 +18,13 @@ public class UpdatePackage {
     private int[] publicCards;
     public int[] getPublicCards(){return this.publicCards;}
 
-
+    /**
+     * instantiates a new UpdatePackage that server uses to communicate with the client
+     * @param chosenPlayerBoard personal player board where it plays the cards
+     * @param chosenPlayerHand personal player hand where it has its card (resource/gold/personal/goal)
+     * @param chosenPlayerScore personal player score
+     * @param publicCards the cards in the table that players can draw
+     * */
 
     UpdatePackage(int[][] chosenPlayerBoard, int chosenPlayerScore, int[] chosenPlayerHand, int[] publicCards)
     {

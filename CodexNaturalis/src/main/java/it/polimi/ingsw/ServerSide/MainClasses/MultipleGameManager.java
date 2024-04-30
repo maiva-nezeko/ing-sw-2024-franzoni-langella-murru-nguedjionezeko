@@ -9,9 +9,16 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * manage the multiple game in the server to keep track opf all the information in every game started  */
 public class MultipleGameManager {
 
     static ArrayList<Game> CurrentGames = new ArrayList<>();
+
+    /**
+     * crate a new game in a new port
+     * @param playerCount number of players in the game
+     * @param Players list of player that populates the game */
 
     public static Game addGame(int playerCount, List<Player> Players)
     {
@@ -69,7 +76,9 @@ public class MultipleGameManager {
 
         return null;
     }
-
+    /**
+     * player joins a new game for the first time
+     * @param username it's unique for the player*/
     public static boolean JoinGame(String username){
         for (Game currentGame : CurrentGames){ if(!currentGame.isGameStarted() &&
                 !currentGame.getPlayers().stream().map(Player::getUsername).toList().contains(username))
@@ -79,6 +88,10 @@ public class MultipleGameManager {
 
         return false;}
 
+    /**
+     * in case of disconnection the player can enter again in the game that he left
+     * @param username it's unique for the player
+     * @param currentGame a game already started that contains the username of the player that try to reconnect */
     public static boolean JoinGame(String username, Game currentGame){
         if(!currentGame.isGameStarted() && !currentGame.getPlayers().stream().map(Player::getUsername).toList().contains(username))
         { currentGame.addPlayer(username); if(currentGame.getPlayers().size() == currentGame.getPlayerCount()){ currentGame.start(); } return true;}
@@ -92,6 +105,10 @@ public class MultipleGameManager {
         return false;
     }
 
+    /**
+     * function is called when the game end, it closes the game,
+     * set gameStarted false, delete the saved file and release the associated server
+     * @param game the game finished*/
 
     public static void end(Game game) {
 
