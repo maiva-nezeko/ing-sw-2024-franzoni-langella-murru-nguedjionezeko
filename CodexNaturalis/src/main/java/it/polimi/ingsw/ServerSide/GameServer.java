@@ -20,10 +20,9 @@ import java.rmi.registry.Registry;
  */
 public class GameServer extends Thread{
 
+    private int port;
     private DatagramSocket socket;
     private Server_IO.ServerRMI_impl UpdatedRMI;
-
-    private Game game;
     private int IntegerInString;
 
     /**
@@ -33,6 +32,7 @@ public class GameServer extends Thread{
      */
     public GameServer(int Port)
     {
+        this.port = Port;
 
         try{
             this.socket = new DatagramSocket(Port);
@@ -56,6 +56,9 @@ public class GameServer extends Thread{
 
 
     public void run() {
+
+        System.out.println("Starting Server on port: "+port);
+
         while (true) {
 
             //SocketCommands

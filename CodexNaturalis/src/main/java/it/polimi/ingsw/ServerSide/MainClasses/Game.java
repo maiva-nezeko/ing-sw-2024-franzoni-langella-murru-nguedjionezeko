@@ -61,13 +61,15 @@ public class Game {
 
     public Player getPlayerByUsername(String username)
     {
-        for (Player player : this.Players) {  if (player.getUsername().equals(username)) {   return player;   }    }
+        for (Player player : this.Players)
+        {  if (player.getUsername().equals(username)) {   return player;   }    }
         return null;
     }
 
     public int getPlayerNumber(String username)
     {
-        for (int index = 0; index<this.Players.size(); index++){ if(this.Players.get(index).getUsername().equals(username)){ return index;}}
+        for (int index = 0; index<this.Players.size(); index++)
+        { if(this.Players.get(index).getUsername().equals(username)){ return index;}}
         return 5;
     }
 
@@ -87,7 +89,8 @@ public class Game {
     //TurnManager
     private static int CurrentPlayerTurn=0;
     public int getCurrentPlayerTurn(){return CurrentPlayerTurn;}
-    public void changePlayerTurn(){ if(CurrentPlayerTurn+1== this.getPlayerCount()){CurrentPlayerTurn=0;}else{CurrentPlayerTurn++;}}
+    public void changePlayerTurn(){
+        if(CurrentPlayerTurn+1== this.getPlayerCount()){CurrentPlayerTurn=0;}else{CurrentPlayerTurn++;} }
 
 
 

@@ -26,10 +26,10 @@ public class TableManager {
     private static final int NumOf_Columns = NumOf_Rows/2;
 
 
-    public static void PlaceStartingCard(int id, int player, String username)
+    public static void PlaceStartingCard(int id, Game game, String username)
     {
-        Game game = MultipleGameManager.getGameInstance(username);
         if(game==null){return;}
+        int player = game.getPlayerNumber(username);
 
         List<Player> Players = game.getPlayers();
         PlayableCard Card = Deck.getCardBYid(id);

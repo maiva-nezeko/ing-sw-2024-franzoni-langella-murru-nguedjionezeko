@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 public interface CardRandomizer {
 
-    public static List<PlayableCard> ShuffleDeck() {
+    static List<PlayableCard> ShuffleDeck() {
 
         Random rnd = new Random();
         List<PlayableCard> StandardDeck = new ArrayList<>();
@@ -21,7 +21,7 @@ public interface CardRandomizer {
         return StandardDeck;
     }
 
-    public static List<PlayableCard> ShuffleGoldDeck() {
+    static List<PlayableCard> ShuffleGoldDeck() {
 
         Random rnd = new Random();
         List<PlayableCard> GoldDeck = new ArrayList<>();
@@ -33,7 +33,7 @@ public interface CardRandomizer {
 
     }
 
-    public static List<GoalCard> ShuffleGoalDeck() {
+    static List<GoalCard> ShuffleGoalDeck() {
 
         Random rnd = new Random();
         List<GoalCard> GoalDeck = new ArrayList<>();
@@ -44,7 +44,7 @@ public interface CardRandomizer {
         return GoalDeck;
     }
 
-    public static List<PlayableCard> ShuffleStartingDeck() {
+    static List<PlayableCard> ShuffleStartingDeck() {
 
         Random rnd = new Random();
         List<PlayableCard> StartingDeck = new ArrayList<>();

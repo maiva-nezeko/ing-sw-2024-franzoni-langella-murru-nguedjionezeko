@@ -1,7 +1,7 @@
 package main.java.it.polimi.ingsw.ServerSide;
 
 
-import  main.java.it.polimi.ingsw.ServerSide.Rmi.ServerRMI;
+import  main.java.it.polimi.ingsw.Rmi.ServerRMI;
 import  main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
 import  main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
 import  main.java.it.polimi.ingsw.ServerSide.MainClasses.UpdatePackage;
@@ -61,8 +61,9 @@ public class Server_IO {
      * @param selectedCard the selected starting card
      * @param username     the username of the player requesting the action
      */
-    public static void PlaceStartingCard(int selectedCard, String username){ Game game = Objects.requireNonNull(MultipleGameManager.getGameInstance(username));
-        TableManager.PlaceStartingCard(selectedCard, game.getPlayerNumber(username) ,username); }
+    public static void PlaceStartingCard(int selectedCard, String username){
+        Game game = Objects.requireNonNull(MultipleGameManager.getGameInstance(username));
+        TableManager.PlaceStartingCard(selectedCard, game ,username); }
 
     /**
      * Choose goal card from the once displayed in position 3 and 5.
