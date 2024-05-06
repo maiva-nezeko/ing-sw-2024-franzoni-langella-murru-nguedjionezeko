@@ -14,15 +14,29 @@ import java.awt.event.MouseMotionListener;
 import static java.awt.event.MouseEvent.BUTTON1;
 import static java.awt.event.MouseEvent.BUTTON3;
 
+/**
+ * class manages all the inputs from the player through the mouse
+ * */
+
 public class MouseInputs implements MouseListener, MouseMotionListener {
     private final GamePanel gamePanel;
     private boolean chosenGoal_flag=false;
     GUI_object[] GUI_Spaces = FULL_GUI.getGUI();
 
+    /**
+     * instantiates the mouse event
+     * @param gamePanel*/
+
+
     public MouseInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
 
+    /**
+     * this class takes the chosen coordinates of the event.
+     * based on the state of the game it allows players to play specific actions
+     * respecting the function of every state
+     * @param e the event caused by the player */
     public void mouseClicked(MouseEvent e) {
         int xPos = e.getX();
         int yPos = e.getY();

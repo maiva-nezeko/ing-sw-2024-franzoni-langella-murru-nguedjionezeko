@@ -161,8 +161,4 @@ public class  Game {
     public void changePlayerTurn(){
         if(CurrentPlayerTurn+1== this.getPlayerCount()){CurrentPlayerTurn=0;}else{CurrentPlayerTurn++;} }
 
-    /**
-     * allow the progress of the game by changing the player turn to the next*/
-    // public void changePlayerTurn(){ if(CurrentPlayerTurn+1== this.getPlayerCount()){CurrentPlayerTurn=0;}else{CurrentPlayerTurn++;}}
-
 }

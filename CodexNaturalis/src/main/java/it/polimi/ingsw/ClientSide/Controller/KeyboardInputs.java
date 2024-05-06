@@ -8,9 +8,17 @@ import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * class manages all the input from the player through the keyboard
+ * */
+
 public class KeyboardInputs implements KeyListener {
     private final GamePanel gamePanel;
     private int SelectedSpace;
+
+    /**
+     * instantiates the keyboard event
+     * @param gamePanel */
 
     public KeyboardInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -19,6 +27,11 @@ public class KeyboardInputs implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+     * manage all the input of the keyboard like: DOWN, UP, TAB, J,...;
+     * the class changes the scenes or performs the actions depending on the inputs of the keyboard
+     * @param e the event occurred
+     * */
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
 

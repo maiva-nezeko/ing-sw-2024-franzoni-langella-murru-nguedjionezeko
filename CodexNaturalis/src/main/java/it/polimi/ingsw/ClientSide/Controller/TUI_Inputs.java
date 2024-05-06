@@ -6,7 +6,9 @@ import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.Scanner;
-
+/**
+ * all the command a player can play are manage here, like drawing cards, choosing the position in the board
+ * select goal and starting cards and check if the space in the board you chose are valid and if you can play the card */
 public interface TUI_Inputs {
     static void waitForInput() {
 
