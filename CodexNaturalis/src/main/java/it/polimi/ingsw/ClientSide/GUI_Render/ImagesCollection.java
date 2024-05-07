@@ -8,9 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
-/**
- * the type ImagesCollection
- */
+
 public class ImagesCollection {
 
     private static final Image PointBoardImage = getBoardIMG();
@@ -19,19 +17,9 @@ public class ImagesCollection {
 
 
     private static final Image[] Menu_GUI_Images = LoadMenuImages();
-
-    /**
-     * Get images of the menù image[]
-     *
-     * @return the images[]
-     */
     public static Image[] getMenu_GUI_Images() { return Menu_GUI_Images; }
 
-    /**
-     * Get the Board Image
-     *
-     * @return  a scaled version of this image
-     */
+
     private static Image getBoardIMG(){
 
         Image rI = null;
@@ -43,12 +31,6 @@ public class ImagesCollection {
         return rI.getScaledInstance(xWindowSize/6,xWindowSize/3,Image.SCALE_DEFAULT);
     }
 
-
-    /**
-     * Load the Images of the menù Image[]
-     *
-     * @return the image
-     */
     private static Image[] LoadMenuImages()
     {
         BufferedImage rI = null;

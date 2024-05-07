@@ -8,9 +8,7 @@ import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.awt.*;
 
-/**
- * the type FULL_GUI
- */
+
 public class FULL_GUI {
 
     //GUI_Objects
@@ -43,9 +41,6 @@ public class FULL_GUI {
     private static final Image[] MenuImages = ImagesCollection.getMenu_GUI_Images();
 
 
-    /**
-     * Creation of the game in GUI
-     */
     private static final GUI_object[] GUI = {
     //0-3
             new GUI_Image(xWindowSize/6,xWindowSize/3,xWindowSize/2,yWindowSize/2 - xWindowSize/6, null), //DrawScene_deck

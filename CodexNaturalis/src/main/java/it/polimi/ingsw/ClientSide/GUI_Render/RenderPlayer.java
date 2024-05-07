@@ -12,21 +12,13 @@ import java.util.ArrayList;
 import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
 import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
 
-/**
- * The type RenderPlayer
- */
+
 public class RenderPlayer {
 
     private static ArrayList<Integer> VisitedID = new ArrayList<>();
     private static void FlushVisitedID(){ VisitedID = new ArrayList<>(); }
 
 
-    /**
-     * Render the turn of the Player
-     * @param gamePanel it's the panel of the full game
-     * @param g the object that render the graphics of the game
-     * @param scene string
-     */
     public static void render(GamePanel gamePanel, Graphics g, String scene)
     {
         int playerCount = Client_IO.requestCurrentPlayerCount();
@@ -53,15 +45,6 @@ public class RenderPlayer {
                 paintPlayerToken(g, 3, scene);}}
 
     }
-
-    /**
-     * Paint the scene of the player who play the turn at that moment, the card and the corner when the player can put new card,
-     * the scoreboard and the color of his pawn
-     *
-     * @param g the object that render the graphics of the game
-     * @param player int
-     * @param scene string
-     */
     public static void paintPlayerToken(Graphics g, int player, String scene)
     {
         Color[] Colors= { Color.black, Color.red, Color.blue, Color.yellow};
@@ -128,9 +111,6 @@ public class RenderPlayer {
     private static final GUI_Card[][] Spaces_Coords = new GUI_Card[NumOf_Rows][NumOf_Columns];
     public static GUI_object[][] getSpaces_Coords(){return Spaces_Coords;}
 
-    /**
-     *  Fill the empty grid
-     */
     public static void fillEmpty_Grid()
     {
         for(int Row_index = 0; Row_index < NumOf_Rows; Row_index++){
@@ -144,13 +124,6 @@ public class RenderPlayer {
 
     }
 
-    /**
-     * Paint the player grid
-     * @param g the object that render the graphics of the game
-     * @param OccupiedSpaces int
-     * @param Row_pos int
-     * @param Col_pos int
-     */
     private static void paintPlayerGrid(Graphics g, int[][] OccupiedSpaces,int Row_pos, int Col_pos)
     {
         int ID = OccupiedSpaces[Row_pos][Col_pos];
