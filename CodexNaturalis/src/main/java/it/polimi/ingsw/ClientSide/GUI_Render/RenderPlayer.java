@@ -1,0 +1,176 @@
+package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
+
+import main.java.it.polimi.ingsw.ClientSide.Cards.Deck;
+import main.java.it.polimi.ingsw.ClientSide.Client_IO;
+import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
+import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
+import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+
+import java.awt.*;
+import java.util.ArrayList;
+
+import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
+import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
+
+/**
+ * The type RenderPlayer
+ */
+public class RenderPlayer {
+
+    private static ArrayList<Integer> VisitedID = new ArrayList<>();
+    private static void FlushVisitedID(){ VisitedID = new ArrayList<>(); }
+
+
+    /**
+     * Render the turn of the Player
+     * @param gamePanel it's the panel of the full game
+     * @param g the object that render the graphics of the game
+     * @param scene string
+     */
+    public static void render(GamePanel gamePanel, Graphics g, String scene)
+    {
+        int playerCount = Client_IO.requestCurrentPlayerCount();
+
+        FULL_GUI.renderGUI(g, scene);
+
+
+         int[][] Grid = Client_IO.requestGrid();
+        if(scene.equals("Play")){
+            paintPlayerGrid(g, Grid, Grid.length/2, Grid[0].length/2); FlushVisitedID();}
+
+
+        if(scene.equals("Play") || scene.equals("Draw")){
+
+            if(playerCount == 1){
+                paintPlayerToken(g, 0, scene);}
+            if(playerCount==2){
+                paintPlayerToken(g, 0, scene); paintPlayerToken(g, 1, scene);}
+            if(playerCount==3){
+                paintPlayerToken(g,0, scene); paintPlayerToken(g, 1, scene); paintPlayerToken(g, 2, scene);}
+            if(playerCount==4){
+                paintPlayerToken(g, 0, scene); paintPlayerToken(g,1, scene);
+                paintPlayerToken(g,2, scene);
+                paintPlayerToken(g, 3, scene);}}
+
+    }
+
+    /**
+     * Paint the scene of the player who play the turn at that moment, the card and the corner when the player can put new card,
+     * the scoreboard and the color of his pawn
+     *
+     * @param g the object that render the graphics of the game
+     * @param player int
+     * @param scene string
+     */
+    public static void paintPlayerToken(Graphics g, int player, String scene)
+    {
+        Color[] Colors= { Color.black, Color.red, Color.blue, Color.yellow};
+        int score = Client_IO.requestPlayerScore()[player];
+
+
+        int xPos, yPos;
+
+        if(scene.equals("Play")){xPos = xWindowSize - 2*xWindowSize/6; yPos = 0;}
+        else {xPos = xWindowSize/2 - xWindowSize/6; yPos = yWindowSize/2 - xWindowSize/6;}
+
+        final double BoardHeight = ((double) xWindowSize /3);
+        final double BoardWidth = ((double) xWindowSize /6);
+
+        final double Zero_yPos = yPos + BoardHeight - BoardHeight/10.5;
+        final double Zero_xPos = xPos + BoardWidth/4.4;
+        final double Six_xPos = xPos + BoardWidth/9.0;
+
+        final double lateralDistance = BoardWidth/4.3;
+        final double verticalDistance = BoardHeight/9.5;
+
+        final double[] PlayerXPositions = { Zero_xPos, Zero_xPos+lateralDistance, Zero_xPos+2*lateralDistance,
+                Six_xPos+3*lateralDistance, Six_xPos+2*lateralDistance, Six_xPos+lateralDistance,  Six_xPos,
+                Six_xPos, Six_xPos+lateralDistance, Six_xPos+2*lateralDistance, Six_xPos+3*lateralDistance,
+                Six_xPos+3*lateralDistance, Six_xPos+2*lateralDistance, Six_xPos+lateralDistance,  Six_xPos,
+                Six_xPos, Six_xPos+lateralDistance, Six_xPos+2*lateralDistance, Six_xPos+3*lateralDistance,
+                /*19*/Six_xPos+3*lateralDistance,/*20*/xPos+BoardWidth/2.0,/*21*/Six_xPos,/*22*/Six_xPos,
+                /*23*/Six_xPos,/*24*/Six_xPos+lateralDistance/2,/*25*/xPos+BoardWidth/2.0,/*26*/Six_xPos+3*lateralDistance-lateralDistance/2,
+                /*27*/Six_xPos+3*lateralDistance,/*28*/Six_xPos+3*lateralDistance,/*29*/xPos+BoardWidth/2.0
+
+        };
+        final double[] PlayerYPositions = {Zero_yPos, Zero_yPos, Zero_yPos,
+                Zero_yPos-verticalDistance,Zero_yPos-verticalDistance,Zero_yPos-verticalDistance,Zero_yPos-verticalDistance,
+                Zero_yPos-2*verticalDistance,Zero_yPos-2*verticalDistance,Zero_yPos-2*verticalDistance,Zero_yPos-2*verticalDistance,
+                Zero_yPos-3*verticalDistance,Zero_yPos-3*verticalDistance,Zero_yPos-3*verticalDistance,Zero_yPos-3*verticalDistance,
+                Zero_yPos-4*verticalDistance,Zero_yPos-4*verticalDistance,Zero_yPos-4*verticalDistance,Zero_yPos-4*verticalDistance,
+                /*19*/Zero_yPos-5*verticalDistance,/*20*/Zero_yPos-5.5*verticalDistance,/*21*/Zero_yPos-5*verticalDistance,/*22*/Zero_yPos-6*verticalDistance,
+                /*23*/Zero_yPos-7*verticalDistance,/*24*/Zero_yPos-8*verticalDistance,/*25*/Zero_yPos-8*verticalDistance,/*26*/Zero_yPos-8*verticalDistance,
+                /*27*/Zero_yPos-7*verticalDistance,/*28*/Zero_yPos-6*verticalDistance,/*29*/Zero_yPos-6.5*verticalDistance
+
+        };
+
+        if(score>=30){score=29;}
+        g.setColor(Colors[player]);
+        g.fillOval((int) PlayerXPositions[score], (int) PlayerYPositions[score], 10, 10);
+        g.setColor(Color.gray);
+    }
+
+
+
+
+    //PlaySceneGrid
+    private static final int NumOf_Rows = Client_IO.requestGridSizes()[0];
+    private static final int NumOf_Columns = Client_IO.requestGridSizes()[1];
+
+    private static final int Width = ClientConstants.getxWindowSize() - xWindowSize/3;
+    private static final int Height = ClientConstants.getyWindowSize();
+
+    private static final int xSpaceOccupied = Width/NumOf_Columns; //Card_Width/10 + (3*Card_Width/4)
+    private static final int ySpaceOccupied = Height/NumOf_Rows; //Card_Height/2+Card_Height/16
+    private static final int Card_Width = 20 * xSpaceOccupied/18; //CardDealer.getHand_HandCard1_Space().getxSize();
+    private static final int Card_Height = 16* ySpaceOccupied/9 ;
+
+    private static final GUI_Card[][] Spaces_Coords = new GUI_Card[NumOf_Rows][NumOf_Columns];
+    public static GUI_object[][] getSpaces_Coords(){return Spaces_Coords;}
+
+    /**
+     *  Fill the empty grid
+     */
+    public static void fillEmpty_Grid()
+    {
+        for(int Row_index = 0; Row_index < NumOf_Rows; Row_index++){
+            for(int Columns_index = 0; Columns_index < NumOf_Columns; Columns_index++)
+            {
+                Spaces_Coords[Row_index][Columns_index]
+                        = new GUI_Card(Card_Width, Card_Height,
+                        xSpaceOccupied*Columns_index, Card_Width/10+ (ySpaceOccupied)*Row_index, null );
+            }
+        }
+
+    }
+
+    /**
+     * Paint the player grid
+     * @param g the object that render the graphics of the game
+     * @param OccupiedSpaces int
+     * @param Row_pos int
+     * @param Col_pos int
+     */
+    private static void paintPlayerGrid(Graphics g, int[][] OccupiedSpaces,int Row_pos, int Col_pos)
+    {
+        int ID = OccupiedSpaces[Row_pos][Col_pos];
+
+        if(ID==0){Spaces_Coords[Row_pos][Col_pos].renderObject(g); return;}
+        if(VisitedID.contains(ID)){return;}
+
+        VisitedID.add(ID);
+
+        Spaces_Coords[Row_pos][Col_pos].setCard(Deck.getCardBYid(ID), ID<0);
+        Spaces_Coords[Row_pos][Col_pos].renderObject(g);
+
+        if(Row_pos-1>=0){
+            if(Col_pos-1>=0){ paintPlayerGrid(g, OccupiedSpaces, Row_pos-1, Col_pos-1); }
+            if(Col_pos+1<OccupiedSpaces[0].length){ paintPlayerGrid(g, OccupiedSpaces, Row_pos-1, Col_pos+1); }
+        }
+        if(Row_pos+1<OccupiedSpaces.length){
+            if(Col_pos-1>=0){paintPlayerGrid(g, OccupiedSpaces, Row_pos+1, Col_pos-1);}
+            if(Col_pos+1<OccupiedSpaces[0].length){paintPlayerGrid(g, OccupiedSpaces, Row_pos+1, Col_pos+1);}
+        }
+
+    }
+}
