@@ -45,7 +45,7 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        RenderPlayer.render(this, g, Client_Game.getCurrentScene());
+        RenderPlayer.render(this, g);
 
     }
 }

@@ -2,14 +2,13 @@ package main.java.it.polimi.ingsw.ServerSide.Utility;
 
 public enum GameStates {
 
-PLAYER_ONE_TURN, PLAYER_TWO_TURN, PLAYER_THREE_TURN, PLAYER_FOUR_TURN;
+PLAYER_JOINING, PLAYING, LAST_TURN, GAME_ENDED, RESTORED;
 
-public static GameStates nextTurn(GameStates old_state){
+public static GameStates advanceState(GameStates old_state){
     return switch (old_state) {
-        case PLAYER_ONE_TURN -> PLAYER_TWO_TURN;
-        case PLAYER_TWO_TURN -> PLAYER_THREE_TURN;
-        case PLAYER_THREE_TURN -> PLAYER_FOUR_TURN;
-        case PLAYER_FOUR_TURN -> PLAYER_ONE_TURN;
+        case PLAYER_JOINING -> PLAYING;
+        case PLAYING -> LAST_TURN;
+        default -> null;
     };
 
 }

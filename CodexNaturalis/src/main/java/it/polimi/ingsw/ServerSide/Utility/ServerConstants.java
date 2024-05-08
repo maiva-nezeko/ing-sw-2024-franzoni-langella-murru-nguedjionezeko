@@ -13,10 +13,15 @@ public class ServerConstants {
     private static final long Time_Per_Turn = 60;
     public static long getTime_Per_Turn(){ return Time_Per_Turn; }
 
-    public static int getNumOfRows(){ return 20; }
+    public static int getNumOfRows(){ return 80; }
 
     private static boolean debug=false;
     public static void setDebug(Boolean value) { debug = value; }
     public static boolean getDebug() { return debug; }
+
+    private static boolean noSaveDelete=false;
+    public static void setNoSaveDelete(Boolean value) { noSaveDelete = value; }
+    public static boolean getNoSaveDelete() { return noSaveDelete; }
+
 
 }

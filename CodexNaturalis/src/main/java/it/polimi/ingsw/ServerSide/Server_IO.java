@@ -23,6 +23,20 @@ import java.util.Objects;
  */
 public class Server_IO {
 
+    public static String getUsernames(Game game)
+    {
+        if(game==null){return "";}
+
+        StringBuilder usernames = new StringBuilder();
+
+        for(Player player : game.getPlayers())
+        {
+            usernames.append(player.getUsername()).append(",");
+        }
+
+        return usernames.toString();
+    }
+
     //Modifiers
     /**
      * Flips the card located in a given position.
@@ -79,16 +93,6 @@ public class Server_IO {
 
 
     /**
-     * The maximum Time per each player's turn. Once previousTime is greater
-     * or equal to timePerTurn, the player skips that turn.
-     */
-    static double timePerTurn = (100000000.0);
-    /**
-     * The Previous time tracking the time passed.
-     */
-    static long previousTime = System.nanoTime();
-
-    /**
      * Socket update string.
      *
      * @param username the username of the player associated with the update
@@ -143,7 +147,7 @@ public class Server_IO {
          *
          * @throws RemoteException in case any errors occur
          */
-        protected ServerRMI_impl() throws RemoteException{super();}
+        public ServerRMI_impl() throws RemoteException{super();}
 
 
         public int RMI_getCurrentPlayerCount() throws RemoteException{return this.RMI_PlayerCount;}
@@ -189,9 +193,9 @@ public class Server_IO {
                 return "Connection attempt was successful"; }
             return "Connection failed";
         }
-        public String Reconnect(String username) throws RemoteException
+        public String Reconnect(String username, int port) throws RemoteException
         {
-            if(MultipleGameManager.Reconnect(username) != null){ this.game = MultipleGameManager.getGameInstance(username);
+            if(MultipleGameManager.Reconnect(username, port) != null){ this.game = MultipleGameManager.getGameInstance(username);
                 return "Reconnecting to previous game"; }
             return "Reconnection attempt failed: Username not found";
         }
@@ -200,15 +204,11 @@ public class Server_IO {
         {
             if(MultipleGameManager.CreateGame(username, playerCount)){ this.game = MultipleGameManager.getGameInstance(username);
                 return "Joining new Game"; }
-            return "Creation attempt failed: Server Error or wrong PlayerCount";
+            return "Creation attempt failed: Username Already present in Server list";
         }
         public int RMI_getNewPort(String username) throws RemoteException{  return getNewPort(username)  ;   }
 
         public void update(String username) throws RemoteException {
-
-            if(System.nanoTime() == previousTime+timePerTurn){  System.out.println("Turn timer Expired"); previousTime=System.nanoTime();
-                game.changePlayerTurn();}
-
 
             System.out.println("Updating RMI at "+username);
             this.username = username;
@@ -223,6 +223,8 @@ public class Server_IO {
             return (this.game.isGameStarted());}
 
         public boolean isTurn(String username) throws RemoteException{return this.game.getCurrentPlayerTurn() == this.game.getPlayerNumber(username);}
+
+        public String RMI_getUsernames() throws RemoteException{ return getUsernames(this.game);}
 
     }
 

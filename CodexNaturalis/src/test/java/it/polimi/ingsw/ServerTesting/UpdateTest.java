@@ -6,7 +6,9 @@ import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
 import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 import main.java.it.polimi.ingsw.ServerSide.Table.Table;
 import main.java.it.polimi.ingsw.ServerSide.UpdateClasses.TableManager;
+import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
 import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,7 +126,10 @@ public class UpdateTest extends TestCase {
             testGame.getPlayers().get(0).setCard(1, 0);
         }
 
-        //check for game end
+        //check for game advanced
+        assertEquals(GameStates.LAST_TURN, testGame.getGameState());
+        testGame.changePlayerTurn();
+
         assertFalse(testGame.isGameStarted());
     }
 
@@ -134,7 +139,9 @@ public class UpdateTest extends TestCase {
         //check for game creation
         ArrayList<Player> testPlayers = new ArrayList<>();
         testPlayers.add(new Player("TestPlayer"));
-        Game testGame = new Game(1, testPlayers, 1331);
+        testPlayers.add(new Player("TestPlayer2"));
+
+        Game testGame = MultipleGameManager.addGame(2, testPlayers);
         Table testTable = testGame.getRelatedTable();
 
         //Setting up the correct scenery
@@ -142,11 +149,18 @@ public class UpdateTest extends TestCase {
         testGame.getPlayers().get(0).setScoreBoard(new int[]{ 19, 0,0,0,0, 0,0,0 });
         TableManager.PlaceStartingCard(201, testGame, testGame.getPlayers().get(0).getUsername());
 
+
         //Playing a card to get over 20 points
-        TableManager.playCardByIndex( ServerConstants.getNumOfRows()/2 -1, ServerConstants.getNumOfRows()/4 -1, 10, testGame.getPlayers().get(0).getUsername() );
+        assertTrue(
+                TableManager.playCardByIndex( ServerConstants.getNumOfRows()/2 -1, ServerConstants.getNumOfRows()/4 -1, 10, testGame.getPlayers().get(0).getUsername() )
+        );
 
-        //check if game has ended
+
+        //check if game has advanced
+        assertEquals(GameStates.LAST_TURN, testGame.getGameState());
+        testGame.changePlayerTurn();
+        assertEquals(GameStates.LAST_TURN, testGame.getGameState());
+        testGame.changePlayerTurn();
         assertFalse(testGame.isGameStarted());
-
     }
 }

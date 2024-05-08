@@ -47,30 +47,52 @@ public class Client_Game implements Runnable {
             gamePanel = new GamePanel();
             GameWindow gameWindow = new GameWindow(gamePanel);
             gamePanel.requestFocus();
+            System.out.println("Constructing Window ");
+            startGameLoop();
         }
 
-        if(ClientConstants.getGUI()){
-            System.out.println("Constructing Window "); startGameLoop();}
         else { startGameLoop(); JoinGame(); }
 
 
 
     }
 
+    public static String SetUsername(String additionalInfo)
+    {
+        Scanner scanner = new Scanner(System.in);
+        String userName = "";
+
+        boolean correctUsername = false;
+        while (!correctUsername) {
+
+            System.out.println(additionalInfo);
+            System.out.println("Enter username");
+             userName = scanner.nextLine();
+
+            if(userName.matches("^[a-zA-Z0-9]+$")){ correctUsername = true; }
+            else{ System.out.println("Please use only letters or numbers"); }
+
+        }
+
+        Client_IO.setUsername(userName);
+        return userName;
+    }
+
+
     /**
      * Join game.
      */
     public static void JoinGame()
     {
-        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
 
-        System.out.println("Enter username");
-        String userName = scanner.nextLine();
+        String userName = "";
+         // Create a Scanner object
+        Scanner scanner = new Scanner(System.in);
 
         if(ClientConstants.getGUI()){ RenderPlayer.fillEmpty_Grid(); }
         System.out.println(MainDirPAth);
 
-        Client_IO.setUsername(userName);
+        SetUsername("First you need to insert your Username: ");
 
         String JoinStatus = Client_IO.JoinGame(userName).trim();
         System.out.println("JoinStatus = "+ JoinStatus);
@@ -87,20 +109,25 @@ public class Client_Game implements Runnable {
                     System.out.println("Insert a playerCount between 1 and 4:");
                     response = scanner.nextLine();
                     JoinStatus = Client_IO.CreateGame(userName, Integer.parseInt(response));
+
+                    if(JoinStatus.toLowerCase().contains("username")){SetUsername("Username already present, please set a new one:");}
+
                 }
                 else{
                     System.out.println("Would you like to reconnect to a previous game? y/n");
                     response = scanner.nextLine();
-                    if(response.contains("y")){JoinStatus = Client_IO.Reconnect(userName);}
+                    if(response.contains("y")){
+                        System.out.println("Insert the port number that was given to you when you connected to the previous game: ");
+                        response = scanner.nextLine();
+
+                        try{ int lastPort = Integer.parseInt(response); JoinStatus = Client_IO.Reconnect(userName, lastPort);}
+                        catch (NumberFormatException e){ System.out.println("Please insert a recognizable number"); }
+                    }
+
                 }
 
             }
-
-
-
             else {
-                System.out.println("Enter new username");
-                userName = scanner.nextLine();
 
                 if(ClientConstants.getGUI()){ RenderPlayer.fillEmpty_Grid(); }
                 System.out.println(MainDirPAth);
@@ -122,7 +149,7 @@ public class Client_Game implements Runnable {
         {
             if(System.nanoTime() == previousTime+timePerTurn)
             { previousTime = System.nanoTime(); System.out.print("Waiting for game to start: ");
-            Client_IO.requestUpdate();}
+                Client_IO.requestUpdate();}
 
         }
 
@@ -141,6 +168,7 @@ public class Client_Game implements Runnable {
 
 
     }
+
 
     private void startGameLoop()
     {

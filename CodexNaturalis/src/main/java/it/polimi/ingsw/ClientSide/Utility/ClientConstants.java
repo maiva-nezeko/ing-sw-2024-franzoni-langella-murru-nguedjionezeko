@@ -15,8 +15,9 @@ public class ClientConstants {
     public static boolean getGUI() { return GUI;   }
     public static void setGUI(boolean value) { GUI = value; }
 
-    private static final int[] TUIGridSizes = {5*20,9*10};
+    private static final int[] TUIGridSizes = {7*80,9*40};
     public static int[] getTUIGridSizes(){return TUIGridSizes;}
+    public static int[] getTuiCardSizes(){ return new int[]{7,9};  }
 
     private static boolean Socket = false;
     public void SetSocket(Boolean val){Socket = val;}
@@ -38,5 +39,6 @@ public class ClientConstants {
     public static int getyWindowSize() {
         return yWindowSize;
     }
+
 
 }

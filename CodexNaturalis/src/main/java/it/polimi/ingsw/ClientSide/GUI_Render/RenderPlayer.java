@@ -4,6 +4,7 @@ import main.java.it.polimi.ingsw.ClientSide.Cards.Deck;
 import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.awt.*;
@@ -25,10 +26,10 @@ public class RenderPlayer {
      * Render the turn of the Player
      * @param gamePanel it's the panel of the full game
      * @param g the object that render the graphics of the game
-     * @param scene string
      */
-    public static void render(GamePanel gamePanel, Graphics g, String scene)
+    public static void render(GamePanel gamePanel, Graphics g)
     {
+        String scene = Client_Game.getCurrentScene();
         int playerCount = Client_IO.requestCurrentPlayerCount();
 
         FULL_GUI.renderGUI(g, scene);
@@ -120,29 +121,46 @@ public class RenderPlayer {
     private static final int Width = ClientConstants.getxWindowSize() - xWindowSize/3;
     private static final int Height = ClientConstants.getyWindowSize();
 
-    private static final int xSpaceOccupied = Width/NumOf_Columns; //Card_Width/10 + (3*Card_Width/4)
-    private static final int ySpaceOccupied = Height/NumOf_Rows; //Card_Height/2+Card_Height/16
-    private static final int Card_Width = 20 * xSpaceOccupied/18; //CardDealer.getHand_HandCard1_Space().getxSize();
-    private static final int Card_Height = 16* ySpaceOccupied/9 ;
+    private static int Card_Width = ((xWindowSize/6) /2) - ((xWindowSize/6) /20);;
+    private static int Card_Height = Card_Width *10/15;
 
     private static final GUI_Card[][] Spaces_Coords = new GUI_Card[NumOf_Rows][NumOf_Columns];
     public static GUI_object[][] getSpaces_Coords(){return Spaces_Coords;}
+
+    private static int ScaleLevel=1;
 
     /**
      *  Fill the empty grid
      */
     public static void fillEmpty_Grid()
     {
+        int xCenter = Width/2 - Card_Width/2;
+        int yCenter = Height/2 - Card_Height/2;
+
         for(int Row_index = 0; Row_index < NumOf_Rows; Row_index++){
             for(int Columns_index = 0; Columns_index < NumOf_Columns; Columns_index++)
             {
                 Spaces_Coords[Row_index][Columns_index]
                         = new GUI_Card(Card_Width, Card_Height,
-                        xSpaceOccupied*Columns_index, Card_Width/10+ (ySpaceOccupied)*Row_index, null );
+                        (xCenter -(NumOf_Columns/2 - Columns_index)*(Card_Width-Card_Width/4)),
+                        (yCenter - (NumOf_Rows/2 - Row_index)*(Card_Height-Card_Height/4)), null );
+
             }
         }
 
     }
+
+    public static void ScaleDownGrid()
+    {
+        if(ScaleLevel == 4){return;}
+
+        Card_Width = Card_Width /ScaleLevel;
+        Card_Height = Card_Height /ScaleLevel ;
+
+        ScaleLevel++;
+        fillEmpty_Grid();
+    }
+
 
     /**
      * Paint the player grid

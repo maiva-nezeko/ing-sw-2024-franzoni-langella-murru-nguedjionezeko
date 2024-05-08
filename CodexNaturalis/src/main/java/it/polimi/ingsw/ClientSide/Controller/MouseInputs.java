@@ -70,7 +70,20 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 }
                 break;
 
-            case "Game_Menu": break;
+            case "Choose_Goal":
+                if(e.getButton() == BUTTON1) {
+                    if (!chosenGoal_flag && HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[31])) {
+                        Client_IO.ChooseGoalCard(3);
+                        Client_Game.ChangeScene(3);
+                        chosenGoal_flag = true;
+                    }
+                    if (!chosenGoal_flag && HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[32])) {
+                        Client_IO.ChooseGoalCard(5);
+                        Client_Game.ChangeScene(3);
+                        chosenGoal_flag = true;
+                    }
+                }
+                break;
 
             case "WaitForTurn": break;
 
@@ -85,10 +98,6 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                                 if(HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[30])){ ClientConstants.SelectedCard = HelperMethods.SelectCard(GUI_Spaces[30]); }
                                 //placeStartingCard
                                 if(HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[33])){ ClientConstants.SelectedCard = HelperMethods.SelectCard(GUI_Spaces[33]); }
-                                //chooseGoalCard
-                                if(!chosenGoal_flag && HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[31])){ Client_IO.ChooseGoalCard(3); chosenGoal_flag=true; }
-                                if(!chosenGoal_flag && HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[32])){ Client_IO.ChooseGoalCard(5); chosenGoal_flag=true; }
-
                                 //play Card
                                 if( ClientConstants.SelectedCard != 0 ){
 

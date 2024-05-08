@@ -22,53 +22,62 @@ public class GameServer extends Thread{
 
     private int port;
     private DatagramSocket socket;
-    private Server_IO.ServerRMI_impl UpdatedRMI;
     private int IntegerInString;
+    private final Game game;
+    private boolean running;
+    public  void shutDown(){ running=false; socket.close();}
+
 
     /**
      * Instantiates a new Game server.
      *
      * @param Port where the Socket communication happens.
      */
-    public GameServer(int Port)
+    public GameServer(int Port, Game game)
     {
         this.port = Port;
+        this.running = true;
+        this.game = game;
 
         try{
             this.socket = new DatagramSocket(Port);
         }catch (SocketException e){e.printStackTrace();}
 
-        try {
-            Registry reg = LocateRegistry.createRegistry(Port+1);
-
-            UpdatedRMI = new Server_IO.ServerRMI_impl();
-            reg.bind("GetUpdates", UpdatedRMI);
-
-
-
-        } catch (RemoteException | AlreadyBoundException e) {
-            throw new RuntimeException(e);
-        }
-
-
-
     }
+
+    /**
+     * The maximum Time per each player's turn. Once previousTime is greater
+     * or equal to timePerTurn, the player skips that turn.
+     */
+    static double timePerTurn = (100000000.0);
+    /**
+     * The Previous time tracking the time passed.
+     */
+    static long previousTime = System.nanoTime();
 
 
     public void run() {
 
         System.out.println("Starting Server on port: "+port);
 
-        while (true) {
+        if(System.nanoTime() == previousTime+timePerTurn && game!=null){
+            System.out.println("Turn timer Expired"); previousTime=System.nanoTime();
+            game.changePlayerTurn();
+        }
+
+        while (this.running) {
+
+
 
             //SocketCommands
             byte[] data = new byte[2048];
             DatagramPacket packet = new DatagramPacket(data, data.length);
 
             try {
-                socket.receive(packet);
+                if(this.running){ socket.receive(packet);}
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                if(this.running) { throw new RuntimeException(e);}
+                else{break;}
             }
             String[] message = new String(packet.getData()).trim().split(",");
             //System.out.println("Client ["+packet.getAddress() +" "+ packet.getPort()  + "] > " + Arrays.toString(message));
@@ -154,7 +163,7 @@ public class GameServer extends Thread{
 
                 case "AttemptingReconnection":
 
-                    if(game.getPlayerNumber(username)!=5){ response = "Joining";}
+                    if(MultipleGameManager.Reconnect(username, Integer.parseInt(message[2]))!=null){ response = "Joining";}
                     else{ response = "Username Not Present";}
 
                     sendData(response.getBytes(), packet.getAddress(), packet.getPort());
@@ -165,10 +174,16 @@ public class GameServer extends Thread{
                     else{ response = "Creation attempt failed: Server Error or wrong PlayerCount"; }
                     sendData(response.getBytes(), packet.getAddress(), packet.getPort());
                     break;
+
+                case "getUsernames":
+                    response = Server_IO.getUsernames(MultipleGameManager.getGameInstance(username));
+                    sendData(response.getBytes(), packet.getAddress(), packet.getPort());
+                    break;
             }
 
 
         }
+
     }
 
     /**

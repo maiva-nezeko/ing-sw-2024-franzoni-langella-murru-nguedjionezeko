@@ -22,6 +22,16 @@ public class TUI {
 
     private static final String ANSI_YELLOW = "\u001B[33m";
 
+    private static final int[][] ScalingThresholdsCOL = {{15,25},{10,30},{5,35},{0,40},{0,40},{0,40},{0,40}};
+    private static final int[][] ScalingThresholdsROW = {{35,45},{30,50},{25,55},{20,60},{15,65},{10,70},{0,79}};
+    private static int TUI_Scale = 0;
+    public static void AdjustScale(int value){
+        TUI_Scale = TUI_Scale+value;
+
+        if(TUI_Scale<0){TUI_Scale=0;}
+        if(TUI_Scale>=ScalingThresholdsROW.length){TUI_Scale=ScalingThresholdsROW.length-1;}
+    }
+
 
 
     private static final String[] Colors = new String[]{ANSI_RED, ANSI_BLUE, ANSI_GREEN, ANSI_PURPLE, ANSI_YELLOW, ANSI_RESET };
@@ -38,7 +48,6 @@ public class TUI {
     private static void fillGridString() {
 
         for (int RowIndex = 0; RowIndex < GridString.length; RowIndex ++) {
-
             for (int ColIndex = 0; ColIndex < GridString[0].length; ColIndex ++ ) {
 
                 GridString[RowIndex][ColIndex] = " ";
@@ -153,19 +162,20 @@ public class TUI {
     {
         if(line<0){System.out.println();}
         int playerCount = Client_IO.requestCurrentPlayerCount();
+        String[] usernames = Client_IO.getGame_usernames();
 
         switch (line)
         {
             case 0 -> System.out.print("GameScores:\n");
-            case 1 -> System.out.print(Client_IO.getUsername() + ":"+ Scores[0]+"\n");
+            case 1 -> System.out.print(usernames[0] + ":"+ Scores[0]+"\n");
 
-            case 2 -> { if(playerCount>=2){ System.out.print("Player2" + ":"+ Scores[1]+"\n");  }
+            case 2 -> { if(playerCount>=2){ System.out.print(usernames[1] + ":"+ Scores[1]+"\n");  }
             else {System.out.println();} }
 
-            case 3 -> { if(playerCount>=3){ System.out.print("Player3" + ":"+ Scores[2]+"\n");  }
+            case 3 -> { if(playerCount>=3){ System.out.print(usernames[2] + ":"+ Scores[2]+"\n");  }
             else {System.out.println();} }
 
-            case 4 -> { if(playerCount==4){ System.out.print("Player4" + ":"+ Scores[3]+"\n");  }
+            case 4 -> { if(playerCount==4){ System.out.print(usernames[3]+ ":"+ Scores[3]+"\n");  }
             else {System.out.println();} }
 
             case 6 -> System.out.println("Draw Commands");
@@ -184,7 +194,7 @@ public class TUI {
             case 19 -> System.out.println("Request Grid Update U");
             case 20 -> System.out.println("Place Starting Card S");
             case 21 -> System.out.println("Enter placement mode P");
-            case 22 -> System.out.println("---------------------------------------------------");
+            case 22 -> System.out.println("Scale gui up: N Down:M");
 
 
         }
@@ -212,8 +222,12 @@ public class TUI {
 
     private static void paintGrid() {
 
-        for(String[] row : GridString){
-            for (String character : row){System.out.print(character);}
+        for(int RowIndex = ScalingThresholdsROW[TUI_Scale][0]*7; RowIndex<ScalingThresholdsROW[TUI_Scale][1]*7; RowIndex++)
+        {
+            for(int ColIndex = ScalingThresholdsCOL[TUI_Scale][0]*9; ColIndex<ScalingThresholdsCOL[TUI_Scale][1]*9; ColIndex++)
+            {
+                System.out.print(GridString[RowIndex][ColIndex]);
+            }
             System.out.print("\n");
         }
     }
@@ -223,7 +237,7 @@ public class TUI {
     {
        int ID = Grid[GridRow][GridCol];
 
-       if(ID==0){PaintNumber(Row_pos, Col_pos, GridRow,GridCol); return; }
+       if(ID==0){ PaintNumber(Row_pos, Col_pos, GridRow,GridCol); return; }
        if(ExploredIDS.contains(ID)){ return;}
 
        ExploredIDS.add(ID);

@@ -61,7 +61,9 @@ public class Table {
 
     private int[] PublicSpacesID;
     public int[] getPublicSpacesID(){ return this.PublicSpacesID; }
-    public void setPublicSpacesID(int[] newPublicSpaces){ this.PublicSpacesID = newPublicSpaces; }
+    public void setPublicSpacesID(int[] newPublicSpaces){
+        if(newPublicSpaces.length!=8){throw new ArrayIndexOutOfBoundsException();}
+        this.PublicSpacesID = newPublicSpaces; }
 
 /**
  * Instantiates a new Table
@@ -104,7 +106,7 @@ public class Table {
         if(PublicSpacesID[4]==0){  if(PublicSpacesID[0]!=0){MoveCard(0,4);  AutoFillSpaces();} else if(PublicSpacesID[1]!=0){MoveCard(1,4);  AutoFillSpaces();}    }
         if(PublicSpacesID[5]==0){  if(PublicSpacesID[1]!=0){MoveCard(1,5);  AutoFillSpaces();} else if(PublicSpacesID[0]!=0){MoveCard(0,5);  AutoFillSpaces();}    }
 
-        if(PublicSpacesID[0]==0 && PublicSpacesID[1]==0){ relatedGame.end(); }
+        if(PublicSpacesID[0]==0 && PublicSpacesID[1]==0){ relatedGame.nextPhase(); }
     }
 
     /**

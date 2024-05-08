@@ -3,10 +3,18 @@ package test.java.it.polimi.ingsw.ServerTesting;
 import junit.framework.TestCase;
 import main.java.it.polimi.ingsw.ServerSide.Cards.GoalCard;
 import main.java.it.polimi.ingsw.ServerSide.Cards.PlayableCard;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 import main.java.it.polimi.ingsw.ServerSide.Utility.CardRandomizer;
+import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
+import main.java.it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
+import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertArrayEquals;
 
 public class UtilityTest extends TestCase{
 
@@ -116,7 +124,61 @@ public class UtilityTest extends TestCase{
 
     public void testPersistenceTest()
     {
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(new Player("PersistenceTest"));
 
+        int[][][] gameBoard = new int[1][ServerConstants.getNumOfRows()][ServerConstants.getNumOfRows()/2];
+        //fill the GameBoard with random numbers to later check if it's the same
+        for (int i=0; i<gameBoard[0].length; i++) {
+            for (int j=0; j<gameBoard[0][i].length; j++) {
+                gameBoard[0][i][j] = (int) (Math.random()*10);
+            }
+        }
+
+        int[] publicCards = new int[8];
+        for (int i=0; i<publicCards.length; i++) {
+            publicCards[i] = (int) (Math.random()*10);       }
+
+        int[] scoreBoard = new int[8];
+        for (int i=0; i<scoreBoard.length; i++) {
+            scoreBoard[i] = (int) (Math.random()*10);        }
+
+        int[] Hand = new int[6];
+        for (int i=0; i<Hand.length; i++) {
+            Hand[i] = (int) (Math.random()*10);        }
+
+
+        Game testGame = MultipleGameManager.addGame(1, players);
+
+        testGame.getRelatedTable().setOccupiedSpaces(gameBoard);
+        testGame.getRelatedTable().setPublicSpacesID(publicCards);
+        testGame.getPlayers().get(0).setScoreBoard(scoreBoard);
+
+        for(int i=0; i<Hand.length; i++){testGame.getPlayers().get(0).setCard(i, Hand[i]);}
+
+
+        testGame.start();
+        PersistenceManager.SaveGame(testGame);
+        ServerConstants.setNoSaveDelete(true);
+        testGame.end();
+
+        assertNull(MultipleGameManager.getGameInstance("PersistenceTest"));
+
+        PersistenceManager.RestoreGames();
+        testGame =  MultipleGameManager.getGameInstance("PersistenceTest");
+
+        assertNotNull(testGame);
+
+        assertEquals(GameStates.RESTORED, testGame.getGameState());
+
+        assertArrayEquals(gameBoard, testGame.getRelatedTable().getOccupiedSpaces());
+        assertArrayEquals(publicCards, testGame.getRelatedTable().getPublicSpacesID());
+        assertArrayEquals(scoreBoard, testGame.getPlayers().get(0).getScoreBoard());
+        assertArrayEquals(Hand, testGame.getPlayers().get(0).getPrivateCardsID());
+
+        ServerConstants.setNoSaveDelete(false);
+        testGame.start();
+        testGame.end();
     }
 
 

@@ -1,6 +1,7 @@
 package main.java.it.polimi.ingsw.ServerSide.MainClasses;
 
 import main.java.it.polimi.ingsw.ServerSide.Table.Player;
+import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
 import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.nio.file.FileSystems;
@@ -27,8 +28,8 @@ public class MultipleGameManager {
 
         Game game = CurrentGames.get(CurrentGames.size()-1);
 
-        int Port = game.getPort();
-        game.startGameLoop(Port);
+
+        game.startGameLoop();
 
         game.getRelatedTable().AutoFillSpaces();
         System.out.println("Spaces filled");
@@ -80,25 +81,18 @@ public class MultipleGameManager {
      * player joins a new game for the first time
      * @param username it's unique for the player*/
     public static boolean JoinGame(String username){
-        for (Game currentGame : CurrentGames){ if(!currentGame.isGameStarted() &&
+        for (Game currentGame : CurrentGames){ if(!currentGame.isGameStarted() && (currentGame.getGameState() != GameStates.RESTORED) &&
                 !currentGame.getPlayers().stream().map(Player::getUsername).toList().contains(username))
         {currentGame.addPlayer(username); if(currentGame.getPlayers().size() == currentGame.getPlayerCount()){ currentGame.start(); } return true;} }
 
-        
-
-        return false;}
-
-    /**
-     * in case of disconnection the player can enter again in the game that he left
-     * @param username it's unique for the player
-     * @param currentGame a game already started that contains the username of the player that try to reconnect */
-    public static boolean JoinGame(String username, Game currentGame){
-        if(!currentGame.isGameStarted() && !currentGame.getPlayers().stream().map(Player::getUsername).toList().contains(username))
-        { currentGame.addPlayer(username); if(currentGame.getPlayers().size() == currentGame.getPlayerCount()){ currentGame.start(); } return true;}
         return false;
     }
 
     public static boolean CreateGame(String username, int playerCount){
+        for (Game currentGame : CurrentGames){ if(
+                currentGame.getPlayers().stream().map(Player::getUsername).toList().contains(username)){return false;}}
+
+
         List<Player> Players = new ArrayList<>();
         Players.add(new Player(username));
         if(playerCount >=1 && playerCount<=4){ addGame(playerCount, Players); return true; }
@@ -115,12 +109,15 @@ public class MultipleGameManager {
         if(!CurrentGames.contains(game) || !game.isGameStarted()){return;}
 
         StringBuilder GameUsernames = new StringBuilder();
-        for(Player player : game.getPlayers()){GameUsernames.append(player.getUsername());}
+        for(Player player : game.getPlayers()){GameUsernames.append(player.getUsername()).append("_");}
 
-        Path SavePath = Path.of(FileSystems.getDefault().getPath("").toAbsolutePath() + "\\res\\SavedGames\\" + GameUsernames + game.getPlayerCount() + ".txt");
+        String filename = game.getPlayerCount() + "_" + GameUsernames + game.getPort() + ".txt";
+        Path SavePath = Path.of(System.getProperty("user.dir")+ "\\CodexNaturalis\\res\\SavedGames\\"+filename);
 
         for(int index=0; index<CurrentGames.size(); index++){ if(CurrentGames.get(index).equals(game)){ CurrentGames.remove(index); break; } }
 
+
+        if(ServerConstants.getNoSaveDelete()){return;}
 
         if(!Files.exists(SavePath)){ if(ServerConstants.getDebug()){ System.out.println("File not existent at: \t" + SavePath);} return;}
 
@@ -132,6 +129,28 @@ public class MultipleGameManager {
 
 
 
-    public static Game Reconnect(String username) { return getGameInstance(username); }
+    public static Game Reconnect(String username, int lastPort) {
+        Game lastGame = getInstanceByPort(lastPort);
+        if(lastGame!= null &&
+                lastGame.getPlayers().stream().map(Player::getUsername).toList().contains(username))
+        {
+            lastGame.incrementReconnectedPlayers();
 
+            if( ( lastGame.getReconnectedPlayers() >= lastGame.getPlayerCount() ) && !lastGame.isGameStarted()){  lastGame.start(); }
+            return lastGame;
+        }
+
+        return null;
+    }
+
+    public static Game RestoreGame(List<Player> Players , int playerCount, int port){
+        if(getInstanceByPort(port)!= null){return null;}
+
+        CurrentGames.add( CurrentGames.size(), new Game(playerCount, Players, port));
+        Game restoredGame = getInstanceByPort(port);
+        if(restoredGame == null){return null;}
+
+        restoredGame.startGameLoop();
+        return getInstanceByPort(port);
+    }
 }

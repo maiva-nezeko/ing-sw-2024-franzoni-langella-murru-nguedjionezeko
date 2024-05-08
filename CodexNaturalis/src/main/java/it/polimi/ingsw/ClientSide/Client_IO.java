@@ -31,7 +31,7 @@ public class Client_IO {
      */
     protected static boolean RMI_Set=false;
 
-    private static int[][] lastUpdatedGrid = new int[20][10];
+    private static int[][] lastUpdatedGrid = new int[80][40];
     private static int[] lastUpdatedScore = new int[4];
     private static int[] lastUpdatedPublicCards = new int[28];
     private static int[] lastUpdatedHand = new int[6];
@@ -54,13 +54,31 @@ public class Client_IO {
      */
     public static String getUsername(){return username;}
 
+
+
+    private static String[] game_usernames;
+
+    /**
+     * Set username.
+     *
+     * @param usernames current game usernames list
+     */
+    public static void setGame_usernames(String[] usernames){game_usernames=usernames;}
+
+    /**
+     * Get username string.
+     *
+     * @return the string
+     */
+    public static String[] getGame_usernames(){return game_usernames;}
+
     /**
      * Request grid sizes int [ ].
      *
      * @return the int [ ]
      */
 //OnlyLocalGame
-    public static int[] requestGridSizes(){return new int[]{20,10};}
+    public static int[] requestGridSizes(){return new int[]{80,40};}
 
     /**
      * Request current player count int.
@@ -72,7 +90,8 @@ public class Client_IO {
     private static void setRMI()
     {
         try{
-            int RMI_port = ClientConstants.getPort()+1;
+            //int RMI_port = ClientConstants.getPort()+1;
+            int RMI_port = 1331;
             reg = LocateRegistry.getRegistry("localhost", RMI_port);
             UpdateObject = (ServerRMI) reg.lookup("GetUpdates");
             RMI_Set=true;
@@ -91,7 +110,13 @@ public class Client_IO {
 
             if(!ClientConstants.isGameStarted()){
                 ClientConstants.setGameStarted(GameClient.listenForResponse("GameStartedStatus,"+ username).contains("true"));
-                System.out.print("GameStarted: "+ ClientConstants.isGameStarted());}
+                System.out.print("GameStarted: "+ ClientConstants.isGameStarted());
+
+                if(ClientConstants.isGameStarted()){
+                    setGame_usernames(getUsernamesString().split(","));
+                }
+
+            }
 
             else {
 
@@ -112,7 +137,11 @@ public class Client_IO {
             if(!RMI_Set){setRMI();}
             try {
                 if(!ClientConstants.isGameStarted()){
-                    ClientConstants.setGameStarted(UpdateObject.GameStarted(username)); System.out.println(" GameStarted: "+ ClientConstants.isGameStarted() + " ");}
+                    ClientConstants.setGameStarted(UpdateObject.GameStarted(username)); System.out.println(" GameStarted: "+ ClientConstants.isGameStarted() + " ");
+                    if(ClientConstants.isGameStarted()){
+                        setGame_usernames(getUsernamesString().split(","));
+                    }
+                }
                 else{
 
                     UpdateObject.update(username);
@@ -275,7 +304,7 @@ public class Client_IO {
 
         boolean returnValue = false;
 
-        System.out.println("PlayCardByIndex," +username +","+ id);
+        System.out.println("PlayCardByIndex," +username +","+ id+ " ("+Row_index+","+Columns_index+ ")");
         if (ClientConstants.getSocket())
         { returnValue = GameClient.listenForResponse("playCardByIndex," + username +","+ Row_index + "," + Columns_index + "," + id).equals("true"); }
 
@@ -316,12 +345,13 @@ public class Client_IO {
      * Reconnect string.
      *
      * @param Username the username
+     * @param port last port assigned before disconnection
      * @return the string
      */
-    public static String Reconnect(String Username)
+    public static String Reconnect(String Username, int port)
     {
-        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("AttemptingReconnection,"+Username);}
-        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.Reconnect(Username); } catch (RemoteException e ){e.printStackTrace();}}
+        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("AttemptingReconnection,"+Username+","+port);}
+        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.Reconnect(Username, port); } catch (RemoteException e ){e.printStackTrace();}}
         return "Client_Failed";
     }
 
@@ -336,6 +366,13 @@ public class Client_IO {
     {
         if(ClientConstants.getSocket()) { return GameClient.listenForResponse("CreateGame,"+Username+','+playerCount);}
         else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.CreateGame(username, playerCount); } catch (RemoteException e ){e.printStackTrace();}}
+        return "Client_Failed";
+    }
+
+    public static String getUsernamesString()
+    {
+        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("getUsernames,"+username);}
+        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.RMI_getUsernames(); } catch (RemoteException e ){e.printStackTrace();}}
         return "Client_Failed";
     }
 

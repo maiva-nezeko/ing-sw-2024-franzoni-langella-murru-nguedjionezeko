@@ -50,6 +50,9 @@ public interface TUI_Inputs {
                 case "s" -> {Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]); InputResolved=true;}
                 case "f" -> {if(SelectedSpace!=-1){Client_IO.FlipCard_inPos(SelectedSpace);  InputResolved=true;}}
 
+                case "n" -> {TUI.AdjustScale(1); InputResolved=true;}
+                case "m" -> {TUI.AdjustScale(-1); InputResolved=true;}
+
                 case "p" -> {
                     if (SelectedSpace != 0 && SelectedSpace != 1 && SelectedSpace != 2) {
                         System.out.println("Please select a card first");

@@ -70,7 +70,9 @@ public class TableManager {
     public static boolean playCardByIndex(int Row_index, int Columns_index, int id, String username)
     {
         Game game = MultipleGameManager.getGameInstance(username);
-        if(game==null){return false;}
+        if(game==null){
+            if(ServerConstants.getDebug()){System.out.println("Can't find game");}
+            return false;}
 
         Player chosenPlayer = game.getPlayerByUsername(username);
         int playerIndex = game.getPlayerNumber(username);
@@ -78,10 +80,15 @@ public class TableManager {
         int[][][] OccupiedSpaces = game.getRelatedTable().getOccupiedSpaces();
 
         PlayableCard Card = Deck.getCardBYid(abs(id));
+        if(Card==null){throw new NullPointerException();}
+
         Card.setFlipped(id<0);
 
         int[] Points = chosenPlayer.getScoreBoard();
-        if(!Card.isPlayable(Points)){return false;}
+        if(!Card.isPlayable(Points)){
+            if(ServerConstants.getDebug()){System.out.println("Can't play this card here");}
+            return false;
+        }
 
         int[] CornerValue = {0,0,0,0}; int index=0;
 
@@ -134,7 +141,7 @@ public class TableManager {
 
             AdjustScore(Row_index, Columns_index, Card, username);
 
-            if(game.isGameStarted()){ PersistenceManager.SaveGame(OccupiedSpaces, game); }
+            if(game.isGameStarted()){ PersistenceManager.SaveGame(game); }
 
             return true;
         }
@@ -186,8 +193,12 @@ public class TableManager {
 
         if(ServerConstants.getDebug()){ System.out.println(Arrays.toString(OldPoints)); }
 
-        if(OldPoints[0]>=20){ int player_index = 0;
-            for(Player player_iterator: game.getPlayers()){AddGoalPoints(player_iterator, player_index, username); player_index++;} game.end();}
+        if(OldPoints[0]>=20){
+            int player_index = 0;
+            for(Player player_iterator: game.getPlayers()){AddGoalPoints(player_iterator, player_index, username); player_index++;}
+            game.nextPhase();
+            System.out.println("Last turn Started");
+        }
 
     }
 

@@ -8,9 +8,11 @@ import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
 public class HelperMethods {
 
 
-    private static final GUI_object[][] SpaceCoords = RenderPlayer.getSpaces_Coords();
     private static final int Rows = Client_IO.requestGridSizes()[0];
     private static final int Columns = Client_IO.requestGridSizes()[1];
+
+    private static int Scale = 0;
+    private static final int[][] ScalingThresholds = new int[][]{{6,5}, {12,10}};
 
 
 
@@ -46,12 +48,23 @@ public class HelperMethods {
 
     public static int[] GetGridPosition(int xPos, int yPos)
     {
+        GUI_object[][] SpaceCoords = RenderPlayer.getSpaces_Coords();
         int[] Indexes = {0,0};
 
         for(int Row_index = 0; Row_index < Rows; Row_index++) {
             for (int Columns_index = 0; Columns_index < Columns; Columns_index++) {
                 if (is_Inside(xPos, yPos, SpaceCoords[Row_index][Columns_index])) {
-                    Indexes[0] = Row_index; Indexes[1] = Columns_index; return Indexes;
+                    Indexes[0] = Row_index; Indexes[1] = Columns_index;
+
+                    if(Scale<2) {
+                        if ( (Indexes[0] == (Rows / 2) - ScalingThresholds[Scale][0]) || (Indexes[0] == (Rows / 2) + ScalingThresholds[Scale][0]) ||
+                        (Indexes[1] == (Columns / 2) - ScalingThresholds[Scale][1]) || (Indexes[1] == (Columns / 2) + ScalingThresholds[Scale][1]) ){
+                            Scale++;
+                            RenderPlayer.ScaleDownGrid();
+                        }
+                    }
+
+                    return Indexes;
                 }
             }
         }

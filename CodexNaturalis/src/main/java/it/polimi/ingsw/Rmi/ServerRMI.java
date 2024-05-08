@@ -129,10 +129,11 @@ public interface ServerRMI extends Remote
      * Reconnect to an existing game.
      *
      * @param username the username used to reconnect
+     * @param port last port assigned before disconnection
      * @return the response message as a string
      * @throws RemoteException the remote exception in case any errors occur
      */
-    String Reconnect(String username)throws RemoteException;
+    String Reconnect(String username, int port)throws RemoteException;
 
     /**
      * Creates new game in case no games exist in the server.
@@ -173,4 +174,5 @@ public interface ServerRMI extends Remote
      */
     boolean isTurn(String username) throws RemoteException;
 
+    String RMI_getUsernames() throws RemoteException;
 }

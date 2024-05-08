@@ -3,6 +3,7 @@ package main.java.it.polimi.ingsw.ServerSide.MainClasses;
 import main.java.it.polimi.ingsw.ServerSide.GameServer;
 import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 import main.java.it.polimi.ingsw.ServerSide.Table.Table;
+import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,9 +20,17 @@ public class  Game {
     }
 
 
+    private int reconnectedPlayers=-1;
+    public void incrementReconnectedPlayers(){reconnectedPlayers++;}
+    public int getReconnectedPlayers(){return reconnectedPlayers;}
+    
     private GameServer gameServer;
     private Thread gameThread;
 
+    private GameStates GameState;
+    public GameStates getGameState(){return GameState;}
+    public void nextPhase(){ if(GameStates.advanceState(GameState) != null){GameState = GameStates.advanceState(GameState);} }
+    public void setGameState(GameStates GS){GameState = GS;}
     private final int port;
 
     public int getPort() {
@@ -66,6 +75,7 @@ public class  Game {
      * report the game ended
      */
     public void start() {
+        GameState = GameStates.PLAYING;
         GameStarted = true;
     }
 
@@ -73,6 +83,12 @@ public class  Game {
      * report the game ended
      */
     public void end() {
+
+        if(this.gameServer!=null){
+            System.out.println("Shutting down GameServer");
+            gameServer.shutDown();
+        }
+
         MultipleGameManager.end(this);
         this.GameStarted = false;
     }
@@ -88,8 +104,8 @@ public class  Game {
     /**
      *
      */
-    void startGameLoop(int Port) {
-        gameServer = new GameServer(Port);
+    void startGameLoop() {
+        gameServer = new GameServer(this.port, this);
         gameServer.start();
     }
 
@@ -106,7 +122,9 @@ public class  Game {
         this.Players = Players;
         this.relatedTable = new Table(playerCount, this);
         this.port = port;
+        this.GameState = GameStates.PLAYER_JOINING;
     }
+
 
 
     public int getEmptySlot() {
@@ -159,6 +177,12 @@ public class  Game {
     }
 
     public void changePlayerTurn(){
-        if(CurrentPlayerTurn+1== this.getPlayerCount()){CurrentPlayerTurn=0;}else{CurrentPlayerTurn++;} }
+        if(CurrentPlayerTurn+1== this.getPlayerCount())
+        {
+            if(GameState == GameStates.LAST_TURN){ GameState = GameStates.GAME_ENDED; this.end(); }
+            CurrentPlayerTurn=0;
+        }
+
+        else{CurrentPlayerTurn++;} }
 
 }
