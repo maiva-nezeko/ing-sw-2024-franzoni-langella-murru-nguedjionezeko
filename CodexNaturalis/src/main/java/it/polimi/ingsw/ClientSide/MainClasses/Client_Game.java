@@ -94,7 +94,7 @@ public class Client_Game implements Runnable {
 
         SetUsername("First you need to insert your Username: ");
 
-        String JoinStatus = Client_IO.JoinGame(userName).trim();
+        String JoinStatus = Client_IO.JoinGame().trim();
         System.out.println("JoinStatus = "+ JoinStatus);
 
         while(!JoinStatus.contains("Joining") &&
@@ -134,7 +134,7 @@ public class Client_Game implements Runnable {
 
                 Client_IO.setUsername(userName);
 
-                JoinStatus = Client_IO.JoinGame(userName).trim();
+                JoinStatus = Client_IO.JoinGame().trim();
 
                 System.out.println(JoinStatus);
             }

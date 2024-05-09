@@ -332,14 +332,13 @@ public class Client_IO {
     /**
      * Join game string.
      *
-     * @param Username the username
      * @return the string
      */
-    public static String JoinGame(String Username)
+    public static String JoinGame()
     {
-        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("JoinPackage,"+Username);}
+        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("JoinPackage,"+username);}
         else{ if(!RMI_Set){setRMI();}
-            try{ return UpdateObject.JoinGame(Username);} catch (RemoteException e ){e.printStackTrace();}}
+            try{ return UpdateObject.JoinGame(username);} catch (RemoteException e ){e.printStackTrace();}}
         return "Client_Failed";
     }
 

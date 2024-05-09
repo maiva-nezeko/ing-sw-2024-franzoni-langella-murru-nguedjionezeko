@@ -1,10 +1,12 @@
 package main.java.it.polimi.ingsw.ServerSide.MainClasses;
 
 import main.java.it.polimi.ingsw.ServerSide.GameServer;
+import main.java.it.polimi.ingsw.ServerSide.Server_IO;
 import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 import main.java.it.polimi.ingsw.ServerSide.Table.Table;
 import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,6 +52,10 @@ public class  Game {
      */
     public void addPlayer(String username) {
         this.Players.add(new Player(username));
+
+        System.out.println("New player joined:\n"+Players);
+        for(int i =0; i< Players.size(); i++){ System.out.println(Players.get(i).getUsername());}
+
         if (this.getPlayers().size() == this.PlayerCount) {
             this.start();
         }

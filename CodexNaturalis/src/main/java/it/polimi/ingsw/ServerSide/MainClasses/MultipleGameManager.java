@@ -1,5 +1,6 @@
 package main.java.it.polimi.ingsw.ServerSide.MainClasses;
 
+import main.java.it.polimi.ingsw.ServerSide.Server_IO;
 import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
 import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
@@ -24,7 +25,7 @@ public class MultipleGameManager {
     public static Game addGame(int playerCount, List<Player> Players)
     {
 
-        CurrentGames.add( CurrentGames.size(), new Game(playerCount, Players, 1332+2*CurrentGames.size()));
+        CurrentGames.add( CurrentGames.size(), new Game(playerCount, Players, getFreePort()));
 
         Game game = CurrentGames.get(CurrentGames.size()-1);
 
@@ -58,9 +59,16 @@ public class MultipleGameManager {
         return CurrentGames.get(CurrentGames.size()-1);
     }
 
+    private static int getFreePort() {
+        int port = 1332;
+        for(Game game: CurrentGames){ if(game!=null){ if(game.getPort() >= port){ port= game.getPort()+2; } }  }
+
+        return port;
+    }
+
     public static Game getGameInstance(String userName) {
         for (Game currentGame : CurrentGames) {
-            if (currentGame.getPlayers().stream().map(Player::getUsername).toList().contains(userName)) {
+            if (Server_IO.getUsernames(currentGame).contains(userName)) {
                 return currentGame;
             }
         }
@@ -82,15 +90,15 @@ public class MultipleGameManager {
      * @param username it's unique for the player*/
     public static boolean JoinGame(String username){
         for (Game currentGame : CurrentGames){ if(!currentGame.isGameStarted() && (currentGame.getGameState() != GameStates.RESTORED) &&
-                !currentGame.getPlayers().stream().map(Player::getUsername).toList().contains(username))
-        {currentGame.addPlayer(username); if(currentGame.getPlayers().size() == currentGame.getPlayerCount()){ currentGame.start(); } return true;} }
+                Server_IO.getUsernames(currentGame).contains(username))
+        {currentGame.addPlayer(username); return true;} }
 
         return false;
     }
 
     public static boolean CreateGame(String username, int playerCount){
         for (Game currentGame : CurrentGames){ if(
-                currentGame.getPlayers().stream().map(Player::getUsername).toList().contains(username)){return false;}}
+                Server_IO.getUsernames(currentGame).contains(username)){return false;}}
 
 
         List<Player> Players = new ArrayList<>();
