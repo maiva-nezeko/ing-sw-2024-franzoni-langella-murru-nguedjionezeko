@@ -40,5 +40,7 @@ public class ClientConstants {
         return yWindowSize;
     }
 
+    public static String getIp(){ return "localhost"; }
+
 
 }

@@ -176,7 +176,7 @@ public class Client_Game implements Runnable {
         gameThread.start();
 
 
-        GameClient socketClient = new GameClient(this, "localhost");
+        GameClient socketClient = new GameClient(this, ClientConstants.getIp());
         socketClient.start();
 
     }

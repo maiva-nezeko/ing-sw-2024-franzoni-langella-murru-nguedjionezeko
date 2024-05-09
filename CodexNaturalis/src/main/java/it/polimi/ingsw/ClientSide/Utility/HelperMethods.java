@@ -55,15 +55,6 @@ public class HelperMethods {
             for (int Columns_index = 0; Columns_index < Columns; Columns_index++) {
                 if (is_Inside(xPos, yPos, SpaceCoords[Row_index][Columns_index])) {
                     Indexes[0] = Row_index; Indexes[1] = Columns_index;
-
-                    if(Scale<2) {
-                        if ( (Indexes[0] == (Rows / 2) - ScalingThresholds[Scale][0]) || (Indexes[0] == (Rows / 2) + ScalingThresholds[Scale][0]) ||
-                        (Indexes[1] == (Columns / 2) - ScalingThresholds[Scale][1]) || (Indexes[1] == (Columns / 2) + ScalingThresholds[Scale][1]) ){
-                            Scale++;
-                            RenderPlayer.ScaleDownGrid();
-                        }
-                    }
-
                     return Indexes;
                 }
             }
@@ -95,5 +86,17 @@ public class HelperMethods {
     }
 
 
+    public static void resize(int rowIndex, int columnsIndex) {
 
+        if(Scale>=2){return;}
+
+        if ( ( rowIndex == (Rows / 2) - ScalingThresholds[Scale][0] ) || ( rowIndex == (Rows / 2) + ScalingThresholds[Scale][0]) ||
+                    ( columnsIndex == (Columns / 2) - ScalingThresholds[Scale][1]) || ( columnsIndex == (Columns / 2) + ScalingThresholds[Scale][1]) ){
+
+                Scale++;
+                RenderPlayer.ScaleDownGrid();
+                Client_IO.requestUpdate();
+        }
+
+    }
 }

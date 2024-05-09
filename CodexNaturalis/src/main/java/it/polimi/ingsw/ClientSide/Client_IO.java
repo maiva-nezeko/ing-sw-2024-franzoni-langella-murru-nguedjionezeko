@@ -92,7 +92,7 @@ public class Client_IO {
         try{
             //int RMI_port = ClientConstants.getPort()+1;
             int RMI_port = 1331;
-            reg = LocateRegistry.getRegistry("localhost", RMI_port);
+            reg = LocateRegistry.getRegistry(ClientConstants.getIp(), RMI_port);
             UpdateObject = (ServerRMI) reg.lookup("GetUpdates");
             RMI_Set=true;
         }
@@ -303,6 +303,8 @@ public class Client_IO {
         if(!Client_Game.getCurrentScene().equals("Play")){return false;}
 
         boolean returnValue = false;
+
+        HelperMethods.resize(Row_index, Columns_index);
 
         System.out.println("PlayCardByIndex," +username +","+ id+ " ("+Row_index+","+Columns_index+ ")");
         if (ClientConstants.getSocket())

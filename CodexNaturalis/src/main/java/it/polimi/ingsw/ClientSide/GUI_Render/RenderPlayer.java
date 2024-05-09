@@ -154,10 +154,11 @@ public class RenderPlayer {
     {
         if(ScaleLevel == 4){return;}
 
+        ScaleLevel++;
+
         Card_Width = Card_Width /ScaleLevel;
         Card_Height = Card_Height /ScaleLevel ;
 
-        ScaleLevel++;
         fillEmpty_Grid();
     }
 
