@@ -66,8 +66,13 @@ public class Server_IO {
      * @param position the position of the Deck to draw from
      * @param username the username of the player requesting the action
      */
-    public static void DrawCard(int position, String username){ Table table = Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getRelatedTable();
-        table.DrawCard(position, username);  }
+    public static void DrawCard(int position, String username){
+        Game game = Objects.requireNonNull(MultipleGameManager.getGameInstance(username));
+        Table table = game.getRelatedTable();
+        table.DrawCard(position, username);
+        game.resetTimer();
+
+    }
 
     /**
      * Places the starting card (flipped or not flipped) as the first card on the Player's board.
@@ -189,6 +194,7 @@ public class Server_IO {
 
         public String JoinGame(String username) throws RemoteException
         {
+            System.out.println(username);
             if(MultipleGameManager.JoinGame(username)){ this.game = MultipleGameManager.getGameInstance(username);
                 return "Connection attempt was successful"; }
             return "Connection failed";

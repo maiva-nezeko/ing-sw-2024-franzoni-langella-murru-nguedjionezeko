@@ -20,7 +20,7 @@ public class ClientConstants {
     public static int[] getTuiCardSizes(){ return new int[]{7,9};  }
 
     private static boolean Socket = false;
-    public void SetSocket(Boolean val){Socket = val;}
+    public static void SetSocket(Boolean val){Socket = val;}
     public static Boolean getSocket(){return Socket;}
 
     private static boolean GameStarted = false;

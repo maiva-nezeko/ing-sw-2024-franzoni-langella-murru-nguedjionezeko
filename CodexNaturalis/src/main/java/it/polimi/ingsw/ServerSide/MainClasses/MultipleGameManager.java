@@ -90,7 +90,7 @@ public class MultipleGameManager {
      * @param username it's unique for the player*/
     public static boolean JoinGame(String username){
         for (Game currentGame : CurrentGames){ if(!currentGame.isGameStarted() && (currentGame.getGameState() != GameStates.RESTORED) &&
-                Server_IO.getUsernames(currentGame).contains(username))
+                !Server_IO.getUsernames(currentGame).contains(username))
         {currentGame.addPlayer(username); return true;} }
 
         return false;
@@ -140,7 +140,7 @@ public class MultipleGameManager {
     public static Game Reconnect(String username, int lastPort) {
         Game lastGame = getInstanceByPort(lastPort);
         if(lastGame!= null &&
-                lastGame.getPlayers().stream().map(Player::getUsername).toList().contains(username))
+                Server_IO.getUsernames(lastGame).contains(username))
         {
             lastGame.incrementReconnectedPlayers();
 

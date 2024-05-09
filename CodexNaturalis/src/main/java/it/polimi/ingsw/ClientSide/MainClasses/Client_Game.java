@@ -6,6 +6,7 @@ import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GameWindow;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
 import main.java.it.polimi.ingsw.ClientSide.GameClient;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.nio.file.FileSystems;
 import java.util.Scanner;
@@ -51,13 +52,16 @@ public class Client_Game implements Runnable {
             startGameLoop();
         }
 
-        else { startGameLoop(); JoinGame(); }
+        else {
+            startGameLoop();
+            JoinGame();
+        }
 
 
 
     }
 
-    public static String SetUsername(String additionalInfo)
+    public static void SetUsername(String additionalInfo)
     {
         Scanner scanner = new Scanner(System.in);
         String userName = "";
@@ -75,9 +79,29 @@ public class Client_Game implements Runnable {
         }
 
         Client_IO.setUsername(userName);
-        return userName;
     }
 
+    public static void SetTech()
+    {
+        Scanner scanner = new Scanner(System.in);
+        boolean socketSet = false;
+        boolean GUISet = false;
+
+        while(!socketSet) {
+            System.out.println("Press [1] to use SocketServer or [2] to use RMI");
+            String response = scanner.nextLine();
+
+            if (response.contains("1")){ ClientConstants.SetSocket(true); socketSet=true;}
+            else if (response.contains("2")) { ClientConstants.SetSocket(false); socketSet=true; }
+        }
+        while(!GUISet) {
+            System.out.println("Press [1] to use GUI or [2] to use TUI");
+            String response = scanner.nextLine();
+
+            if (response.contains("1")){ ClientConstants.setGUI(true); GUISet=true;}
+            else if (response.contains("2")) { ClientConstants.setGUI(false); GUISet=true; }
+        }
+    }
 
     /**
      * Join game.
@@ -92,6 +116,7 @@ public class Client_Game implements Runnable {
         if(ClientConstants.getGUI()){ RenderPlayer.fillEmpty_Grid(); }
         System.out.println(MainDirPAth);
 
+        SetTech();
         SetUsername("First you need to insert your Username: ");
 
         String JoinStatus = Client_IO.JoinGame().trim();

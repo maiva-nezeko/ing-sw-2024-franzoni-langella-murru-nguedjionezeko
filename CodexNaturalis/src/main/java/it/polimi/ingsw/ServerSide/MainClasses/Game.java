@@ -191,4 +191,5 @@ public class  Game {
 
         else{CurrentPlayerTurn++;} }
 
+    public void resetTimer() { gameServer.resetTimer(false); }
 }

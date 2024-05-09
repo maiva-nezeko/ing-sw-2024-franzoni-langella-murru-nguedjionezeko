@@ -14,6 +14,7 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Objects;
 
 /**
  * The Game server as in the mean for the Server communication via Socket.
@@ -25,6 +26,8 @@ public class GameServer extends Thread{
     private int IntegerInString;
     private final Game game;
     private boolean running;
+
+    private int TimeoutNumber=-1;
     public  void shutDown(){ running=false; socket.close();}
 
 
@@ -43,31 +46,46 @@ public class GameServer extends Thread{
             this.socket = new DatagramSocket(Port);
         }catch (SocketException e){e.printStackTrace();}
 
+
     }
 
-    /**
+    static double second = (1000000000.0);
+    /*
      * The maximum Time per each player's turn. Once previousTime is greater
      * or equal to timePerTurn, the player skips that turn.
      */
-    static double timePerTurn = (100000000.0);
+    static double timePerTurn = 120*second;
     /**
      * The Previous time tracking the time passed.
      */
-    static long previousTime = System.nanoTime();
+    static long previousTime;
+    public void resetTimer(boolean fromGameServer){
+        previousTime = System.nanoTime();
+
+        if(fromGameServer){TimeoutNumber++;}
+        else { TimeoutNumber=0; }
+
+        if(TimeoutNumber == this.game.getPlayerCount()-1){this.game.end();}
+    }
 
 
     public void run() {
 
         System.out.println("Starting Server on port: "+port);
-
-        if(System.nanoTime() == previousTime+timePerTurn && game!=null){
-            System.out.println("Turn timer Expired"); previousTime=System.nanoTime();
-            game.changePlayerTurn();
-        }
+        previousTime = System.nanoTime();
 
         while (this.running) {
 
+            if(this.game!=null && this.game.isGameStarted()) {
+                if (System.nanoTime() >= previousTime + timePerTurn) {
+                    System.out.println("Turn timer Expired");
+                    if(TimeoutNumber>=0){
+                        game.changePlayerTurn();
+                    }
+                    resetTimer(true);
 
+                }
+            }
 
             //SocketCommands
             byte[] data = new byte[2048];
@@ -86,7 +104,6 @@ public class GameServer extends Thread{
             String username = message[1];
             String response;
 
-            Game game = MultipleGameManager.getGameInstance(username);
             assert game!= null;
 
             switch (message[0]) {
@@ -148,8 +165,9 @@ public class GameServer extends Thread{
                     break;
 
                 case "getNewPort":
-                    System.out.println("NewSocketPort = " + game.getPort());
-                    String newPort = "" + game.getPort();
+                    String newPort = "" +  Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPort();
+
+                    System.out.println("NewSocketPort = " + newPort);
                     sendData(newPort.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
