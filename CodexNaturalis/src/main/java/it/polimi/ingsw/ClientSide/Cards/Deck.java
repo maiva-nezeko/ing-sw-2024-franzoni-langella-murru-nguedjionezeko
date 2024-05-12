@@ -5,6 +5,16 @@ import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import static java.lang.Math.abs;
 
+/**
+ * All the different Cards listed present in the Game, forming the Deck.
+ * Corners are an int array for each Card going from Left Upper Corner, to Right Upper Corner,
+ * then Left Down Corner and Finally Right Down Corner. Each card is also associated with enums
+ * if required:
+ *  GoalStates for GoalCards
+ *  PlayCondition and PointCondition for GoldenCards
+ *  StartingPoints for StartingCards
+ *  @see ClientCard
+ */
 public class Deck {
 
     private static final String RedImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/RedResources-1.png";
@@ -155,6 +165,12 @@ public class Deck {
     };
 
 
+    /**
+     * Gets card by ID.
+     *
+     * @param ID the unique Card id
+     * @return the card
+     */
     public static ClientCard getCardBYid(int ID)
     {
         if(ID==0){return null;}

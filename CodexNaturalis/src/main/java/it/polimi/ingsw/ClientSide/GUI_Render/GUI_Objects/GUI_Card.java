@@ -4,45 +4,44 @@ import main.java.it.polimi.ingsw.ClientSide.Cards.ClientCard;
 
 import java.awt.*;
 /**
- * the type GUI_card
+ * The GUI_card renders/paints physical cards associated with ClientCard in Deck.
+ *
+ * @see GUI_object;
  */
 public class GUI_Card extends GUI_object{
 
     private ClientCard Card; private boolean isFlipped;
 
     /**
-     * Gui card
+     * Gui card initialization with its parameters.
      *
      * @param _xSize length of the image int
      * @param _ySize width of the image int
      * @param _xCoord horizontal coordinate of the image int
      * @param _yCoord vertical coordinate of the image int
-     * @param card ClientCard
+     * @param card the ClientCard type associated
      */
     public GUI_Card(int _xSize, int _ySize, int _xCoord, int _yCoord, ClientCard card)
     {
         super(_xSize, _ySize, _xCoord, _yCoord);
         this.Card = card; this.isFlipped = false;
     }
-    /**
-     * Get card
-     *
-     * @return the card
-     */
+
     public ClientCard getCard(){return this.Card;}
+
     /**
-     * Set the card ClientCard
-     * @param card the card
-     * @param isFlipped if the card is flipped or not
+     * Sets the card (in a Card Space).
+     * @param card the card ID as an int
+     * @param isFlipped the boolean indicating if the card is flipped
      */
     public void setCard(ClientCard card, boolean isFlipped) {
         this.Card = card; this.isFlipped = isFlipped;
     }
 
     /**
-     * Get the reference of the image
+     * Gets the reference as an image.
      * @param isFlipped boolean
-     * @return if the card is flipped, get the background of the card else return the front of the card with the references
+     * @return the image being referenced
      *
      */
     private Image getReferenceImage(boolean isFlipped) {
@@ -53,11 +52,9 @@ public class GUI_Card extends GUI_object{
     }
 
 
-
-
     /**
-     * Render the object
-     * @param g the object that render the graphics of the game
+     * Renders the object.
+     * @param g the graphics of the game
      */
     public void renderObject(Graphics g){
 
@@ -72,7 +69,7 @@ public class GUI_Card extends GUI_object{
     }
 
     /**
-     * See if the card is flipped boolean
+     * See if the card is flipped as a boolean.
      *
      * @return  the boolean
      */

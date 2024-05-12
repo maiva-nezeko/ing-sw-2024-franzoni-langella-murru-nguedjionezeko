@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * The type Tui.
+ * Full implementation of the Text User Interface, an alternative to GUI for a Client to play
+ * a game; some notable features include scaling, printing/rendering of a Table and a PlayBoard
+ * without the use of images (just symbols) and a Guide to help the Player navigate his next steps.
  */
 public class TUI {
 
@@ -38,11 +40,11 @@ public class TUI {
 
 
     /**
-     * The Tui grid sizes.
+     * The TUI grid sizes.
      */
     static int[] TUIGridSizes = ClientConstants.getTUIGridSizes();
     /**
-     * The Grid string.
+     * The Grid as a String matrix (to fill with Cards).
      */
     static String[][] GridString = new String[TUIGridSizes[0]][TUIGridSizes[1]];
     private static void fillGridString() {
@@ -66,9 +68,9 @@ public class TUI {
     private static ArrayList<Integer> PlayableIDS = new ArrayList<>();
 
     /**
-     * Get playable ids array list.
+     * Get playable Cards IDs as an array list.
      *
-     * @return the array list
+     * @return the list
      */
     public static ArrayList<Integer> getPlayableIDS(){return PlayableIDS;}
 
@@ -81,7 +83,8 @@ public class TUI {
 
 
     /**
-     * Render tui.
+     * Prints all different parts of the Table, while also requesting private cards
+     * associated with a given Client.
      */
     public static void renderTUI()
     {
@@ -99,7 +102,10 @@ public class TUI {
 
     }
 
-
+    /**
+     *  Prints Table borders and prepares the space for Common and Private Cards Placement,
+     *  that will be implemented by ClientCard class.
+     */
     private static void paintInfo()
     {
         int[] PublicSpaces = Client_IO.requestPublicCardsID();
@@ -118,7 +124,7 @@ public class TUI {
 
         for(int line=0; line<=26; line++)
         {
-            if(line==0 || line==26){System.out.println("---------------------------------------------------"); }
+            if(line==0 || line==26){System.out.println("+-------------------------------------------------+"); }
             else if(line==1 || line==25){System.out.println("|                                                 |"); }
             else if(line == 7 || line==13 || line==19){ CardIndex+=2; rowIndex=0; System.out.println("|                                                 |");   }
 
@@ -158,6 +164,13 @@ public class TUI {
 
     }
 
+    /**
+     * Prints Players followed by their scores; then prints Guide to Help the player
+     * navigate KeyBoard inputs.
+     *
+     * @param line where to display message
+     * @param Scores as an int array
+     */
     private static void printPlayerScores(int line, int[] Scores)
     {
         if(line<0){System.out.println();}
@@ -203,6 +216,13 @@ public class TUI {
 
     }
 
+    /**
+     * Renders and colors a single row to print of a given card (6 rows total in general);
+     *
+     * @param card the ID of the card to print
+     * @param row the current row being printed
+     * @param isFlipped a boolean stating if Card is flipped
+     */
     private static void printRow(ClientCard card, int row, boolean isFlipped)
     {
         if(card == null){
@@ -219,7 +239,10 @@ public class TUI {
         for(String character: card.getText(isFlipped)[row]){ System.out.print(color_code+character+ANSI_RESET); }
     }
 
-
+    /**
+     * Paints a single Player's PlayBoard where the Cards are placed once they are played.
+     * It adjusts to a scaling that can be modified (up or down) by the Player.
+     */
     private static void paintGrid() {
 
         for(int RowIndex = ScalingThresholdsROW[TUI_Scale][0]*7; RowIndex<ScalingThresholdsROW[TUI_Scale][1]*7; RowIndex++)
@@ -232,7 +255,14 @@ public class TUI {
         }
     }
 
-
+    /**
+     * Updates the PlayerBoard and insures a Card can be played in a certain position.
+     * @param Grid the Cards already played
+     * @param Row_pos the Row position
+     * @param Col_pos the Column position
+     * @param GridRow the Grid row
+     * @param GridCol the Grid column
+     */
     private static void updateGrid(int[][] Grid, int Row_pos, int Col_pos, int GridRow, int GridCol)
     {
        int ID = Grid[GridRow][GridCol];
@@ -271,7 +301,15 @@ public class TUI {
     }
 
 
-
+    /**
+     * Calculates the coordinates of the different corners where a Player is able to play a Card;
+     * these coordinates will be used when in "placement mode".
+     * First number is the row, second is the column.
+     * @param RowPos the Row position
+     * @param ColPos the Column position
+     * @param RowIndex the Row index
+     * @param ColIndex the Column index
+     */
     private static void PaintNumber(int RowPos, int ColPos, int RowIndex, int ColIndex)
     {
         GridString[RowPos][ColPos-2] = "" + RowIndex / 10;

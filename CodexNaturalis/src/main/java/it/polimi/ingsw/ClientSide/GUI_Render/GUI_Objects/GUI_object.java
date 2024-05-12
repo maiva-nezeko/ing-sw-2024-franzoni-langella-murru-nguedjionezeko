@@ -3,7 +3,7 @@ package main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects;
 import java.awt.*;
 
 /**
- * the type GUI_object
+ * The abstract GUI_object, the blueprint for both the GUI Card and the GUI Image(s).
  */
 public abstract class GUI_object {
 
@@ -12,11 +12,12 @@ public abstract class GUI_object {
 
 
     /**
-     * GUI object
-     * @param _xSize length of the image int
-     * @param _ySize width of the image int
-     * @param _xCoord horizontal coordinate of the image int
-     * @param _yCoord vertical coordinate of the image int
+     * Sets the size of the GUI object from the parameters.
+     *
+     * @param _xSize the length int
+     * @param _ySize the height int
+     * @param _xCoord the horizontal coordinates
+     * @param _yCoord the vertical coordinates
      */
     public GUI_object(int _xSize, int _ySize, int _xCoord, int _yCoord)
     {
@@ -27,22 +28,23 @@ public abstract class GUI_object {
     }
 
     /**
-     * Get size of the object int[]
+     * Get size of the object.
      *
-     * @return the int []
+     * @return the size as an int []
      */
     public int[] getSizes() {return new int[]{xSize, ySize};}
 
     /**
-     * Get coordinate of the object int []
+     * Get coordinates of the object as an array: position 0 is x, position 1 is y.
      *
-     * @return the int[]
+     * @return the coordinates as an int[]
      */
     public int[] getCoords() {return new int[]{xCoord, yCoord};}
 
     /**
-     * Render Object
-     * @param g graphics, the object that render the graphics of the game
+     * Renders Object in graphics.
+     *
+     * @param g the graphics where to render the object
      */
     public abstract void renderObject(Graphics g);
 }

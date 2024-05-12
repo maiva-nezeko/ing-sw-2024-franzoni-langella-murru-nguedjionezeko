@@ -16,10 +16,11 @@ public class App
     public static void main( String[] args )
     {
 
-        Server_IO.ServerRMI_impl UpdatedRMI;
+         Server_IO.ServerRMI_impl UpdatedRMI;
 
         ServerConstants.setDebug(false);
-        GameServer mainServer = new GameServer(1330, null); mainServer.start();
+        GameServer mainServer = new GameServer(1330, null);
+    mainServer.start();
 
         try {
             Registry reg = LocateRegistry.createRegistry(1331);

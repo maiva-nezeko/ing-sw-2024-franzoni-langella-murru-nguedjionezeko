@@ -9,20 +9,53 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+/**
+ * Client card works alongside the TUI class to ensure Cards are rendered correctly.
+ */
 public class ClientCard {
 
+
     String ImagePath;
-    int[] Corners; int[] AltCorners;
-    int id; int color;
+
+    int[] Corners;
+
+    // the Flipped corners
+    int[] AltCorners;
+
+    int id;
+
+    int color;
 
     private final Image BackgroundImage; private final Image referenceImage;
 
+    /**
+     * The grid of played Cards rendered as symbols in TUI.
+     */
     String[][] Text = new String[10][9];
 
-    String[] Emojis = {" ", "\033[0;107m"+"0", "\033[41m"+"m", "w", "l", "b", "f", "s", "p", "-", "|", "." };
-        //empty, blank⬜, mushroom🍄‍, wolf🐺, leaf🍃, butterfly🦋, feather🕊️, salt🧂, paper📜, Dash, UPDash, point
+    /**
+     * The resources found on the Cards associated to a symbol, listed in an array.
+     */
+    String[] Emojis = {" ", "\033[0;107m"+"0", "\033[41m"+"&", "$", "%", "#", "~", "*", "@", "-", "|", "." };
+    //empty, blank⬜, mushroom🍄‍, wolf🐺, leaf🍃, butterfly🦋, feather🕊️, salt🧂, paper📜, Dash, UPDash, point
+
+    /**
+     * The Number associated with a resource - for calculating scorePoints, listed in an int array.
+     */
     String[] NumberEmojis = {"0", "1", "2", "3", "4", "5"};
 
+    /**
+     * Instantiates a new Client card.
+     *
+     * @param ImagePath      the image path
+     * @param Corners        the Card corners
+     * @param altCorners     the flipped corners
+     * @param pointCond      the Point condition
+     * @param playCond       the Play condition
+     * @param startingPoints the starting points
+     * @param goalState      the goal state
+     * @param id             the ID
+     */
     public ClientCard(String ImagePath, int[] Corners, int[] altCorners,
                       PointCondition pointCond, PlayCondition playCond,  StartingPoints startingPoints, GoalStates goalState, int id) {
 
@@ -68,12 +101,12 @@ public class ClientCard {
         if(altCorners!=null){this.AltCorners = altCorners;}
         else{this.AltCorners = new int[]{1,1,1,1}; }
 
-        Text[0] = new String[]{Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9]};
+        Text[0] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
         Text[2] = new String[]{Emojis[10], " ", " ", " ", ".", " ", " ", " ",Emojis[10]};
-        Text[4] = new String[]{"-","-","-","-","-","-","-","-","-"};
+        Text[4] = new String[]{"+","-","-","-","-","-","-","-","+"};
 
-        Text[5] = new String[]{Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9]};
-        Text[9] = new String[]{Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9]};
+        Text[5] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
+        Text[9] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
 
 
 
@@ -171,21 +204,54 @@ public class ClientCard {
 
     }
 
+    /**
+     * Gets the reference image.
+     *
+     * @return the image
+     */
     public Image getReferenceImage(){return referenceImage;}
+
+    /**
+     * Gets the background image.
+     *
+     * @return the image
+     */
     public Image getBackgroundImage(){return BackgroundImage;}
 
+    /**
+     * Gets the Card id.
+     *
+     * @return the id as an int
+     */
     public int getId() {
         return this.id;
     }
+
+    /**
+     * Get image path as a string.
+     *
+     * @return the path
+     */
     public String getImagePath(){
         return this.ImagePath;
     }
 
+    /**
+     * Get text as in the TUI PlayBoard made of characters and symbols.
+     *
+     * @param isFlipped the boolean indicating if a Card is flipped
+     * @return the PlayBoard as a string [ ] [ ]
+     */
     public String[][] getText(boolean isFlipped) {
         if(isFlipped){ return new String[][] {Text[5], Text[6], Text[7], Text[8], Text[9]}; }
         return new String[][] {Text[0], Text[1], Text[2], Text[3], Text[4]};  }
 
 
+    /**
+     * Gets color of a Card.
+     *
+     * @return the color
+     */
     public int getColor() { return this.color; }
 
 }

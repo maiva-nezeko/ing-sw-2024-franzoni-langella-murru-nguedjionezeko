@@ -21,7 +21,7 @@ public class ImagesCollection {
     private static final Image[] Menu_GUI_Images = LoadMenuImages();
 
     /**
-     * Get images of the menù image[]
+     * Get images of the menu image[]
      *
      * @return the images[]
      */
@@ -45,7 +45,7 @@ public class ImagesCollection {
 
 
     /**
-     * Load the Images of the menù Image[]
+     * Load the Images of the menu Image[]
      *
      * @return the image
      */

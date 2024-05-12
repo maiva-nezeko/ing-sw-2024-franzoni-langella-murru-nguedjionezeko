@@ -4,13 +4,14 @@ package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
 import javax.swing.*;
 
 /**
- * the type GameWindow
+ * The Window settings of the Game.
  */
 public class GameWindow {
 
     /**
-     * The builder of GameWindow,
-     * @param gamePanel the panel of the game
+     * Instantiates a new Game window.
+     *
+     * @param gamePanel the game panel
      */
     public GameWindow(GamePanel gamePanel) {
         JFrame jframe = new JFrame();

@@ -10,14 +10,15 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * the type GamePanel
+ * The GamePanel class built with Swing JPanel.
  */
 public class GamePanel extends JPanel {
     private final int xWindowSize = ClientConstants.getxWindowSize();
     private final int yWindowSize = ClientConstants.getyWindowSize();
 
     /**
-     * Builder of GamePanel
+     * GamePanel Builder implementation:
+     * sets the Panel size, links Keyboard inputs, links Mouse inputs.
      */
     public GamePanel() {
 
@@ -30,7 +31,7 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Set Panel size
+     * Sets Panel size.
      */
     private void setPanelSize() {
         Dimension size = new Dimension(this.xWindowSize, this.yWindowSize);
@@ -39,8 +40,8 @@ public class GamePanel extends JPanel {
 
 
     /**
-     * Render all objects presents in the panel of the game
-     * @param g the <code>Graphics</code> object to protect
+     * Renders all objects presents in the panel of the game.
+     * @param g the Graphics object to protect
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

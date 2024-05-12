@@ -9,12 +9,22 @@ import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 import java.awt.*;
 
 /**
- * the type FULL_GUI
+ * Renders all different shapes and images of the GUI; first it gets the Window Size in x/y coordinates,
+ * then it calculates the space a single card should occupy based on the window.
+ * Two common goals Card are painted, along with the 'drawable' cards and the personal Hand cards.
+ * Images of the PointBoard and the Menus are uploaded and rendered, and finally each existing
+ * Card is associated with an image to be painted.
  */
 public class FULL_GUI {
 
+    /**
+     * The horizontal x Window Size.
+     */
     //GUI_Objects
     static int xWindowSize = ClientConstants.getxWindowSize();
+    /**
+     * The vertical y Window Size.
+     */
     static int yWindowSize = ClientConstants.getyWindowSize();
 
     private static final int CardXSize = ((xWindowSize/6) /2) - ((xWindowSize/6) /20);
@@ -43,9 +53,6 @@ public class FULL_GUI {
     private static final Image[] MenuImages = ImagesCollection.getMenu_GUI_Images();
 
 
-    /**
-     * Creation of the game in GUI
-     */
     private static final GUI_object[] GUI = {
     //0-3
             new GUI_Image(xWindowSize/6,xWindowSize/3,xWindowSize/2,yWindowSize/2 - xWindowSize/6, null), //DrawScene_deck
@@ -109,8 +116,19 @@ public class FULL_GUI {
             new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/10, 3*yWindowSize/4 - yWindowSize/5, MenuImages[6]),//4PlayersButton_local
     };
 
+    /**
+     * Gets full GUI as a GUI_objects array.
+     *
+     * @return the GUI
+     */
     public static GUI_object[] getGUI() { return GUI; }
 
+    /**
+     * Renders different GUI scenes or options: Main Menu, New Game option, Draw option and Play option.
+     *
+     * @param g     the graphics
+     * @param scene the specified scene
+     */
     public static void renderGUI(Graphics g, String scene)
     {
         int index=0;
@@ -130,6 +148,9 @@ public class FULL_GUI {
         }
     }
 
+    /**
+     * Updates GUI after a turn rendering new Public Cards and new Player's Hand.
+     */
     public static void updateGUI()
     {
         int[] publicCards = Client_IO.requestPublicCardsID();

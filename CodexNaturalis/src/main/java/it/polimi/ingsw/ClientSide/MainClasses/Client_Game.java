@@ -12,7 +12,8 @@ import java.nio.file.FileSystems;
 import java.util.Scanner;
 
 /**
- * The type Client game.
+ * Manages scenes changes and GUI choices from the Client's perspective as a whole, allowing
+ * the Player key actions such as Joining a Game and Setting a username in GUI.
  */
 public class Client_Game implements Runnable {
 
@@ -25,22 +26,22 @@ public class Client_Game implements Runnable {
     private static String CurrentScene = "Main_Menu";
 
     /**
-     * Change scene.
+     * Changes scene.
      *
-     * @param scene the scene
+     * @param scene the string referencing the new scene
      */
     public static void  ChangeScene(int scene){CurrentScene = Scenes[scene];}
 
     /**
-     * Get current scene string.
+     * Gets the current scene as a string.
      *
-     * @return the string
+     * @return the scene
      */
     public static String getCurrentScene(){return CurrentScene;}
 
 
     /**
-     * Instantiates a new Client game.
+     * Instantiates a new Client game and calls for Game loop to start.
      */
     public Client_Game() {
 
@@ -61,6 +62,14 @@ public class Client_Game implements Runnable {
 
     }
 
+    /**
+     * Sets username through Keyboard inputs when Joining.
+     *
+     * @param additionalInfo the info to send to a Client that is joining a Game
+     *                       The info sent could be a message that indicates if a username
+     *                       is already present, for example.
+     * @see Client_Game#JoinGame()
+     */
     public static void SetUsername(String additionalInfo)
     {
         Scanner scanner = new Scanner(System.in);
@@ -81,6 +90,12 @@ public class Client_Game implements Runnable {
         Client_IO.setUsername(userName);
     }
 
+    /**
+     * Sets the communication technology a Player wants to use when Joining between Socket and RMI.
+     * It is noted that a Game can be played even if the Clients don't all use the same technology.
+     * An additional choice for the Game rendering is between the TUI and the GUI.
+     * @see Client_Game#JoinGame()
+     */
     public static void SetTech()
     {
         Scanner scanner = new Scanner(System.in);
@@ -104,7 +119,12 @@ public class Client_Game implements Runnable {
     }
 
     /**
-     * Join game.
+     * Takes care of all necessary operation to Join a Game, including error messages and failed connection attempts.
+     * A Client can choose to create a Game, if no previous Games are saved in the server,
+     * to Join an existing game or to Reconnect to a Game they were disconnected to (using the same
+     * username they joined with).
+     * JoinGame also gets a new Port for communication, requests updates and starts a turn timer before changing
+     * a scene in a successful Join attempt. Every step is notified to the Player.
      */
     public static void JoinGame()
     {
@@ -194,7 +214,12 @@ public class Client_Game implements Runnable {
 
     }
 
-
+    /**
+     *  Implementation of the method to start a Game loop.
+     *
+     *  @see Client_Game#Client_Game()  where it's followed by 'JoinGame' in the TUI case,
+     *                                  while we wait for further mouse inputs in the GUI case.
+     */
     private void startGameLoop()
     {
         Thread gameThread = new Thread(this);

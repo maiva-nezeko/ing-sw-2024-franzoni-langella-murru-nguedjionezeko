@@ -19,7 +19,7 @@ public class ClientConstants {
     public static int[] getTUIGridSizes(){return TUIGridSizes;}
     public static int[] getTuiCardSizes(){ return new int[]{7,9};  }
 
-    private static boolean Socket = false;
+    private static boolean Socket = true;
     public static void SetSocket(Boolean val){Socket = val;}
     public static Boolean getSocket(){return Socket;}
 

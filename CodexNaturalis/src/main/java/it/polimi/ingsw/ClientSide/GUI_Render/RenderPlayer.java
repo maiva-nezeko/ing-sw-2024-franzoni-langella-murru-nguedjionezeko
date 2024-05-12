@@ -14,7 +14,7 @@ import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWind
 import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
 
 /**
- * The type RenderPlayer
+ * Renders player's view, details the secondary scene, where the previously placed Cards can be seen.
  */
 public class RenderPlayer {
 
@@ -23,9 +23,10 @@ public class RenderPlayer {
 
 
     /**
-     * Render the turn of the Player
-     * @param gamePanel it's the panel of the full game
-     * @param g the object that render the graphics of the game
+     * Renders the Points count each and every Player.
+     *
+     * @param gamePanel the full Game panel
+     * @param g the graphics of the game
      */
     public static void render(GamePanel gamePanel, Graphics g)
     {
@@ -56,12 +57,12 @@ public class RenderPlayer {
     }
 
     /**
-     * Paint the scene of the player who play the turn at that moment, the card and the corner when the player can put new card,
-     * the scoreboard and the color of his pawn
+     * Paints the scene of the player who wants to place a card, rendering the Corners where the new Card can
+     * be placed, the scoreboard and the color of his pawn.
      *
-     * @param g the object that render the graphics of the game
-     * @param player int
-     * @param scene string
+     * @param g the graphics of the game
+     * @param player the player index int
+     * @param scene the current scene as a string
      */
     public static void paintPlayerToken(Graphics g, int player, String scene)
     {
@@ -121,7 +122,7 @@ public class RenderPlayer {
     private static final int Width = ClientConstants.getxWindowSize() - xWindowSize/3;
     private static final int Height = ClientConstants.getyWindowSize();
 
-    private static int Card_Width = ((xWindowSize/6) /2) - ((xWindowSize/6) /20);;
+    private static int Card_Width = ((xWindowSize/6) /2) - ((xWindowSize/6) /20);
     private static int Card_Height = Card_Width *10/15;
 
     private static final GUI_Card[][] Spaces_Coords = new GUI_Card[NumOf_Rows][NumOf_Columns];
@@ -130,7 +131,7 @@ public class RenderPlayer {
     private static int ScaleLevel=1;
 
     /**
-     *  Fill the empty grid
+     *  Fill the empty space of the grid/PlayBoard with new GUI Card placed.
      */
     public static void fillEmpty_Grid()
     {
@@ -150,6 +151,9 @@ public class RenderPlayer {
 
     }
 
+    /**
+     * Option to reduce the size of the PlayBoard as to display a bigger amount of Cards.
+     */
     public static void ScaleDownGrid()
     {
         if(ScaleLevel == 4){return;}
@@ -164,11 +168,11 @@ public class RenderPlayer {
 
 
     /**
-     * Paint the player grid
-     * @param g the object that render the graphics of the game
-     * @param OccupiedSpaces int
-     * @param Row_pos int
-     * @param Col_pos int
+     * Paints the PlayBoard or single Player's private Table where to play/position the Cards.
+     * @param g the graphics of the game
+     * @param OccupiedSpaces the Played Cards matrix
+     * @param Row_pos horizontal position int
+     * @param Col_pos vertical position int
      */
     private static void paintPlayerGrid(Graphics g, int[][] OccupiedSpaces,int Row_pos, int Col_pos)
     {
