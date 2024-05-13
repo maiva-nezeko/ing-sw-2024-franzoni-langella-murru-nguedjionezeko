@@ -43,4 +43,7 @@ public class ClientConstants {
     public static String getIp(){ return "localhost"; }
 
 
+    private static boolean GUIHelper = false;
+    public static boolean getGUIHelper() { return GUIHelper;  }
+    public static void toggleGUIHelper() { GUIHelper = !GUIHelper; }
 }

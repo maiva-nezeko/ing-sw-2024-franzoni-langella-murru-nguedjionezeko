@@ -37,7 +37,7 @@ public class RenderPlayer {
 
 
          int[][] Grid = Client_IO.requestGrid();
-        if(scene.equals("Play")){
+        if(scene.equals("Play") || scene.equals("Place_Starting")){
             paintPlayerGrid(g, Grid, Grid.length/2, Grid[0].length/2); FlushVisitedID();}
 
 

@@ -114,6 +114,8 @@ public class FULL_GUI {
             new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/10, yWindowSize/4, MenuImages[4] ),//2PlayersButton_local
             new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/10, 2*yWindowSize/4 - yWindowSize/10, MenuImages[5]),//3PlayersButton_local
             new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/10, 3*yWindowSize/4 - yWindowSize/5, MenuImages[6]),//4PlayersButton_local
+
+            new GUI_HelperBanner(xWindowSize/3, yWindowSize/10, xWindowSize/3, 0)//help banner, this need to remain the last one
     };
 
     /**
@@ -133,17 +135,20 @@ public class FULL_GUI {
     {
         int index=0;
 
+        if(ClientConstants.getGUIHelper()){
+            GUI[GUI.length-1].renderObject(g); }
+
         switch(scene)
         {
             case "Main_Menu": for(index=34; index<38; index++){GUI[index].renderObject(g);}
                 break;
-            case "NewLocalGame_Player_Selection": for(index=38; index<41; index++){GUI[index].renderObject(g);}
+            case "Player_Selection": for(index=38; index<41; index++){GUI[index].renderObject(g);}
                 break;
 
 
             case "Draw": for(index=0; index<16; index++){GUI[index].renderObject(g);}
                 break;
-            case "Play", "Choose_Goal": for(index=16; index<34; index++){GUI[index].renderObject(g);}
+            case "Play", "Choose_Goal", "Place_Starting": for(index=16; index<34; index++){GUI[index].renderObject(g);}
                 break;
         }
     }

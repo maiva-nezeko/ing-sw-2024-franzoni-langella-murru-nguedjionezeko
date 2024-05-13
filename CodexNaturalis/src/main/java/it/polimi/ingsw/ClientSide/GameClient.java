@@ -31,7 +31,8 @@ public class GameClient extends Thread{
             try{
                 socket = new DatagramSocket();
                 ipAddress = InetAddress.getByName(ipAddress_str);
-            }catch (SocketException e){e.printStackTrace();}
+            }
+            catch (SocketException e){e.printStackTrace();}
             catch (UnknownHostException e){e.printStackTrace();}}
 
     }
@@ -44,7 +45,7 @@ public class GameClient extends Thread{
      */
     public static String listenForResponse(String message)
     {
-        byte[] data = new byte[2048];
+        byte[] data = new byte[1024*10];
         DatagramPacket packet = new DatagramPacket(data, data.length);
 
         boolean unmodified = true;

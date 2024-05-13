@@ -4,6 +4,7 @@ import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
 import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
 import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
+import javax.xml.parsers.SAXParser;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.DatagramPacket;
@@ -14,6 +15,7 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -63,9 +65,12 @@ public class GameServer extends Thread{
         previousTime = System.nanoTime();
 
         if(fromGameServer){TimeoutNumber++;}
-        else { TimeoutNumber=0; }
+        else {
+            TimeoutNumber=0;
+            System.out.println("Timer reset");
+        }
 
-        if(TimeoutNumber == this.game.getPlayerCount()-1){this.game.end();}
+        if( ( this.game.getPlayerCount()>1 ) && ( TimeoutNumber == this.game.getPlayerCount()-1 ) ){this.game.end();}
     }
 
 
@@ -98,6 +103,7 @@ public class GameServer extends Thread{
                 else{break;}
             }
             String[] message = new String(packet.getData()).trim().split(",");
+            System.out.println(Arrays.toString(message));
             //System.out.println("Client ["+packet.getAddress() +" "+ packet.getPort()  + "] > " + Arrays.toString(message));
 
             String ack = "ack";
@@ -165,7 +171,7 @@ public class GameServer extends Thread{
                     break;
 
                 case "getNewPort":
-                    String newPort = "" +  Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPort();
+                    String newPort = "" + Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPort();
 
                     System.out.println("NewSocketPort = " + newPort);
                     sendData(newPort.getBytes(), packet.getAddress(), packet.getPort());
@@ -173,9 +179,9 @@ public class GameServer extends Thread{
 
 
                 case "JoinPackage":
-
+                    response = "Connection failed: no game found";
                     if(MultipleGameManager.getGameInstance(username)!=null){ response = "Connection Failed: username already present"; }
-                    else{ MultipleGameManager.JoinGame(username); response = "Joining";}
+                    else{ if(MultipleGameManager.JoinGame(username)){ response = "Joining";}}
                     sendData(response.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 

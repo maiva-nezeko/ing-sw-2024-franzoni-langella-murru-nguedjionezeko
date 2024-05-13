@@ -4,6 +4,7 @@ import main.java.it.polimi.ingsw.ClientSide.Cards.ClientCard;
 import main.java.it.polimi.ingsw.ClientSide.Cards.Deck;
 import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.Controller.TUI_Inputs;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.ArrayList;
@@ -97,6 +98,7 @@ public class TUI {
         paintGrid();
         paintInfo();
 
+        printSceneInfo();
         TUI_Inputs.waitForInput();
 
 
@@ -321,6 +323,19 @@ public class TUI {
 
         PlayableIDS.add(0, formattedId);
 
+    }
+
+    private static void printSceneInfo()
+    {
+        switch(Client_Game.getCurrentScene())
+        {
+            case "Play" -> System.out.println("Select a card, then press p to enter placement mode");
+            case "Draw" -> System.out.println("Draw a card");
+            case "Place_Starting" -> System.out.println("You may select your starting card to flip it or press S to play it");
+            case "Choose_Goal" -> System.out.println("you may choose your goal card");
+            case "YouWin" -> System.out.println("You win, congratulations!");
+            case "YouLost" -> System.out.println("You lost, better luck next time!");
+        }
     }
 
 

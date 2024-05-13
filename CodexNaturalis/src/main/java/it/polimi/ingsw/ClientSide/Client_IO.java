@@ -229,7 +229,7 @@ public class Client_IO {
 //Modifiers
     public static void FlipCard_inPos(int position)
     {
-        if(!Client_Game.getCurrentScene().equals("Play")){return;}
+        if(!Client_Game.getCurrentScene().equals("Play") && !Client_Game.getCurrentScene().equals("Place_Starting")){return;}
 
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("Flip," +username +","+ position);}
         else{ try { UpdateObject.RMI_Flip(position); }catch (RemoteException e){e.printStackTrace();}}
@@ -263,12 +263,13 @@ public class Client_IO {
     public static void PlaceStartingCard(int selectedCard)
     //{ Server_IO.PlaceStartingCard(selectedCard, assignedNumber);  requestUpdate();}
     {
-        if(!Client_Game.getCurrentScene().equals("Play")){return;}
+        if(!Client_Game.getCurrentScene().equals("Place_Starting")){return;}
 
         System.out.println("PlaceStartingCard," +username +","+ selectedCard);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("PlaceStartingCard," +username +","+ selectedCard);}
         else{try { UpdateObject.RMI_PlaceStartingCard(selectedCard);}catch (RemoteException e){e.printStackTrace();}}
 
+        Client_Game.ChangeScene(3);
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
 
@@ -286,6 +287,7 @@ public class Client_IO {
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("ChooseGoalCard," +username +","+ position);}
         else{try { UpdateObject.RMI_ChooseGoalCard(position);}catch (RemoteException e){e.printStackTrace();}}
 
+        Client_Game.ChangeScene(7);
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
 
@@ -345,27 +347,25 @@ public class Client_IO {
     /**
      * Reconnect string.
      *
-     * @param Username the username
      * @param port last port assigned before disconnection
      * @return the string
      */
-    public static String Reconnect(String Username, int port)
+    public static String Reconnect(int port)
     {
-        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("AttemptingReconnection,"+Username+","+port);}
-        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.Reconnect(Username, port); } catch (RemoteException e ){e.printStackTrace();}}
+        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("AttemptingReconnection,"+username+","+port);}
+        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.Reconnect(username, port); } catch (RemoteException e ){e.printStackTrace();}}
         return "Client_Failed";
     }
 
     /**
      * Create game string.
      *
-     * @param Username    the username
      * @param playerCount the player count
      * @return the string
      */
-    public static String CreateGame(String Username, int playerCount)
+    public static String CreateGame(int playerCount)
     {
-        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("CreateGame,"+Username+','+playerCount);}
+        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("CreateGame,"+username+','+playerCount);}
         else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.CreateGame(username, playerCount); } catch (RemoteException e ){e.printStackTrace();}}
         return "Client_Failed";
     }

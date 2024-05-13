@@ -18,10 +18,6 @@ public interface TUI_Inputs {
 
         while(!InputResolved) {
 
-            if(Client_Game.getCurrentScene().equals("Choose_Goal")){
-                System.out.println("You have to choose your goal card first");
-            }
-
             System.out.println("Type one of the commands listed above, please use the single character identifier");
             String command = scanner.nextLine();
 
@@ -36,8 +32,8 @@ public interface TUI_Inputs {
                 case "5" -> {if(Client_Game.getCurrentScene().equals("Draw")){Client_IO.DrawCard(5);  Client_Game.ChangeScene(3); InputResolved=true;}}
 
                 //Goal cards
-                case "8" -> {Client_IO.ChooseGoalCard(3); Client_Game.ChangeScene(3);  InputResolved=true;}
-                case "9" -> {Client_IO.ChooseGoalCard(5); Client_Game.ChangeScene(3);  InputResolved=true;}
+                case "8" -> {Client_IO.ChooseGoalCard(3); Client_Game.ChangeScene(7);  InputResolved=true;}
+                case "9" -> {Client_IO.ChooseGoalCard(5); Client_Game.ChangeScene(7);  InputResolved=true;}
 
                 //select
                 case "q" -> {ClientConstants.SelectedCard = Client_IO.requestPlayerHand()[0]; SelectedSpace = 0;}
@@ -47,7 +43,7 @@ public interface TUI_Inputs {
 
                 //misc
                 case "u" -> {Client_IO.requestUpdate(); InputResolved=true;}
-                case "s" -> {Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]); InputResolved=true;}
+                case "s" -> {Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]); Client_Game.ChangeScene(3);  InputResolved=true;}
                 case "f" -> {if(SelectedSpace!=-1){Client_IO.FlipCard_inPos(SelectedSpace);  InputResolved=true;}}
 
                 case "n" -> {TUI.AdjustScale(1); InputResolved=true;}

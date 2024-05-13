@@ -104,6 +104,9 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_S: //PlaceStartingCard
                 Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]);
                 break;
+            case KeyEvent.VK_H: //toggles the gui help banner
+                ClientConstants.toggleGUIHelper();
+                break;
             //FLIP & PLAY
             case KeyEvent.VK_F: //FLIP
                 if(SelectedSpace != -1){Client_IO.FlipCard_inPos(SelectedSpace);}

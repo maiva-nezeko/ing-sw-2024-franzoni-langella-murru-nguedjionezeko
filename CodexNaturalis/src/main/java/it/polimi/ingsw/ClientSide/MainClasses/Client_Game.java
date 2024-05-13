@@ -6,8 +6,8 @@ import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GameWindow;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
 import main.java.it.polimi.ingsw.ClientSide.GameClient;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
-import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
+import javax.swing.*;
 import java.nio.file.FileSystems;
 import java.util.Scanner;
 
@@ -22,7 +22,8 @@ public class Client_Game implements Runnable {
     private final int FPS_SET = 30;
 
 
-    private static final String[] Scenes = {"Main_Menu", "Game_Menu", "Draw", "Play", "Options", "NewLocalGame_Player_Selection", "Choose_Goal"};
+    private static final String[] Scenes =
+            {"Main_Menu", "Game_Menu", "Draw", "Play", "Options", "Player_Selection", "Choose_Goal", "Place_Starting", "YouWin", "YouLost"};
     private static String CurrentScene = "Main_Menu";
 
     /**
@@ -45,11 +46,16 @@ public class Client_Game implements Runnable {
      */
     public Client_Game() {
 
+        SetTech();
+
         if(ClientConstants.getGUI()){
             gamePanel = new GamePanel();
             GameWindow gameWindow = new GameWindow(gamePanel);
             gamePanel.requestFocus();
             System.out.println("Constructing Window ");
+
+            RenderPlayer.fillEmpty_Grid();
+
             startGameLoop();
         }
 
@@ -132,11 +138,8 @@ public class Client_Game implements Runnable {
         String userName = "";
          // Create a Scanner object
         Scanner scanner = new Scanner(System.in);
-
-        if(ClientConstants.getGUI()){ RenderPlayer.fillEmpty_Grid(); }
         System.out.println(MainDirPAth);
 
-        SetTech();
         SetUsername("First you need to insert your Username: ");
 
         String JoinStatus = Client_IO.JoinGame().trim();
@@ -153,7 +156,7 @@ public class Client_Game implements Runnable {
                 if(response.contains("y")){
                     System.out.println("Insert a playerCount between 1 and 4:");
                     response = scanner.nextLine();
-                    JoinStatus = Client_IO.CreateGame(userName, Integer.parseInt(response));
+                    JoinStatus = Client_IO.CreateGame(Integer.parseInt(response));
 
                     if(JoinStatus.toLowerCase().contains("username")){SetUsername("Username already present, please set a new one:");}
 
@@ -165,7 +168,7 @@ public class Client_Game implements Runnable {
                         System.out.println("Insert the port number that was given to you when you connected to the previous game: ");
                         response = scanner.nextLine();
 
-                        try{ int lastPort = Integer.parseInt(response); JoinStatus = Client_IO.Reconnect(userName, lastPort);}
+                        try{ int lastPort = Integer.parseInt(response); JoinStatus = Client_IO.Reconnect(lastPort);}
                         catch (NumberFormatException e){ System.out.println("Please insert a recognizable number"); }
                     }
 
@@ -222,12 +225,12 @@ public class Client_Game implements Runnable {
      */
     private void startGameLoop()
     {
+        GameClient socketClient = new GameClient(this, ClientConstants.getIp());
+        socketClient.start();
+
         Thread gameThread = new Thread(this);
         gameThread.start();
 
-
-        GameClient socketClient = new GameClient(this, ClientConstants.getIp());
-        socketClient.start();
 
     }
 
