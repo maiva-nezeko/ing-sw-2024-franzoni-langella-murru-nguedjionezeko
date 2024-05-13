@@ -1,0 +1,20 @@
+Fonts Use Info:
+For an optimal TUI experience, you can download one of the following fonts in this directory.
+You can change your Console font in Settings > Editor > Color Scheme > Console Font.
+Avoid bigger Font sizes then the recommended ones as Card Borders in Client PlayBoard would shift.
+
+
+'CodexFantasie' is generally for smaller screens and has a less neat look.
+Recommended size font is between: 17-25.
+Recommended line HEIGHT: 0,6 .
+
+
+'CodexFabulous3' is generally for bigger screens and horizontally larger render of cards.
+Recommended SIZE font is between: 13-16.
+Recommended line HEIGHT: 0,6.
+
+
+New!!
+'CodexFairyTale' is generally for very big screens, for example a projection screen.
+Recommended SIZE font is between: 12-13.
+Recommended line HEIGHT: 0,6.
