@@ -36,7 +36,12 @@ public class KeyboardInputs implements KeyListener {
      * */
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
-
+            //Only for Debug Purposes
+            case KeyEvent.VK_O:
+                if(ClientConstants.getGUI() && Client_Game.getCurrentScene().equals("Player_Selection")){
+                    Shortcuts.CreateLoop(1, gamePanel);
+                }
+                break;
             case KeyEvent.VK_DOWN:
                 if(ClientConstants.getGUI()){
                     System.out.println("Down key was pressed");
@@ -47,6 +52,7 @@ public class KeyboardInputs implements KeyListener {
                     System.out.println("Up key was pressed");
                     Client_Game.ChangeScene(3);}
                 break;
+            //END OF _Only for Debug Purposes
 
             case KeyEvent.VK_ESCAPE:
                 if(ClientConstants.getGUI()){
@@ -65,39 +71,8 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_TAB:
                 System.out.println("TAB key pressed, Chat toggled");
                 break;
-            //keys to play
-            //DRAW
-            case KeyEvent.VK_1: //Draw From GoldDeck
-                Client_IO.DrawCard(0);
-                break;
-            case KeyEvent.VK_2: //Draw From Gold1
-                Client_IO.DrawCard(1);
-                break;
-            case KeyEvent.VK_3: //Draw From Gold2
-                Client_IO.DrawCard(2);
-                break;
-            case KeyEvent.VK_4: //Draw From ResourceDeck
-                Client_IO.DrawCard(3);
-                break;
-            case KeyEvent.VK_5: //Draw From Resource1
-                Client_IO.DrawCard(4);
-                break;
-            case KeyEvent.VK_6: //Draw From Resource2
-                Client_IO.DrawCard(5);
-                break;
-            //SELECT
-            case KeyEvent.VK_Q: //SELECT1
-                SelectedSpace = 0; ClientConstants.SelectedCard = Client_IO.requestPlayerHand()[0];
-                break;
-            case KeyEvent.VK_W: //SELECT2
-                SelectedSpace = 1; ClientConstants.SelectedCard = Client_IO.requestPlayerHand()[1];
-                break;
-            case KeyEvent.VK_E: //SELECT3
-                SelectedSpace = 2; ClientConstants.SelectedCard = Client_IO.requestPlayerHand()[2];
-                break;
-            case KeyEvent.VK_R: //SELECT_Starting
-                SelectedSpace = 4; ClientConstants.SelectedCard = Client_IO.requestPlayerHand()[4];
-                break;
+
+
             case KeyEvent.VK_U: //RequestUpdate
                 Client_IO.requestUpdate();
                 break;

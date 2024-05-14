@@ -53,9 +53,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 if (e.getButton() == BUTTON1) {
 
                     if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[34])) {
-                        JoinLoop();
+                        Shortcuts.JoinLoop();
                     }
-                    if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[35])) { requestPort();
+                    if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[35])) { Shortcuts.requestPort(gamePanel);
                         System.out.println("Reconnecting");
                     }
 
@@ -73,13 +73,13 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 if (e.getButton() == BUTTON1) {
 
                     if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[38])) {
-                        if(!Client_IO.CreateGame(2).contains("Joining")){ BackToMenu("Creation request");}
+                        Shortcuts.CreateLoop(2, gamePanel);
                     }
                     if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[39])) {
-                        if(!Client_IO.CreateGame(3).contains("Joining")){ BackToMenu("Creation request");}
+                        Shortcuts.CreateLoop(3, gamePanel);
                     }
                     if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[40])) {
-                        if(!Client_IO.CreateGame(4).contains("Joining")){ BackToMenu("Creation request");}
+                        Shortcuts.CreateLoop(4, gamePanel);
                     }
 
                 }
@@ -250,61 +250,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     }
 
 
-    private void requestUsername(String additionalInfo) {
-
-        String userName = "";
-        userName = JOptionPane.showInputDialog(additionalInfo+": you may select a new username");
-
-        boolean correctUsername = false;
-        while (!correctUsername) {
 
 
 
-            if(userName!= null && userName.matches("^[a-zA-Z0-9]+$")){ correctUsername = true; }
-            else{  userName = JOptionPane.showInputDialog("Invalid Username, please select a new one");}
 
-        }
-
-        Client_IO.setUsername(userName);
-
-    }
-
-    private void requestPort() {
-
-        if(Client_IO.getUsername()== null){requestUsername("No username selected");}
-
-        String port = null;
-        port = JOptionPane.showInputDialog("Enter the port assigned to your previous game");
-
-        boolean correctPort = false;
-        while (!correctPort) {
-
-
-
-            if(port!= null && Integer.parseInt(port)>0){ correctPort = true; }
-            else{  port = JOptionPane.showInputDialog("Port number can't be empty or negative");}
-
-        }
-
-        if(Client_IO.Reconnect(Integer.parseInt(port)).contains("Reconnecting")){ FULL_GUI.updateGUI(); Client_Game.ChangeScene(3);  return; }
-
-        BackToMenu("Reconnection attempt");
-
-    }
-
-
-    private void JoinLoop()
-    {
-        requestUsername("No username selected");
-        String JoinStatus = Client_IO.JoinGame();
-        if(JoinStatus.contains("username")){ requestUsername("Server already has that name connected, try a new one"); }
-        else if(!JoinStatus.contains("Joining")){ Client_Game.ChangeScene(5); }
-        else {Client_Game.ChangeScene(6);}
-    }
-
-    private void BackToMenu(String Reason)
-    {
-        JOptionPane.showMessageDialog(gamePanel, "The server has not accepted your "+Reason);
-        Client_Game.ChangeScene(0);
-    }
 }

@@ -185,7 +185,7 @@ public class TableManager {
         if(Card instanceof GoldCard Card_golden)
         {
             if(Card_golden.getPointCond().equals(PointCondition.TWO_FOR_CORNER))
-            {   for(int Number : CoveredCorners){ if(Number!=-1){OldPoints[Number-1]+=2;} }    }
+            {   for(int Number : CoveredCorners){ if(Number!=1){OldPoints[0]+=2;} }    }
         }
 
         chosenPlayer.setScoreBoard(OldPoints);

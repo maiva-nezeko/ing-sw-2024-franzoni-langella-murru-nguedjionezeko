@@ -24,6 +24,7 @@ public class Client_IO {
     protected static Registry reg;
     /**
      * The constant UpdateObject.
+     *
      */
     protected static ServerRMI UpdateObject;
     /**
@@ -253,6 +254,7 @@ public class Client_IO {
         else{try {UpdateObject.RMI_DrawCard(position);} catch (RemoteException e){e.printStackTrace();}}
 
         if(ClientConstants.getGUI()){ requestUpdate(); }
+        Client_Game.ChangeScene(3);
     }
 
     /**
