@@ -202,14 +202,12 @@ public class Client_Game implements Runnable {
         if(ClientConstants.getGUI())
         {
             Client_IO.requestUpdate();
-            System.out.println("Changing scene");
             ChangeScene(GameStates.CHOOSE_GOAL);
         }
         else
         {
             ChangeScene(GameStates.CHOOSE_GOAL);
             Client_IO.requestUpdate();
-            System.out.println("Changing scene");
         }
 
 

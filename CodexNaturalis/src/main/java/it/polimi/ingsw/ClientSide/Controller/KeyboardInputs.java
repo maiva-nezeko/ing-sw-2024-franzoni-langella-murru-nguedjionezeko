@@ -1,13 +1,11 @@
 package main.java.it.polimi.ingsw.ClientSide.Controller;
 
 import main.java.it.polimi.ingsw.ClientSide.Client_IO;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
-import main.java.it.polimi.ingsw.ClientSide.Utility.HelperMethods;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -79,10 +77,10 @@ public class KeyboardInputs implements KeyListener {
                 Client_IO.requestUpdate();
                 break;
             case KeyEvent.VK_N: //RequestUpdate
-                RenderPlayer.ScaleUpGrid();
+                RenderPlayer.ScaleGrid(true);
                 break;
             case KeyEvent.VK_M: //RequestUpdate
-                RenderPlayer.ScaleDownGrid();
+                RenderPlayer.ScaleGrid(false);
                 break;
             case KeyEvent.VK_S: //PlaceStartingCard
                 Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]);

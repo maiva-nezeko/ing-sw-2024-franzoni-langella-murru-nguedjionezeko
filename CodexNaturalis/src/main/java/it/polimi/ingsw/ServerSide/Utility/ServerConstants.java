@@ -15,7 +15,7 @@ public class ServerConstants {
 
     public static int getNumOfRows(){ return 80; }
 
-    private static boolean debug=true;
+    private static boolean debug=false;
     public static void setDebug(Boolean value) { debug = value; }
     public static boolean getDebug() { return debug; }
 

@@ -10,6 +10,7 @@ import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Full implementation of the Text User Interface, an alternative to GUI for a Client to play
@@ -83,39 +84,34 @@ public class TUI {
      */
     public static void removeSpace(int formattedIndex) { PlayableIDS.remove((Integer) formattedIndex); }
 
-
     /**
      * Prints all different parts of the Table, while also requesting private cards
      * associated with a given Client.
      */
     public static void renderTUI()
     {
-        boolean notMyTurn = false;
-
-        int[][] Grid = Client_IO.requestGrid();
-        if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){ Grid = Client_IO.getCurrentPlayerGrid(); notMyTurn = true;  }
+        int[][] Grid = Client_IO.getCurrentPlayerGrid();
 
         if(Grid!=null){
             fillGridString();
             updateGrid(Grid, Grid.length * 7 / 2, Grid[0].length * 9 / 2, Grid.length / 2, Grid[0].length / 2);
             flushExploredIDS();
-        }
 
-        if(notMyTurn)
-        {
-            System.out.println("Spectating the current player");
             paintGrid();
-
-            return;
         }
 
-
-        paintGrid();
         paintInfo();
-
         printSceneInfo();
         TUI_Inputs.waitForInput();
 
+        if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER))
+        {
+            try{
+                TimeUnit.SECONDS.sleep(20);
+                Client_IO.requestUpdate();
+            }catch (InterruptedException e){ e.printStackTrace(); }
+
+        }
 
     }
 
@@ -125,6 +121,8 @@ public class TUI {
      */
     private static void paintInfo()
     {
+        if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){return;}
+
         int[] PublicSpaces = Client_IO.requestPublicCardsID();
         ClientCard[] PublicCards = {Deck.getCardBYid(PublicSpaces[0]), Deck.getCardBYid(PublicSpaces[1]), Deck.getCardBYid(PublicSpaces[2]), Deck.getCardBYid(PublicSpaces[3]),
                         Deck.getCardBYid(PublicSpaces[4]), Deck.getCardBYid(PublicSpaces[5]), Deck.getCardBYid(PublicSpaces[6]), Deck.getCardBYid(PublicSpaces[7])};

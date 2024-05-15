@@ -13,6 +13,8 @@ import java.util.Scanner;
 public interface TUI_Inputs {
     static void waitForInput() {
 
+        if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){return;}
+
         boolean InputResolved = false; boolean playedFlag;
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         int SelectedSpace = -1;

@@ -131,8 +131,10 @@ public class RenderPlayer {
     private static final int Width = ClientConstants.getxWindowSize() - xWindowSize/3;
     private static final int Height = ClientConstants.getyWindowSize();
 
-    private static int Card_Width = ((xWindowSize/6) /2) - ((xWindowSize/6) /20);
-    private static int Card_Height = Card_Width *10/15;
+    private static final int originalCardWidth = ((xWindowSize/6) /2) - ((xWindowSize/6) /20);
+    private static final int originalCardHeight = originalCardWidth *10/15;
+    private static int Card_Width = originalCardWidth;
+    private static int Card_Height = originalCardHeight;
 
     private static final GUI_Card[][] Spaces_Coords = new GUI_Card[NumOf_Rows][NumOf_Columns];
     public static GUI_object[][] getSpaces_Coords(){return Spaces_Coords;}
@@ -163,29 +165,24 @@ public class RenderPlayer {
     /**
      * Option to reduce the size of the PlayBoard as to display a bigger amount of Cards.
      */
-    public static void ScaleDownGrid()
+    public static void ScaleGrid(boolean up)
     {
-        if(ScaleLevel >= 4){return;}
+        if(up){
+            if(ScaleLevel >= 4){return;}
+            ScaleLevel++;
+        }
+        else
+        {
+            if(ScaleLevel <= 1){return;}
+            ScaleLevel--;
+        }
 
-        ScaleLevel++;
-
-        Card_Width = Card_Width /ScaleLevel;
-        Card_Height = Card_Height /ScaleLevel ;
+        Card_Width = originalCardWidth /ScaleLevel;
+        Card_Height = originalCardHeight /ScaleLevel ;
 
         fillEmpty_Grid();
     }
 
-    public static void ScaleUpGrid()
-    {
-        if(ScaleLevel <= 1){return;}
-
-        ScaleLevel--;
-
-        Card_Width = Card_Width /ScaleLevel;
-        Card_Height = Card_Height /ScaleLevel ;
-
-        fillEmpty_Grid();
-    }
 
 
     /**

@@ -385,10 +385,12 @@ public class Client_IO {
 
     public static int[][] getCurrentPlayerGrid()
     {
+        if(MyTurn){return lastUpdatedGrid;}
+
         if((System.nanoTime() > lastUpdateTime + timePerUpdate))
         {
             lastUpdateTime = System.nanoTime();
-            requestUpdate();
+            if(ClientConstants.getGUI()){ requestUpdate(); }
 
             if(!MyTurn){
                 if(ClientConstants.getSocket()) { lastPlayerGrid = HelperMethods.FormattedStringToMatrix(GameClient.listenForResponse("getCurrentPlayerGrid,"+username));}
