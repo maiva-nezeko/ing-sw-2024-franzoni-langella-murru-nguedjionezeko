@@ -69,7 +69,7 @@ public interface ServerRMI extends Remote
      */
 
     //modifiers
-    void RMI_Flip(int position) throws RemoteException; //{CardDealer.FlipCard_inPos(position, assignedNumber);}
+    void RMI_Flip(int position, String username) throws RemoteException; //{CardDealer.FlipCard_inPos(position, assignedNumber);}
 
     /**
      * Draws a new card.
@@ -77,7 +77,7 @@ public interface ServerRMI extends Remote
      * @param position the position to draw from
      * @throws RemoteException the remote exception in case any errors occur
      */
-    void RMI_DrawCard(int position) throws RemoteException;
+    void RMI_DrawCard(int position, String username) throws RemoteException;
 
     /**
      * Plays card by index.
@@ -88,7 +88,7 @@ public interface ServerRMI extends Remote
      * @return the value as true or false - a boolean
      * @throws RemoteException the remote exception in case any errors occur
      */
-    boolean RMI_PlayCardByIndex(int rowIndex, int columnsIndex, int id) throws RemoteException; //{return TableManager.playCardByIndex(rowIndex, columnsIndex, id, AssignedNumber);}
+    boolean RMI_PlayCardByIndex(int rowIndex, int columnsIndex, int id, String username) throws RemoteException; //{return TableManager.playCardByIndex(rowIndex, columnsIndex, id, AssignedNumber);}
 
     /**
      * Place starting card.
@@ -96,7 +96,7 @@ public interface ServerRMI extends Remote
      * @param selectedCard the selected starting card
      * @throws RemoteException the remote exception in case any errors occur
      */
-    void RMI_PlaceStartingCard(int selectedCard) throws RemoteException; //{ TableManager.PlaceStartingCard(selectedCard, assignedNumber); }
+    void RMI_PlaceStartingCard(int selectedCard, String username) throws RemoteException; //{ TableManager.PlaceStartingCard(selectedCard, assignedNumber); }
 
     /**
      * Choose goal card.
@@ -104,7 +104,7 @@ public interface ServerRMI extends Remote
      * @param position the position chosen (between 3 and 5)
      * @throws RemoteException the remote exception in case any errors occur
      */
-    void RMI_ChooseGoalCard(int position) throws RemoteException;
+    void RMI_ChooseGoalCard(int position, String username) throws RemoteException;
 
     /**
      * Calls for Update.

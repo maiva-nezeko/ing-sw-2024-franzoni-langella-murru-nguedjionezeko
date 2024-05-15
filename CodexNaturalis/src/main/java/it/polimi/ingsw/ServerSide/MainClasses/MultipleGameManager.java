@@ -5,7 +5,6 @@ import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
 import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -33,22 +32,22 @@ public class MultipleGameManager {
         game.startGameLoop();
 
         game.getRelatedTable().AutoFillSpaces();
-        System.out.println("Spaces filled");
+        ServerConstants.printMessageLn("Spaces filled");
 
-        System.out.println("Waiting for players to join..");
-        System.out.println(game.getEmptySlot());
+        ServerConstants.printMessageLn("Waiting for players to join..");
+        ServerConstants.printMessageLn(""+game.getEmptySlot());
 
         double timePerUpdate = (10000000000.0); long previousTime = System.nanoTime();
 
         while (game.getEmptySlot()!=5)
         {
             if(System.nanoTime() == previousTime+timePerUpdate){
-                System.out.println("Waiting"); previousTime=System.nanoTime();}
+                ServerConstants.printMessageLn("Waiting"); previousTime=System.nanoTime();}
 
         }
 
-        System.out.println("All players joined");
-        System.out.println("Dealing Cards");
+        ServerConstants.printMessageLn("All players joined");
+        ServerConstants.printMessageLn("Dealing Cards");
         game.getRelatedTable().DealCards();
 
         game.start();
@@ -127,11 +126,11 @@ public class MultipleGameManager {
 
         if(ServerConstants.getNoSaveDelete()){return;}
 
-        if(!Files.exists(SavePath)){ if(ServerConstants.getDebug()){ System.out.println("File not existent at: \t" + SavePath);} return;}
+        if(!Files.exists(SavePath)){ if(ServerConstants.getDebug()){ ServerConstants.printMessageLn("File not existent at: \t" + SavePath);} return;}
 
         try{ if(Files.deleteIfExists( SavePath ) )
-            {if(ServerConstants.getDebug()){ System.out.println("SaveFile successfully deleted at: \t" + SavePath); } }
-            else{  System.out.println("Failed to delete SaveFile at: \t" + SavePath); }
+            {if(ServerConstants.getDebug()){ ServerConstants.printMessageLn("SaveFile successfully deleted at: \t" + SavePath); } }
+            else{  ServerConstants.printMessageLn("Failed to delete SaveFile at: \t" + SavePath); }
         }catch (Exception e){ e.printStackTrace(); }
     }
 

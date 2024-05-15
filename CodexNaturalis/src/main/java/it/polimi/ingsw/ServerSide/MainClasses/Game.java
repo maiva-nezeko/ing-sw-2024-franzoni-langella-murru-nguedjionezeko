@@ -1,7 +1,7 @@
 package main.java.it.polimi.ingsw.ServerSide.MainClasses;
 
 import main.java.it.polimi.ingsw.ServerSide.GameServer;
-import main.java.it.polimi.ingsw.ServerSide.Server_IO;
+import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 import main.java.it.polimi.ingsw.ServerSide.Table.Table;
 import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
@@ -53,8 +53,8 @@ public class  Game {
     public void addPlayer(String username) {
         this.Players.add(new Player(username));
 
-        System.out.println("New player joined:\n"+Players);
-        for(int i =0; i< Players.size(); i++){ System.out.println(Players.get(i).getUsername());}
+        ServerConstants.printMessage("New player joined:\n"+Players);
+        for(int i =0; i< Players.size(); i++){ ServerConstants.printMessage(Players.get(i).getUsername());}
 
         if (this.getPlayers().size() == this.PlayerCount) {
             this.start();
@@ -91,7 +91,7 @@ public class  Game {
     public void end() {
 
         if(this.gameServer!=null){
-            System.out.println("Shutting down GameServer");
+            ServerConstants.printMessage("Shutting down GameServer");
             gameServer.shutDown();
         }
 
@@ -149,11 +149,18 @@ public class  Game {
     }
 
     public int getPlayerNumber(String username) {
+
+        ServerConstants.printMessage("looking for playerNumber: " +username+ "\t");
+
+
         for (int index = 0; index < this.Players.size(); index++) {
+            ServerConstants.printMessage(Players.get(index).getUsername()+", ");
             if (this.Players.get(index).getUsername().equals(username)) {
                 return index;
             }
         }
+
+        ServerConstants.printMessage("\n");
         return 5;
     }
 
@@ -166,7 +173,7 @@ public class  Game {
     public UpdatePackage sendUpdatePackage(String username) {
         int playerIndex = getPlayerNumber(username);
 
-        System.out.println("Updating package for " + username + " PlayerHand = " + Arrays.toString(this.Players.get(playerIndex).getPrivateCardsID())
+        ServerConstants.printMessage("Updating package for " + username + " PlayerHand = " + Arrays.toString(this.Players.get(playerIndex).getPrivateCardsID())
                 + " Score:" + this.Players.get(playerIndex).getScoreBoard()[0] + " PublicSpaces" + Arrays.toString(this.relatedTable.getPublicSpacesID()));
         return new UpdatePackage(
                 this.relatedTable.getOccupiedSpaces()[playerIndex], this.Players.get(playerIndex).getScoreBoard()[0],

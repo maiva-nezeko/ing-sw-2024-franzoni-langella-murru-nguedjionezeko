@@ -234,7 +234,7 @@ public class Client_IO {
         if(!Client_Game.getCurrentScene().equals(GameStates.PLAY) && !Client_Game.getCurrentScene().equals(GameStates.PLACE_STARTING)){return;}
 
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("Flip," +username +","+ position);}
-        else{ try { UpdateObject.RMI_Flip(position); }catch (RemoteException e){e.printStackTrace();}}
+        else{ try { UpdateObject.RMI_Flip(position, username); }catch (RemoteException e){e.printStackTrace();}}
 
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
@@ -252,7 +252,7 @@ public class Client_IO {
 
         System.out.println("Requesting Card Draw at position "+position);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("Draw," +username +","+ position);}
-        else{try {UpdateObject.RMI_DrawCard(position);} catch (RemoteException e){e.printStackTrace();}}
+        else{try {UpdateObject.RMI_DrawCard(position, username);} catch (RemoteException e){e.printStackTrace();}}
 
         if(ClientConstants.getGUI()){ requestUpdate(); }
         Client_Game.ChangeScene(GameStates.SPECTATE_PLAYER);
@@ -270,7 +270,7 @@ public class Client_IO {
 
         System.out.println("PlaceStartingCard," +username +","+ selectedCard);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("PlaceStartingCard," +username +","+ selectedCard);}
-        else{try { UpdateObject.RMI_PlaceStartingCard(selectedCard);}catch (RemoteException e){e.printStackTrace();}}
+        else{try { UpdateObject.RMI_PlaceStartingCard(selectedCard, username);}catch (RemoteException e){e.printStackTrace();}}
 
         Client_Game.ChangeScene(GameStates.PLAY);
         if(ClientConstants.getGUI()){ requestUpdate(); }
@@ -288,7 +288,7 @@ public class Client_IO {
 
         System.out.println("ChooseGoalCard," +username +","+ position);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("ChooseGoalCard," +username +","+ position);}
-        else{try { UpdateObject.RMI_ChooseGoalCard(position);}catch (RemoteException e){e.printStackTrace();}}
+        else{try { UpdateObject.RMI_ChooseGoalCard(position, username);}catch (RemoteException e){e.printStackTrace();}}
 
         Client_Game.ChangeScene(GameStates.PLACE_STARTING);
         if(ClientConstants.getGUI()){ requestUpdate(); }
@@ -315,7 +315,7 @@ public class Client_IO {
         if (ClientConstants.getSocket())
         { returnValue = GameClient.listenForResponse("playCardByIndex," + username +","+ Row_index + "," + Columns_index + "," + id).equals("true"); }
 
-        else{ try { returnValue = UpdateObject.RMI_PlayCardByIndex(Row_index, Columns_index, id); }catch (RemoteException e){e.printStackTrace();}}
+        else{ try { returnValue = UpdateObject.RMI_PlayCardByIndex(Row_index, Columns_index, id, username); }catch (RemoteException e){e.printStackTrace();}}
 
         if(returnValue){ if(ClientConstants.getGUI()){ requestUpdate(); }}
         return returnValue;

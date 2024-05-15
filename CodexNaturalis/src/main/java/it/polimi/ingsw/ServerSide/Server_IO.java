@@ -154,7 +154,7 @@ public class Server_IO {
     public static class ServerRMI_impl extends UnicastRemoteObject implements ServerRMI
     {
 
-        private int RMI_PlayerCount; private String username; private int RMI_CurrentTurn;
+        private int RMI_PlayerCount; private int RMI_CurrentTurn;
         private UpdatePackage RMI_UpdatePackage; private Game game;
 
         /**
@@ -189,22 +189,22 @@ public class Server_IO {
 
 
         //modifiers
-        public void RMI_Flip(int position) throws RemoteException{
-            Server_IO.Flip(position, this.username);}
-        public void RMI_DrawCard(int position) throws RemoteException{
-            Server_IO.DrawCard(position, this.username); this.game.changePlayerTurn();}
-        public boolean RMI_PlayCardByIndex(int rowIndex, int columnsIndex, int id) throws RemoteException{
-            return Server_IO.PlayCardByIndex(rowIndex, columnsIndex, id, this.username);}
-        public void RMI_ChooseGoalCard(int position){ ChooseGoalCard(position, this.username);}
-        public void RMI_PlaceStartingCard(int selectedCard) throws RemoteException{
-            Server_IO.PlaceStartingCard(selectedCard, this.username); }
+        public void RMI_Flip(int position, String username) throws RemoteException{
+            Server_IO.Flip(position, username);}
+        public void RMI_DrawCard(int position, String username) throws RemoteException{
+            Server_IO.DrawCard(position, username); this.game.changePlayerTurn();}
+        public boolean RMI_PlayCardByIndex(int rowIndex, int columnsIndex, int id, String username) throws RemoteException{
+            return Server_IO.PlayCardByIndex(rowIndex, columnsIndex, id, username);}
+        public void RMI_ChooseGoalCard(int position, String username){ ChooseGoalCard(position , username);}
+        public void RMI_PlaceStartingCard(int selectedCard, String username) throws RemoteException{
+            Server_IO.PlaceStartingCard(selectedCard, username); }
 
 
 
 
         public String JoinGame(String username) throws RemoteException
         {
-            System.out.println(username);
+            ServerConstants.printMessageLn(username);
             if(MultipleGameManager.JoinGame(username)){ this.game = MultipleGameManager.getGameInstance(username);
                 return "Connection attempt was successful"; }
             return "Connection failed";
@@ -226,8 +226,7 @@ public class Server_IO {
 
         public void update(String username) throws RemoteException {
 
-            System.out.println("Updating RMI at "+username);
-            this.username = username;
+            ServerConstants.printMessageLn("Updating RMI at "+username);
             this.RMI_CurrentTurn = this.game.getCurrentPlayerTurn();
             this.RMI_PlayerCount = this.game.getPlayerCount();
             this.RMI_UpdatePackage = this.game.sendUpdatePackage(username);

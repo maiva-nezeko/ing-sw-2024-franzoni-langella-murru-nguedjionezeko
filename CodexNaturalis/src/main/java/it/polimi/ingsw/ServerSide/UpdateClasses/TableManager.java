@@ -54,7 +54,7 @@ public class TableManager {
         OccupiedSpaces[player][NumOf_Rows/2][NumOf_Columns/2] = id;
         game.getRelatedTable().setOccupiedSpaces(OccupiedSpaces);
 
-        if(ServerConstants.getDebug()){System.out.print("ID = "+id + "  ");}
+        if(ServerConstants.getDebug()){ServerConstants.printMessage("ID = "+id + "  ");}
 
     }
 
@@ -71,10 +71,13 @@ public class TableManager {
     {
         Game game = MultipleGameManager.getGameInstance(username);
         if(game==null){
-            if(ServerConstants.getDebug()){System.out.println("Can't find game");}
+            if(ServerConstants.getDebug()){ServerConstants.printMessageLn("Can't find game");}
             return false;}
 
         Player chosenPlayer = game.getPlayerByUsername(username);
+        if(ServerConstants.getDebug()) {
+            ServerConstants.printMessageLn("Request Play by: " + username);
+        }
         int playerIndex = game.getPlayerNumber(username);
 
         int[][][] OccupiedSpaces = game.getRelatedTable().getOccupiedSpaces();
@@ -86,7 +89,7 @@ public class TableManager {
 
         int[] Points = chosenPlayer.getScoreBoard();
         if(!Card.isPlayable(Points)){
-            if(ServerConstants.getDebug()){System.out.println("Can't play this card here");}
+            if(ServerConstants.getDebug()){ServerConstants.printMessageLn("Can't play this card here");}
             return false;
         }
 
@@ -129,10 +132,10 @@ public class TableManager {
             chosenPlayer.consumeCard(id);
 
             if(ServerConstants.getDebug()){
-                System.out.print("ID = " +id+ "  ");
-                System.out.print("CardCorners = " + Arrays.toString(CornerValue)+"\t");
-                System.out.print("SurroundingCorners = "+ Arrays.toString(SurroundingCorners)+"\t");
-                System.out.print(Arrays.toString(Points) + " -> ");}
+                ServerConstants.printMessage("ID = " +id+ "  ");
+                ServerConstants.printMessage("CardCorners = " + Arrays.toString(CornerValue)+"\t");
+                ServerConstants.printMessage("SurroundingCorners = "+ Arrays.toString(SurroundingCorners)+"\t");
+                ServerConstants.printMessage(Arrays.toString(Points) + " -> ");}
 
             chosenPlayer.setScoreBoard(Card.addPoints(Points));
             game.modifyPlayer(game.getPlayerNumber(chosenPlayer.getUsername()), chosenPlayer);
@@ -179,7 +182,7 @@ public class TableManager {
                 tempCard.setFlipped(OccupiedSpaces[playerIndex][Row_index+1][Columns_index+1]<0); CoveredCorners[3] =  tempCard.getCorners()[0];}} //DownRight
 
         for(int Number : CoveredCorners){ if(Number>1){OldPoints[Number-1]--;} }
-        if(ServerConstants.getDebug()){ System.out.print(" CoveredCorners: " + Arrays.toString(CoveredCorners)); }
+        if(ServerConstants.getDebug()){ ServerConstants.printMessage(" CoveredCorners: " + Arrays.toString(CoveredCorners)); }
 
 
         if(Card instanceof GoldCard Card_golden)
@@ -191,13 +194,13 @@ public class TableManager {
         chosenPlayer.setScoreBoard(OldPoints);
         game.modifyPlayer(playerIndex, chosenPlayer);
 
-        if(ServerConstants.getDebug()){ System.out.println(Arrays.toString(OldPoints)); }
+        if(ServerConstants.getDebug()){ ServerConstants.printMessageLn(Arrays.toString(OldPoints)); }
 
         if(OldPoints[0]>=20){
             int player_index = 0;
             for(Player player_iterator: game.getPlayers()){AddGoalPoints(player_iterator, player_index, username); player_index++;}
             game.nextPhase();
-            System.out.println("Last turn Started");
+            ServerConstants.printMessageLn("Last turn Started");
         }
 
     }
@@ -270,7 +273,7 @@ public class TableManager {
         chosenPlayer.setScoreBoard(OldScoreBoard);
         game.modifyPlayer(game.getPlayerNumber(chosenPlayer.getUsername()), chosenPlayer);
 
-        if(ServerConstants.getDebug()){ System.out.println(chosenPlayer.getUsername() +" "+ Arrays.toString(OldScoreBoard)); }
+        if(ServerConstants.getDebug()){ ServerConstants.printMessageLn(chosenPlayer.getUsername() +" "+ Arrays.toString(OldScoreBoard)); }
     }
 
     /**

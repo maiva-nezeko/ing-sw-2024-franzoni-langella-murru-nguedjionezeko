@@ -22,6 +22,10 @@ public class ServerConstants {
     private static boolean noSaveDelete=false;
     public static void setNoSaveDelete(Boolean value) { noSaveDelete = value; }
     public static boolean getNoSaveDelete() { return noSaveDelete; }
+    
+    
+    public static void printMessageLn(String message) {   if(debug){System.out.println(message);}  }
+    public static void printMessage(String message){ if(debug){System.out.print(message);} }
 
 
 }

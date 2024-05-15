@@ -50,7 +50,6 @@ public class App
         {
             Server_IO.ServerRMI_impl UpdatedRMI;
 
-            ServerConstants.setDebug(false);
             GameServer mainServer = new GameServer(1330, null);
             mainServer.start();
 

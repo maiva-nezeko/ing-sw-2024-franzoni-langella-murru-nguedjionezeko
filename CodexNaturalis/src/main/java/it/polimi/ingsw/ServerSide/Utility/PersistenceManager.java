@@ -5,13 +5,9 @@ import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
 import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.OutputStreamWriter;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +21,7 @@ public interface PersistenceManager {
 
         File [] files = path.listFiles();
         if(files==null) {
-            System.out.println("Saved Games Directory Empty, no games to restore");
+            ServerConstants.printMessageLn("Saved Games Directory Empty, no games to restore");
             return;
         }
 
@@ -85,10 +81,10 @@ public interface PersistenceManager {
                     { RestoredHands[row-2*PlayerCount-1][index] = Integer.parseInt(content.split("\n")[row].split(",")[index]);}}
 
                 if(ServerConstants.getDebug()){
-                    System.out.println(Arrays.deepToString(NewGameBoard));
-                    System.out.println(Arrays.toString(RestoredPublicCards));
-                    System.out.println(Arrays.deepToString(RestoredScoreBoards));
-                    System.out.println(Arrays.deepToString(RestoredHands));
+                    ServerConstants.printMessageLn(Arrays.deepToString(NewGameBoard));
+                    ServerConstants.printMessageLn(Arrays.toString(RestoredPublicCards));
+                    ServerConstants.printMessageLn(Arrays.deepToString(RestoredScoreBoards));
+                    ServerConstants.printMessageLn(Arrays.deepToString(RestoredHands));
                 }
 
                 restoredGame.getRelatedTable().setOccupiedSpaces(NewGameBoard);
@@ -131,7 +127,7 @@ public interface PersistenceManager {
             FW.write(GameBoard);
             FW.close();
 
-            if(ServerConstants.getDebug()){ System.out.println("Saved"); }
+            if(ServerConstants.getDebug()){ ServerConstants.printMessageLn("Saved"); }
 
 
         } catch (Exception e){ e.printStackTrace();}

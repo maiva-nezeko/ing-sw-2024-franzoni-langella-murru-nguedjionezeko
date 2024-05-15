@@ -133,7 +133,7 @@ public class Table {
             chosenPlayer.setCard(EmptyHandSlot, abs(PublicSpacesID[position]));
             PublicSpacesID[position]=0;
             AutoFillSpaces();
-            if(ServerConstants.getDebug()){ System.out.println("Player: "+username+" draw: "+PublicSpacesID[position] + " in position: " +position); }
+            if(ServerConstants.getDebug()){ ServerConstants.printMessageLn("Player: "+username+" draw: "+PublicSpacesID[position] + " in position: " +position); }
 
         }
 
@@ -160,7 +160,7 @@ public class Table {
 
             this.relatedGame.modifyPlayer(this.relatedGame.getPlayerNumber(player.getUsername()), player);
 
-            if(ServerConstants.getDebug()){ System.out.println(this.relatedGame.getPlayerByUsername(player.getUsername()).getUsername()
+            if(ServerConstants.getDebug()){ ServerConstants.printMessageLn(this.relatedGame.getPlayerByUsername(player.getUsername()).getUsername()
                     +" got hand: "+ Arrays.toString(this.relatedGame.getPlayerByUsername(player.getUsername()).getPrivateCardsID()));}
         }
 

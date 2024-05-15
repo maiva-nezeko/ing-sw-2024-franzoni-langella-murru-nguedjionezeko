@@ -4,17 +4,12 @@ import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
 import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
 import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
-import javax.xml.parsers.SAXParser;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -67,7 +62,7 @@ public class GameServer extends Thread{
         if(fromGameServer){TimeoutNumber++;}
         else {
             TimeoutNumber=0;
-            System.out.println("Timer reset");
+            ServerConstants.printMessageLn("Timer reset");
         }
 
         if( ( this.game.getPlayerCount()>1 ) && ( TimeoutNumber == this.game.getPlayerCount()-1 ) ){this.game.end();}
@@ -76,14 +71,14 @@ public class GameServer extends Thread{
 
     public void run() {
 
-        System.out.println("Starting Server on port: "+port);
+        ServerConstants.printMessageLn("Starting Server on port: "+port);
         previousTime = System.nanoTime();
 
         while (this.running) {
 
             if(this.game!=null && this.game.isGameStarted()) {
                 if (System.nanoTime() >= previousTime + timePerTurn) {
-                    System.out.println("Turn timer Expired");
+                    ServerConstants.printMessageLn("Turn timer Expired");
                     if(TimeoutNumber>=0){
                         game.changePlayerTurn();
                     }
@@ -103,8 +98,8 @@ public class GameServer extends Thread{
                 else{break;}
             }
             String[] message = new String(packet.getData()).trim().split(",");
-            System.out.println(Arrays.toString(message));
-            //System.out.println("Client ["+packet.getAddress() +" "+ packet.getPort()  + "] > " + Arrays.toString(message));
+            ServerConstants.printMessageLn(Arrays.toString(message));
+            //ServerConstants.printmessage("Client ["+packet.getAddress() +" "+ packet.getPort()  + "] > " + Arrays.toString(message));
 
             String ack = "ack";
             String username = message[1];
@@ -116,7 +111,7 @@ public class GameServer extends Thread{
 
                 case "SendUpdate":
                     String Update = Server_IO.SocketUpdate(username);
-                    if(ServerConstants.getDebug()){System.out.println("Update:\n"+Update);}
+                    if(ServerConstants.getDebug()){ServerConstants.printMessageLn("Update:\n"+Update);}
                     sendData(Update.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
@@ -154,13 +149,13 @@ public class GameServer extends Thread{
 
                 case "PlaceStartingCard":
                     IntegerInString = Integer.parseInt(message[2]);
-                    System.out.println("Placed StartingCard");
+                    ServerConstants.printMessageLn("Placed StartingCard");
                     Server_IO.PlaceStartingCard(IntegerInString, username);
                     sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
                 case "playCardByIndex":
-                    System.out.println("Requested Play " + message[2] + " " + message[3] + " " + message[4]);
+                    ServerConstants.printMessageLn("Requested Play " + message[2] + " " + message[3] + " " + message[4]);
                     String returnValue = "false";
 
                     BigInteger flag = BigInteger.valueOf(0);
@@ -173,7 +168,7 @@ public class GameServer extends Thread{
                 case "getNewPort":
                     String newPort = "" + Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPort();
 
-                    System.out.println("NewSocketPort = " + newPort);
+                    ServerConstants.printMessageLn("NewSocketPort = " + newPort);
                     sendData(newPort.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
