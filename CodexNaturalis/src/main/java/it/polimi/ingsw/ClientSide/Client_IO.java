@@ -387,7 +387,7 @@ public class Client_IO {
 
     public static int[][] getCurrentPlayerGrid()
     {
-        if(!(System.nanoTime() > lastUpdateTime + timePerUpdate) || lastPlayerGrid==null)
+        if((System.nanoTime() > lastUpdateTime + timePerUpdate))
         {
             lastUpdateTime = System.nanoTime();
             requestUpdate();

@@ -94,17 +94,16 @@ public class TUI {
 
         int[][] Grid = Client_IO.requestGrid();
         if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){ Grid = Client_IO.getCurrentPlayerGrid(); notMyTurn = true;  }
-        if(Grid==null){ Grid = Client_IO.requestGrid(); notMyTurn = false; }
 
         if(!isFilled()){fillGridString();}
         updateGrid(Grid, Grid.length * 7 / 2, Grid[0].length * 9 / 2, Grid.length / 2, Grid[0].length / 2);
         flushExploredIDS();
 
-
         if(notMyTurn)
         {
             System.out.println("Spectating the current player");
-            paintGrid();
+            if(Grid!=null){ paintGrid(); }
+
             return;
         }
 

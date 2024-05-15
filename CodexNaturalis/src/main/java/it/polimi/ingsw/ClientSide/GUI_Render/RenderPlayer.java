@@ -39,11 +39,12 @@ public class RenderPlayer {
 
         int[][] Grid = Client_IO.requestGrid();
         if(scene.equals(GameStates.SPECTATE_PLAYER)){ Grid = Client_IO.getCurrentPlayerGrid();  }
-        if(Grid==null){ Grid = Client_IO.requestGrid(); }
 
 
         if(scene.equals(GameStates.PLAY) || scene.equals(GameStates.PLACE_STARTING) || scene.equals(GameStates.SPECTATE_PLAYER)){
-            paintPlayerGrid(g, Grid, Grid.length/2, Grid[0].length/2); FlushVisitedID();}
+
+            if(Grid!=null){ paintPlayerGrid(g, Grid, Grid.length/2, Grid[0].length/2); FlushVisitedID();}
+        }
 
 
         if(scene.equals(GameStates.PLAY) || scene.equals(GameStates.DRAW) || scene.equals(GameStates.SPECTATE_PLAYER)){
@@ -77,7 +78,7 @@ public class RenderPlayer {
 
         int xPos, yPos;
 
-        if(scene.equals(GameStates.PLAY)){xPos = xWindowSize - 2*xWindowSize/6; yPos = 0;}
+        if(scene.equals(GameStates.PLAY) || scene.equals(GameStates.SPECTATE_PLAYER)){xPos = xWindowSize - 2*xWindowSize/6; yPos = 0;}
         else {xPos = xWindowSize/2 - xWindowSize/6; yPos = yWindowSize/2 - xWindowSize/6;}
 
         final double BoardHeight = ((double) xWindowSize /3);
