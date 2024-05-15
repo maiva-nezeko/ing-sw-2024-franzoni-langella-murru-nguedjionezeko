@@ -309,8 +309,6 @@ public class Client_IO {
 
         boolean returnValue = false;
 
-        HelperMethods.resize(Row_index, Columns_index);
-
         System.out.println("PlayCardByIndex," +username +","+ id+ " ("+Row_index+","+Columns_index+ ")");
         if (ClientConstants.getSocket())
         { returnValue = GameClient.listenForResponse("playCardByIndex," + username +","+ Row_index + "," + Columns_index + "," + id).equals("true"); }

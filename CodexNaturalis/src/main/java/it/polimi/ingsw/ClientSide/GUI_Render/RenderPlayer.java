@@ -43,7 +43,10 @@ public class RenderPlayer {
 
         if(scene.equals(GameStates.PLAY) || scene.equals(GameStates.PLACE_STARTING) || scene.equals(GameStates.SPECTATE_PLAYER)){
 
-            if(Grid!=null){ paintPlayerGrid(g, Grid, Grid.length/2, Grid[0].length/2); FlushVisitedID();}
+            if(Grid!=null){
+                fillEmpty_Grid();
+                paintPlayerGrid(g, Grid, Grid.length/2, Grid[0].length/2);
+                FlushVisitedID();}
         }
 
 
@@ -162,9 +165,21 @@ public class RenderPlayer {
      */
     public static void ScaleDownGrid()
     {
-        if(ScaleLevel == 4){return;}
+        if(ScaleLevel >= 4){return;}
 
         ScaleLevel++;
+
+        Card_Width = Card_Width /ScaleLevel;
+        Card_Height = Card_Height /ScaleLevel ;
+
+        fillEmpty_Grid();
+    }
+
+    public static void ScaleUpGrid()
+    {
+        if(ScaleLevel <= 1){return;}
+
+        ScaleLevel--;
 
         Card_Width = Card_Width /ScaleLevel;
         Card_Height = Card_Height /ScaleLevel ;

@@ -44,13 +44,17 @@ public interface TUI_Inputs {
 
                 //misc
                 case "u" -> {Client_IO.requestUpdate(); InputResolved=true;}
-                case "s" -> {Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]); Client_Game.ChangeScene(GameStates.PLAY);  InputResolved=true;}
+                case "s" -> {
+                    if(Client_Game.getCurrentScene().equals(GameStates.PLACE_STARTING)){
+                    Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]); Client_Game.ChangeScene(GameStates.PLAY);  InputResolved=true;}
+                }
                 case "f" -> {if(SelectedSpace!=-1){Client_IO.FlipCard_inPos(SelectedSpace);  InputResolved=true;}}
 
                 case "n" -> {TUI.AdjustScale(1); InputResolved=true;}
                 case "m" -> {TUI.AdjustScale(-1); InputResolved=true;}
 
                 case "p" -> {
+                    if(Client_Game.getCurrentScene().equals(GameStates.PLAY)){
                     if (SelectedSpace != 0 && SelectedSpace != 1 && SelectedSpace != 2) {
                         System.out.println("Please select a card first");
                         continue;
@@ -79,7 +83,7 @@ public interface TUI_Inputs {
                     Client_Game.ChangeScene(GameStates.DRAW);
                     InputResolved=true;
 
-                }
+                }}
 
                 default -> System.out.println("Command not recognized");
 

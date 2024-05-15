@@ -88,17 +88,4 @@ public class HelperMethods {
     }
 
 
-    public static void resize(int rowIndex, int columnsIndex) {
-
-        if(Scale>=2){return;}
-
-        if ( ( rowIndex == (Rows / 2) - ScalingThresholds[Scale][0] ) || ( rowIndex == (Rows / 2) + ScalingThresholds[Scale][0]) ||
-                    ( columnsIndex == (Columns / 2) - ScalingThresholds[Scale][1]) || ( columnsIndex == (Columns / 2) + ScalingThresholds[Scale][1]) ){
-
-                Scale++;
-                RenderPlayer.ScaleDownGrid();
-                Client_IO.requestUpdate();
-        }
-
-    }
 }

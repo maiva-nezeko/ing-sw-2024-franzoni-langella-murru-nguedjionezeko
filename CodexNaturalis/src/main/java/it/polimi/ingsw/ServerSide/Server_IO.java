@@ -206,7 +206,7 @@ public class Server_IO {
         {
             ServerConstants.printMessageLn(username);
             if(MultipleGameManager.JoinGame(username)){ this.game = MultipleGameManager.getGameInstance(username);
-                return "Connection attempt was successful"; }
+                return "Connection attempt was successful, Joining"; }
             return "Connection failed";
         }
         public String Reconnect(String username, int port) throws RemoteException
