@@ -4,6 +4,7 @@ package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
 import main.java.it.polimi.ingsw.ClientSide.Cards.Deck;
 import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.*;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.awt.*;
@@ -131,7 +132,7 @@ public class FULL_GUI {
      * @param g     the graphics
      * @param scene the specified scene
      */
-    public static void renderGUI(Graphics g, String scene)
+    public static void renderGUI(Graphics g, GameStates scene)
     {
         int index=0;
 
@@ -140,15 +141,18 @@ public class FULL_GUI {
 
         switch(scene)
         {
-            case "Main_Menu": for(index=34; index<38; index++){GUI[index].renderObject(g);}
+            case MAIN_MENU: for(index=34; index<38; index++){GUI[index].renderObject(g);}
                 break;
-            case "Player_Selection": for(index=38; index<41; index++){GUI[index].renderObject(g);}
+            case PLAYER_SELECTION: for(index=38; index<41; index++){GUI[index].renderObject(g);}
                 break;
 
 
-            case "Draw": for(index=0; index<16; index++){GUI[index].renderObject(g);}
+            case DRAW: for(index=0; index<16; index++){GUI[index].renderObject(g);}
                 break;
-            case "Play", "Choose_Goal", "Place_Starting": for(index=16; index<34; index++){GUI[index].renderObject(g);}
+            case PLAY, CHOOSE_GOAL, PLACE_STARTING: for(index=16; index<34; index++){GUI[index].renderObject(g);}
+                break;
+
+            case SPECTATE_PLAYER: for(index=16; index<28; index++){GUI[index].renderObject(g);}
                 break;
         }
     }

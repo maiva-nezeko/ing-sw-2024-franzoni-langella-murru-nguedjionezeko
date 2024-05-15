@@ -2,6 +2,7 @@ package main.java.it.polimi.ingsw.ClientSide;
 
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 import main.java.it.polimi.ingsw.ClientSide.Utility.HelperMethods;
@@ -31,7 +32,7 @@ public class Client_IO {
      * The constant RMI_Set.
      */
     protected static boolean RMI_Set=false;
-
+    protected static boolean MyTurn=false;
     private static int[][] lastUpdatedGrid = new int[80][40];
     private static int[] lastUpdatedScore = new int[4];
     private static int[] lastUpdatedPublicCards = new int[28];
@@ -121,7 +122,7 @@ public class Client_IO {
 
             else {
 
-                boolean MyTurn = GameClient.listenForResponse("SendCurrentTurn," + username).equals("true");
+                MyTurn = GameClient.listenForResponse("SendCurrentTurn," + username).equals("true");
                 System.out.println("IsTurn: " + MyTurn + " ");
 
                 if(MyTurn){  System.out.println("RequestingSocketUpdate");
@@ -146,7 +147,7 @@ public class Client_IO {
                 else{
 
                     UpdateObject.update(username);
-                    boolean MyTurn = UpdateObject.isTurn(username); System.out.println("IsTurn: " + MyTurn);
+                    MyTurn = UpdateObject.isTurn(username); System.out.println("IsTurn: " + MyTurn);
 
 
                     playerCount = UpdateObject.RMI_getCurrentPlayerCount();
@@ -230,7 +231,7 @@ public class Client_IO {
 //Modifiers
     public static void FlipCard_inPos(int position)
     {
-        if(!Client_Game.getCurrentScene().equals("Play") && !Client_Game.getCurrentScene().equals("Place_Starting")){return;}
+        if(!Client_Game.getCurrentScene().equals(GameStates.PLAY) && !Client_Game.getCurrentScene().equals(GameStates.PLACE_STARTING)){return;}
 
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("Flip," +username +","+ position);}
         else{ try { UpdateObject.RMI_Flip(position); }catch (RemoteException e){e.printStackTrace();}}
@@ -247,14 +248,14 @@ public class Client_IO {
     public static void DrawCard(int position)
     //{Server_IO.DrawCard(position, assignedNumber);  requestUpdate();}
     {
-        if(!Client_Game.getCurrentScene().equals("Draw")){return;}
+        if(!Client_Game.getCurrentScene().equals(GameStates.DRAW)){return;}
 
         System.out.println("Requesting Card Draw at position "+position);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("Draw," +username +","+ position);}
         else{try {UpdateObject.RMI_DrawCard(position);} catch (RemoteException e){e.printStackTrace();}}
 
         if(ClientConstants.getGUI()){ requestUpdate(); }
-        Client_Game.ChangeScene(3);
+        Client_Game.ChangeScene(GameStates.SPECTATE_PLAYER);
     }
 
     /**
@@ -265,13 +266,13 @@ public class Client_IO {
     public static void PlaceStartingCard(int selectedCard)
     //{ Server_IO.PlaceStartingCard(selectedCard, assignedNumber);  requestUpdate();}
     {
-        if(!Client_Game.getCurrentScene().equals("Place_Starting")){return;}
+        if(!Client_Game.getCurrentScene().equals(GameStates.PLACE_STARTING)){return;}
 
         System.out.println("PlaceStartingCard," +username +","+ selectedCard);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("PlaceStartingCard," +username +","+ selectedCard);}
         else{try { UpdateObject.RMI_PlaceStartingCard(selectedCard);}catch (RemoteException e){e.printStackTrace();}}
 
-        Client_Game.ChangeScene(3);
+        Client_Game.ChangeScene(GameStates.PLAY);
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
 
@@ -282,14 +283,14 @@ public class Client_IO {
      */
     public static void ChooseGoalCard(int position) {
 
-        if(!Client_Game.getCurrentScene().equals("Choose_Goal")){return;}
+        if(!Client_Game.getCurrentScene().equals(GameStates.CHOOSE_GOAL)){return;}
         if(position != 3 && position != 5){return;}
 
         System.out.println("ChooseGoalCard," +username +","+ position);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("ChooseGoalCard," +username +","+ position);}
         else{try { UpdateObject.RMI_ChooseGoalCard(position);}catch (RemoteException e){e.printStackTrace();}}
 
-        Client_Game.ChangeScene(7);
+        Client_Game.ChangeScene(GameStates.PLACE_STARTING);
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
 
@@ -304,7 +305,7 @@ public class Client_IO {
     public static boolean playCardByIndex(int Row_index, int Columns_index, int id) {
         //System.out.println("RequestedPlay," + Row_index + "," + Columns_index + "," + id);
 
-        if(!Client_Game.getCurrentScene().equals("Play")){return false;}
+        if(!Client_Game.getCurrentScene().equals(GameStates.PLAY)){return false;}
 
         boolean returnValue = false;
 
@@ -377,6 +378,31 @@ public class Client_IO {
         if(ClientConstants.getSocket()) { return GameClient.listenForResponse("getUsernames,"+username);}
         else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.RMI_getUsernames(); } catch (RemoteException e ){e.printStackTrace();}}
         return "Client_Failed";
+    }
+
+    private static final double second = (1000000000.0);
+    private static final double timePerUpdate = 20*second;
+    private static long lastUpdateTime = System.nanoTime();
+    private static int[][] lastPlayerGrid = null;
+
+    public static int[][] getCurrentPlayerGrid()
+    {
+        if(!(System.nanoTime() > lastUpdateTime + timePerUpdate) || lastPlayerGrid==null)
+        {
+            lastUpdateTime = System.nanoTime();
+            requestUpdate();
+
+            if(!MyTurn){
+                if(ClientConstants.getSocket()) { lastPlayerGrid = HelperMethods.FormattedStringToMatrix(GameClient.listenForResponse("getCurrentPlayerGrid,"+username));}
+                else{ if(!RMI_Set){setRMI();} try{ lastPlayerGrid = UpdateObject.RMI_getCurrentPlayerGrid(); } catch (RemoteException e ){e.printStackTrace();}}
+                return lastPlayerGrid;
+            }
+
+            Client_Game.ChangeScene(GameStates.PLAY);
+            lastPlayerGrid = null;
+        }
+        return lastPlayerGrid;
+
     }
 
 }

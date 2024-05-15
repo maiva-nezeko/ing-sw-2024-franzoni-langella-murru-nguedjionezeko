@@ -5,6 +5,7 @@ import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.Utility.*;
 
 import javax.swing.*;
@@ -49,7 +50,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
         //C1C3 Gold, C2C4Normal, 0 Gold_Deck, 1 Deck
         switch (Client_Game.getCurrentScene()) {
-            case "Main_Menu":
+            case MAIN_MENU:
                 if (e.getButton() == BUTTON1) {
 
                     if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[34])) {
@@ -60,7 +61,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                     }
 
                     if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[36])) {
-                        Client_Game.ChangeScene(4);
+                        Client_Game.ChangeScene(GameStates.OPTIONS);
                     } //Options
                     if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[37])) {
                         System.exit(0);
@@ -69,7 +70,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 }
                 break;
 
-            case "Player_Selection":
+            case PLAYER_SELECTION:
                 if (e.getButton() == BUTTON1) {
 
                     if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[38])) {
@@ -85,7 +86,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 }
                 break;
 
-            case "Choose_Goal":
+            case CHOOSE_GOAL:
                 if (e.getButton() == BUTTON1) {
                     if (!chosenGoal_flag && HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[31])) {
                         Client_IO.ChooseGoalCard(3);
@@ -98,7 +99,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 }
                 break;
 
-            case "Place_Starting":
+            case PLACE_STARTING:
 
                 switch ((e.getButton())) {
                     case BUTTON1:
@@ -122,7 +123,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
                 break;
 
-            case "Play":
+            case PLAY:
                 switch (e.getButton()) {
 
                     case BUTTON1: //left click
@@ -144,7 +145,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                                 if (Grid_Indexes != null) {
                                     if (Client_IO.playCardByIndex(Grid_Indexes[0], Grid_Indexes[1], ClientConstants.SelectedCard)) {
                                         ClientConstants.SelectedCard = 0;
-                                        Client_Game.ChangeScene(2);
+                                        Client_Game.ChangeScene(GameStates.DRAW);
                                     }
                                 }
 
@@ -170,7 +171,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
                 break;
 
-            case "Draw":
+            case DRAW:
                 switch (e.getButton()) {
                     case BUTTON1: //left click
                         if (ClientConstants.isGameStarted()) {

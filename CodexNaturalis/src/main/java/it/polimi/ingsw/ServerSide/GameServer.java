@@ -203,6 +203,11 @@ public class GameServer extends Thread{
                     response = Server_IO.getUsernames(MultipleGameManager.getGameInstance(username));
                     sendData(response.getBytes(), packet.getAddress(), packet.getPort());
                     break;
+
+                case "getCurrentPlayerGrid":
+                    response = Server_IO.getGameBoard(game, game.getCurrentPlayerTurn());
+                    sendData(response.getBytes(), packet.getAddress(), packet.getPort());
+                    break;
             }
 
 

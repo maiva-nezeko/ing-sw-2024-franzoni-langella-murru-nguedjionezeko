@@ -175,4 +175,6 @@ public interface ServerRMI extends Remote
     boolean isTurn(String username) throws RemoteException;
 
     String RMI_getUsernames() throws RemoteException;
+
+    int[][] RMI_getCurrentPlayerGrid() throws RemoteException;
 }

@@ -5,6 +5,7 @@ import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.awt.*;
@@ -30,18 +31,22 @@ public class RenderPlayer {
      */
     public static void render(GamePanel gamePanel, Graphics g)
     {
-        String scene = Client_Game.getCurrentScene();
+        GameStates scene = Client_Game.getCurrentScene();
         int playerCount = Client_IO.requestCurrentPlayerCount();
 
         FULL_GUI.renderGUI(g, scene);
 
 
-         int[][] Grid = Client_IO.requestGrid();
-        if(scene.equals("Play") || scene.equals("Place_Starting")){
+        int[][] Grid = Client_IO.requestGrid();
+        if(scene.equals(GameStates.SPECTATE_PLAYER)){ Grid = Client_IO.getCurrentPlayerGrid();  }
+        if(Grid==null){ Grid = Client_IO.requestGrid(); }
+
+
+        if(scene.equals(GameStates.PLAY) || scene.equals(GameStates.PLACE_STARTING) || scene.equals(GameStates.SPECTATE_PLAYER)){
             paintPlayerGrid(g, Grid, Grid.length/2, Grid[0].length/2); FlushVisitedID();}
 
 
-        if(scene.equals("Play") || scene.equals("Draw")){
+        if(scene.equals(GameStates.PLAY) || scene.equals(GameStates.DRAW) || scene.equals(GameStates.SPECTATE_PLAYER)){
 
             if(playerCount == 1){
                 paintPlayerToken(g, 0, scene);}
@@ -64,7 +69,7 @@ public class RenderPlayer {
      * @param player the player index int
      * @param scene the current scene as a string
      */
-    public static void paintPlayerToken(Graphics g, int player, String scene)
+    public static void paintPlayerToken(Graphics g, int player, GameStates scene)
     {
         Color[] Colors= { Color.black, Color.red, Color.blue, Color.yellow};
         int score = Client_IO.requestPlayerScore()[player];
@@ -72,7 +77,7 @@ public class RenderPlayer {
 
         int xPos, yPos;
 
-        if(scene.equals("Play")){xPos = xWindowSize - 2*xWindowSize/6; yPos = 0;}
+        if(scene.equals(GameStates.PLAY)){xPos = xWindowSize - 2*xWindowSize/6; yPos = 0;}
         else {xPos = xWindowSize/2 - xWindowSize/6; yPos = yWindowSize/2 - xWindowSize/6;}
 
         final double BoardHeight = ((double) xWindowSize /3);

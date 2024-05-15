@@ -55,12 +55,12 @@ public class GUI_HelperBanner extends GUI_object{
 
         switch (Client_Game.getCurrentScene())
         {
-            case "Draw" -> reference = referenceImages.get(0);
-            case "Play" -> reference = referenceImages.get(1);
-            case "Choose_Goal" -> reference = referenceImages.get(2);
-            case "Place_Starting" -> reference = referenceImages.get(3);
-            case "YouWin" -> reference = referenceImages.get(4);
-            case "YouLost" -> reference = referenceImages.get(5);
+            case DRAW -> reference = referenceImages.get(0);
+            case PLAY -> reference = referenceImages.get(1);
+            case CHOOSE_GOAL -> reference = referenceImages.get(2);
+            case PLACE_STARTING -> reference = referenceImages.get(3);
+            case YOU_WIN -> reference = referenceImages.get(4);
+            case YOU_LOSE -> reference = referenceImages.get(5);
         }
 
         if(reference!=null){g.drawImage(reference.getScaledInstance(this.xSize, this.ySize, Image.SCALE_DEFAULT), this.xCoord, this.yCoord, null); }

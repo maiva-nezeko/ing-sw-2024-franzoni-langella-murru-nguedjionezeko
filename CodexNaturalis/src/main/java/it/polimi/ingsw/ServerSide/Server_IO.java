@@ -118,20 +118,30 @@ public class Server_IO {
         UpdatedGame.append(Arrays.toString(gameInstance.getRelatedTable().getPublicSpacesID())).append(";");
         UpdatedGame.append(Arrays.toString(currentPlayer.getPrivateCardsID())).append(";");
 
-        StringBuilder GameBoard= new StringBuilder();
-        int[][] GameBoard_ID = gameInstance.getRelatedTable().getOccupiedSpaces()[gameInstance.getPlayerNumber(username)];
 
-        for(int RowIndex = 0; RowIndex< ServerConstants.getNumOfRows(); RowIndex++){
-            GameBoard.append(Arrays.toString(GameBoard_ID[RowIndex])).append(":");  }
-        GameBoard.append(";");
 
-        UpdatedGame.append(GameBoard);
+        UpdatedGame.append(getGameBoard(gameInstance, gameInstance.getPlayerNumber(username)));
 
 
         for(Player player : gameInstance.getPlayers()){ UpdatedGame.append(player.getScoreBoard()[0]).append(",");}
 
 
         return UpdatedGame.toString();
+    }
+
+    public static String getGameBoard(Game game, int PlayerNumber)
+    {
+        assert game!=null;
+
+        StringBuilder GameBoard= new StringBuilder();
+        int[][] GameBoard_ID = game.getRelatedTable().getOccupiedSpaces()[PlayerNumber];
+
+        for(int RowIndex = 0; RowIndex< ServerConstants.getNumOfRows(); RowIndex++){
+            GameBoard.append(Arrays.toString(GameBoard_ID[RowIndex])).append(":");  }
+        GameBoard.append(";");
+
+        return GameBoard.toString();
+
     }
 
     private static int getNewPort(String username)
@@ -231,6 +241,8 @@ public class Server_IO {
         public boolean isTurn(String username) throws RemoteException{return this.game.getCurrentPlayerTurn() == this.game.getPlayerNumber(username);}
 
         public String RMI_getUsernames() throws RemoteException{ return getUsernames(this.game);}
+
+        public int[][] RMI_getCurrentPlayerGrid() throws RemoteException{ return this.game.getRelatedTable().getOccupiedSpaces()[this.game.getCurrentPlayerTurn()]; }
 
     }
 

@@ -40,10 +40,13 @@ public class ClientConstants {
         return yWindowSize;
     }
 
-    public static String getIp(){ return "localhost"; }
-
+    public static String ip = "localhost";
+    public static String getIp(){ return ip; }
+    public static void setIP(String ipString) { ip = ipString;   }
 
     private static boolean GUIHelper = true;
     public static boolean getGUIHelper() { return GUIHelper;  }
     public static void toggleGUIHelper() { GUIHelper = !GUIHelper; }
+
+
 }

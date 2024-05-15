@@ -22,23 +22,21 @@ public class Client_Game implements Runnable {
     private final int FPS_SET = 30;
 
 
-    private static final String[] Scenes =
-            {"Main_Menu", "Game_Menu", "Draw", "Play", "Options", "Player_Selection", "Choose_Goal", "Place_Starting", "YouWin", "YouLost"};
-    private static String CurrentScene = "Main_Menu";
+    private static GameStates CurrentScene = GameStates.MAIN_MENU;
 
     /**
      * Changes scene.
      *
      * @param scene the string referencing the new scene
      */
-    public static void  ChangeScene(int scene){CurrentScene = Scenes[scene];}
+    public static void  ChangeScene(GameStates scene){CurrentScene = scene;}
 
     /**
      * Gets the current scene as a string.
      *
      * @return the scene
      */
-    public static String getCurrentScene(){return CurrentScene;}
+    public static GameStates getCurrentScene(){return CurrentScene;}
 
 
     /**
@@ -205,11 +203,11 @@ public class Client_Game implements Runnable {
         {
             Client_IO.requestUpdate();
             System.out.println("Changing scene");
-            ChangeScene(6);
+            ChangeScene(GameStates.CHOOSE_GOAL);
         }
         else
         {
-            ChangeScene(6);
+            ChangeScene(GameStates.CHOOSE_GOAL);
             Client_IO.requestUpdate();
             System.out.println("Changing scene");
         }

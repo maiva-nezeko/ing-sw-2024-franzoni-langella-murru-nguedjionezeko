@@ -5,6 +5,7 @@ import main.java.it.polimi.ingsw.ClientSide.Cards.Deck;
 import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.Controller.TUI_Inputs;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.ArrayList;
@@ -89,11 +90,24 @@ public class TUI {
      */
     public static void renderTUI()
     {
-        int[][] Grid = Client_IO.requestGrid();
-        if(!isFilled()){fillGridString();}
+        boolean notMyTurn = false;
 
+        int[][] Grid = Client_IO.requestGrid();
+        if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){ Grid = Client_IO.getCurrentPlayerGrid(); notMyTurn = true;  }
+        if(Grid==null){ Grid = Client_IO.requestGrid(); notMyTurn = false; }
+
+        if(!isFilled()){fillGridString();}
         updateGrid(Grid, Grid.length * 7 / 2, Grid[0].length * 9 / 2, Grid.length / 2, Grid[0].length / 2);
         flushExploredIDS();
+
+
+        if(notMyTurn)
+        {
+            System.out.println("Spectating the current player");
+            paintGrid();
+            return;
+        }
+
 
         paintGrid();
         paintInfo();
@@ -329,12 +343,12 @@ public class TUI {
     {
         switch(Client_Game.getCurrentScene())
         {
-            case "Play" -> System.out.println("Select a card, then press p to enter placement mode");
-            case "Draw" -> System.out.println("Draw a card");
-            case "Place_Starting" -> System.out.println("You may select your starting card to flip it or press S to play it");
-            case "Choose_Goal" -> System.out.println("you may choose your goal card");
-            case "YouWin" -> System.out.println("You win, congratulations!");
-            case "YouLost" -> System.out.println("You lost, better luck next time!");
+            case PLAY -> System.out.println("Select a card, then press p to enter placement mode");
+            case DRAW -> System.out.println("Draw a card");
+            case PLACE_STARTING -> System.out.println("You may select your starting card to flip it or press S to play it");
+            case CHOOSE_GOAL -> System.out.println("you may choose your goal card");
+            case YOU_WIN -> System.out.println("You win, congratulations!");
+            case YOU_LOSE -> System.out.println("You lost, better luck next time!");
         }
     }
 

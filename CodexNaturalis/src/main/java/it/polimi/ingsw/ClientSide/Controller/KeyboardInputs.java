@@ -5,6 +5,7 @@ import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.awt.event.KeyEvent;
@@ -38,26 +39,26 @@ public class KeyboardInputs implements KeyListener {
         switch(e.getKeyCode()) {
             //Only for Debug Purposes
             case KeyEvent.VK_O:
-                if(ClientConstants.getGUI() && Client_Game.getCurrentScene().equals("Player_Selection")){
+                if(ClientConstants.getGUI() && Client_Game.getCurrentScene().equals(GameStates.PLAYER_SELECTION)){
                     Shortcuts.CreateLoop(1, gamePanel);
                 }
                 break;
             case KeyEvent.VK_DOWN:
                 if(ClientConstants.getGUI()){
                     System.out.println("Down key was pressed");
-                    Client_Game.ChangeScene(2);}
+                    Client_Game.ChangeScene(GameStates.DRAW);}
                 break;
             case KeyEvent.VK_UP:
                 if(ClientConstants.getGUI()){
                     System.out.println("Up key was pressed");
-                    Client_Game.ChangeScene(3);}
+                    Client_Game.ChangeScene(GameStates.PLAY);}
                 break;
             //END OF _Only for Debug Purposes
 
             case KeyEvent.VK_ESCAPE:
                 if(ClientConstants.getGUI()){
                     System.out.println("Menu key was pressed");
-                    Client_Game.ChangeScene(1);}
+                    Client_Game.ChangeScene(GameStates.MAIN_MENU);}
                 break;
 
             case KeyEvent.VK_J:

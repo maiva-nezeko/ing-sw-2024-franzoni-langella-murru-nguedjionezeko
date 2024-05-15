@@ -75,6 +75,8 @@ public class HelperMethods {
 
     public static int[][] FormattedStringToMatrix( String Array )
     {
+        if(Array.length()<=1){return null;}
+
         String[] SplitArray = Array.replace("[", "").replace("]", "").replace(" ", "").split(":");
         int Columns = SplitArray.length/2;
 

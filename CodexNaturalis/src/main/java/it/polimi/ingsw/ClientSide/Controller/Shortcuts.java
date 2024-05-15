@@ -4,6 +4,7 @@ import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 
 import javax.swing.*;
 
@@ -14,8 +15,8 @@ public interface Shortcuts {
         requestUsername("No username selected");
         String JoinStatus = Client_IO.JoinGame();
         if(JoinStatus.contains("username")){ requestUsername("Server already has that name connected, try a new one"); }
-        else if(!JoinStatus.contains("Joining")){ Client_Game.ChangeScene(5); }
-        else {  Client_Game.ChangeScene(6);    }
+        else if(!JoinStatus.contains("Joining")){ Client_Game.ChangeScene(GameStates.PLAYER_SELECTION); }
+        else {  Client_Game.ChangeScene(GameStates.CHOOSE_GOAL);    }
     }
 
     static void CreateLoop(int playerCount, GamePanel gamePanel)
@@ -24,7 +25,7 @@ public interface Shortcuts {
             BackToMenu("Creation request", gamePanel);}
         else{
             Client_IO.getNewPort();
-            Client_Game.ChangeScene(6);
+            Client_Game.ChangeScene(GameStates.CHOOSE_GOAL);
             Client_IO.requestUpdate();
         }
     }
@@ -33,7 +34,7 @@ public interface Shortcuts {
     static void BackToMenu(String Reason, GamePanel gamePanel)
     {
         JOptionPane.showMessageDialog(gamePanel, "The server has not accepted your "+Reason);
-        Client_Game.ChangeScene(0);
+        Client_Game.ChangeScene(GameStates.MAIN_MENU);
     }
 
 
@@ -73,7 +74,7 @@ public interface Shortcuts {
 
         }
 
-        if(Client_IO.Reconnect(Integer.parseInt(port)).contains("Reconnecting")){ FULL_GUI.updateGUI(); Client_Game.ChangeScene(3);  return; }
+        if(Client_IO.Reconnect(Integer.parseInt(port)).contains("Reconnecting")){ FULL_GUI.updateGUI(); Client_Game.ChangeScene(GameStates.PLAY);  return; }
 
         Shortcuts.BackToMenu("Reconnection attempt", gamePanel);
 

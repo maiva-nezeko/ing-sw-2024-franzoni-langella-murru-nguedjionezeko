@@ -2,6 +2,7 @@ package main.java.it.polimi.ingsw.ClientSide.Controller;
 
 import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
@@ -24,16 +25,16 @@ public interface TUI_Inputs {
             switch (command.toLowerCase())
             {
                 //draw
-                case "0" -> {if(Client_Game.getCurrentScene().equals("Draw")){Client_IO.DrawCard(0); Client_Game.ChangeScene(3); InputResolved=true;}}
-                case "1" -> {if(Client_Game.getCurrentScene().equals("Draw")){Client_IO.DrawCard(1); Client_Game.ChangeScene(3); InputResolved=true;}}
-                case "2" -> {if(Client_Game.getCurrentScene().equals("Draw")){Client_IO.DrawCard(2); Client_Game.ChangeScene(3); InputResolved=true;}}
-                case "3" -> {if(Client_Game.getCurrentScene().equals("Draw")){Client_IO.DrawCard(3); Client_Game.ChangeScene(3); InputResolved=true;}}
-                case "4" -> {if(Client_Game.getCurrentScene().equals("Draw")){Client_IO.DrawCard(4); Client_Game.ChangeScene(3); InputResolved=true;}}
-                case "5" -> {if(Client_Game.getCurrentScene().equals("Draw")){Client_IO.DrawCard(5);  Client_Game.ChangeScene(3); InputResolved=true;}}
+                case "0" -> {if(Client_Game.getCurrentScene().equals(GameStates.DRAW)){Client_IO.DrawCard(0); InputResolved=true;}}
+                case "1" -> {if(Client_Game.getCurrentScene().equals(GameStates.DRAW)){Client_IO.DrawCard(1); InputResolved=true;}}
+                case "2" -> {if(Client_Game.getCurrentScene().equals(GameStates.DRAW)){Client_IO.DrawCard(2); InputResolved=true;}}
+                case "3" -> {if(Client_Game.getCurrentScene().equals(GameStates.DRAW)){Client_IO.DrawCard(3); InputResolved=true;}}
+                case "4" -> {if(Client_Game.getCurrentScene().equals(GameStates.DRAW)){Client_IO.DrawCard(4); InputResolved=true;}}
+                case "5" -> {if(Client_Game.getCurrentScene().equals(GameStates.DRAW)){Client_IO.DrawCard(5); InputResolved=true;}}
 
                 //Goal cards
-                case "8" -> {Client_IO.ChooseGoalCard(3); Client_Game.ChangeScene(7);  InputResolved=true;}
-                case "9" -> {Client_IO.ChooseGoalCard(5); Client_Game.ChangeScene(7);  InputResolved=true;}
+                case "8" -> {Client_IO.ChooseGoalCard(3); Client_Game.ChangeScene(GameStates.PLACE_STARTING);  InputResolved=true;}
+                case "9" -> {Client_IO.ChooseGoalCard(5); Client_Game.ChangeScene(GameStates.PLACE_STARTING);  InputResolved=true;}
 
                 //select
                 case "q" -> {ClientConstants.SelectedCard = Client_IO.requestPlayerHand()[0]; SelectedSpace = 0;}
@@ -43,7 +44,7 @@ public interface TUI_Inputs {
 
                 //misc
                 case "u" -> {Client_IO.requestUpdate(); InputResolved=true;}
-                case "s" -> {Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]); Client_Game.ChangeScene(3);  InputResolved=true;}
+                case "s" -> {Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]); Client_Game.ChangeScene(GameStates.PLAY);  InputResolved=true;}
                 case "f" -> {if(SelectedSpace!=-1){Client_IO.FlipCard_inPos(SelectedSpace);  InputResolved=true;}}
 
                 case "n" -> {TUI.AdjustScale(1); InputResolved=true;}
@@ -75,7 +76,7 @@ public interface TUI_Inputs {
                     TUI.removeSpace(formattedIndex);
                     ClientConstants.SelectedCard=0;
                     SelectedSpace=-1;
-                    Client_Game.ChangeScene(2);
+                    Client_Game.ChangeScene(GameStates.DRAW);
                     InputResolved=true;
 
                 }
