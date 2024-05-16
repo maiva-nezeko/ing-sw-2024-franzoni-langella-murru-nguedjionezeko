@@ -77,7 +77,8 @@ public class HelperMethods {
     {
         if(Array.length()<=1){return null;}
 
-        String[] SplitArray = Array.replace("[", "").replace("]", "").replace(" ", "").split(":");
+        String[] SplitArray = Array.replace("[", "").replace("]", "").replace(" ", "")
+                .replace(";", "").split(":");
         int Columns = SplitArray.length/2;
 
         int[][] result = new int[SplitArray.length][Columns];

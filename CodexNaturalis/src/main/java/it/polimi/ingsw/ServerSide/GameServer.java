@@ -139,6 +139,7 @@ public class GameServer extends Thread{
                     IntegerInString = Integer.parseInt(message[2]);
                     Server_IO.DrawCard(IntegerInString, username);
                     sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
+                    game.changePlayerTurn();
                     break;
 
                 case "ChooseGoalCard":

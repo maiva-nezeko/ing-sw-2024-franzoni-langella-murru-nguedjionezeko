@@ -7,13 +7,18 @@ import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
 /**
  * all the command a player can play are manage here, like drawing cards, choosing the position in the board
  * select goal and starting cards and check if the space in the board you chose are valid and if you can play the card */
 public interface TUI_Inputs {
     static void waitForInput() {
 
-        if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){return;}
+        if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){
+            TUI.renderTUI();
+            return;
+        }
 
         boolean InputResolved = false; boolean playedFlag;
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
@@ -48,7 +53,7 @@ public interface TUI_Inputs {
                 case "u" -> {Client_IO.requestUpdate(); InputResolved=true;}
                 case "s" -> {
                     if(Client_Game.getCurrentScene().equals(GameStates.PLACE_STARTING)){
-                    Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]); Client_Game.ChangeScene(GameStates.PLAY);  InputResolved=true;}
+                        Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]); InputResolved=true;}
                 }
                 case "f" -> {if(SelectedSpace!=-1){Client_IO.FlipCard_inPos(SelectedSpace);  InputResolved=true;}}
 
@@ -94,5 +99,6 @@ public interface TUI_Inputs {
         }
 
         Client_IO.requestUpdate();
+        TUI.renderTUI();
     }
 }

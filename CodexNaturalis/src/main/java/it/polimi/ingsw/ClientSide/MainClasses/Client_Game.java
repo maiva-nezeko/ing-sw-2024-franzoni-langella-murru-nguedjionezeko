@@ -5,6 +5,7 @@ import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GameWindow;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
 import main.java.it.polimi.ingsw.ClientSide.GameClient;
+import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import javax.swing.*;
@@ -208,6 +209,7 @@ public class Client_Game implements Runnable {
         {
             ChangeScene(GameStates.CHOOSE_GOAL);
             Client_IO.requestUpdate();
+            TUI.renderTUI();
         }
 
 

@@ -50,7 +50,7 @@ public class TUI {
      * The Grid as a String matrix (to fill with Cards).
      */
     static String[][] GridString = new String[TUIGridSizes[0]][TUIGridSizes[1]];
-    private static void fillGridString() {
+    private static void flushGridString() {
 
         for (int RowIndex = 0; RowIndex < GridString.length; RowIndex ++) {
             for (int ColIndex = 0; ColIndex < GridString[0].length; ColIndex ++ ) {
@@ -93,7 +93,8 @@ public class TUI {
         int[][] Grid = Client_IO.getCurrentPlayerGrid();
 
         if(Grid!=null){
-            fillGridString();
+            if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){ System.out.println("Spectating Current Player"); }
+            flushGridString();
             updateGrid(Grid, Grid.length * 7 / 2, Grid[0].length * 9 / 2, Grid.length / 2, Grid[0].length / 2);
             flushExploredIDS();
 
@@ -102,16 +103,8 @@ public class TUI {
 
         paintInfo();
         printSceneInfo();
+
         TUI_Inputs.waitForInput();
-
-        if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER))
-        {
-            try{
-                TimeUnit.SECONDS.sleep(20);
-                Client_IO.requestUpdate();
-            }catch (InterruptedException e){ e.printStackTrace(); }
-
-        }
 
     }
 

@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The type Client io.
@@ -116,13 +117,14 @@ public class Client_IO {
 
                 if(ClientConstants.isGameStarted()){
                     setGame_usernames(getUsernamesString().split(","));
+                    requestUpdate();
                 }
 
             }
 
             else {
 
-                MyTurn = GameClient.listenForResponse("SendCurrentTurn," + username).equals("true");
+                MyTurn = GameClient.listenForResponse("SendCurrentTurn," + username).contains("true");
                 System.out.println("IsTurn: " + MyTurn + " ");
 
                 if(MyTurn){  System.out.println("RequestingSocketUpdate");
@@ -130,7 +132,6 @@ public class Client_IO {
 
                 if(ClientConstants.getGUI()){
                     FULL_GUI.updateGUI();}
-                else{ TUI.renderTUI(); }
             }
         }
 
@@ -140,8 +141,10 @@ public class Client_IO {
             try {
                 if(!ClientConstants.isGameStarted()){
                     ClientConstants.setGameStarted(UpdateObject.GameStarted(username)); System.out.println(" GameStarted: "+ ClientConstants.isGameStarted() + " ");
+
                     if(ClientConstants.isGameStarted()){
                         setGame_usernames(getUsernamesString().split(","));
+                        requestUpdate();
                     }
                 }
                 else{
@@ -160,7 +163,6 @@ public class Client_IO {
 
                     if(ClientConstants.getGUI()){
                         FULL_GUI.updateGUI();}
-                    else{ TUI.renderTUI(); }
                 }
 
             }catch (RemoteException e){e.printStackTrace();}
@@ -169,7 +171,7 @@ public class Client_IO {
 
     }
 
-    private static void requestSocketUpdate() {
+    private static void requestSocketUpdate(){
 
         String[] SocketUpdate = GameClient.listenForResponse("SendUpdate," + username).split(";");
         System.out.println("UpdateReceived");
@@ -272,8 +274,11 @@ public class Client_IO {
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("PlaceStartingCard," +username +","+ selectedCard);}
         else{try { UpdateObject.RMI_PlaceStartingCard(selectedCard, username);}catch (RemoteException e){e.printStackTrace();}}
 
-        Client_Game.ChangeScene(GameStates.PLAY);
         if(ClientConstants.getGUI()){ requestUpdate(); }
+
+        if(MyTurn){Client_Game.ChangeScene(GameStates.PLAY);}
+        else {Client_Game.ChangeScene(GameStates.SPECTATE_PLAYER);}
+
     }
 
     /**
@@ -379,15 +384,15 @@ public class Client_IO {
     }
 
     private static final double second = (1000000000.0);
-    private static final double timePerUpdate = 20*second;
+    private static final double timePerUpdate = 10*second;
     private static long lastUpdateTime = System.nanoTime();
     private static int[][] lastPlayerGrid = null;
 
     public static int[][] getCurrentPlayerGrid()
     {
-        if(MyTurn){return lastUpdatedGrid;}
+        if(!Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){return lastUpdatedGrid;}
 
-        if((System.nanoTime() > lastUpdateTime + timePerUpdate))
+        if((System.nanoTime() >= lastUpdateTime + timePerUpdate))
         {
             lastUpdateTime = System.nanoTime();
             if(ClientConstants.getGUI()){ requestUpdate(); }
@@ -401,7 +406,19 @@ public class Client_IO {
             Client_Game.ChangeScene(GameStates.PLAY);
             lastPlayerGrid = null;
         }
-        return lastPlayerGrid;
+
+        if(ClientConstants.getGUI()){ return lastPlayerGrid; }
+
+
+        try
+        {
+            TimeUnit.SECONDS.sleep((long) (timePerUpdate/second));
+            requestUpdate();
+            if(MyTurn){Client_Game.ChangeScene(GameStates.PLAY); return lastUpdatedGrid; }
+
+        }catch (InterruptedException e){e.printStackTrace();}
+
+        return null;
 
     }
 
