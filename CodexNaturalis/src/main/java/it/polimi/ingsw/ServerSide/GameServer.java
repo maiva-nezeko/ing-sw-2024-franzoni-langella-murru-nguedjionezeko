@@ -59,7 +59,9 @@ public class GameServer extends Thread{
     public void resetTimer(boolean fromGameServer){
         previousTime = System.nanoTime();
 
-        if(fromGameServer){TimeoutNumber++;}
+        if(fromGameServer){
+            TimeoutNumber++;
+        }
         else {
             TimeoutNumber=0;
             ServerConstants.printMessageLn("Timer reset");

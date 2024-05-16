@@ -190,6 +190,12 @@ public class  Game {
     }
 
     public void changePlayerTurn(){
+        //player disconnected before draw phase, we draw a card for him
+        // drawCard automatically ignore the request if the player has a full hand
+        Player currentPlayer = getPlayers().get(CurrentPlayerTurn);
+        getRelatedTable().drawRandom(currentPlayer.getUsername());
+
+
         if(CurrentPlayerTurn+1== this.getPlayerCount())
         {
             if(GameState == GameStates.LAST_TURN){ GameState = GameStates.GAME_ENDED; this.end(); }

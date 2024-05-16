@@ -175,5 +175,10 @@ public class Table {
         for(int ColumnIndex=0; ColumnIndex<ServerConstants.getNumOfRows()/2; ColumnIndex++)
         {this.OccupiedSpaces[player][Rowindex][ColumnIndex] = 0;}}}
 
+    public void drawRandom(String username) {
+        for (int index=0; index<6; index++){
+            if(PublicSpacesID[index]!=0){ DrawCard(index, username); break; }
+        }
+    }
 }
 
