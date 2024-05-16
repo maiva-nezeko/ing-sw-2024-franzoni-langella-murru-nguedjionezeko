@@ -21,7 +21,7 @@ public class GameServer extends Thread{
     private int port;
     private DatagramSocket socket;
     private int IntegerInString;
-    private final Game game;
+    private Game game;
     private boolean running;
 
     private int TimeoutNumber=-1;
@@ -101,13 +101,11 @@ public class GameServer extends Thread{
             }
             String[] message = new String(packet.getData()).trim().split(",");
             ServerConstants.printMessageLn(Arrays.toString(message));
-            //ServerConstants.printmessage("Client ["+packet.getAddress() +" "+ packet.getPort()  + "] > " + Arrays.toString(message));
+            ServerConstants.printMessage("Client ["+packet.getAddress() +" "+ packet.getPort()  + "] > " + Arrays.toString(message));
 
             String ack = "ack";
             String username = message[1];
             String response;
-
-            assert game!= null;
 
             switch (message[0]) {
 
@@ -124,11 +122,9 @@ public class GameServer extends Thread{
                     break;
 
                 case  "SendCurrentTurn":
-                    if(game.getCurrentPlayerTurn() == game.getPlayerNumber(username))
-                    {sendData("true".getBytes(), packet.getAddress(), packet.getPort());}
-                    else{sendData("false".getBytes(), packet.getAddress(), packet.getPort());}
+                    if(game.getCurrentPlayerTurn() == game.getPlayerNumber(username)){ sendData("true".getBytes(), packet.getAddress(), packet.getPort());}
+                    else{ sendData("false".getBytes(), packet.getAddress(), packet.getPort());}
                     break;
-
 
                 //modifiers
                 case "Flip":
@@ -157,7 +153,7 @@ public class GameServer extends Thread{
                     sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
-                case "playCardByIndex":
+                case "layCardByIndex":
                     ServerConstants.printMessageLn("Requested Play " + message[2] + " " + message[3] + " " + message[4]);
                     String returnValue = "false";
 

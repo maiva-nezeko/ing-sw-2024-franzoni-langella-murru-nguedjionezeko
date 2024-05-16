@@ -127,8 +127,8 @@ public class Client_IO {
                 MyTurn = GameClient.listenForResponse("SendCurrentTurn," + username).contains("true");
                 System.out.println("IsTurn: " + MyTurn + " ");
 
-                if(MyTurn){  System.out.println("RequestingSocketUpdate");
-                    requestSocketUpdate();}
+                System.out.println("RequestingSocketUpdate");
+                requestSocketUpdate();
 
                 if(ClientConstants.getGUI()){
                     FULL_GUI.updateGUI();}
@@ -150,7 +150,8 @@ public class Client_IO {
                 else{
 
                     UpdateObject.update(username);
-                    MyTurn = UpdateObject.isTurn(username); System.out.println("IsTurn: " + MyTurn);
+                    MyTurn = UpdateObject.isTurn(username);
+                    System.out.println("IsTurn: " + MyTurn);
 
 
                     playerCount = UpdateObject.RMI_getCurrentPlayerCount();
@@ -344,7 +345,8 @@ public class Client_IO {
      */
     public static String JoinGame()
     {
-        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("JoinPackage,"+username);}
+        if(ClientConstants.getSocket())
+        { return GameClient.listenForResponse("JoinPackage,"+username);}
         else{ if(!RMI_Set){setRMI();}
             try{ return UpdateObject.JoinGame(username);} catch (RemoteException e ){e.printStackTrace();}}
         return "Client_Failed";
@@ -398,8 +400,10 @@ public class Client_IO {
             if(ClientConstants.getGUI()){ requestUpdate(); }
 
             if(!MyTurn){
-                if(ClientConstants.getSocket()) { lastPlayerGrid = HelperMethods.FormattedStringToMatrix(GameClient.listenForResponse("getCurrentPlayerGrid,"+username));}
-                else{ if(!RMI_Set){setRMI();} try{ lastPlayerGrid = UpdateObject.RMI_getCurrentPlayerGrid(); } catch (RemoteException e ){e.printStackTrace();}}
+                if(ClientConstants.getSocket())
+                { lastPlayerGrid = HelperMethods.FormattedStringToMatrix(GameClient.listenForResponse("getCurrentPlayerGrid,"+username));}
+                else{ if(!RMI_Set){setRMI();}
+                    try{ lastPlayerGrid = UpdateObject.RMI_getCurrentPlayerGrid(); } catch (RemoteException e ){e.printStackTrace();}}
                 return lastPlayerGrid;
             }
 
