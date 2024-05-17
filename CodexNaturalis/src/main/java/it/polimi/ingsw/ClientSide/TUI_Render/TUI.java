@@ -19,14 +19,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class TUI {
 
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_PURPLE = "\u001B[35m";
-
-    private static final String ANSI_YELLOW = "\u001B[33m";
-
     private static final int[][] ScalingThresholdsCOL = {{15,25},{10,30},{5,35},{0,40},{0,40},{0,40},{0,40}};
     private static final int[][] ScalingThresholdsROW = {{35,45},{30,50},{25,55},{20,60},{15,65},{10,70},{0,79}};
     private static int TUI_Scale = 0;
@@ -36,10 +28,6 @@ public class TUI {
         if(TUI_Scale<0){TUI_Scale=0;}
         if(TUI_Scale>=ScalingThresholdsROW.length){TUI_Scale=ScalingThresholdsROW.length-1;}
     }
-
-
-
-    private static final String[] Colors = new String[]{ANSI_RED, ANSI_BLUE, ANSI_GREEN, ANSI_PURPLE, ANSI_YELLOW, ANSI_RESET };
 
 
     /**
@@ -93,7 +81,7 @@ public class TUI {
         int[][] Grid = Client_IO.getCurrentPlayerGrid();
 
         if(Grid!=null){
-            if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){ System.out.println("Spectating Current Player"); }
+            if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){ System.out.println("Spectating "+Client_IO.requestCurrentPlayerName()); }
             flushGridString();
             updateGrid(Grid, Grid.length * 7 / 2, Grid[0].length * 9 / 2, Grid.length / 2, Grid[0].length / 2);
             flushExploredIDS();
@@ -239,12 +227,7 @@ public class TUI {
             return;
         }
 
-
-
-        String color_code = Colors[card.getColor()];
-        if(ClientConstants.SelectedCard == card.getId() && card.getId()!=0){ color_code = Colors[4]; }
-
-        for(String character: card.getText(isFlipped)[row]){ System.out.print(color_code+character+ANSI_RESET); }
+        for(String character: card.getText(isFlipped)[row]){ System.out.print(character); }
     }
 
     /**
@@ -290,8 +273,7 @@ public class TUI {
            for(int RowIndex = Row_pos-2; RowIndex<=Row_pos+2; RowIndex++){
 
                for(int ColIndex = Col_pos-4; ColIndex<=Col_pos+4; ColIndex++){
-                   String color_code = Colors[card.getColor()];
-                   GridString[RowIndex][ColIndex] = color_code+CardRows[CardRow][CardCol]+ANSI_RESET;
+                   GridString[RowIndex][ColIndex] = CardRows[CardRow][CardCol];
                    CardCol++;
                }
 

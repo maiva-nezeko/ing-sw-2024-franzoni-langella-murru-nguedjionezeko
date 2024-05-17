@@ -48,37 +48,46 @@ public class GameClient extends Thread{
         byte[] data = new byte[1024*10];
         DatagramPacket packet = new DatagramPacket(data, data.length);
 
-        boolean unmodified = true;
-        int tries = 0;
-        double timePerUpdate = (10000000000.0); long previousTime = System.nanoTime();
         sendData(message.getBytes());
 
-        while (unmodified)
-        {
-            if(System.nanoTime() == previousTime+timePerUpdate){
-                previousTime = System.nanoTime();
-                tries ++; sendData(message.getBytes());
-                if(tries==5){System.out.println("Unable to reach server"); System.exit(1);}}
 
-            try {
-                socket.receive(packet);
+        try {
+            socket.receive(packet);
 
-                String Response_message = new String (packet.getData(), StandardCharsets.UTF_8);
-                //System.out.println("Server >" + Response_message.trim());
+            String Response_message = new String (packet.getData(), StandardCharsets.UTF_8);
+            //System.out.println("Server >" + Response_message.trim());
 
-                unmodified = false;
-                return Response_message.trim();
+            return Response_message.trim();
 
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
+        } catch (IOException e) {
+            ClientExceptionHandler.ServerUnreachable(new RuntimeException(e));
         }
 
-        return packet.toString();
-
-
+        return ("Unable to reach server");
     }
+
+    public static String checkIfClosed(String username, int port) {
+        byte[] data = new byte[1024*10];
+        DatagramPacket packet = new DatagramPacket(data, data.length);
+
+        DatagramPacket sendPacket = new DatagramPacket(data, data.length, ipAddress, port);
+        try {
+            socket.send(sendPacket);
+        } catch (IOException e) {
+            return ("Unable to reach server");
+        }
+
+        try {
+            socket.receive(packet);
+            String Response_message = new String (packet.getData(), StandardCharsets.UTF_8);
+
+            return Response_message.trim();
+
+        } catch (IOException e) {
+            return ("Unable to reach server");
+        }
+    }
+
 
     /**
      * Send data.
@@ -95,5 +104,6 @@ public class GameClient extends Thread{
                 throw new RuntimeException(e);
             }}
     }
+
 
 }

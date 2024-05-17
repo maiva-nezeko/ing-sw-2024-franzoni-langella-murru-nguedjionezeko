@@ -1,6 +1,7 @@
 package main.java.it.polimi.ingsw.ClientSide;
 
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
+import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
@@ -8,6 +9,7 @@ import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 import main.java.it.polimi.ingsw.ClientSide.Utility.HelperMethods;
 import main.java.it.polimi.ingsw.Rmi.ServerRMI;
 
+import javax.swing.*;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -40,8 +42,9 @@ public class Client_IO {
     private static int[] lastUpdatedHand = new int[6];
 
     private static int playerCount;
-
     private static String username;
+    private static String currentPlayer;
+    public static String requestCurrentPlayerName() { return currentPlayer;  }
 
     /**
      * Set username.
@@ -124,7 +127,7 @@ public class Client_IO {
 
             else {
 
-                MyTurn = GameClient.listenForResponse("SendCurrentTurn," + username).contains("true");
+                MyTurn = getCurrentTurn();
                 System.out.println("IsTurn: " + MyTurn + " ");
 
                 System.out.println("RequestingSocketUpdate");
@@ -150,7 +153,7 @@ public class Client_IO {
                 else{
 
                     UpdateObject.update(username);
-                    MyTurn = UpdateObject.isTurn(username);
+                    MyTurn = getCurrentTurn();
                     System.out.println("IsTurn: " + MyTurn);
 
 
@@ -166,7 +169,7 @@ public class Client_IO {
                         FULL_GUI.updateGUI();}
                 }
 
-            }catch (RemoteException e){e.printStackTrace();}
+            }catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}
 
         }
 
@@ -194,6 +197,14 @@ public class Client_IO {
         lastUpdatedScore = HelperMethods.FormattedStringToArray(SocketUpdate[4]);
         System.out.println("lastUpdatedScore: " + Arrays.toString(lastUpdatedScore));
 
+    }
+
+    private static boolean getCurrentTurn() {
+        if(ClientConstants.getSocket()) { currentPlayer = GameClient.listenForResponse("SendCurrentTurn," + username); }
+        else{ try { currentPlayer = UpdateObject.isTurn(username);}catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
+
+
+        return currentPlayer.equals(username);
     }
 
 
@@ -237,7 +248,7 @@ public class Client_IO {
         if(!Client_Game.getCurrentScene().equals(GameStates.PLAY) && !Client_Game.getCurrentScene().equals(GameStates.PLACE_STARTING)){return;}
 
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("Flip," +username +","+ position);}
-        else{ try { UpdateObject.RMI_Flip(position, username); }catch (RemoteException e){e.printStackTrace();}}
+        else{ try { UpdateObject.RMI_Flip(position, username); }catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
 
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
@@ -255,7 +266,7 @@ public class Client_IO {
 
         System.out.println("Requesting Card Draw at position "+position);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("Draw," +username +","+ position);}
-        else{try {UpdateObject.RMI_DrawCard(position, username);} catch (RemoteException e){e.printStackTrace();}}
+        else{try {UpdateObject.RMI_DrawCard(position, username);} catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
 
         if(ClientConstants.getGUI()){ requestUpdate(); }
         Client_Game.ChangeScene(GameStates.SPECTATE_PLAYER);
@@ -273,7 +284,7 @@ public class Client_IO {
 
         System.out.println("PlaceStartingCard," +username +","+ selectedCard);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("PlaceStartingCard," +username +","+ selectedCard);}
-        else{try { UpdateObject.RMI_PlaceStartingCard(selectedCard, username);}catch (RemoteException e){e.printStackTrace();}}
+        else{try { UpdateObject.RMI_PlaceStartingCard(selectedCard, username);}catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
 
         if(ClientConstants.getGUI()){ requestUpdate(); }
 
@@ -294,7 +305,7 @@ public class Client_IO {
 
         System.out.println("ChooseGoalCard," +username +","+ position);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("ChooseGoalCard," +username +","+ position);}
-        else{try { UpdateObject.RMI_ChooseGoalCard(position, username);}catch (RemoteException e){e.printStackTrace();}}
+        else{try { UpdateObject.RMI_ChooseGoalCard(position, username);}catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
 
         Client_Game.ChangeScene(GameStates.PLACE_STARTING);
         if(ClientConstants.getGUI()){ requestUpdate(); }
@@ -319,7 +330,7 @@ public class Client_IO {
         if (ClientConstants.getSocket())
         { returnValue = GameClient.listenForResponse("playCardByIndex," + username +","+ Row_index + "," + Columns_index + "," + id).equals("true"); }
 
-        else{ try { returnValue = UpdateObject.RMI_PlayCardByIndex(Row_index, Columns_index, id, username); }catch (RemoteException e){e.printStackTrace();}}
+        else{ try { returnValue = UpdateObject.RMI_PlayCardByIndex(Row_index, Columns_index, id, username); }catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
 
         if(returnValue){ if(ClientConstants.getGUI()){ requestUpdate(); }}
         return returnValue;
@@ -331,7 +342,7 @@ public class Client_IO {
     public static void getNewPort(){
         int NewPort = 0;
         if(ClientConstants.getSocket()) { NewPort = Integer.parseInt(GameClient.listenForResponse("getNewPort," +username)); }
-        else{ try { NewPort = UpdateObject.RMI_getNewPort(username); setRMI(); }catch (RemoteException e){e.printStackTrace();}}
+        else{ try { NewPort = UpdateObject.RMI_getNewPort(username); setRMI(); }catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
         ClientConstants.setPort(NewPort);
         System.out.println("NewPort = " + NewPort);
 
@@ -348,7 +359,7 @@ public class Client_IO {
         if(ClientConstants.getSocket())
         { return GameClient.listenForResponse("JoinPackage,"+username);}
         else{ if(!RMI_Set){setRMI();}
-            try{ return UpdateObject.JoinGame(username);} catch (RemoteException e ){e.printStackTrace();}}
+            try{ return UpdateObject.JoinGame(username);} catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
         return "Client_Failed";
     }
 
@@ -361,7 +372,7 @@ public class Client_IO {
     public static String Reconnect(int port)
     {
         if(ClientConstants.getSocket()) { return GameClient.listenForResponse("AttemptingReconnection,"+username+","+port);}
-        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.Reconnect(username, port); } catch (RemoteException e ){e.printStackTrace();}}
+        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.Reconnect(username, port); } catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
         return "Client_Failed";
     }
 
@@ -374,14 +385,13 @@ public class Client_IO {
     public static String CreateGame(int playerCount)
     {
         if(ClientConstants.getSocket()) { return GameClient.listenForResponse("CreateGame,"+username+','+playerCount);}
-        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.CreateGame(username, playerCount); } catch (RemoteException e ){e.printStackTrace();}}
+        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.CreateGame(username, playerCount); } catch (RemoteException e ){ ClientExceptionHandler.ServerUnreachable(e);}}
         return "Client_Failed";
     }
-
     public static String getUsernamesString()
     {
         if(ClientConstants.getSocket()) { return GameClient.listenForResponse("getUsernames,"+username);}
-        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.RMI_getUsernames(); } catch (RemoteException e ){e.printStackTrace();}}
+        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.RMI_getUsernames(); } catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
         return "Client_Failed";
     }
 
@@ -403,7 +413,7 @@ public class Client_IO {
                 if(ClientConstants.getSocket())
                 { lastPlayerGrid = HelperMethods.FormattedStringToMatrix(GameClient.listenForResponse("getCurrentPlayerGrid,"+username));}
                 else{ if(!RMI_Set){setRMI();}
-                    try{ lastPlayerGrid = UpdateObject.RMI_getCurrentPlayerGrid(); } catch (RemoteException e ){e.printStackTrace();}}
+                    try{ lastPlayerGrid = UpdateObject.RMI_getCurrentPlayerGrid(); } catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
                 return lastPlayerGrid;
             }
 

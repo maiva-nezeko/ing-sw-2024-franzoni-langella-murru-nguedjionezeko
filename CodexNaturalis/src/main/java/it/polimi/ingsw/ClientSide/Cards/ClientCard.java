@@ -36,13 +36,28 @@ public class ClientCard {
     /**
      * The resources found on the Cards associated to a symbol, listed in an array.
      */
-    String[] Emojis = {" ", "\033[0;107m"+"0", "\033[41m"+"&", "$", "%", "#", "~", "*", "@", "-", "|", "." };
-    //empty, blank⬜, mushroom🍄‍, wolf🐺, leaf🍃, butterfly🦋, feather🕊️, salt🧂, paper📜, Dash, UPDash, point
+    String[] Emojis = {" ", "\033[0;107m"+"0"+ANSI_RESET, ANSI_RED+"&"+ANSI_RESET, ANSI_BLUE+"$"+ANSI_RESET, ANSI_GREEN+"%"+ANSI_RESET, ANSI_PURPLE+"#"+ANSI_RESET,
+            ANSI_YELLOW+"~"+ANSI_RESET, ANSI_YELLOW+"*"+ANSI_RESET, ANSI_YELLOW+"@"+ANSI_RESET,
+            "-", "|", ".", "+" };
+    //empty, blank⬜, mushroom🍄‍, wolf🐺, leaf🍃, butterfly🦋, feather🕊️, salt🧂, paper📜, Dash, UPDash, point, plus
+    String Dash = Emojis[9];
+    String UP = Emojis[10];
+    String point = Emojis[11];
+    String plus = Emojis[12];
 
     /**
      * The Number associated with a resource - for calculating scorePoints, listed in an int array.
      */
     String[] NumberEmojis = {"0", "1", "2", "3", "4", "5"};
+
+
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String[] Colors = new String[]{ANSI_RED, ANSI_BLUE, ANSI_GREEN, ANSI_PURPLE, ANSI_YELLOW, ANSI_RESET };
 
     /**
      * Instantiates a new Client card.
@@ -85,11 +100,6 @@ public class ClientCard {
         this.referenceImage = rI.getSubimage(544, SubImg_yCoord, 544, 378);
 
 
-
-
-
-
-
         this.ImagePath = ImagePath; this.id = id;
         this.Corners = Corners;
 
@@ -101,106 +111,7 @@ public class ClientCard {
         if(altCorners!=null){this.AltCorners = altCorners;}
         else{this.AltCorners = new int[]{1,1,1,1}; }
 
-        Text[0] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
-        Text[2] = new String[]{Emojis[10], " ", " ", " ", ".", " ", " ", " ",Emojis[10]};
-        Text[4] = new String[]{"+","-","-","-","-","-","-","-","+"};
-
-        Text[5] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
-        Text[9] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
-
-
-
-        if(goalState==null) {
-            if(pointCond==null){
-                Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", " ", " ", " ", " ", Emojis[Corners[1]], Emojis[10] };
-            }
-            else{ switch (pointCond)
-                {
-                    case ONE_POINT_FLAT ->      Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", " ", NumberEmojis[1], " ", " ", Emojis[Corners[1]], Emojis[10]  };
-                    case THREE_POINT_FLAT ->    Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", " ", NumberEmojis[3], " ", " ", Emojis[Corners[1]], Emojis[10]  };
-                    case FIVE_POINT_FLAT ->     Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", " ", NumberEmojis[5], " ", " ", Emojis[Corners[1]], Emojis[10]  };
-                    case ONE_FOR_FEATHER ->     Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", NumberEmojis[1], " ", Emojis[6], " ", Emojis[Corners[1]], Emojis[10] };
-                    case ONE_FOR_SALT ->        Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", NumberEmojis[1], " ", Emojis[7], " ", Emojis[Corners[1]], Emojis[10] };
-                    case ONE_FOR_PAPER ->       Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", NumberEmojis[1], " ", Emojis[8], " ", Emojis[Corners[1]], Emojis[10]  };
-                    case TWO_FOR_CORNER ->      Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", NumberEmojis[2], " ", Emojis[1], " ", Emojis[Corners[1]], Emojis[10]  };
-
-                }
-            }
-
-            if (playCond == null) {
-
-                Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", " ", " ", " ", " ", Emojis[Corners[3]], Emojis[10]  };
-
-            }
-            else { switch (playCond){
-                case TWO_SAME_ONE_RED ->    Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[2], Emojis[color+2], Emojis[2], " ", Emojis[Corners[3]], Emojis[10]  };
-                case TWO_SAME_ONE_BLUE ->   Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[2], Emojis[color+2], Emojis[3], " ", Emojis[Corners[3]], Emojis[10]  };
-                case TWO_SAME_ONE_GREEN ->  Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[2], Emojis[color+2], Emojis[4], " ", Emojis[Corners[3]], Emojis[10] };
-                case TWO_SAME_ONE_PURPLE -> Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[2], Emojis[color+2], Emojis[5], " ", Emojis[Corners[3]], Emojis[10] };
-
-                case THREE_SAME -> Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], " ", Emojis[color+2], " ", Emojis[Corners[3]], Emojis[10] };
-
-                case THREE_SAME_ONE_RED ->      Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], Emojis[color+2], Emojis[2], " ", Emojis[Corners[3]], Emojis[10] };
-                case THREE_SAME_ONE_BLUE ->     Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], Emojis[color+2], Emojis[3], " ", Emojis[Corners[3]], Emojis[10] };
-                case THREE_SAME_ONE_GREEN ->    Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], Emojis[color+2], Emojis[4], " ", Emojis[Corners[3]], Emojis[10] };
-                case THREE_SAME_ONE_PURPLE ->   Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], Emojis[color+2], Emojis[5], " ", Emojis[Corners[3]], Emojis[10] };
-
-                case FIVE_SAME -> Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[5], " ", Emojis[color+2], " ", Emojis[Corners[3]], Emojis[10] };
-
-                }
-
-            }
-
-            Text[6] = new String[]{ Emojis[10],Emojis[AltCorners[0]], " ", " ", " ", " ", " ", Emojis[AltCorners[1]], Emojis[10] };
-            if(startingPoints == null){ Text[7] = new String[]{ Emojis[10]," ", " ", " ", Emojis[color+2], " ", " ", " ", Emojis[10] }; }
-            else{
-                switch (startingPoints){
-                    case STARTING_ONE_PURPLE -> Text[7] = new String[]{ Emojis[10]," ", " ", " ", Emojis[5], " ", " ", " ", Emojis[10] };
-                    case STARTING_ONE_RED ->    Text[7] = new String[]{ Emojis[10]," ", " ", " ", Emojis[2], " ", " ", " ", Emojis[10] };
-
-                    case STARTING_ONE_RED_ONE_GREEN ->      Text[7] = new String[]{ Emojis[10]," ", " ", Emojis[2], ".", Emojis[4], " ", " ", Emojis[10] };
-                    case STARTING_ONE_BLUE_ONE_PURPLE ->    Text[7] = new String[]{ Emojis[10]," ", " ", Emojis[3], ".", Emojis[5], " ", " ", Emojis[10] };
-
-                    case STARTING_ONE_BLUE_ONE_PURPLE_ONE_GREEN ->  Text[7] = new String[]{ Emojis[10]," ", " ", Emojis[3], Emojis[5], Emojis[4], " ", " ", Emojis[10] };
-                    case STARTING_ONE_GREEN_ONE_BLUE_ONE_RED ->     Text[7] = new String[]{ Emojis[10]," ", " ", Emojis[4], Emojis[3], Emojis[2], " ", " ", Emojis[10] };
-                }
-            }
-            Text[8] = new String[]{ Emojis[10],Emojis[AltCorners[1]], " ", " ", " ", " ", " ", Emojis[AltCorners[2]], Emojis[10] };
-        }
-        else
-        {
-            Text[1] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
-            Text[3] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
-
-            switch (goalState) {
-                case TWO_FOR_TWO_FEATHERS ->        Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[2], Emojis[6], " ", Emojis[10] };
-                case TWO_FOR_TWO_SALT ->            Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[2], Emojis[7], " ", Emojis[10] };
-                case TWO_FOR_TWO_PAPER ->           Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[2], Emojis[8], " ", Emojis[10] };
-
-                case THREE_FOR_COMBO ->             Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
-
-                case TWO_FOR_THREE_FUNGUS ->        Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[3], Emojis[2], " ", Emojis[10] };
-                case TWO_FOR_THREE_WOLF ->          Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[3], Emojis[3], " ", Emojis[10] };
-                case TWO_FOR_THREE_LEAF ->          Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[3], Emojis[4], " ", Emojis[10] };
-                case TWO_FOR_THREE_BUTTERFLY ->     Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[3], Emojis[5], " ", Emojis[10] };
-
-                case TWO_FOR_RED_STAIRCASE ->       Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
-                case TWO_FOR_BLUE_STAIRCASE ->      Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
-                case TWO_FOR_GREEN_STAIRCASE ->     Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
-                case TWO_FOR_PURPLE_STAIRCASE ->    Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
-
-                case THREE_FOR_RED_L ->             Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
-                case THREE_FOR_BLUE_L ->            Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
-                case THREE_FOR_GREEN_L ->           Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
-                case THREE_FOR_PURPLE_L ->          Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
-            }
-
-
-            Text[6] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
-            Text[7] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
-            Text[8] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
-
-        }
+        setText(goalState, pointCond, playCond, startingPoints);
 
     }
 
@@ -228,15 +139,6 @@ public class ClientCard {
     }
 
     /**
-     * Get image path as a string.
-     *
-     * @return the path
-     */
-    public String getImagePath(){
-        return this.ImagePath;
-    }
-
-    /**
      * Get text as in the TUI PlayBoard made of characters and symbols.
      *
      * @param isFlipped the boolean indicating if a Card is flipped
@@ -253,5 +155,146 @@ public class ClientCard {
      * @return the color
      */
     public int getColor() { return this.color; }
+
+    private void setText(GoalStates goalState, PointCondition pointCond, PlayCondition playCond, StartingPoints startingPoints)
+    {
+        Text[0] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
+        Text[2] = new String[]{Emojis[10], " ", " ", " ", ".", " ", " ", " ",Emojis[10]};
+        Text[4] = new String[]{"+","-","-","-","-","-","-","-","+"};
+
+        Text[5] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
+        Text[9] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
+
+        if(goalState != null){ setGoal(goalState); }
+        else{ setPlayableText(pointCond, playCond, startingPoints); }
+
+        fixText();
+
+    }
+
+    private void fixText() {
+
+        for(int RowIndex =0; RowIndex<Text.length; RowIndex++)
+        {
+            for(int charIndex =0; charIndex<Text[0].length; charIndex++)
+            {
+                switch (Text[RowIndex][charIndex])
+                {
+                    case "+","|","-","." -> Text[RowIndex][charIndex] = Colors[this.color]+Text[RowIndex][charIndex]+ANSI_RESET;
+                }
+            }
+        }
+
+    }
+
+    private void setPlayableText(PointCondition pointCond, PlayCondition playCond, StartingPoints startingPoints) {
+
+        if(pointCond==null) {
+            Text[1] = new String[]{Emojis[10], Emojis[Corners[0]], " ", " ", " ", " ", " ", Emojis[Corners[1]], Emojis[10]};
+        }
+        else { setPointCondition(pointCond) ;}
+
+        if(playCond == null)
+        {
+            Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", " ", " ", " ", " ", Emojis[Corners[3]], Emojis[10]  };
+        }
+        else { setPlayCondition(playCond); }
+
+        Text[6] = new String[]{ Emojis[10],Emojis[AltCorners[0]], " ", " ", " ", " ", " ", Emojis[AltCorners[1]], Emojis[10] };
+
+        if(startingPoints == null){ Text[7] = new String[]{ Emojis[10]," ", " ", " ", Emojis[color+2], " ", " ", " ", Emojis[10] }; }
+        else{ setStartingPoints(startingPoints );}
+
+        Text[8] = new String[]{ Emojis[10],Emojis[AltCorners[1]], " ", " ", " ", " ", " ", Emojis[AltCorners[2]], Emojis[10] };
+
+    }
+
+    private void setPointCondition(PointCondition pointCond) {
+
+        switch (pointCond)
+        {
+            case ONE_POINT_FLAT ->      Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", " ", NumberEmojis[1], " ", " ", Emojis[Corners[1]], Emojis[10]  };
+            case THREE_POINT_FLAT ->    Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", " ", NumberEmojis[3], " ", " ", Emojis[Corners[1]], Emojis[10]  };
+            case FIVE_POINT_FLAT ->     Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", " ", NumberEmojis[5], " ", " ", Emojis[Corners[1]], Emojis[10]  };
+            case ONE_FOR_FEATHER ->     Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", NumberEmojis[1], " ", Emojis[6], " ", Emojis[Corners[1]], Emojis[10] };
+            case ONE_FOR_SALT ->        Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", NumberEmojis[1], " ", Emojis[7], " ", Emojis[Corners[1]], Emojis[10] };
+            case ONE_FOR_PAPER ->       Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", NumberEmojis[1], " ", Emojis[8], " ", Emojis[Corners[1]], Emojis[10]  };
+            case TWO_FOR_CORNER ->      Text[1] = new String[]{ Emojis[10],Emojis[Corners[0]], " ", NumberEmojis[2], " ", Emojis[1], " ", Emojis[Corners[1]], Emojis[10]  };
+
+        }
+
+    }
+
+    private void setPlayCondition(PlayCondition playCond) {
+
+        switch (playCond){
+            case TWO_SAME_ONE_RED ->    Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[2], Emojis[color+2], Emojis[2], " ", Emojis[Corners[3]], Emojis[10]  };
+            case TWO_SAME_ONE_BLUE ->   Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[2], Emojis[color+2], Emojis[3], " ", Emojis[Corners[3]], Emojis[10]  };
+            case TWO_SAME_ONE_GREEN ->  Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[2], Emojis[color+2], Emojis[4], " ", Emojis[Corners[3]], Emojis[10] };
+            case TWO_SAME_ONE_PURPLE -> Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[2], Emojis[color+2], Emojis[5], " ", Emojis[Corners[3]], Emojis[10] };
+
+            case THREE_SAME -> Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], " ", Emojis[color+2], " ", Emojis[Corners[3]], Emojis[10] };
+
+            case THREE_SAME_ONE_RED ->      Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], Emojis[color+2], Emojis[2], " ", Emojis[Corners[3]], Emojis[10] };
+            case THREE_SAME_ONE_BLUE ->     Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], Emojis[color+2], Emojis[3], " ", Emojis[Corners[3]], Emojis[10] };
+            case THREE_SAME_ONE_GREEN ->    Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], Emojis[color+2], Emojis[4], " ", Emojis[Corners[3]], Emojis[10] };
+            case THREE_SAME_ONE_PURPLE ->   Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[3], Emojis[color+2], Emojis[5], " ", Emojis[Corners[3]], Emojis[10] };
+
+            case FIVE_SAME -> Text[3] = new String[]{ Emojis[10],Emojis[Corners[2]], " ", NumberEmojis[5], " ", Emojis[color+2], " ", Emojis[Corners[3]], Emojis[10] };
+
+        }
+    }
+
+    private void setStartingPoints(StartingPoints startingPoints) {
+
+        switch (startingPoints){
+            case STARTING_ONE_PURPLE -> Text[7] = new String[]{ Emojis[10]," ", " ", " ", Emojis[5], " ", " ", " ", Emojis[10] };
+            case STARTING_ONE_RED ->    Text[7] = new String[]{ Emojis[10]," ", " ", " ", Emojis[2], " ", " ", " ", Emojis[10] };
+
+            case STARTING_ONE_RED_ONE_GREEN ->      Text[7] = new String[]{ Emojis[10]," ", " ", Emojis[2], ".", Emojis[4], " ", " ", Emojis[10] };
+            case STARTING_ONE_BLUE_ONE_PURPLE ->    Text[7] = new String[]{ Emojis[10]," ", " ", Emojis[3], ".", Emojis[5], " ", " ", Emojis[10] };
+
+            case STARTING_ONE_BLUE_ONE_PURPLE_ONE_GREEN ->  Text[7] = new String[]{ Emojis[10]," ", " ", Emojis[3], Emojis[5], Emojis[4], " ", " ", Emojis[10] };
+            case STARTING_ONE_GREEN_ONE_BLUE_ONE_RED ->     Text[7] = new String[]{ Emojis[10]," ", " ", Emojis[4], Emojis[3], Emojis[2], " ", " ", Emojis[10] };
+        }
+
+    }
+
+
+    private void setGoal(GoalStates goalState) {
+
+        Text[1] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
+        Text[3] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
+
+        switch (goalState) {
+            case TWO_FOR_TWO_FEATHERS ->        Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[2], Emojis[6], " ", Emojis[10] };
+            case TWO_FOR_TWO_SALT ->            Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[2], Emojis[7], " ", Emojis[10] };
+            case TWO_FOR_TWO_PAPER ->           Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[2], Emojis[8], " ", Emojis[10] };
+
+            case THREE_FOR_COMBO ->             Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
+
+            case TWO_FOR_THREE_FUNGUS ->        Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[3], Emojis[2], " ", Emojis[10] };
+            case TWO_FOR_THREE_WOLF ->          Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[3], Emojis[3], " ", Emojis[10] };
+            case TWO_FOR_THREE_LEAF ->          Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[3], Emojis[4], " ", Emojis[10] };
+            case TWO_FOR_THREE_BUTTERFLY ->     Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[3], Emojis[5], " ", Emojis[10] };
+
+            case TWO_FOR_RED_STAIRCASE ->       Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
+            case TWO_FOR_BLUE_STAIRCASE ->      Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
+            case TWO_FOR_GREEN_STAIRCASE ->     Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
+            case TWO_FOR_PURPLE_STAIRCASE ->    Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
+
+            case THREE_FOR_RED_L ->             Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
+            case THREE_FOR_BLUE_L ->            Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
+            case THREE_FOR_GREEN_L ->           Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
+            case THREE_FOR_PURPLE_L ->          Text[2] = new String[]{ Emojis[10]," ", " ", " ", " ", " ", " ", " ", Emojis[10] };
+        }
+
+
+        Text[6] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
+        Text[7] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
+        Text[8] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
+
+
+    }
 
 }

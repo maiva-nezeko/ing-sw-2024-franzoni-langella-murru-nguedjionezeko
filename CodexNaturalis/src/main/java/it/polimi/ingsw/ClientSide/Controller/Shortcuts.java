@@ -22,7 +22,7 @@ public interface Shortcuts {
     static void CreateLoop(int playerCount, GamePanel gamePanel)
     {
         if(!Client_IO.CreateGame(playerCount).contains("Joining")){
-            BackToMenu("Creation request", gamePanel);}
+            BackToMenu("The server has not accepted your Creation request", gamePanel);}
         else{
             Client_IO.getNewPort();
             Client_Game.ChangeScene(GameStates.CHOOSE_GOAL);
@@ -33,7 +33,7 @@ public interface Shortcuts {
 
     static void BackToMenu(String Reason, GamePanel gamePanel)
     {
-        JOptionPane.showMessageDialog(gamePanel, "The server has not accepted your "+Reason);
+        gamePanel.showMessage(Reason);
         Client_Game.ChangeScene(GameStates.MAIN_MENU);
     }
 
@@ -76,7 +76,7 @@ public interface Shortcuts {
 
         if(Client_IO.Reconnect(Integer.parseInt(port)).contains("Reconnecting")){ FULL_GUI.updateGUI(); Client_Game.ChangeScene(GameStates.PLAY);  return; }
 
-        Shortcuts.BackToMenu("Reconnection attempt", gamePanel);
+        Shortcuts.BackToMenu("The server has not accepted your reconnection attempt", gamePanel);
 
     }
 

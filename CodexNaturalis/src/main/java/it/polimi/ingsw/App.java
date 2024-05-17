@@ -51,7 +51,8 @@ public class App
             Server_IO.ServerRMI_impl UpdatedRMI;
 
             GameServer mainServer = new GameServer(1330, null);
-            mainServer.start();
+            Thread mainGameThread = new Thread(mainServer);
+            mainGameThread.start();
 
             try {
                 Registry reg = LocateRegistry.createRegistry(1331);

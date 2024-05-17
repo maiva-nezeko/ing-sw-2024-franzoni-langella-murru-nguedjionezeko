@@ -50,18 +50,8 @@ public class RenderPlayer {
         }
 
 
-        if(scene.equals(GameStates.PLAY) || scene.equals(GameStates.DRAW) || scene.equals(GameStates.SPECTATE_PLAYER)){
+        if(scene.equals(GameStates.PLAY) || scene.equals(GameStates.DRAW) || scene.equals(GameStates.SPECTATE_PLAYER)){ paintPlayerToken(g, scene);}
 
-            if(playerCount == 1){
-                paintPlayerToken(g, 0, scene);}
-            if(playerCount==2){
-                paintPlayerToken(g, 0, scene); paintPlayerToken(g, 1, scene);}
-            if(playerCount==3){
-                paintPlayerToken(g,0, scene); paintPlayerToken(g, 1, scene); paintPlayerToken(g, 2, scene);}
-            if(playerCount==4){
-                paintPlayerToken(g, 0, scene); paintPlayerToken(g,1, scene);
-                paintPlayerToken(g,2, scene);
-                paintPlayerToken(g, 3, scene);}}
 
     }
 
@@ -70,19 +60,20 @@ public class RenderPlayer {
      * be placed, the scoreboard and the color of his pawn.
      *
      * @param g the graphics of the game
-     * @param player the player index int
      * @param scene the current scene as a string
      */
-    public static void paintPlayerToken(Graphics g, int player, GameStates scene)
+    public static void paintPlayerToken(Graphics g, GameStates scene)
     {
-        Color[] Colors= { Color.black, Color.red, Color.blue, Color.yellow};
-        int score = Client_IO.requestPlayerScore()[player];
+        boolean playOrSpectate = scene.equals(GameStates.PLAY) || scene.equals(GameStates.SPECTATE_PLAYER);
 
+        Color[] Colors= { Color.black, Color.red, Color.blue, Color.yellow};
+        String[] Usernames = Client_IO.getGame_usernames();
+        int[] scores = Client_IO.requestPlayerScore();
 
         int xPos, yPos;
 
-        if(scene.equals(GameStates.PLAY) || scene.equals(GameStates.SPECTATE_PLAYER)){xPos = xWindowSize - 2*xWindowSize/6; yPos = 0;}
-        else {xPos = xWindowSize/2 - xWindowSize/6; yPos = yWindowSize/2 - xWindowSize/6;}
+        if(playOrSpectate){ xPos = xWindowSize - 2*xWindowSize/6; yPos = 0; }
+        else { xPos = xWindowSize/2 - xWindowSize/6; yPos = yWindowSize/2 - xWindowSize/6; }
 
         final double BoardHeight = ((double) xWindowSize /3);
         final double BoardWidth = ((double) xWindowSize /6);
@@ -115,10 +106,25 @@ public class RenderPlayer {
 
         };
 
-        if(score>=30){score=29;}
-        g.setColor(Colors[player]);
-        g.fillOval((int) PlayerXPositions[score], (int) PlayerYPositions[score], 10, 10);
-        g.setColor(Color.gray);
+        for(int playerIndex=0; playerIndex<Client_IO.requestCurrentPlayerCount(); playerIndex++)
+        {
+            int maxPrintableScore = scores[playerIndex];
+            if(maxPrintableScore>=30){maxPrintableScore=29;}
+            g.setColor(Colors[playerIndex]);
+
+            g.fillOval((int) PlayerXPositions[maxPrintableScore], (int) PlayerYPositions[maxPrintableScore], 10, 10);
+
+            if( playOrSpectate
+                    && Usernames[playerIndex].equals(Client_IO.requestCurrentPlayerName()))
+            {
+                g.fillOval(Width/2, Height/2, 10, 10);
+            }
+
+            g.setColor(Color.gray);
+
+
+        }
+
     }
 
 

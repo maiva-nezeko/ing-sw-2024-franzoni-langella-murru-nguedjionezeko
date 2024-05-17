@@ -112,7 +112,9 @@ public class  Game {
      */
     void startGameLoop() {
         gameServer = new GameServer(this.port, this);
-        gameServer.start();
+
+        gameThread = new Thread(gameServer);
+        gameThread.start();
     }
 
     /**

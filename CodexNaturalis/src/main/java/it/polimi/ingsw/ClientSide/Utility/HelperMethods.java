@@ -4,6 +4,8 @@ import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 
 public class HelperMethods {
 
@@ -87,6 +89,7 @@ public class HelperMethods {
 
         return result;
     }
+
 
 
 }

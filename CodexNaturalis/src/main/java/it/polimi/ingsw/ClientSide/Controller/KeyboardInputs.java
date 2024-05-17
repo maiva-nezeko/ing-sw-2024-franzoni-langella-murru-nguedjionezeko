@@ -16,7 +16,6 @@ import java.awt.event.KeyListener;
 
 public class KeyboardInputs implements KeyListener {
     private final GamePanel gamePanel;
-    private int SelectedSpace;
 
     /**
      * instantiates the keyboard event
@@ -36,6 +35,7 @@ public class KeyboardInputs implements KeyListener {
      * */
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
+
             //Only for Debug Purposes
             case KeyEvent.VK_O:
                 if(ClientConstants.getGUI() && Client_Game.getCurrentScene().equals(GameStates.PLAYER_SELECTION)){
@@ -54,21 +54,7 @@ public class KeyboardInputs implements KeyListener {
                 break;
             //END OF _Only for Debug Purposes
 
-            case KeyEvent.VK_ESCAPE:
-                if(ClientConstants.getGUI()){
-                    System.out.println("Menu key was pressed");
-                    Client_Game.ChangeScene(GameStates.MAIN_MENU);}
-                break;
-
-            case KeyEvent.VK_J:
-                if(ClientConstants.getGUI()){
-                    System.out.println("Joining Game");
-
-                    Client_Game.JoinGame();
-                    Client_IO.requestUpdate();}
-                break;
-
-            case KeyEvent.VK_TAB:
+            case KeyEvent.VK_TAB: //not implemented
                 System.out.println("TAB key pressed, Chat toggled");
                 break;
 
@@ -76,22 +62,16 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_U: //RequestUpdate
                 Client_IO.requestUpdate();
                 break;
-            case KeyEvent.VK_N: //RequestUpdate
+            case KeyEvent.VK_N: //ScaleUP grid
                 RenderPlayer.ScaleGrid(true);
                 break;
-            case KeyEvent.VK_M: //RequestUpdate
+            case KeyEvent.VK_M: //ScaleDOWN grid
                 RenderPlayer.ScaleGrid(false);
-                break;
-            case KeyEvent.VK_S: //PlaceStartingCard
-                Client_IO.PlaceStartingCard(Client_IO.requestPlayerHand()[4]);
                 break;
             case KeyEvent.VK_H: //toggles the gui help banner
                 ClientConstants.toggleGUIHelper();
                 break;
-            //FLIP & PLAY
-            case KeyEvent.VK_F: //FLIP
-                if(SelectedSpace != -1){Client_IO.FlipCard_inPos(SelectedSpace);}
-                break;
+
         }
 
     }

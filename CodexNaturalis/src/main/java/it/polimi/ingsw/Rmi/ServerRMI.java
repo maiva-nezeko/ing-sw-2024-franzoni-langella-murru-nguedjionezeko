@@ -172,7 +172,7 @@ public interface ServerRMI extends Remote
      * @return the true a or false with a boolean
      * @throws RemoteException the remote exception in case any errors occur
      */
-    boolean isTurn(String username) throws RemoteException;
+    String isTurn(String username) throws RemoteException;
 
     String RMI_getUsernames() throws RemoteException;
 

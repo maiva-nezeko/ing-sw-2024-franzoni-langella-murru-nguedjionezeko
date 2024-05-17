@@ -237,7 +237,7 @@ public class Server_IO {
             assert this.game != null;
             return (this.game.isGameStarted());}
 
-        public boolean isTurn(String username) throws RemoteException{return this.game.getCurrentPlayerTurn() == this.game.getPlayerNumber(username);}
+        public String isTurn(String username) throws RemoteException{return this.game.getPlayers().get(game.getCurrentPlayerTurn()).getUsername();}
 
         public String RMI_getUsernames() throws RemoteException{ return getUsernames(this.game);}
 

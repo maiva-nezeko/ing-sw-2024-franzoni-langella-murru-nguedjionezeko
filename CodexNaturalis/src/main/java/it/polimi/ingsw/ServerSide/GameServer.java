@@ -16,12 +16,11 @@ import java.util.Objects;
 /**
  * The Game server as in the mean for the Server communication via Socket.
  */
-public class GameServer extends Thread{
+public class GameServer implements Runnable{
 
-    private int port;
+    private final int port;
     private DatagramSocket socket;
-    private int IntegerInString;
-    private Game game;
+    private final Game game;
     private boolean running;
 
     private int TimeoutNumber=-1;
@@ -73,6 +72,8 @@ public class GameServer extends Thread{
 
     public void run() {
 
+        int integerInString;
+
         ServerConstants.printMessageLn("Starting Server on port: "+port);
         previousTime = System.nanoTime();
 
@@ -110,46 +111,51 @@ public class GameServer extends Thread{
             switch (message[0]) {
 
                 case "SendUpdate":
+                    if(this.game == null){ break; }
                     String Update = Server_IO.SocketUpdate(username);
                     if(ServerConstants.getDebug()){ServerConstants.printMessageLn("Update:\n"+Update);}
                     sendData(Update.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
                 case  "GameStartedStatus":
+                    if(this.game == null){ break; }
                     if(game.isGameStarted())
                     {sendData("true".getBytes(), packet.getAddress(), packet.getPort());}
                     else{sendData("false".getBytes(), packet.getAddress(), packet.getPort());}
                     break;
 
                 case  "SendCurrentTurn":
-                    if(game.getCurrentPlayerTurn() == game.getPlayerNumber(username)){ sendData("true".getBytes(), packet.getAddress(), packet.getPort());}
-                    else{ sendData("false".getBytes(), packet.getAddress(), packet.getPort());}
+                    if(this.game == null){ break; }
+                    response = game.getPlayers().get(game.getCurrentPlayerTurn()).getUsername();
+                    sendData(response.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
                 //modifiers
                 case "Flip":
-                    IntegerInString = Integer.parseInt(message[2]);
-                    Server_IO.Flip(IntegerInString, username);
+                    integerInString = Integer.parseInt(message[2]);
+                    Server_IO.Flip(integerInString, username);
                     sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
                 case "Draw":
-                    IntegerInString = Integer.parseInt(message[2]);
-                    Server_IO.DrawCard(IntegerInString, username);
+                    if(this.game == null){ break; }
+
+                    integerInString = Integer.parseInt(message[2]);
+                    Server_IO.DrawCard(integerInString, username);
                     sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
                     game.changePlayerTurn();
                     break;
 
                 case "ChooseGoalCard":
-                    IntegerInString = Integer.parseInt(message[2]);
-                    Server_IO.ChooseGoalCard(IntegerInString, username);
+                    integerInString = Integer.parseInt(message[2]);
+                    Server_IO.ChooseGoalCard(integerInString, username);
                     sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
                 case "PlaceStartingCard":
-                    IntegerInString = Integer.parseInt(message[2]);
+                    integerInString = Integer.parseInt(message[2]);
                     ServerConstants.printMessageLn("Placed StartingCard");
-                    Server_IO.PlaceStartingCard(IntegerInString, username);
+                    Server_IO.PlaceStartingCard(integerInString, username);
                     sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
@@ -199,8 +205,16 @@ public class GameServer extends Thread{
                     break;
 
                 case "getCurrentPlayerGrid":
+                    if(this.game == null){ break; }
+
                     response = Server_IO.getGameBoard(game, game.getCurrentPlayerTurn());
                     sendData(response.getBytes(), packet.getAddress(), packet.getPort());
+                    break;
+                case "isClosed":
+                    if(MultipleGameManager.getGameInstance(username)==null)
+                    {
+                        sendData("yes".getBytes(), packet.getAddress(), packet.getPort());
+                    }
                     break;
             }
 

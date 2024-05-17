@@ -1,6 +1,8 @@
 package main.java.it.polimi.ingsw.ClientSide.MainClasses;
 
+import main.java.it.polimi.ingsw.ClientSide.ClientExceptionHandler;
 import main.java.it.polimi.ingsw.ClientSide.Client_IO;
+import main.java.it.polimi.ingsw.ClientSide.Controller.Shortcuts;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GameWindow;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
@@ -19,7 +21,12 @@ import java.util.Scanner;
 public class Client_Game implements Runnable {
 
     private static final String MainDirPAth = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
-    private GamePanel gamePanel;
+    private static GamePanel gamePanel;
+
+    public static GamePanel getGamePanel() {
+        return gamePanel;
+    }
+
     private final int FPS_SET = 30;
 
 
@@ -50,6 +57,7 @@ public class Client_Game implements Runnable {
         if(ClientConstants.getGUI()){
             gamePanel = new GamePanel();
             GameWindow gameWindow = new GameWindow(gamePanel);
+
             gamePanel.requestFocus();
             System.out.println("Constructing Window ");
 
@@ -92,6 +100,7 @@ public class Client_Game implements Runnable {
 
         }
 
+        System.out.println("Username set");
         Client_IO.setUsername(userName);
     }
 
@@ -215,6 +224,7 @@ public class Client_Game implements Runnable {
 
     }
 
+
     /**
      *  Implementation of the method to start a Game loop.
      *
@@ -265,6 +275,39 @@ public class Client_Game implements Runnable {
                 frames = 0;
             }
         }
+
+    }
+
+    public static void endGame(GameStates gameState) {
+        ChangeScene(gameState);
+        Scanner scanner = new Scanner(System.in);
+
+        if(gameState.equals(GameStates.YOU_WIN))
+        {
+            if(ClientConstants.getGUI()){
+               int input = JOptionPane.showConfirmDialog(gamePanel, null, "You win last mach! Congratulations!, would you like to get back to main menu?", JOptionPane.YES_NO_OPTION);
+               if(input == 0){ Shortcuts.BackToMenu("Have fun!", gamePanel);   return; }
+            }
+            else {
+                System.out.println("You won last game, would you like to play some more? y/n");
+                String response = scanner.nextLine();
+                if(response.contains("y")){ ChangeScene(GameStates.MAIN_MENU); JoinGame();    return;}
+            }
+        }
+        else
+        {
+            if(ClientConstants.getGUI()){
+                int input =  JOptionPane.showConfirmDialog(gamePanel, null, "You lost last match, unfortunately, would you like to get back to main menu?", JOptionPane.YES_NO_OPTION);
+                if(input == 0){ Shortcuts.BackToMenu("Have fun!", gamePanel);   return; }
+            }
+            else {
+                System.out.println("You lost last game, would you like to play some more? y/n");
+                String response = scanner.nextLine();
+                if(response.contains("y")){ ChangeScene(GameStates.MAIN_MENU); JoinGame();   return; }
+            }
+        }
+
+        System.exit(1);
 
     }
 

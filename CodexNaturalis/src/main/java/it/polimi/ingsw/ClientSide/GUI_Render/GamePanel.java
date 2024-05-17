@@ -26,7 +26,6 @@ public class GamePanel extends JPanel {
         MouseInputs mouseInputs = new MouseInputs(this);
         this.addKeyListener(new KeyboardInputs(this));
         this.addMouseListener(mouseInputs);
-        this.addMouseMotionListener(mouseInputs);
 
     }
 
@@ -48,5 +47,10 @@ public class GamePanel extends JPanel {
 
         RenderPlayer.render(this, g);
 
+    }
+
+    public void showMessage(String message)
+    {
+        JOptionPane.showMessageDialog(this, message );
     }
 }
