@@ -326,13 +326,17 @@ public class Client_IO {
 
         boolean returnValue = false;
 
-        System.out.println("PlayCardByIndex," +username +","+ id+ " ("+Row_index+","+Columns_index+ ")");
+        //System.out.println("PlayCardByIndex," +username +","+ id+ " ("+Row_index+","+Columns_index+ ")");
         if (ClientConstants.getSocket())
         { returnValue = GameClient.listenForResponse("playCardByIndex," + username +","+ Row_index + "," + Columns_index + "," + id).equals("true"); }
-
-        else{ try { returnValue = UpdateObject.RMI_PlayCardByIndex(Row_index, Columns_index, id, username); }catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
+        else{
+            try { returnValue = UpdateObject.RMI_PlayCardByIndex(Row_index, Columns_index, id, username);
+                if(!returnValue){ if( UpdateObject.isClosed( ClientConstants.getPort() )){ ClientExceptionHandler.CalculateWinner(); } }
+            }
+            catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
 
         if(returnValue){ if(ClientConstants.getGUI()){ requestUpdate(); }}
+
         return returnValue;
     }
 
@@ -426,9 +430,9 @@ public class Client_IO {
 
         try
         {
-            TimeUnit.SECONDS.sleep((long) (timePerUpdate/second));
+            TimeUnit.SECONDS.sleep((long) (timePerUpdate/second)/2);
             requestUpdate();
-            if(MyTurn){Client_Game.ChangeScene(GameStates.PLAY); return lastUpdatedGrid; }
+            if(MyTurn){ Client_Game.ChangeScene(GameStates.PLAY); return lastUpdatedGrid; }
 
         }catch (InterruptedException e){e.printStackTrace();}
 

@@ -27,8 +27,8 @@ public abstract class PlayableCard extends Card{
     public PlayableCard(int[] Corners, int id){
         super(id);
         this.Corners = Corners;
-        this.Color =  (id-1)/10 + 1; //1-10,41-50 Red==1, 11-20,51-60 Blue==2, 21-30,61-70 Green==3, 31-40,71-80 Purple==4
-        if(this.Color >4) {this.Color -= 4;}
+        this.Color =  (id-1)/10; //1-10,41-50 Red==0, 11-20,51-60 Blue==1, 21-30,61-70 Green==2, 31-40,71-80 Purple==3
+        if(this.Color>=4) {this.Color -= 4;}
     }
 
 //Getters

@@ -50,8 +50,7 @@ public class GoldCard extends PlayableCard {
     //Utility Function
     public int[] addPoints(int[] OldPoints)
     {
-        if(this.isFlipped){OldPoints[this.Color]++; return OldPoints;}
-
+        if(this.isFlipped){OldPoints[this.Color+1]++; return OldPoints;}
         for(int Value: this.Corners){ if(Value>1){OldPoints[Value-1]++;}}
 
         switch (this.PointCond)
@@ -83,16 +82,19 @@ public class GoldCard extends PlayableCard {
         if(this.isFlipped){return true;}
 
         return switch (this.PlayCond) {
-            case TWO_SAME_ONE_RED -> (OldPoints[1] > 0 && OldPoints[this.Color] >= 2);
-            case TWO_SAME_ONE_BLUE -> (OldPoints[2] > 0 && OldPoints[this.Color] >= 2);
-            case TWO_SAME_ONE_GREEN -> (OldPoints[3] > 0 && OldPoints[this.Color] >= 2);
-            case TWO_SAME_ONE_PURPLE -> (OldPoints[4] > 0 && OldPoints[this.Color] >= 2);
-            case THREE_SAME -> (OldPoints[this.Color] >= 3);
-            case THREE_SAME_ONE_RED -> (OldPoints[1] > 0 && OldPoints[this.Color] >= 3);
-            case THREE_SAME_ONE_BLUE -> (OldPoints[2] > 0 && OldPoints[this.Color] >= 3);
-            case THREE_SAME_ONE_GREEN -> (OldPoints[3] > 0 && OldPoints[this.Color] >= 3);
-            case THREE_SAME_ONE_PURPLE -> (OldPoints[4] > 0 && OldPoints[this.Color] >= 3);
-            case FIVE_SAME -> (OldPoints[this.Color] >= 5);
+            case TWO_SAME_ONE_RED -> (OldPoints[1] > 0 && OldPoints[this.Color+1] >= 2);
+            case TWO_SAME_ONE_BLUE -> (OldPoints[2] > 0 && OldPoints[this.Color+1] >= 2);
+            case TWO_SAME_ONE_GREEN -> (OldPoints[3] > 0 && OldPoints[this.Color+1] >= 2);
+            case TWO_SAME_ONE_PURPLE -> (OldPoints[4] > 0 && OldPoints[this.Color+1] >= 2);
+
+            case THREE_SAME -> (OldPoints[this.Color+1] >= 3);
+
+            case THREE_SAME_ONE_RED -> (OldPoints[1] > 0 && OldPoints[this.Color+1] >= 3);
+            case THREE_SAME_ONE_BLUE -> (OldPoints[2] > 0 && OldPoints[this.Color+1] >= 3);
+            case THREE_SAME_ONE_GREEN -> (OldPoints[3] > 0 && OldPoints[this.Color+1] >= 3);
+            case THREE_SAME_ONE_PURPLE -> (OldPoints[4] > 0 && OldPoints[this.Color+1] >= 3);
+
+            case FIVE_SAME -> (OldPoints[this.Color+1] >= 5);
         };
     }
 

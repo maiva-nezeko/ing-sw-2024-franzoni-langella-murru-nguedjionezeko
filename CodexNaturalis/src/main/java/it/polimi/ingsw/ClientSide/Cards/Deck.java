@@ -121,15 +121,15 @@ public class Deck {
 
             //PURPLE GOLDEN
             new ClientCard(Purple_GoldImagePath, new int[]{1,6,0,1},null, PointCondition.ONE_FOR_FEATHER, PlayCondition.TWO_SAME_ONE_GREEN,null,null,71),
-            new ClientCard(Purple_GoldImagePath, new int[]{1, 0,8,1},null, PointCondition.ONE_FOR_PAPER, PlayCondition.TWO_SAME_ONE_BLUE,null,null,71),
-            new ClientCard(Purple_GoldImagePath, new int[]{0,1,1,7},null, PointCondition.ONE_FOR_SALT, PlayCondition.TWO_SAME_ONE_RED,null,null,71),
-            new ClientCard(Purple_GoldImagePath, new int[]{1, 1,0,1},null, PointCondition.TWO_FOR_CORNER, PlayCondition.THREE_SAME_ONE_BLUE,null,null,71),
-            new ClientCard(Purple_GoldImagePath, new int[]{1,1,1,0},null, PointCondition.TWO_FOR_CORNER, PlayCondition.THREE_SAME_ONE_GREEN,null,null,71),
-            new ClientCard(Purple_GoldImagePath, new int[]{1, 0,1,1},null, PointCondition.TWO_FOR_CORNER, PlayCondition.THREE_SAME_ONE_RED,null,null,71),
-            new ClientCard(Purple_GoldImagePath, new int[]{7,0,1,0},null, PointCondition.THREE_POINT_FLAT, PlayCondition.THREE_SAME,null,null,71),
-            new ClientCard(Purple_GoldImagePath, new int[]{1, 8,0,0},null, PointCondition.THREE_POINT_FLAT, PlayCondition.THREE_SAME,null,null,71),
-            new ClientCard(Purple_GoldImagePath, new int[]{0,0,6,1},null, PointCondition.THREE_POINT_FLAT, PlayCondition.THREE_SAME,null,null,71),
-            new ClientCard(Purple_GoldImagePath, new int[]{1, 1,0,0},null, PointCondition.FIVE_POINT_FLAT, PlayCondition.FIVE_SAME,null,null,71)};
+            new ClientCard(Purple_GoldImagePath, new int[]{1, 0,8,1},null, PointCondition.ONE_FOR_PAPER, PlayCondition.TWO_SAME_ONE_BLUE,null,null,72),
+            new ClientCard(Purple_GoldImagePath, new int[]{0,1,1,7},null, PointCondition.ONE_FOR_SALT, PlayCondition.TWO_SAME_ONE_RED,null,null,73),
+            new ClientCard(Purple_GoldImagePath, new int[]{1, 1,0,1},null, PointCondition.TWO_FOR_CORNER, PlayCondition.THREE_SAME_ONE_BLUE,null,null,74),
+            new ClientCard(Purple_GoldImagePath, new int[]{1,1,1,0},null, PointCondition.TWO_FOR_CORNER, PlayCondition.THREE_SAME_ONE_GREEN,null,null,75),
+            new ClientCard(Purple_GoldImagePath, new int[]{1, 0,1,1},null, PointCondition.TWO_FOR_CORNER, PlayCondition.THREE_SAME_ONE_RED,null,null,76),
+            new ClientCard(Purple_GoldImagePath, new int[]{7,0,1,0},null, PointCondition.THREE_POINT_FLAT, PlayCondition.THREE_SAME,null,null,77),
+            new ClientCard(Purple_GoldImagePath, new int[]{1, 8,0,0},null, PointCondition.THREE_POINT_FLAT, PlayCondition.THREE_SAME,null,null,78),
+            new ClientCard(Purple_GoldImagePath, new int[]{0,0,6,1},null, PointCondition.THREE_POINT_FLAT, PlayCondition.THREE_SAME,null,null,79),
+            new ClientCard(Purple_GoldImagePath, new int[]{1, 1,0,0},null, PointCondition.FIVE_POINT_FLAT, PlayCondition.FIVE_SAME,null,null,80)};
     //checked
 
 

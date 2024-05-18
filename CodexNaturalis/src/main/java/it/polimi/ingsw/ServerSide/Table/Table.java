@@ -5,6 +5,7 @@ import main.java.it.polimi.ingsw.ServerSide.Cards.GoalCard;
 import main.java.it.polimi.ingsw.ServerSide.Cards.PlayableCard;
 import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
 import main.java.it.polimi.ingsw.ServerSide.Utility.CardRandomizer;
+import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
 import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.util.Arrays;
@@ -105,8 +106,6 @@ public class Table {
         if(PublicSpacesID[3]==0){  if(PublicSpacesID[1]!=0){MoveCard(1,3);  AutoFillSpaces();} else if(PublicSpacesID[0]!=0){MoveCard(0,3);  AutoFillSpaces();}    }
         if(PublicSpacesID[4]==0){  if(PublicSpacesID[0]!=0){MoveCard(0,4);  AutoFillSpaces();} else if(PublicSpacesID[1]!=0){MoveCard(1,4);  AutoFillSpaces();}    }
         if(PublicSpacesID[5]==0){  if(PublicSpacesID[1]!=0){MoveCard(1,5);  AutoFillSpaces();} else if(PublicSpacesID[0]!=0){MoveCard(0,5);  AutoFillSpaces();}    }
-
-        if(PublicSpacesID[0]==0 && PublicSpacesID[1]==0){ relatedGame.nextPhase(); }
     }
 
     /**
@@ -133,6 +132,10 @@ public class Table {
             chosenPlayer.setCard(EmptyHandSlot, abs(PublicSpacesID[position]));
             PublicSpacesID[position]=0;
             AutoFillSpaces();
+
+            if(PublicSpacesID[0]==0 && PublicSpacesID[1]==0 && relatedGame.getGameState().equals(GameStates.PLAYING))
+            { relatedGame.nextPhase(); relatedGame.setLastPlayer(relatedGame.getPlayerNumber(username));}
+
             if(ServerConstants.getDebug()){ ServerConstants.printMessageLn("Player: "+username+" draw: "+PublicSpacesID[position] + " in position: " +position); }
 
         }

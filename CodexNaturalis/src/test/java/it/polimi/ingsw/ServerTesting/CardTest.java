@@ -46,7 +46,7 @@ public class CardTest extends TestCase {
                 new ResourceCard(new int[] {1,2,3,4} , 33), new ResourceCard(new int[] {1,2,3,4} , 47), new ResourceCard(new int[] {1,2,3,4} , 79)};
 
         int[] returnedColors = {testCards[0].getColor(), testCards[1].getColor(), testCards[2].getColor(), testCards[3].getColor(), testCards[4].getColor()};
-        int[] actualColors = {1,3,4,1,4};
+        int[] actualColors = {0,2,3,0,3};
 
         assertArrayEquals(returnedColors, actualColors);
 
@@ -72,7 +72,7 @@ public class CardTest extends TestCase {
     {
         //Load the entire Gold Deck
         ArrayList<GoldCard> testCards = new ArrayList<>();
-        for(int index=41; index<=80; index++){ testCards.add((GoldCard) Deck.getCardBYid(index));}
+        for(int index=41; index<=80; index++){ testCards.add( (GoldCard) Deck.getCardBYid(index));}
 
         //int Arrays specific to test each condition for both true and false
         int[] existingPoints1 = new int[]{0, 1,1,1,1, 1,1,1 };

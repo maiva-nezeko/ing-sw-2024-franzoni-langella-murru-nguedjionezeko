@@ -48,10 +48,8 @@ public class GameClient extends Thread{
         byte[] data = new byte[1024*10];
         DatagramPacket packet = new DatagramPacket(data, data.length);
 
-        sendData(message.getBytes());
-
-
         try {
+            sendData(message.getBytes());
             socket.receive(packet);
 
             String Response_message = new String (packet.getData(), StandardCharsets.UTF_8);
@@ -66,19 +64,17 @@ public class GameClient extends Thread{
         return ("Unable to reach server");
     }
 
-    public static String checkIfClosed(String username, int port) {
-        byte[] data = new byte[1024*10];
+    public static String checkIfClosed(String message, int port) {
+        byte[] data = message.getBytes();
+
         DatagramPacket packet = new DatagramPacket(data, data.length);
 
         DatagramPacket sendPacket = new DatagramPacket(data, data.length, ipAddress, port);
         try {
-            socket.send(sendPacket);
-        } catch (IOException e) {
-            return ("Unable to reach server");
-        }
 
-        try {
+            socket.send(sendPacket);
             socket.receive(packet);
+
             String Response_message = new String (packet.getData(), StandardCharsets.UTF_8);
 
             return Response_message.trim();

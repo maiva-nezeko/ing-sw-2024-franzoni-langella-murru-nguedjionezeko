@@ -66,7 +66,10 @@ public class GameServer implements Runnable{
             ServerConstants.printMessageLn("Timer reset");
         }
 
-        if( ( this.game.getPlayerCount()>1 ) && ( TimeoutNumber == this.game.getPlayerCount()-1 ) ){this.game.end();}
+        if( ( this.game.getPlayerCount()>1 )
+                && ( TimeoutNumber == this.game.getPlayerCount()-1 ) ){
+            System.out.println("Playercount: "+this.game.getPlayerCount()+" Timeout: "+TimeoutNumber);
+            this.game.end();}
     }
 
 
@@ -159,7 +162,7 @@ public class GameServer implements Runnable{
                     sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
                     break;
 
-                case "layCardByIndex":
+                case "playCardByIndex":
                     ServerConstants.printMessageLn("Requested Play " + message[2] + " " + message[3] + " " + message[4]);
                     String returnValue = "false";
 
@@ -211,10 +214,8 @@ public class GameServer implements Runnable{
                     sendData(response.getBytes(), packet.getAddress(), packet.getPort());
                     break;
                 case "isClosed":
-                    if(MultipleGameManager.getGameInstance(username)==null)
-                    {
-                        sendData("yes".getBytes(), packet.getAddress(), packet.getPort());
-                    }
+                    if(MultipleGameManager.getGameInstance(username)==null){ sendData("yes".getBytes(), packet.getAddress(), packet.getPort()); }
+                    else{sendData("no".getBytes(), packet.getAddress(), packet.getPort());}
                     break;
             }
 

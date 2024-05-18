@@ -100,7 +100,8 @@ public class ClientCard {
         this.referenceImage = rI.getSubimage(544, SubImg_yCoord, 544, 378);
 
 
-        this.ImagePath = ImagePath; this.id = id;
+        this.ImagePath = ImagePath;
+        this.id = id;
         this.Corners = Corners;
 
         this.color = (id-1)/10;

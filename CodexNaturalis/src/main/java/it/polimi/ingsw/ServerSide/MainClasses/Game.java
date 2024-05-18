@@ -21,6 +21,10 @@ public class  Game {
         return PlayerCount;
     }
 
+    private int lastPlayer;
+    public void setLastPlayer(int player){ lastPlayer = player; }
+    public int getLastPlayer(){return lastPlayer;}
+
 
     private int reconnectedPlayers=-1;
     public void incrementReconnectedPlayers(){reconnectedPlayers++;}

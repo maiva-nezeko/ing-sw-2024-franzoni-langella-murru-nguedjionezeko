@@ -17,31 +17,34 @@ public class ClientExceptionHandler {
 
     private static void HandleServerUnreachable(Exception e) {
 
-        e.printStackTrace();
+        try {
+            if(ClientConstants.getSocket()){
+                String ServerCheck = GameClient.checkIfClosed("isClosed," + Client_IO.getUsername(), 1330);
+                if( !ServerCheck.contains("Unable to reach") && !ServerCheck.contains("no")){ CalculateWinner(); }
+            }
+        }
+        finally {
 
-        String ServerCheck = GameClient.checkIfClosed("isClosed," + Client_IO.getUsername(), 1330);
-        if( !ServerCheck.contains("Unable to reach")){ CalculateWinner(); return; }
+            if(ClientConstants.getGUI()){
+                JOptionPane.showMessageDialog(Client_Game.getGamePanel(), "the servers are currently unreachable, " +
+                        "please try our reconnection function once they are back up, note that your current port was:"+
+                        ClientConstants.getPort());
 
+            }
+            else{
+                System.out.println("the servers are currently unreachable, " +
+                        "please try our reconnection function once they are back up, note that your current port was:"+
+                        ClientConstants.getPort()
+                );
+            }
 
-        if(ClientConstants.getGUI()){
-            JOptionPane.showMessageDialog(Client_Game.getGamePanel(), "the servers are currently unreachable, " +
-                    "please try our reconnection function once they are back up, note that your current port was:"+
-                    ClientConstants.getPort());
+            Client_Game.ChangeScene(GameStates.MAIN_MENU);
 
         }
-        else{
-            System.out.println("the servers are currently unreachable, " +
-                    "please try our reconnection function once they are back up, note that your current port was:"+
-                    ClientConstants.getPort()
-            );
-        }
-
-        Client_Game.ChangeScene(GameStates.MAIN_MENU);
-
 
     }
 
-    private static void CalculateWinner() {
+    static void CalculateWinner() {
 
         String[] Usernames = Client_IO.getGame_usernames();
         int[] Scores = Client_IO.requestPlayerScore();

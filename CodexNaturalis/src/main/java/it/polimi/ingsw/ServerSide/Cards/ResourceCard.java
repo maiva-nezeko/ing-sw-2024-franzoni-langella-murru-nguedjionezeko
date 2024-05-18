@@ -45,10 +45,10 @@ public class ResourceCard extends PlayableCard{
      */
     public int[] addPoints(int[] OldPoints) //Points = int[] {Total, Red, Blue, Green, Purple, Feather, Salt, Paper}
     {
-        if(this.isFlipped){OldPoints[this.Color]++; return OldPoints;}
+        if(this.isFlipped){OldPoints[this.Color+1]++; return OldPoints;}
 
         if((this.getID()-1)%10 >=7){OldPoints[0]++;}
-        for(int Value: this.Corners){ if(Value>1){OldPoints[Value-1]++;}}
+        for(int Value: this.Corners){ if(Value>1){ OldPoints[Value-1]++; }}
 
         return OldPoints;
     }

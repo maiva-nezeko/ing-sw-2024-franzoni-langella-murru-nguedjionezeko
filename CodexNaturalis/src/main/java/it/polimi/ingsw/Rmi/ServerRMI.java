@@ -174,6 +174,8 @@ public interface ServerRMI extends Remote
      */
     String isTurn(String username) throws RemoteException;
 
+    boolean isClosed(int port) throws RemoteException;
+
     String RMI_getUsernames() throws RemoteException;
 
     int[][] RMI_getCurrentPlayerGrid() throws RemoteException;

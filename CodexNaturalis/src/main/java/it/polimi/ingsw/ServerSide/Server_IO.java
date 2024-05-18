@@ -243,6 +243,9 @@ public class Server_IO {
 
         public int[][] RMI_getCurrentPlayerGrid() throws RemoteException{ return this.game.getRelatedTable().getOccupiedSpaces()[this.game.getCurrentPlayerTurn()]; }
 
+
+        @Override
+        public boolean isClosed(int port) throws RemoteException { return MultipleGameManager.getInstanceByPort(port) == null; }
     }
 
 
