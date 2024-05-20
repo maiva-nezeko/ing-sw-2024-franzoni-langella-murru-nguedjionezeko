@@ -18,7 +18,8 @@ import static java.awt.event.MouseEvent.BUTTON1;
 import static java.awt.event.MouseEvent.BUTTON3;
 
 /**
- * class manages all the inputs from the player through the mouse
+ * Manages all the inputs from the Player through the mouse.
+ * @author
  * */
 
 public class MouseInputs implements MouseListener, MouseMotionListener {
@@ -27,20 +28,19 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     GUI_object[] GUI_Spaces = FULL_GUI.getGUI();
 
     /**
-     * instantiates the mouse event
+     * Instantiates the mouse event.
      *
-     * @param gamePanel
+     * @param gamePanel the game panel
      */
-
-
     public MouseInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
 
     /**
-     * this class takes the chosen coordinates of the event.
-     * based on the state of the game it allows players to play specific actions
-     * respecting the function of every state
+     * The chosen coordinates of an event are pointed out here.
+     * Based on the state of the game, Players are allowed to play specific actions
+     * according to the task of every GameState. The server is also shown a message accordingly,
+     * such as "starting cards flipped" or "clicked on deck xy".
      *
      * @param e the event caused by the player
      */

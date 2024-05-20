@@ -53,9 +53,22 @@ public class TUI {
     private static boolean filled = false;
     private static boolean isFilled(){return filled;}
 
+    /**
+     * Similar to VisitedIDS in GUI;
+     * Keeps track of the Card that has been placed on the PlayBoard, while the Card
+     * is about to be rendered on the grid and erased from the PLayer's Hand.
+     */
     private static ArrayList<Integer> ExploredIDS = new ArrayList<>();
+
+    /**
+     * Similar to flushedVisitedIDS in GUI;
+     * Substitutes old ExploredIDS with a new empty one, to prepare for next turn.
+     */
     private static void flushExploredIDS(){ ExploredIDS = new ArrayList<>(); }
 
+    /**
+     * Keeps track of what positions a Player can choose to Play a Card, as a 4-ciphered number.
+     */
     private static ArrayList<Integer> PlayableIDS = new ArrayList<>();
 
     /**
@@ -188,8 +201,8 @@ public class TUI {
             else {System.out.println();} }
 
             case 6 -> System.out.println("Draw Commands");
-            case 7 -> System.out.println("Draw from Decks: 0, 3");
-            case 8 -> System.out.println("Draw from Golden Spaces: 1, 2");
+            case 7 -> System.out.println("Draw from Decks: 0, 1");
+            case 8 -> System.out.println("Draw from Golden Spaces: 2, 3");
             case 9 -> System.out.println("Draw from Resource Spaces: 4, 5");
             case 10 -> System.out.println("Choose Goal Card: 8 for first one, 9 for second one");
 
@@ -203,7 +216,7 @@ public class TUI {
             case 19 -> System.out.println("Request Grid Update U");
             case 20 -> System.out.println("Place Starting Card S");
             case 21 -> System.out.println("Enter placement mode P");
-            case 22 -> System.out.println("Scale gui up: N Down:M");
+            case 22 -> System.out.println("Scale gui up: N Down: M");
 
 
         }
@@ -313,6 +326,9 @@ public class TUI {
 
     }
 
+    /**
+     * Prints Helper messages to guide the Player during a turn or End of Game messages.
+     */
     private static void printSceneInfo()
     {
         switch(Client_Game.getCurrentScene())

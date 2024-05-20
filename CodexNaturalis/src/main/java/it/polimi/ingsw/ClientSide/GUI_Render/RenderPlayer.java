@@ -16,15 +16,24 @@ import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWind
 
 /**
  * Renders player's view, details the secondary scene, where the previously placed Cards can be seen.
+ * @author
  */
 public class RenderPlayer {
 
+    /**
+     * Keeps track of the Card that has been placed on the PlayBoard, while the Card
+     * is about to be rendered on the grid and erased from the PLayer's Hand.
+     */
     private static ArrayList<Integer> VisitedID = new ArrayList<>();
+
+    /**
+     * Substitutes old VisitedID with a new empty one, to prepare for next turn.
+     */
     private static void FlushVisitedID(){ VisitedID = new ArrayList<>(); }
 
 
     /**
-     * Renders the Points count each and every Player.
+     * Renders the Points count for each and every Player.
      *
      * @param gamePanel the full Game panel
      * @param g the graphics of the game
@@ -128,8 +137,6 @@ public class RenderPlayer {
     }
 
 
-
-
     //PlaySceneGrid
     private static final int NumOf_Rows = Client_IO.requestGridSizes()[0];
     private static final int NumOf_Columns = Client_IO.requestGridSizes()[1];
@@ -145,6 +152,9 @@ public class RenderPlayer {
     private static final GUI_Card[][] Spaces_Coords = new GUI_Card[NumOf_Rows][NumOf_Columns];
     public static GUI_object[][] getSpaces_Coords(){return Spaces_Coords;}
 
+    /**
+     * Starting scale level.
+     */
     private static int ScaleLevel=1;
 
     /**
@@ -169,7 +179,8 @@ public class RenderPlayer {
     }
 
     /**
-     * Option to reduce the size of the PlayBoard as to display a bigger amount of Cards.
+     * Option to reduce the size of the PlayBoard as to display a larger amount of Cards
+     * simultaneously on Player's window screen.
      */
     public static void ScaleGrid(boolean up)
     {
@@ -195,8 +206,8 @@ public class RenderPlayer {
      * Paints the PlayBoard or single Player's private Table where to play/position the Cards.
      * @param g the graphics of the game
      * @param OccupiedSpaces the Played Cards matrix
-     * @param Row_pos horizontal position int
-     * @param Col_pos vertical position int
+     * @param Row_pos the int for horizontal position
+     * @param Col_pos the int for vertical position
      */
     private static void paintPlayerGrid(Graphics g, int[][] OccupiedSpaces,int Row_pos, int Col_pos)
     {

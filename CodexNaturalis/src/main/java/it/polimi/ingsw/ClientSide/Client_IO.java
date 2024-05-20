@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * The type Client io.
+ * @author maiva
  */
 public class Client_IO {
 
@@ -31,9 +32,7 @@ public class Client_IO {
      *
      */
     protected static ServerRMI UpdateObject;
-    /**
-     * The constant RMI_Set.
-     */
+
     protected static boolean RMI_Set=false;
     protected static boolean MyTurn=false;
     private static int[][] lastUpdatedGrid = new int[80][40];
@@ -83,7 +82,7 @@ public class Client_IO {
      *
      * @return the int [ ]
      */
-//OnlyLocalGame
+    //OnlyLocalGame
     public static int[] requestGridSizes(){return new int[]{80,40};}
 
     /**
@@ -93,6 +92,9 @@ public class Client_IO {
      */
     public static int requestCurrentPlayerCount(){ return playerCount ;}
 
+    /**
+     *
+     */
     private static void setRMI()
     {
         try{
@@ -109,7 +111,8 @@ public class Client_IO {
     /**
      * Request update.
      */
-//updaters
+
+    //updaters
      public static void requestUpdate()
     {
         if(ClientConstants.getSocket()) {
@@ -175,6 +178,9 @@ public class Client_IO {
 
     }
 
+    /**
+     *
+     */
     private static void requestSocketUpdate(){
 
         String[] SocketUpdate = GameClient.listenForResponse("SendUpdate," + username).split(";");
@@ -242,7 +248,8 @@ public class Client_IO {
      *
      * @param position the position
      */
-//Modifiers
+
+    //Modifiers
     public static void FlipCard_inPos(int position)
     {
         if(!Client_Game.getCurrentScene().equals(GameStates.PLAY) && !Client_Game.getCurrentScene().equals(GameStates.PLACE_STARTING)){return;}
@@ -252,6 +259,7 @@ public class Client_IO {
 
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
+
     //Server_IO.Flip(position, assignedNumber); requestUpdate();}
 
     /**
@@ -392,6 +400,11 @@ public class Client_IO {
         else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.CreateGame(username, playerCount); } catch (RemoteException e ){ ClientExceptionHandler.ServerUnreachable(e);}}
         return "Client_Failed";
     }
+
+    /**
+     *
+     * @return
+     */
     public static String getUsernamesString()
     {
         if(ClientConstants.getSocket()) { return GameClient.listenForResponse("getUsernames,"+username);}
@@ -399,11 +412,21 @@ public class Client_IO {
         return "Client_Failed";
     }
 
+    /**
+     *
+     */
     private static final double second = (1000000000.0);
+    /**
+     *
+     */
     private static final double timePerUpdate = 10*second;
     private static long lastUpdateTime = System.nanoTime();
     private static int[][] lastPlayerGrid = null;
 
+    /**
+     *
+     * @return
+     */
     public static int[][] getCurrentPlayerGrid()
     {
         if(!Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){return lastUpdatedGrid;}

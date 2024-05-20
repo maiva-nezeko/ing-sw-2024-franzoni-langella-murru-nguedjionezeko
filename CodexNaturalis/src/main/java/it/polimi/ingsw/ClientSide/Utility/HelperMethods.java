@@ -7,6 +7,10 @@ import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 
+/**
+ * The Helper methods for Game basic settings and operations such as "Select Card",
+ * or getting the exact position for a Card placement.
+ */
 public class HelperMethods {
 
 
@@ -17,7 +21,12 @@ public class HelperMethods {
     private static final int[][] ScalingThresholds = new int[][]{{6,5}, {12,10}};
 
 
-
+    /**
+     * Select card.
+     *
+     * @param Border the border as a GUI_object
+     * @return the id
+     */
     public static int SelectCard(GUI_object Border)
     {
         int result = 0;
@@ -33,6 +42,14 @@ public class HelperMethods {
     }
 
 
+    /**
+     * The Boolean to check if boundaries and coordinates are respected.
+     *
+     * @param xPos   the horizontal position
+     * @param yPos   the vertical position
+     * @param Border the border
+     * @return the boolean
+     */
     public static boolean is_Inside(int xPos, int yPos, GUI_object Border){
 
         int[] Coords = Border.getCoords();
@@ -48,6 +65,13 @@ public class HelperMethods {
 
     }
 
+    /**
+     * Get grid position as an array.
+     *
+     * @param xPos the x horizontal position
+     * @param yPos the y vertical position
+     * @return the int [ ]
+     */
     public static int[] GetGridPosition(int xPos, int yPos)
     {
         GUI_object[][] SpaceCoords = RenderPlayer.getSpaces_Coords();
@@ -65,6 +89,12 @@ public class HelperMethods {
         return null;
     }
 
+    /**
+     * Format a string of infos into an array of ints.
+     *
+     * @param Array the string
+     * @return the int [ ] array
+     */
     public static int[] FormattedStringToArray( String Array )
     {
         String[] SplitArray = Array.replace("[", "").replace("]", "").replace(" ", "").split(",");
@@ -75,6 +105,12 @@ public class HelperMethods {
         return result;
     }
 
+    /**
+     * Formatted string to matrix int [ ] [ ].
+     *
+     * @param Array the array
+     * @return the int [ ] [ ]
+     */
     public static int[][] FormattedStringToMatrix( String Array )
     {
         if(Array.length()<=1){return null;}

@@ -11,9 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * keeps track of the features of the game like the number of player, list of player.
- * it's used to send update to the server and communicate about the state of the game and player turns
- * */
+ * Keeps track of the features of the game like the number of player, list of player.
+ * It's used to send update to the server and communicate about the state of the game and player turns.
+ */
 public class  Game {
     private final int PlayerCount;
 
@@ -27,7 +27,16 @@ public class  Game {
 
 
     private int reconnectedPlayers=-1;
+
+    /**
+     * Reconnected Players count.
+     */
     public void incrementReconnectedPlayers(){reconnectedPlayers++;}
+
+    /**
+     * Checks for and gets reconnected Players.
+     * @return an int
+     */
     public int getReconnectedPlayers(){return reconnectedPlayers;}
     
     private GameServer gameServer;
@@ -35,7 +44,16 @@ public class  Game {
 
     private GameStates GameState;
     public GameStates getGameState(){return GameState;}
+
+    /**
+     * Switches sequentially between GameStates.
+     */
     public void nextPhase(){ if(GameStates.advanceState(GameState) != null){GameState = GameStates.advanceState(GameState);} }
+
+    /**
+     * Sets Game State.
+     * @param GS    the new GameState
+     */
     public void setGameState(GameStates GS){GameState = GS;}
     private final int port;
 
@@ -50,9 +68,9 @@ public class  Game {
     }
 
     /**
-     * add a player to a game by his username
+     * Add a player to a game through the username.
      *
-     * @param username
+     * @param username the username to add
      */
     public void addPlayer(String username) {
         this.Players.add(new Player(username));
@@ -66,9 +84,9 @@ public class  Game {
     }
 
     /**
-     * modify an existing player by adding a new one
+     * Modifies an existing player by adding a new one
      *
-     * @param index     the postion of the player in the list of player
+     * @param index     the position of the player in the list of player
      * @param newPlayer the player that replace the old one
      */
     public void modifyPlayer(int index, Player newPlayer) {
@@ -82,7 +100,7 @@ public class  Game {
     }
 
     /**
-     * report the game ended
+     * Reports the game started.
      */
     public void start() {
         GameState = GameStates.PLAYING;
@@ -90,7 +108,7 @@ public class  Game {
     }
 
     /**
-     * report the game ended
+     * Reports the game ended.
      */
     public void end() {
 
@@ -106,13 +124,17 @@ public class  Game {
 
     private final Table relatedTable;
 
+    /**
+     * Gets Table related to the Game.
+     * @return the table
+     */
     public Table getRelatedTable() {
         return relatedTable;
     }
 
 
     /**
-     *
+     * Starts actual Game.
      */
     void startGameLoop() {
         gameServer = new GameServer(this.port, this);
@@ -122,7 +144,7 @@ public class  Game {
     }
 
     /**
-     * Instantiates a new Game
+     * Instantiates a new Game.
      *
      * @param playerCount number of player that constitute the game
      * @param port        server port where the game is instantiated
@@ -137,14 +159,21 @@ public class  Game {
         this.GameState = GameStates.PLAYER_JOINING;
     }
 
-
-
+    /**
+     * Gets the empty slot as in how many Players we are expecting for the game to start.
+     * @return the remaining Players
+     */
     public int getEmptySlot() {
         if (this.Players.size() == this.PlayerCount) {
             return 5;
         } else return this.Players.size();
     }
 
+    /**
+     * Gets a Player object through is username - as a unique identifier.
+     * @param username the username of the Player to get
+     * @return the Player
+     */
     public Player getPlayerByUsername(String username) {
         for (Player player : this.Players) {
             if (player.getUsername().equals(username)) {
@@ -154,6 +183,11 @@ public class  Game {
         return null;
     }
 
+    /**
+     * Gets number associated with a specified Player.
+     * @param username the username of the Player
+     * @return the int
+     */
     public int getPlayerNumber(String username) {
 
         ServerConstants.printMessage("looking for playerNumber: " +username+ "\t");
@@ -195,6 +229,9 @@ public class  Game {
         return CurrentPlayerTurn;
     }
 
+    /**
+     * Changes turn to the rightful Player.
+     */
     public void changePlayerTurn(){
         //player disconnected before draw phase, we draw a card for him
         // drawCard automatically ignore the request if the player has a full hand

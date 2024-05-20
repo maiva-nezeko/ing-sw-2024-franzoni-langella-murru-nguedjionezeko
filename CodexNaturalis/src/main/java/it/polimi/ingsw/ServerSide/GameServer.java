@@ -15,6 +15,7 @@ import java.util.Objects;
 
 /**
  * The Game server as in the mean for the Server communication via Socket.
+ * @author
  */
 public class GameServer implements Runnable{
 
@@ -45,6 +46,9 @@ public class GameServer implements Runnable{
 
     }
 
+    /**
+     * Unit of time definition 'second' in conversion from nanoseconds (System.nanotime)
+     */
     static double second = (1000000000.0);
     /*
      * The maximum Time per each player's turn. Once previousTime is greater
@@ -73,6 +77,9 @@ public class GameServer implements Runnable{
     }
 
 
+    /**
+     * Starts a new Socket Server port communication.
+     */
     public void run() {
 
         int integerInString;

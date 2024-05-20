@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * The type Game client.
+ * @author maiva
  */
 public class GameClient extends Thread{
     private static InetAddress ipAddress;
@@ -64,6 +65,12 @@ public class GameClient extends Thread{
         return ("Unable to reach server");
     }
 
+    /**
+     *
+     * @param message
+     * @param port
+     * @return
+     */
     public static String checkIfClosed(String message, int port) {
         byte[] data = message.getBytes();
 

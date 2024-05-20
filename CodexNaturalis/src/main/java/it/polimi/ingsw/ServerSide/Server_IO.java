@@ -18,11 +18,17 @@ import java.util.Objects;
 
 /**
  * The Server IO class serves the communication between Server and Client.
- * For complete implementations of the functions instead of the messages, go
- * to UpdateClasses.TableManager.
+ * For complete implementations of the functions instead of the messages,
+ * @see TableManager
+ * @author
  */
 public class Server_IO {
 
+    /**
+     * Gets usernames for every player and associates them with it unambiguously.
+     * @param game the game requesting the usernames
+     * @return the username string
+     */
     public static String getUsernames(Game game)
     {
         if(game==null){return "";}
@@ -129,6 +135,12 @@ public class Server_IO {
         return UpdatedGame.toString();
     }
 
+    /**
+     * Gets full GameBoard for a given game.
+     * @param game the game requesting a GameBoard
+     * @param PlayerNumber the number of Players
+     * @return the GameBoard formatted as a string
+     */
     public static String getGameBoard(Game game, int PlayerNumber)
     {
         assert game!=null;
@@ -144,6 +156,12 @@ public class Server_IO {
 
     }
 
+    /**
+     * Gets a new port for a chosen player.
+     *
+     * @param username the player identifier
+     * @return the port int number
+     */
     private static int getNewPort(String username)
     { return  Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPort();  }
 
@@ -157,11 +175,7 @@ public class Server_IO {
         private int RMI_PlayerCount; private int RMI_CurrentTurn;
         private UpdatePackage RMI_UpdatePackage; private Game game;
 
-        /**
-         * Instantiates a new Server rmi.
-         *
-         * @throws RemoteException in case any errors occur
-         */
+
         public ServerRMI_impl() throws RemoteException{super();}
 
 

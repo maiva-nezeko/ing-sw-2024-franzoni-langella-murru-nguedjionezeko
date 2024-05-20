@@ -27,7 +27,13 @@ public class TableManager {
 
 
     //PlayerGrids
+    /**
+     *
+     */
     private static final int NumOf_Rows = ServerConstants.getNumOfRows();
+    /**
+     *
+     */
     private static final int NumOf_Columns = NumOf_Rows / 2;
 
 
@@ -145,6 +151,14 @@ public class TableManager {
 
     }
 
+    /**
+     *
+     * @param occupiedSpaces
+     * @param row_index
+     * @param columns_index
+     * @param playerIndex
+     * @return
+     */
     private static int[] getSurroundingCorners(int[][][] occupiedSpaces, int row_index, int columns_index, int playerIndex) {
 
         PlayableCard Tl_Card = null, Tr_Card = null, Bl_Card = null, Br_Card = null;
@@ -207,6 +221,14 @@ public class TableManager {
 
     }
 
+    /**
+     *
+     * @param Row_index
+     * @param Columns_index
+     * @param Card
+     * @param username
+     * @param game
+     */
     private static void AdjustScore(int Row_index, int Columns_index, PlayableCard Card, String username, Game game) {
         if (game == null) {
             return;
@@ -271,6 +293,12 @@ public class TableManager {
         ServerConstants.printMessageLn("Placed: "+ Arrays.toString(OldPoints));
     }
 
+    /**
+     *
+     * @param chosenPlayer
+     * @param player_index
+     * @param game
+     */
     private static void AddGoalPoints(Player chosenPlayer, int player_index, Game game) {
 
         int[] OldScoreBoard = chosenPlayer.getScoreBoard();
@@ -348,6 +376,12 @@ public class TableManager {
     }
 
 
+    /**
+     *
+     * @param id
+     * @param color
+     * @return
+     */
     private static boolean checkCardColor(int id, int color) {
         id = abs(id);
         if (id == 0 || id > 80) {

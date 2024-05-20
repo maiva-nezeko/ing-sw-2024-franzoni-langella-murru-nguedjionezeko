@@ -10,9 +10,19 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 /**
- * all the command a player can play are manage here, like drawing cards, choosing the position in the board
- * select goal and starting cards and check if the space in the board you chose are valid and if you can play the card */
+ * All the commands a player can choose are managed here, such as drawing cards, choosing the position
+ * in the board, selecting a goal card and checking if the space in the board you chose is valid
+ * or if you can play the card.
+ * @author
+ */
 public interface TUI_Inputs {
+    /**
+     * In TUI, a Player has single characters options to choose from during his turn.
+     * The 'number' (0-9) options allow to interact with Cards provided from the Game,
+     * such as Common cards and Goal Cards, including personal ones;
+     * The 'letter' (q,w,e,r,u,s,n,m,f,p) options allow to interact with private Hand
+     * cards or manage the view through scaling or a manual update.
+     */
     static void waitForInput() {
 
         if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){

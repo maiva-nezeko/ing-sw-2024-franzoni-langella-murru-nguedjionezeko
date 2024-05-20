@@ -2,6 +2,9 @@ package main.java.it.polimi.ingsw.ServerSide.Utility;
 
 import java.nio.file.FileSystems;
 
+/**
+ *
+ */
 public class ServerConstants {
     private  static final String MainDirPAth = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
     public static String getMainDirPAth(){return MainDirPAth;}
@@ -10,6 +13,9 @@ public class ServerConstants {
         return UPS_SET;
     }
 
+    /**
+     *
+     */
     private static final long Time_Per_Turn = 60;
     public static long getTime_Per_Turn(){ return Time_Per_Turn; }
 
@@ -22,9 +28,17 @@ public class ServerConstants {
     private static boolean noSaveDelete=false;
     public static void setNoSaveDelete(Boolean value) { noSaveDelete = value; }
     public static boolean getNoSaveDelete() { return noSaveDelete; }
-    
-    
+
+    /**
+     *
+     * @param message
+     */
     public static void printMessageLn(String message) {   if(debug){System.out.println(message);}  }
+
+    /**
+     *
+     * @param message
+     */
     public static void printMessage(String message){ if(debug){System.out.print(message);} }
 
 

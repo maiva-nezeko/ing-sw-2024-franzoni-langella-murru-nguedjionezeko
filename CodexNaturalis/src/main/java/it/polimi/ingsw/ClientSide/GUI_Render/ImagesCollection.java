@@ -9,7 +9,10 @@ import java.io.File;
 
 import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
 /**
- * the type ImagesCollection
+ * Collects all images for GUI rendering excluding Cards and Helper messages;
+ * these images include the main menu, the secondary menu with the options for the
+ * players number, the PointBoard.
+ * @author Edoardo Murru, Maiva Nezeko.
  */
 public class ImagesCollection {
 
@@ -21,14 +24,14 @@ public class ImagesCollection {
     private static final Image[] Menu_GUI_Images = LoadMenuImages();
 
     /**
-     * Get images of the menu image[]
+     * Gets all images to render the initial menu.
      *
-     * @return the images[]
+     * @return the images as an array
      */
     public static Image[] getMenu_GUI_Images() { return Menu_GUI_Images; }
 
     /**
-     * Get the Board Image
+     * Gets the image of the PointBoard.
      *
      * @return  a scaled version of this image
      */
@@ -45,9 +48,10 @@ public class ImagesCollection {
 
 
     /**
-     * Load the Images of the menu Image[]
+     * Loads the Images in the rightful place on the menu: "New Game", "New Local Game", "Options",
+     * "Quit Game"; "2 Players", "3 Players", "4 Players".
      *
-     * @return the image
+     * @return the images as an array
      */
     private static Image[] LoadMenuImages()
     {

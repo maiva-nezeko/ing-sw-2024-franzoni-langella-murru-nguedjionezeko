@@ -8,8 +8,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+/**
+ * The interface Card randomizer.
+ * @author
+ */
 public interface CardRandomizer {
 
+    /**
+     * Shuffle deck list.
+     *
+     * @return the list
+     */
     static List<PlayableCard> ShuffleDeck() {
 
         Random rnd = new Random();
@@ -21,6 +31,11 @@ public interface CardRandomizer {
         return StandardDeck;
     }
 
+    /**
+     * Shuffle gold deck list.
+     *
+     * @return the list
+     */
     static List<PlayableCard> ShuffleGoldDeck() {
 
         Random rnd = new Random();
@@ -33,6 +48,11 @@ public interface CardRandomizer {
 
     }
 
+    /**
+     * Shuffle goal deck list.
+     *
+     * @return the list
+     */
     static List<GoalCard> ShuffleGoalDeck() {
 
         Random rnd = new Random();
@@ -44,6 +64,11 @@ public interface CardRandomizer {
         return GoalDeck;
     }
 
+    /**
+     * Shuffle starting deck list.
+     *
+     * @return the list
+     */
     static List<PlayableCard> ShuffleStartingDeck() {
 
         Random rnd = new Random();

@@ -33,7 +33,9 @@ public class Deck {
     private static final String StartingCards_ImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/Front-Back-Start-2.png";
 
 
-
+    /**
+     * Complete Resource and Golden Cards list as ClientCards.
+     */
     private static final ClientCard[] Deck = {
             //RED CARDS
             new ClientCard(RedImagePath, new int[]{2,1,2,0}, null,null,null,null,null, 1),
@@ -133,6 +135,9 @@ public class Deck {
     //checked
 
 
+    /**
+     * Complete GoalCards list as ClientCards.
+     */
     private static final ClientCard[] GoalDeck = {
             new ClientCard(GoalCards_ImagePath, null, null, null, null, null, GoalStates.TWO_FOR_RED_STAIRCASE,100),
             new ClientCard(GoalCards_ImagePath, null, null, null, null, null, GoalStates.TWO_FOR_GREEN_STAIRCASE, 101),
@@ -154,6 +159,9 @@ public class Deck {
 
 
     //Back, Front
+    /**
+     * Complete Starting Cards list as ClientCards.
+     */
     private static final ClientCard[] StartingDeck = {
             //fronts
             new ClientCard(StartingCards_ImagePath, new int[]{2,4,5,3},new int[]{1,4,5,1}, null, null, StartingPoints.STARTING_ONE_PURPLE,null,200),//check
@@ -169,7 +177,7 @@ public class Deck {
      * Gets card by ID.
      *
      * @param ID the unique Card id
-     * @return the card
+     * @return the ClientCard object
      */
     public static ClientCard getCardBYid(int ID)
     {

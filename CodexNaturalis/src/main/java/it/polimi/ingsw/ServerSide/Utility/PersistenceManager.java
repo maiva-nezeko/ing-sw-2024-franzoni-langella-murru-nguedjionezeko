@@ -12,9 +12,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The interface Persistence manager.
+ */
 public interface PersistenceManager {
 
 
+    /**
+     * Restore games.
+     */
     static void RestoreGames()
     {
         File path = new File(System.getProperty("user.dir")+"\\CodexNaturalis\\res\\SavedGames");
@@ -106,7 +112,11 @@ public interface PersistenceManager {
     }
 
 
-
+    /**
+     * Save game.
+     *
+     * @param game the game
+     */
     static void SaveGame(Game game)
     {
         if(!game.isGameStarted()){return;}
@@ -135,6 +145,15 @@ public interface PersistenceManager {
     }
 
 
+    /**
+     * Sets Game Board, third dimension matrix.
+     *
+     * @param GameBoard_ID  the unique Game Board id
+     * @param NumOf_Rows    the number of rows
+     * @param NumOf_Columns the number of columns
+     * @param game          the associated Game
+     * @return the GameBoard as a string
+     */
     private static String getGameBoard(int[][][] GameBoard_ID, int NumOf_Rows, int NumOf_Columns, Game game) {
 
         List<Player> players = game.getPlayers();

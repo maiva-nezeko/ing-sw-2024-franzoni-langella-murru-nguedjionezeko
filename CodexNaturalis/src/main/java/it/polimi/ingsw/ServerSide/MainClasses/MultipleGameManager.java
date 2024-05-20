@@ -11,13 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * manage the multiple game in the server to keep track opf all the information in every game started  */
+ * Manages multiple games in the server to keep track of all the information in every game started  */
 public class MultipleGameManager {
 
+    /**
+     * List of all current Games.
+     */
     static ArrayList<Game> CurrentGames = new ArrayList<>();
 
     /**
-     * crate a new game in a new port
+     * Creates a new game in a new port.
+     *
      * @param playerCount number of players in the game
      * @param Players list of player that populates the game */
 
@@ -58,6 +62,10 @@ public class MultipleGameManager {
         return CurrentGames.get(CurrentGames.size()-1);
     }
 
+    /**
+     * Gets the next free port.
+     * @return the port number
+     */
     private static int getFreePort() {
         int port = 1332;
         for(Game game: CurrentGames){ if(game!=null){ if(game.getPort() >= port){ port= game.getPort()+2; } }  }
@@ -65,6 +73,11 @@ public class MultipleGameManager {
         return port;
     }
 
+    /**
+     * Gets the current Game instance for a specified Player.
+     * @param userName the Player username
+     * @return the Game
+     */
     public static Game getGameInstance(String userName) {
         for (Game currentGame : CurrentGames) {
             if (Server_IO.getUsernames(currentGame).contains(userName)) {
@@ -75,6 +88,11 @@ public class MultipleGameManager {
         return null;
     }
 
+    /**
+     * Gets Game instance by port.
+     * @param port      the port number
+     * @return the searched Game
+     */
     public static Game getInstanceByPort(int port){
         for (Game currentGame : CurrentGames) {
             if (currentGame.getPort() == port) {
@@ -85,8 +103,10 @@ public class MultipleGameManager {
         return null;
     }
     /**
-     * player joins a new game for the first time
-     * @param username it's unique for the player*/
+     * Player joins a new game for the first time.
+     *
+     * @param username      the unique Player's username
+     */
     public static boolean JoinGame(String username){
         for (Game currentGame : CurrentGames){ if(!currentGame.isGameStarted() && (currentGame.getGameState() != GameStates.RESTORED) &&
                 !Server_IO.getUsernames(currentGame).contains(username))
@@ -95,6 +115,12 @@ public class MultipleGameManager {
         return false;
     }
 
+    /**
+     * Creates a new Game - instead of Joining an existing one.
+     * @param username      the unique username
+     * @param playerCount   the desired Player count
+     * @return the new Game
+     */
     public static boolean CreateGame(String username, int playerCount){
         for (Game currentGame : CurrentGames){ if(
                 Server_IO.getUsernames(currentGame).contains(username)){return false;}}
@@ -107,9 +133,10 @@ public class MultipleGameManager {
     }
 
     /**
-     * function is called when the game end, it closes the game,
-     * set gameStarted false, delete the saved file and release the associated server
-     * @param game the game finished*/
+     * Method is called when the Game ends: it closes the Game, sets isGameStarted as false,
+     * deletes the saved file and releases the associated server.
+     * @param game      the game that just ended
+     */
 
     public static void end(Game game) {
 
@@ -134,8 +161,13 @@ public class MultipleGameManager {
         }catch (Exception e){ e.printStackTrace(); }
     }
 
-
-
+    /**
+     * Reconnects a Player to an existing Game after lost connection.
+     *
+     * @param username the username of the Player requesting a reconnection
+     * @param lastPort the port used for the communication
+     * @return the searched Game
+     */
     public static Game Reconnect(String username, int lastPort) {
         Game lastGame = getInstanceByPort(lastPort);
         if(lastGame!= null &&
@@ -150,6 +182,14 @@ public class MultipleGameManager {
         return null;
     }
 
+    /**
+     * Restores a Past game after Server error.
+     *
+     * @param Players       the list of Players
+     * @param playerCount   the number of Players
+     * @param port          the port number used
+     * @return the searched Game
+     */
     public static Game RestoreGame(List<Player> Players , int playerCount, int port){
         if(getInstanceByPort(port)!= null){return null;}
 

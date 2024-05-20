@@ -3,34 +3,61 @@ package main.java.it.polimi.ingsw.ServerSide.Table;
 import static java.lang.Math.abs;
 
 /**
- * This class represent a player. Each has private attributes
-* */
+ * This class represent a player. Each has private attributes.
+ */
 public class Player {
+    /**
+     * The array of Private Cards, including the Private Goals.
+     */
     private final int[] PrivateCardsID = new int[6];
+    /**
+     * The ScoreBoard with number of resources listed for each cell;
+     * At 0 index the Player's points can be found.
+     */
     private int[] ScoreBoard = new int[8];
     private final String username;
 
     /**
-     * Instantiates a new Player
+     * Instantiates a new Player.
      *
-     * @param username the unique name of the player
-     * */
+     * @param username  the unique name of the player
+     */
 
     public Player(String username){
         this.username = username;
     }
+
+    /**
+     * Gets this Player's username.
+     * @return
+     */
     public String getUsername(){
         return this.username;
     }
 
+    /**
+     * Gets this Player's private Cards.
+     * @return the private Hand and Goal Cards
+     */
     public int[] getPrivateCardsID() {
         return PrivateCardsID;
     }
+
+    /**
+     * Sets Card in a given position.
+     * @param position  the position to set the Card in
+     * @param id        the Card id
+     */
     public void setCard(int position, int id){
         if(position<0 || position>5){ return; }
         if(id!=0 && Deck.getCardBYid(id)==null && Deck.getGoalCardByID(id)==null ){ return; }
         this.PrivateCardsID[position]=id;
     }
+
+    /**
+     * Gets empty Card slot from private hand Cards.
+     * @return the int slot
+     */
     public int getEmptySlot(){
         for(int index=0; index<3; index++){
             if(this.PrivateCardsID[index]==0){
@@ -39,10 +66,18 @@ public class Player {
         return -1;
     }
 
+    /**
+     * Gets ScoreBoard.
+     * @return the selected ScoreBoard
+     */
     public int[] getScoreBoard() {
         return this.ScoreBoard;
     }
 
+    /**
+     * Sets ScoreBoard.
+     * @param NewScore an int array
+     */
     public void setScoreBoard(int[] NewScore) {
         this.ScoreBoard = NewScore;
     }
@@ -58,7 +93,7 @@ public class Player {
     }
 
     /**
-     * set the card id to a default value of "0"
+     * Set the card id to the default value of "0"
      * @param id */
     public void consumeCard(int id){
 

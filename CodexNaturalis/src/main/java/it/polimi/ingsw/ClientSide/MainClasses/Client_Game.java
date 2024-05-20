@@ -17,6 +17,7 @@ import java.util.Scanner;
 /**
  * Manages scenes changes and GUI choices from the Client's perspective as a whole, allowing
  * the Player key actions such as Joining a Game and Setting a username in GUI.
+ * @author
  */
 public class Client_Game implements Runnable {
 
@@ -278,6 +279,12 @@ public class Client_Game implements Runnable {
 
     }
 
+    /**
+     * End of Game messages according to the assigned GameStates for the Players and
+     * suggesting follow-up actions (create a new game).
+     *
+     * @param gameState the GameState for each Player, between 'YOU_WIN' and 'YOU_LOSE'
+     */
     public static void endGame(GameStates gameState) {
         ChangeScene(gameState);
         Scanner scanner = new Scanner(System.in);

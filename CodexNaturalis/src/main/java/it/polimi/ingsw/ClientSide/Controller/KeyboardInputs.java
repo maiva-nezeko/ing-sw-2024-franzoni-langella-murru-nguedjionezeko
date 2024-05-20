@@ -11,26 +11,31 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * class manages all the input from the player through the keyboard
+ * Manages all the input from the Player through the keyboard.
+ * @author Edoardo Carlo MUrru.
  * */
 
 public class KeyboardInputs implements KeyListener {
     private final GamePanel gamePanel;
 
     /**
-     * instantiates the keyboard event
-     * @param gamePanel */
+     * Instantiates the keyboard event.
+     * @param gamePanel the game panel */
 
     public KeyboardInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
 
+    /**
+     * Indicates the pressed or typed key from the keyboard.
+     * @param e the event to be processed
+     */
     public void keyTyped(KeyEvent e) {
     }
 
     /**
-     * manage all the input of the keyboard like: DOWN, UP, TAB, J,...;
-     * the class changes the scenes or performs the actions depending on the inputs of the keyboard
+     * Manages all the input of the keyboard such us: DOWN, UP, TAB, J,...;
+     * Changes scenes or performs actions depending on the inputs of the keyboard.
      * @param e the event occurred
      * */
     public void keyPressed(KeyEvent e) {
@@ -76,6 +81,10 @@ public class KeyboardInputs implements KeyListener {
 
     }
 
+    /**
+     * Releases previously pressed key.
+     * @param e the event to be processed
+     */
     public void keyReleased(KeyEvent e) {
     }
 }

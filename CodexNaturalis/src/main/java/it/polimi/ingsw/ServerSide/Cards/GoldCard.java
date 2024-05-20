@@ -4,6 +4,10 @@ package main.java.it.polimi.ingsw.ServerSide.Cards;
 import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PlayCondition;
 import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
 
+/**
+ * The Gold or Golden Playable Cards require a PlayCondition to be placed down, and paired with also a
+ * PointCondition as this type of Card can give points to a Player.
+ */
 public class GoldCard extends PlayableCard {
     /**
      * The Play Condition as seen in Cards.Enums.PlayCondition.

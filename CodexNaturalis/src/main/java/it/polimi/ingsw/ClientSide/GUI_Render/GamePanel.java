@@ -11,6 +11,7 @@ import java.awt.*;
 
 /**
  * The GamePanel class built with Swing JPanel.
+ * @author Edoardo Carlo Murru, Darelle Maiva Nguedjio Nezeko.
  */
 public class GamePanel extends JPanel {
     private final int xWindowSize = ClientConstants.getxWindowSize();
@@ -49,6 +50,11 @@ public class GamePanel extends JPanel {
 
     }
 
+    /**
+     * Shows the notification message as an overlaid mini window,
+     * for example to inform the player he's the winner.
+     * @param message the text for the player
+     */
     public void showMessage(String message)
     {
         JOptionPane.showMessageDialog(this, message );

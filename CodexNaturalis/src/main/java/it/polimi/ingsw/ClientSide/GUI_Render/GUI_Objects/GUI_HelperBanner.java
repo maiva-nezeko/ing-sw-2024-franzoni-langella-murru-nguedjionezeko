@@ -8,16 +8,27 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Constructs and renders a banner in the top part of the screen to help
+ * the player navigate his turn.
+ */
 public class GUI_HelperBanner extends GUI_object{
 
+    /**
+     * List of different images with text matching the GameStates, in an array:
+     * "Draw", "Play", "Choose Goal", "Place Starting Card".
+     * An image for the winner and one for the loser once the Game is over is also
+     * included.
+     */
     private final ArrayList<Image> referenceImages = new ArrayList<>();
 
     /**
-     * GUI image
-     * @param _xSize length of the image int
-     * @param _ySize width of the image int
-     * @param _xCoord horizontal coordinate of the image int
-     * @param _yCoord vertical coordinate of the image int
+     * GUI banner images coordinates and size.
+     *
+     * @param _xSize length of the image
+     * @param _ySize width of the image
+     * @param _xCoord horizontal coordinate
+     * @param _yCoord vertical coordinate
      */
     public GUI_HelperBanner(int _xSize, int _ySize, int _xCoord, int _yCoord)
     {
@@ -45,7 +56,9 @@ public class GUI_HelperBanner extends GUI_object{
     }
 
     /**
-     * Render object
+     * Renders all specific objects to Draw, PLay, etc. in the right order according to the GameState,
+     * the phase of the turn in which the player is.
+     *
      * @param g the object that render the graphics of the game
      */
     @Override

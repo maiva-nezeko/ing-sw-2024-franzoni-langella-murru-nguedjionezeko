@@ -6,11 +6,11 @@ import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.*;
 import static java.lang.Math.abs;
 
 /**
- * every game has decks instantiated:
- * Deck : contains resource cards  and gold card
- * GoalDeck : contains goal card
- * StartingCard : contains the starting card
- * decks are divided according to their use and proprieties
+ * Every game has decks instantiated:
+ * Deck - contains Resource Cards  and Gold Cards,
+ * GoalDeck - contains Goal Cards,
+ * StartingCard - contains starting cards.
+ * Decks are divided according to their use and proprieties.
  * */
 
 public class Deck {
@@ -98,6 +98,11 @@ public class Deck {
     };
 
 
+    /**
+     * Gets Card by unique Card Id.
+     * @param ID the id number
+     * @return the Card
+     */
     public static PlayableCard getCardBYid(int ID)
     {
         ID = abs(ID);
@@ -108,6 +113,11 @@ public class Deck {
         return StartingDeck[ID-200];
     }
 
+    /**
+     * Gets Goal Card by id.
+     * @param ID the unique Card id
+     * @return the Goal Card
+     */
     public static GoalCard getGoalCardByID(int ID){
         if(ID<100 || ID>115) { return null; }
         return GoalDeck[ID-100];}

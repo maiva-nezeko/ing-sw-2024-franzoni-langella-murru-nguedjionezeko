@@ -14,23 +14,36 @@ import java.util.List;
 import static java.lang.Math.abs;
 
 /**
- * it's the board of the game, each game has its own board filled with decks and cards
- * */
+ * The board of the game, each game has its own board filled with decks and cards.
+ */
 
 public class Table {
 
     private final Game relatedGame;
 
 
+    /**
+     * The Randomized list of Playable Cards.
+     */
     private final List<PlayableCard> ShuffledDeck = CardRandomizer.ShuffleDeck();
+    /**
+     * The Randomized list of Gold Cards.
+     */
     private final List<PlayableCard> ShuffledGoldDeck = CardRandomizer.ShuffleGoldDeck();
+    /**
+     * The Randomized list of Goal Cards.
+     */
     private final List<GoalCard> ShuffledGoalDeck = CardRandomizer.ShuffleGoalDeck();
+    /**
+     * The Randomized list of Starting Cards.
+     */
     private final List<PlayableCard> ShuffledStartingDeck = CardRandomizer.ShuffleStartingDeck();
 
     /**
-     * Allow to draw a GoldCard from GoldShuffledDeck if the boolean is true and a ResourceCard from ShuffleDeck otherwise
-     * @param isGold states if a card is gold or not
-     * @return PlayableCard drawn casually from Deck*/
+     * Allow to draw a GoldCard from GoldShuffledDeck if the boolean is true and a ResourceCard from ShuffleDeck otherwise.
+     * @param isGold     states if a card is gold or not
+     * @return PlayableCard drawn casually from Deck
+     */
     public PlayableCard drawResourceCard(boolean isGold)
     {
         PlayableCard returnCard = null;
@@ -42,15 +55,17 @@ public class Table {
     }
 
     /**
-     * Allow to draw a card from ShuffledStartingDeck that contains startingCard
-     *@return PlayableCard drawn casually from StartingDeck */
+     * Allow to draw a card from ShuffledStartingDeck that contains startingCard.
+     * @return PlayableCard drawn casually from StartingDeck
+     */
 
     public PlayableCard drawStartingCard()
     { PlayableCard returnCard = null;  if(!ShuffledStartingDeck.isEmpty()){ returnCard= ShuffledStartingDeck.remove(0);} return returnCard;}
 
     /**
-     * Allow to draw a card from ShuffledGoalDeck that contains GoalCard
-     *@return PlayableCard drawn casually from GoalDeck */
+     * Allow to draw a card from ShuffledGoalDeck that contains GoalCard.
+     * @return PlayableCard drawn casually from GoalDeck
+     */
 
     public GoalCard drawGoalCard()
     {GoalCard returnCard = null; if(!ShuffledGoalDeck.isEmpty()){ returnCard = ShuffledGoalDeck.remove(0);} return returnCard;}
@@ -66,11 +81,11 @@ public class Table {
         if(newPublicSpaces.length!=8){throw new ArrayIndexOutOfBoundsException();}
         this.PublicSpacesID = newPublicSpaces; }
 
-/**
- * Instantiates a new Table
- * @param PlayerCount
- * @param relatedGame
- * */
+    /**
+     * Instantiates a new Table.
+     * @param PlayerCount   the number of Players.
+     * @param relatedGame   the Game associated to the Table.
+     * */
     public Table(int PlayerCount, Game relatedGame)
     {
         int numOf_Rows = ServerConstants.getNumOfRows();
@@ -87,9 +102,9 @@ public class Table {
 
 
     /**
-     *fill the empty spaces in the table intended to the four drawable cards from resource and gold deck
-     * whenever a player pick one of them
-     * */
+     * Fills the empty spaces in the table intended to the four drawable cards from resource and gold deck
+     * whenever a player pick one of them.
+     */
     public void AutoFillSpaces(){
 
         if(PublicSpacesID[0]==0){
@@ -109,18 +124,20 @@ public class Table {
     }
 
     /**
-     * you can move the card from a position to another of the array PublicSpace[] that represent the hand of the player
-     * @param from starting position of the card
-     * @param to destination of the card*/
+     * You can move the card from a position to another of the array PublicSpace[] that represent the hand of the player
+     * @param from  starting position of the card
+     * @param to    destination of the card
+     */
     public void MoveCard(int from, int to)
     {
         if(PublicSpacesID[from] != 0) { PublicSpacesID[to] = -PublicSpacesID[from];  PublicSpacesID[from] = 0;    }
     }
 
     /**
-     * allow player to draw a card, if his hand it's empty, from the table in his hand
+     * Allows a player to draw a card, if his hand it's empty, from the table in his hand.
      * @param position the position in your hand of the drawn card
-     * @param username it's unique*/
+     * @param username it's unique
+     */
     public void DrawCard(int position, String username)
     {
         Player chosenPlayer = relatedGame.getPlayerByUsername(username);
@@ -143,8 +160,11 @@ public class Table {
     }
 
     /**
-     * it takes care of the distribution of the card in every player's hand
-     * 0,1,2 -> are resource cards ; 4 -> is the starting cards ; 3,5 -> are the goal cards*/
+     * It takes care of the distribution of the card in every player's hand
+     * 0,1,2 -> are resource cards ;
+     * 4 -> is the starting cards ;
+     * 3,5 -> are the goal cards
+     */
     public void DealCards()
     {
         this.PublicSpacesID[6] = drawGoalCard().getID();
@@ -170,7 +190,8 @@ public class Table {
     }
 
     /**
-     * reset grip of the player at his initial value "0"
+     * Reset grid of the player at his initial value "0".
+     *
      * @param player unique username
      * */
     public void emptyGrid(int player)
@@ -178,6 +199,11 @@ public class Table {
         for(int ColumnIndex=0; ColumnIndex<ServerConstants.getNumOfRows()/2; ColumnIndex++)
         {this.OccupiedSpaces[player][Rowindex][ColumnIndex] = 0;}}}
 
+    /**
+     * Draws a random Card.
+     *
+     * @param username the username of Player requesting draw.
+     */
     public void drawRandom(String username) {
         for (int index=0; index<6; index++){
             if(PublicSpacesID[index]!=0){ DrawCard(index, username); break; }

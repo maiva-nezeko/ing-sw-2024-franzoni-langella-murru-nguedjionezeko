@@ -11,6 +11,7 @@ import java.io.File;
 
 /**
  * Client card works alongside the TUI class to ensure Cards are rendered correctly.
+ * @author Darelle Maiva Nguedjio Nezeko, Edoardo Carlo MUrru
  */
 public class ClientCard {
 
@@ -19,7 +20,9 @@ public class ClientCard {
 
     int[] Corners;
 
-    // the Flipped corners
+    /**
+     * The corners of the Flipped card.
+     */
     int[] AltCorners;
 
     int id;
@@ -143,7 +146,7 @@ public class ClientCard {
      * Get text as in the TUI PlayBoard made of characters and symbols.
      *
      * @param isFlipped the boolean indicating if a Card is flipped
-     * @return the PlayBoard as a string [ ] [ ]
+     * @return the PlayBoard as a string matrix
      */
     public String[][] getText(boolean isFlipped) {
         if(isFlipped){ return new String[][] {Text[5], Text[6], Text[7], Text[8], Text[9]}; }
@@ -157,6 +160,14 @@ public class ClientCard {
      */
     public int getColor() { return this.color; }
 
+    /**
+     * Sets a Card's Borders in place in the TUI Player's view of their Personal Cards and the Common Cards.
+     *
+     * @param goalState the GoalCard condition, if present
+     * @param pointCond the condition to get Points, if present
+     * @param playCond the condition to play the Card, if present
+     * @param startingPoints the Starting Card details, if applicable
+     */
     private void setText(GoalStates goalState, PointCondition pointCond, PlayCondition playCond, StartingPoints startingPoints)
     {
         Text[0] = new String[]{"+",Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],Emojis[9],"+"};
@@ -173,6 +184,9 @@ public class ClientCard {
 
     }
 
+    /**
+     * The Card borders are painted of the correct Card color, after being rendered.
+     */
     private void fixText() {
 
         for(int RowIndex =0; RowIndex<Text.length; RowIndex++)
@@ -188,6 +202,13 @@ public class ClientCard {
 
     }
 
+    /**
+     * Sets Cards Resources in Corners for Playable Cards. Different implementation for every case.
+     *
+     * @param pointCond the condition to get Points, if present
+     * @param playCond the condition to play the Card, if present
+     * @param startingPoints the Starting Card details, if applicable
+     */
     private void setPlayableText(PointCondition pointCond, PlayCondition playCond, StartingPoints startingPoints) {
 
         if(pointCond==null) {
@@ -210,6 +231,13 @@ public class ClientCard {
 
     }
 
+    /**
+     * Rendering Corners of Cards that give points after a condition is verified, with possible
+     * number of Points given and linked condition combination listed.
+     * All possibilities have a different switch case implementation, so to cover all PointConditions.
+     *
+     * @param pointCond the condition to get Points
+     */
     private void setPointCondition(PointCondition pointCond) {
 
         switch (pointCond)
@@ -226,6 +254,13 @@ public class ClientCard {
 
     }
 
+    /**
+     * Rendering Corners of Cards that need a number of resources in PlayBoard to be present,
+     * before being played.
+     * All possibilities have a different switch case implementation, so to cover all PlayConditions.
+     *
+     * @param playCond the condition to play the Card
+     */
     private void setPlayCondition(PlayCondition playCond) {
 
         switch (playCond){
@@ -246,6 +281,12 @@ public class ClientCard {
         }
     }
 
+    /**
+     * Rendering Starting Cards Corners.
+     * All different six Cards are implemented with a different switch case.
+     *
+     * @param startingPoints the specific Starting Card to paint
+     */
     private void setStartingPoints(StartingPoints startingPoints) {
 
         switch (startingPoints){
@@ -262,6 +303,12 @@ public class ClientCard {
     }
 
 
+    /**
+     * Rendering Goal Cards Corners.
+     * All the different sixteen Cards are implemented with a different switch case.
+     *
+     * @param goalState the GoalCard condition
+     */
     private void setGoal(GoalStates goalState) {
 
         Text[1] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
