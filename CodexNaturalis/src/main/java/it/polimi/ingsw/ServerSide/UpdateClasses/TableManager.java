@@ -21,18 +21,19 @@ import static java.lang.Math.abs;
 import static java.lang.Math.min;
 
 /**
- * The type Table manager.
+ * Manages all operations regarding a player placing a Card in his own Table o PlayBoards.
+ * @author Darelle Maiva Nguedjio Nezeko, Edoardo Carlo Murru
  */
 public class TableManager {
 
 
     //PlayerGrids
     /**
-     *
+     * Number of rows in Player's Grid.
      */
     private static final int NumOf_Rows = ServerConstants.getNumOfRows();
     /**
-     *
+     * Number of Columns in Player's Grid.
      */
     private static final int NumOf_Columns = NumOf_Rows / 2;
 
@@ -40,9 +41,9 @@ public class TableManager {
     /**
      * Place starting card.
      *
-     * @param id       the id
+     * @param id       the unique card id
      * @param game     the game
-     * @param username the username
+     * @param username the username of the Player
      */
     public static void PlaceStartingCard(int id, Game game, String username) {
         if (game == null) {
@@ -71,13 +72,13 @@ public class TableManager {
     }
 
     /**
-     * Play card by index boolean.
+     * Places a card by using its index number.
      *
      * @param Row_index     the row index
      * @param Columns_index the columns index
-     * @param id            the id
-     * @param username      the username
-     * @return the boolean
+     * @param id            the unique card id
+     * @param username      the Player's username
+     * @return the boolean for if a Card has been placed
      */
     public static boolean playCardByIndex(int Row_index, int Columns_index, int id, String username) {
         Game game = MultipleGameManager.getGameInstance(username);
@@ -152,12 +153,13 @@ public class TableManager {
     }
 
     /**
+     * After a Card is set in place, renders surrounding possible slots for Cards to be placed.
      *
-     * @param occupiedSpaces
-     * @param row_index
-     * @param columns_index
-     * @param playerIndex
-     * @return
+     * @param occupiedSpaces the PlayBoard
+     * @param row_index      the horizontal row index
+     * @param columns_index  the vertical column index
+     * @param playerIndex    the Player index number
+     * @return the array Surrounding Corners
      */
     private static int[] getSurroundingCorners(int[][][] occupiedSpaces, int row_index, int columns_index, int playerIndex) {
 
@@ -222,12 +224,13 @@ public class TableManager {
     }
 
     /**
+     * After a Card has been placed, adjusts the Player's score and resources count in OldPoints array.
      *
-     * @param Row_index
-     * @param Columns_index
-     * @param Card
-     * @param username
-     * @param game
+     * @param Row_index     the row index
+     * @param Columns_index the column index
+     * @param Card          the Playable Card object
+     * @param username      the Player's username
+     * @param game          the Game
      */
     private static void AdjustScore(int Row_index, int Columns_index, PlayableCard Card, String username, Game game) {
         if (game == null) {
@@ -294,10 +297,11 @@ public class TableManager {
     }
 
     /**
+     * Adds Goal points.
      *
-     * @param chosenPlayer
-     * @param player_index
-     * @param game
+     * @param chosenPlayer  the Player
+     * @param player_index  the Player number/index
+     * @param game          the Game
      */
     private static void AddGoalPoints(Player chosenPlayer, int player_index, Game game) {
 
@@ -377,10 +381,11 @@ public class TableManager {
 
 
     /**
+     * Controls or checks if a Card is of a given color.
      *
-     * @param id
-     * @param color
-     * @return
+     * @param id        the unique Card id
+     * @param color     the Card color to compare to
+     * @return the boolean response
      */
     private static boolean checkCardColor(int id, int color) {
         id = abs(id);
@@ -397,11 +402,12 @@ public class TableManager {
     }
 
     /**
-     * Stair points int.
+     * Calculates Staircase type Goal Card points, according to the specified Card color.
      *
-     * @param color    the color
-     * @param player   the player
-     * @return the int
+     * @param color    the Card color
+     * @param player   the player number
+     * @param game     the Game
+     * @return the Points count
      */
     private static int Stair_points(int color, int player, Game game) {
         int count = 0;
@@ -433,11 +439,12 @@ public class TableManager {
     }
 
     /**
-     * L points int.
+     * Calculates L type Goal Card points, according to the specified Card color.
      *
-     * @param color    the color
-     * @param player   the player
-     * @return the int
+     * @param color    the Card color
+     * @param player   the player number
+     * @param game     the Game
+     * @return the Points count
      */
     private static int L_points(int color, int player, Game game) {
         int count = 0;

@@ -13,13 +13,14 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * The interface Persistence manager.
+ * The interface that manages Persistence Utility methods, allowing to Save a Game or Restore a crashed Game.
+ * @author Edoardo Carlo Murru
  */
 public interface PersistenceManager {
 
 
     /**
-     * Restore games.
+     * Restores games from a text file that keeps all Games infos and past actions collected as strings.
      */
     static void RestoreGames()
     {
@@ -113,7 +114,7 @@ public interface PersistenceManager {
 
 
     /**
-     * Save game.
+     * Saves game and linked information in a text file.
      *
      * @param game the game
      */

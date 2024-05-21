@@ -17,19 +17,20 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The type Client io.
- * @author maiva
+ * Manages all messages sent and received when a Client communicates with the Server, but from a Clien't point of view;
+ * these messages include the Update request (and reply), the Card flipping request and the Place Starting Card request,
+ * amongst many others.
+ * @author Darelle Maiva Nguedjio Nezeko, Edoardo Carlo Murru
  */
 public class Client_IO {
 
 
     /**
-     * The constant reg.
+     * The registry protected constant.
      */
     protected static Registry reg;
     /**
-     * The constant UpdateObject.
-     *
+     * The ServerRMI type UpdateObject.
      */
     protected static ServerRMI UpdateObject;
 
@@ -46,16 +47,14 @@ public class Client_IO {
     public static String requestCurrentPlayerName() { return currentPlayer;  }
 
     /**
-     * Set username.
-     *
-     * @param user the user
+     * Sets username.
+     * @param user      the username
      */
     public static void setUsername(String user){username=user;}
 
     /**
-     * Get username string.
-     *
-     * @return the string
+     * Gets username as a string.
+     * @return the username
      */
     public static String getUsername(){return username;}
 
@@ -64,36 +63,32 @@ public class Client_IO {
     private static String[] game_usernames;
 
     /**
-     * Set username.
-     *
-     * @param usernames current game usernames list
+     * Sets all usernames for a Game in a string array.
+     * @param usernames     current game usernames list
      */
     public static void setGame_usernames(String[] usernames){game_usernames=usernames;}
 
     /**
-     * Get username string.
-     *
-     * @return the string
+     * Gets all us username for a Game.
+     * @return the string array containing the usernames
      */
     public static String[] getGame_usernames(){return game_usernames;}
 
     /**
-     * Request grid sizes int [ ].
-     *
-     * @return the int [ ]
+     * Request grid sizes.
+     * @return the sizes array
      */
     //OnlyLocalGame
     public static int[] requestGridSizes(){return new int[]{80,40};}
 
     /**
-     * Request current player count int.
-     *
-     * @return the int
+     * Request current player count.
+     * @return the count as an int
      */
     public static int requestCurrentPlayerCount(){ return playerCount ;}
 
     /**
-     *
+     * Sets RMI communication.
      */
     private static void setRMI()
     {
@@ -107,12 +102,11 @@ public class Client_IO {
         catch (Exception e){e.printStackTrace();}
     }
 
+    //updaters
 
     /**
-     * Request update.
+     * Requests un update.
      */
-
-    //updaters
      public static void requestUpdate()
     {
         if(ClientConstants.getSocket()) {
@@ -179,7 +173,7 @@ public class Client_IO {
     }
 
     /**
-     *
+     * Requests for a socket update with updated Playercount, Public Cards, Hand, PlayBoard and Scores.
      */
     private static void requestSocketUpdate(){
 
@@ -215,41 +209,36 @@ public class Client_IO {
 
 
     /**
-     * Request public cards id int [ ].
-     *
-     * @return the int [ ]
+     * Requests public cards ids in a list.
+     * @return the int array of last updated Cards
      */
     public static int[] requestPublicCardsID(){return lastUpdatedPublicCards;}
 
     /**
-     * Request grid int [ ] [ ].
-     *
-     * @return the int [ ] [ ]
+     * Requests Player's grid.
+     * @return the last updated grid int matrix.
      */
     public static int[][] requestGrid(){return lastUpdatedGrid;}
 
     /**
-     * Request player score int [ ].
-     *
+     * Requests player score int [ ].
      * @return the int [ ]
      */
     public static int[] requestPlayerScore(){ return lastUpdatedScore;}
 
     /**
      * Request player hand int [ ].
-     *
      * @return the int [ ]
      */
     public static int[] requestPlayerHand() { return lastUpdatedHand;}
 
 
-    /**
-     * Flip card in pos.
-     *
-     * @param position the position
-     */
 
     //Modifiers
+    /**
+     * Flips card in a given position.
+     * @param position   the Card position
+     */
     public static void FlipCard_inPos(int position)
     {
         if(!Client_Game.getCurrentScene().equals(GameStates.PLAY) && !Client_Game.getCurrentScene().equals(GameStates.PLACE_STARTING)){return;}
@@ -263,9 +252,8 @@ public class Client_IO {
     //Server_IO.Flip(position, assignedNumber); requestUpdate();}
 
     /**
-     * Draw card.
-     *
-     * @param position the position
+     * Draws a Card from desired position.
+     * @param position       the position to draw the Card from
      */
     public static void DrawCard(int position)
     //{Server_IO.DrawCard(position, assignedNumber);  requestUpdate();}
@@ -281,8 +269,7 @@ public class Client_IO {
     }
 
     /**
-     * Place starting card.
-     *
+     * Places Starting Card in PlayBoard.
      * @param selectedCard the selected card
      */
     public static void PlaceStartingCard(int selectedCard)
@@ -302,9 +289,8 @@ public class Client_IO {
     }
 
     /**
-     * Choose goal card.
-     *
-     * @param position the position
+     * Chooses goal card.
+     * @param position      the position of the chosen Card
      */
     public static void ChooseGoalCard(int position) {
 
@@ -320,12 +306,12 @@ public class Client_IO {
     }
 
     /**
-     * Play card by index boolean.
+     * Plays a card by using their Deck index.
      *
      * @param Row_index     the row index
      * @param Columns_index the columns index
-     * @param id            the id
-     * @return the boolean
+     * @param id            the unique Card id
+     * @return the boolean indicating if the Card has been placed successfully
      */
     public static boolean playCardByIndex(int Row_index, int Columns_index, int id) {
         //System.out.println("RequestedPlay," + Row_index + "," + Columns_index + "," + id);
@@ -349,7 +335,7 @@ public class Client_IO {
     }
 
     /**
-     * Get new port.
+     * Gets a new communication port.
      */
     public static void getNewPort(){
         int NewPort = 0;
@@ -362,9 +348,8 @@ public class Client_IO {
     }
 
     /**
-     * Join game string.
-     *
-     * @return the string
+     * Joins a game.
+     * @return the string reply message
      */
     public static String JoinGame()
     {
@@ -376,10 +361,9 @@ public class Client_IO {
     }
 
     /**
-     * Reconnect string.
-     *
-     * @param port last port assigned before disconnection
-     * @return the string
+     * Reconnects the Client to an existing Game.
+     * @param port   the last port assigned before disconnection
+     * @return the string reply message
      */
     public static String Reconnect(int port)
     {
@@ -389,10 +373,9 @@ public class Client_IO {
     }
 
     /**
-     * Create game string.
-     *
-     * @param playerCount the player count
-     * @return the string
+     * Creates a new Game.
+     * @param playerCount   the number of Players
+     * @return the string reply message
      */
     public static String CreateGame(int playerCount)
     {
@@ -402,8 +385,8 @@ public class Client_IO {
     }
 
     /**
-     *
-     * @return
+     * Gets usernames as a string.
+     * @return reply message string
      */
     public static String getUsernamesString()
     {
@@ -413,19 +396,19 @@ public class Client_IO {
     }
 
     /**
-     *
+     * Definition of a second converted from system.nanotime()
      */
     private static final double second = (1000000000.0);
     /**
-     *
+     * The update time interval: un Update is send automatically every 10 seconds.
      */
     private static final double timePerUpdate = 10*second;
     private static long lastUpdateTime = System.nanoTime();
     private static int[][] lastPlayerGrid = null;
 
     /**
-     *
-     * @return
+     * Gets current Player PlayBoard or grid to place their Cards.
+     * @return updated Player Grid
      */
     public static int[][] getCurrentPlayerGrid()
     {

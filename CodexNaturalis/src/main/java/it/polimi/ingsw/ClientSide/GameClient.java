@@ -8,8 +8,9 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 /**
- * The type Game client.
- * @author maiva
+ * Constants and methods used for communication with Server, from a Client's perspective: the IpAddress,
+ * the socket, sending and receiving data or messages, etc.
+ * @author Edoardo Carlo Murru, Darelle Maiva Nguedjio Nezeko
  */
 public class GameClient extends Thread{
     private static InetAddress ipAddress;
@@ -22,7 +23,7 @@ public class GameClient extends Thread{
      * Instantiates a new Game client.
      *
      * @param game          the game
-     * @param ipAddress_str the ip address str
+     * @param ipAddress_str the ip address string
      */
     public GameClient(Client_Game game, String ipAddress_str)
     {
@@ -39,10 +40,10 @@ public class GameClient extends Thread{
     }
 
     /**
-     * Listen for response string.
+     * Listens for a message response.
      *
-     * @param message the message
-     * @return the string
+     * @param message   the message
+     * @return the response string
      */
     public static String listenForResponse(String message)
     {
@@ -66,10 +67,11 @@ public class GameClient extends Thread{
     }
 
     /**
+     * Controls if a given port is closed or can be used for communication.
      *
-     * @param message
-     * @param port
-     * @return
+     * @param message   the control message
+     * @param port      the desired port
+     * @return the response string
      */
     public static String checkIfClosed(String message, int port) {
         byte[] data = message.getBytes();
@@ -93,9 +95,10 @@ public class GameClient extends Thread{
 
 
     /**
-     * Send data.
+     * Sends data.
      *
-     * @param data the data
+     * @param data      the data
+     * @throws RuntimeException for socket communication, in case of Runtime errors
      */
     public static void sendData(byte[] data)
     {
