@@ -27,6 +27,6 @@ public enum StartingPoints {
 
     /**
      * starting card with leaves, wolf and mushroom on the back in the middle(green, blue, red) */
-    STARTING_ONE_GREEN_ONE_BLUE_ONE_RED;
+    STARTING_ONE_GREEN_ONE_BLUE_ONE_RED
 
 }

@@ -35,7 +35,7 @@ public enum PlayCondition {
     FIVE_SAME
 // as an unwritten rule of the game, looking at the cards, in cas of n_SAME_ONE_color
 // the "n" and the "same" cards can't be the same type of resource
-// e.g.: there's no such thing as a 'THREE_RED_ONE_RED' condition, cause that would be
+// e.g.: there's no such thing as a 'THREE_RED_ONE_RED' condition, because that would be
     // listed as a FOUR_SAME card!
 
 }

@@ -1,15 +1,12 @@
 package main.java.it.polimi.ingsw.ClientSide;
 
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 import main.java.it.polimi.ingsw.ClientSide.Utility.HelperMethods;
 import main.java.it.polimi.ingsw.Rmi.ServerRMI;
 
-import javax.swing.*;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -17,7 +14,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Manages all messages sent and received when a Client communicates with the Server, but from a Clien't point of view;
+ * Manages all messages sent and received when a Client communicates with the Server, but from a Client's point of view;
  * these messages include the Update request (and reply), the Card flipping request and the Place Starting Card request,
  * amongst many others.
  * @author Darelle Maiva Nguedjio Nezeko, Edoardo Carlo Murru

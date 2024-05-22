@@ -1,10 +1,8 @@
 package main.java.it.polimi.ingsw.ClientSide;
 
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
-import main.java.it.polimi.ingsw.ClientSide.Utility.HelperMethods;
 
 import javax.swing.*;
 import java.rmi.RemoteException;

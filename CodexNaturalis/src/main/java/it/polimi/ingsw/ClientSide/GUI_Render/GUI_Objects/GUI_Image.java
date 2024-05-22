@@ -29,6 +29,7 @@ public class GUI_Image extends GUI_object{
      * Gets the reference of the Image.
      *
      * @return the reference
+     * @deprecated - from a previous version, no longer necessary
      */
     public Image getImage(){return this.referenceImg;}
 

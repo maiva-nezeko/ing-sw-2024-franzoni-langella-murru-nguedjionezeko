@@ -18,6 +18,6 @@ public enum PlayCondition {
 
     /**
      * player must have 5 same resource object (of the type described in the card) on his board to play this card*/
-    FIVE_SAME;
+    FIVE_SAME
 
 }

@@ -20,7 +20,7 @@ import java.util.Objects;
  * The Server IO class serves the communication between Server and Client.
  * For complete implementations of the functions instead of the messages,
  * @see TableManager
- * @author
+ * @author Edoardo Carlo Murru
  */
 public class Server_IO {
 
@@ -269,6 +269,7 @@ public class Server_IO {
      * Send grid dimensions.
      *
      * @return the dimensions as an int [ ]
+     * @deprecated
      */
     public static int[] sendGridDimensions(){ return new int[]{20, 10};}
 

@@ -8,18 +8,16 @@ import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 import main.java.it.polimi.ingsw.ClientSide.Utility.*;
 
-import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.Scanner;
 
 import static java.awt.event.MouseEvent.BUTTON1;
 import static java.awt.event.MouseEvent.BUTTON3;
 
 /**
  * Manages all the inputs from the Player through the mouse.
- * @author
+ * @author Edoardo Carlo Murru
  * */
 
 public class MouseInputs implements MouseListener, MouseMotionListener {

@@ -29,7 +29,7 @@ public class Player {
 
     /**
      * Gets this Player's username.
-     * @return
+     * @return the username as a string
      */
     public String getUsername(){
         return this.username;
@@ -93,8 +93,9 @@ public class Player {
     }
 
     /**
-     * Set the card id to the default value of "0"
-     * @param id */
+     * Sets the card id to the default value of "0".
+     * @param id    the card identifier
+     */
     public void consumeCard(int id){
 
         int index = 0; boolean found = false;

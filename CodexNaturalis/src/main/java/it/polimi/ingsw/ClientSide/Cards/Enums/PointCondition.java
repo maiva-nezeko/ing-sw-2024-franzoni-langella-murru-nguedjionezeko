@@ -17,5 +17,5 @@ public enum PointCondition {
 
     /**
      * player achieves 2 points for every corner covered by this card*/
-    TWO_FOR_CORNER;
+    TWO_FOR_CORNER
 }

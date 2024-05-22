@@ -10,7 +10,6 @@ import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Full implementation of the Text User Interface, an alternative to GUI for a Client to play
@@ -51,7 +50,8 @@ public class TUI {
 
 
     private static boolean filled = false;
-    private static boolean isFilled(){return filled;}
+
+    //private static boolean isFilled(){return filled;}
 
     /**
      * Similar to VisitedIDS in GUI;

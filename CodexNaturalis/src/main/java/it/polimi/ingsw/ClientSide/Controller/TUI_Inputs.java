@@ -7,13 +7,12 @@ import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 /**
  * All the commands a player can choose are managed here, such as drawing cards, choosing the position
  * in the board, selecting a goal card and checking if the space in the board you chose is valid
  * or if you can play the card.
- * @author
+ * @author Edoardo Carlo Murru, Darelle Maiva Nguedjio Nezeko
  */
 public interface TUI_Inputs {
     /**
@@ -30,7 +29,7 @@ public interface TUI_Inputs {
             return;
         }
 
-        boolean InputResolved = false; boolean playedFlag;
+        boolean InputResolved = false; // boolean playedFlag;
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
         int SelectedSpace = -1;
 

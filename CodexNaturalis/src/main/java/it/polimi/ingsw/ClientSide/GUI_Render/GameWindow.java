@@ -5,7 +5,7 @@ import javax.swing.*;
 
 /**
  * The Window settings of the Game.
- * @author
+ * @author Edoardo Carlo Murru
  */
 public class GameWindow {
 

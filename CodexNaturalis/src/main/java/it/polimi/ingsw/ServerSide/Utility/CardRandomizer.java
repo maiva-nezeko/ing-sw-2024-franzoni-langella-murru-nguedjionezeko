@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**
  * The interface Card randomizer.
- * @author
+ * @author Edoardo Carlo Murru, Davide Franzoni
  */
 public interface CardRandomizer {
 

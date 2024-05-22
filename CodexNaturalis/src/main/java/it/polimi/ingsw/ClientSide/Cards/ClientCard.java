@@ -43,10 +43,11 @@ public class ClientCard {
             ANSI_YELLOW+"~"+ANSI_RESET, ANSI_YELLOW+"*"+ANSI_RESET, ANSI_YELLOW+"@"+ANSI_RESET,
             "-", "|", ".", "+" };
     //empty, blank⬜, mushroom🍄‍, wolf🐺, leaf🍃, butterfly🦋, feather🕊️, salt🧂, paper📜, Dash, UPDash, point, plus
-    String Dash = Emojis[9];
-    String UP = Emojis[10];
-    String point = Emojis[11];
-    String plus = Emojis[12];
+      //String Dash = Emojis[9]
+      //String UP = Emojis[10]
+      //String point = Emojis[11]
+      //String plus = Emojis[12]
+
 
     /**
      * The Number associated with a resource - for calculating scorePoints, listed in an int array.
@@ -157,6 +158,8 @@ public class ClientCard {
      * Gets color of a Card.
      *
      * @return the color
+     * @deprecated PlayableCard already has a method to get its color;
+     *             PlayableCard and ClientCard are linked!
      */
     public int getColor() { return this.color; }
 
@@ -311,8 +314,8 @@ public class ClientCard {
      */
     private void setGoal(GoalStates goalState) {
 
-        Text[1] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
-        Text[3] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
+        Text[1] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};
+        Text[3] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};
 
         switch (goalState) {
             case TWO_FOR_TWO_FEATHERS ->        Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[2], Emojis[6], " ", Emojis[10] };
@@ -338,9 +341,9 @@ public class ClientCard {
         }
 
 
-        Text[6] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
-        Text[7] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
-        Text[8] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};;
+        Text[6] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};
+        Text[7] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};
+        Text[8] = new String[]{Emojis[10], " ", " ", " ", " ", " ", " ", " ",Emojis[10]};
 
 
     }

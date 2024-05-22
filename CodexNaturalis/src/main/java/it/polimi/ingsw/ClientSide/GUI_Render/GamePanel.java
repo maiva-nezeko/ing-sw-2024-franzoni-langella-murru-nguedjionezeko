@@ -3,7 +3,6 @@ package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
 
 import main.java.it.polimi.ingsw.ClientSide.Controller.KeyboardInputs;
 import main.java.it.polimi.ingsw.ClientSide.Controller.MouseInputs;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import javax.swing.*;

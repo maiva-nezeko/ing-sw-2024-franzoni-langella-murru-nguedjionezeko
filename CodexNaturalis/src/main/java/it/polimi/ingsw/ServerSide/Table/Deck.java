@@ -99,7 +99,7 @@ public class Deck {
 
 
     /**
-     * Gets Card by unique Card Id.
+     * Gets Card by unique Card id.
      * @param ID the id number
      * @return the Card
      */

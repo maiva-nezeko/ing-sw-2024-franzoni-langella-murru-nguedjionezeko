@@ -15,7 +15,7 @@ import java.util.Objects;
 
 /**
  * The Game server as in the mean for the Server communication via Socket.
- * @author
+ * @author Edoardo Carlo Murru
  */
 public class GameServer implements Runnable{
 
@@ -47,7 +47,7 @@ public class GameServer implements Runnable{
     }
 
     /**
-     * Unit of time definition 'second' in conversion from nanoseconds (System.nanotime)
+     * Unit of time definition 'second' in conversion from nanoseconds (System. nano time)
      */
     static double second = (1000000000.0);
     /*
@@ -173,7 +173,7 @@ public class GameServer implements Runnable{
                     ServerConstants.printMessageLn("Requested Play " + message[2] + " " + message[3] + " " + message[4]);
                     String returnValue = "false";
 
-                    BigInteger flag = BigInteger.valueOf(0);
+                    //BigInteger flag = BigInteger.valueOf(0);
                     if(Server_IO.PlayCardByIndex(Integer.parseInt(message[2]), Integer.parseInt(message[3]),
                             Integer.parseInt(message[4]), username)){returnValue = "true";}
 

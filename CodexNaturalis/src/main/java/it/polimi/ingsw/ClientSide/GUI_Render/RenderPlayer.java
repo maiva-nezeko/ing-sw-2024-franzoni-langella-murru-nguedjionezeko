@@ -16,7 +16,7 @@ import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWind
 
 /**
  * Renders player's view, details the secondary scene, where the previously placed Cards can be seen.
- * @author
+ * @author Edoardo Carlo Murru
  */
 public class RenderPlayer {
 
@@ -41,7 +41,7 @@ public class RenderPlayer {
     public static void render(GamePanel gamePanel, Graphics g)
     {
         GameStates scene = Client_Game.getCurrentScene();
-        int playerCount = Client_IO.requestCurrentPlayerCount();
+        //int playerCount = Client_IO.requestCurrentPlayerCount();
 
         FULL_GUI.renderGUI(g, scene);
 

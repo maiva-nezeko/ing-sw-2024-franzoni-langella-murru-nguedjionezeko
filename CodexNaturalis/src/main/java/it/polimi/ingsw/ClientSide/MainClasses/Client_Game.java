@@ -1,6 +1,5 @@
 package main.java.it.polimi.ingsw.ClientSide.MainClasses;
 
-import main.java.it.polimi.ingsw.ClientSide.ClientExceptionHandler;
 import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.Controller.Shortcuts;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
@@ -17,7 +16,7 @@ import java.util.Scanner;
 /**
  * Manages scenes changes and GUI choices from the Client's perspective as a whole, allowing
  * the Player key actions such as Joining a Game and Setting a username in GUI.
- * @author
+ * @author Edoardo Carlo Murru, Darelle Maiva Nguedjio Nezeko
  */
 public class Client_Game implements Runnable {
 

@@ -22,6 +22,7 @@ public interface ServerRMI extends Remote
      *
      * @return the int associated with a player
      * @throws RemoteException the remote exception in case any errors occur
+     * @deprecated as 'getCurrentPLayerTurn' in MainClasses does the job
      */
     int RMI_getCurrentPlayerTurn() throws RemoteException;
 
@@ -157,7 +158,7 @@ public interface ServerRMI extends Remote
     /**
      * Indicates whether a game has or hasn't started for a certain client as we always act
      * as all 4 players are present, but we skip the 3rd and/or 4th turn if only 2 or 3 players
-     * are actually present as set in the current Playercount
+     * are actually present as set in the current Players count
      *
      * @param username the username to question
      * @return the true or false with a boolean

@@ -4,8 +4,6 @@ import main.java.it.polimi.ingsw.ClientSide.Client_IO;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
 import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 
 /**
  * The Helper methods for Game basic settings and operations such as "Select Card",
@@ -17,8 +15,10 @@ public class HelperMethods {
     private static final int Rows = Client_IO.requestGridSizes()[0];
     private static final int Columns = Client_IO.requestGridSizes()[1];
 
-    private static int Scale = 0;
-    private static final int[][] ScalingThresholds = new int[][]{{6,5}, {12,10}};
+
+    //private static int Scale = 0;
+
+    //private static final int[][] ScalingThresholds = new int[][]{{6,5}, {12,10}};
 
 
     /**
@@ -90,7 +90,7 @@ public class HelperMethods {
     }
 
     /**
-     * Format a string of infos into an array of ints.
+     * Format a string of infos into an array of int.
      *
      * @param Array the string
      * @return the int [ ] array

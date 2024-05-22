@@ -6,7 +6,6 @@ import main.java.it.polimi.ingsw.ServerSide.Table.Player;
 import main.java.it.polimi.ingsw.ServerSide.Table.Table;
 import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -205,9 +204,9 @@ public class  Game {
     }
 
     /**
-     * send update package to the server in order to update the game based on the moves of the player during the turn
+     * Send update package to the server in order to update the game based on the moves of the player during the turn
      *
-     * @param username
+     * @param username      the username of the Player to update
      * @return UpdatePackage contains all the information to change the status of the game
      */
     public UpdatePackage sendUpdatePackage(String username) {

@@ -15,7 +15,7 @@ import java.awt.*;
  * Two common goals Card are painted, along with the 'drawable' cards and the personal Hand cards.
  * Images of the PointBoard and the Menus are uploaded and rendered, and finally each existing
  * Card is associated with an image to be painted.
- * @author
+ * @author Edoardo Carlo Murru, Darelle Maiva Nguedjio Nezeko
  */
 public class FULL_GUI {
 
@@ -157,7 +157,7 @@ public class FULL_GUI {
      */
     public static void renderGUI(Graphics g, GameStates scene)
     {
-        int index=0;
+        int index = 0;
 
         if(ClientConstants.getGUIHelper()){
             GUI[GUI.length-1].renderObject(g); }

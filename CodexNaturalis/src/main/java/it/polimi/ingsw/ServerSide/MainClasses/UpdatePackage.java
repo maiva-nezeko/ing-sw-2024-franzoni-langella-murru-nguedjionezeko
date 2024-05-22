@@ -18,7 +18,8 @@ public class UpdatePackage {
     private int chosenPlayerScore;
     /**
      * Gets selected Player Score as an int.
-     * @return the score
+     * @return the score number
+     * @deprecated - Client_IO has a 'requestPlayerScore' method
      */
     public int getChosenPlayerScore(){return this.chosenPlayerScore;}
 

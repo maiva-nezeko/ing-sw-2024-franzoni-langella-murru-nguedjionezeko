@@ -1,7 +1,6 @@
 package main.java.it.polimi.ingsw.ClientSide.Utility;
 
 import java.awt.*;
-import java.nio.file.FileSystems;
 
 /**
  * Useful Client attributes and their getters/setters methods.
@@ -53,6 +52,7 @@ public class ClientConstants {
     /**
      * Gets TUI Card sizes.
      * @return an int array
+     * @deprecated - unnecessary method
      */
     public static int[] getTuiCardSizes(){ return new int[]{7,9};  }
 

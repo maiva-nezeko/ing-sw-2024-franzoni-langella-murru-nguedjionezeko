@@ -8,22 +8,45 @@ import java.nio.file.FileSystems;
  */
 public class ServerConstants {
     private  static final String MainDirPAth = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
+
+    /**
+     * Gets main directory path.
+     * @return the path as a string
+     * @deprecated - unnecessary method
+     */
     public static String getMainDirPAth(){return MainDirPAth;}
     private static final int UPS_SET = 100;
+
+    /**
+     * Gets UPS_SET.
+     * @return the UPS_SET as an int
+     * @deprecated from a previous version, no longer necessary
+     */
     public static int getUPS_SET() {
         return UPS_SET;
     }
 
     /**
      * A turn has an assigned maximum time limit of 60 seconds.
-     * @deprecated as Time per Turn is present in GameServer.
      */
     private static final long Time_Per_Turn = 60;
+
+    /**
+     * Gets time limit for each turn.
+     * @return the time as a long type
+     * @deprecated as Time per Turn is present in GameServer.
+     */
     public static long getTime_Per_Turn(){ return Time_Per_Turn; }
 
     public static int getNumOfRows(){ return 80; }
 
     private static boolean debug=true;
+
+    /**
+     * Sets the debug actions.
+     * @param value  the boolean value
+     * @deprecated unnecessary method
+     */
     public static void setDebug(Boolean value) { debug = value; }
     public static boolean getDebug() { return debug; }
 
