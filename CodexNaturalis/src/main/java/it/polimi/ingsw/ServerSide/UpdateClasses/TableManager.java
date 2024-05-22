@@ -243,9 +243,6 @@ public class TableManager {
         int[] OldPoints = chosenPlayer.getScoreBoard();
         int playerIndex = game.getPlayerNumber(username);
 
-        int NumOf_Rows = ServerConstants.getNumOfRows();
-        int NumOf_Columns = NumOf_Rows / 2;
-
         //remove CoveredPoints
         int[] SurroundingCorners = getSurroundingCorners(OccupiedSpaces, Row_index, Columns_index, playerIndex);
         for (int Number : SurroundingCorners) {

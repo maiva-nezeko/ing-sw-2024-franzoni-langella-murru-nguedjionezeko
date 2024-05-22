@@ -15,27 +15,23 @@ import java.nio.charset.StandardCharsets;
 public class GameClient extends Thread{
     private static InetAddress ipAddress;
     private static DatagramSocket socket;
-    private Client_Game game;
-
-    private String message;
 
     /**
      * Instantiates a new Game client.
      *
-     * @param game          the game
+     * @param ignoredGame          the game
      * @param ipAddress_str the ip address string
      */
-    public GameClient(Client_Game game, String ipAddress_str)
+    public GameClient(Client_Game ignoredGame, String ipAddress_str)
     {
-        this.game = game;
 
         if(ClientConstants.getSocket()){
             try{
                 socket = new DatagramSocket();
                 ipAddress = InetAddress.getByName(ipAddress_str);
             }
-            catch (SocketException e){e.printStackTrace();}
-            catch (UnknownHostException e){e.printStackTrace();}}
+            catch (SocketException | UnknownHostException e){e.printStackTrace();}
+        }
 
     }
 

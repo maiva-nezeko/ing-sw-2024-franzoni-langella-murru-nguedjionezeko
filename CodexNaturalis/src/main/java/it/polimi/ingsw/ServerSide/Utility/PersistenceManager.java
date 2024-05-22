@@ -46,7 +46,7 @@ public interface PersistenceManager {
                 Game restoredGame = MultipleGameManager.RestoreGame(players, PlayerCount, Integer.parseInt(formattedFile[formattedFile.length-1]));
                 if(restoredGame == null){return;}
 
-                String content = " ";
+                String content;
                 try{ content = new String(Files.readAllBytes(Path.of(file.getPath()))) ; }
                 catch (Exception e){return;}
 

@@ -6,7 +6,6 @@ package main.java.it.polimi.ingsw.ClientSide.MainClasses;
 public enum GameStates {
 
     MAIN_MENU,
-    GAME_MENU,
     DRAW,
     PLAY,
     OPTIONS,
@@ -15,7 +14,7 @@ public enum GameStates {
     PLACE_STARTING,
     YOU_WIN,
     YOU_LOSE,
-    SPECTATE_PLAYER;
+    SPECTATE_PLAYER
 
 
 }

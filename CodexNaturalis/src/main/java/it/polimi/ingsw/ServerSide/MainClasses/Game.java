@@ -39,7 +39,6 @@ public class  Game {
     public int getReconnectedPlayers(){return reconnectedPlayers;}
     
     private GameServer gameServer;
-    private Thread gameThread;
 
     private GameStates GameState;
     public GameStates getGameState(){return GameState;}
@@ -138,7 +137,7 @@ public class  Game {
     void startGameLoop() {
         gameServer = new GameServer(this.port, this);
 
-        gameThread = new Thread(gameServer);
+        Thread gameThread = new Thread(gameServer);
         gameThread.start();
     }
 

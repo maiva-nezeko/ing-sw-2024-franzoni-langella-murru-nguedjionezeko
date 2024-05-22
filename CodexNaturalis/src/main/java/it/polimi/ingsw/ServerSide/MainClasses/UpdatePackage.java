@@ -8,14 +8,14 @@ import java.util.Arrays;
  */
 public class UpdatePackage {
 
-    private int[][] chosenPlayerBoard;
+    private final int[][] chosenPlayerBoard;
     /**
      * Gets selected Player Board as an int matrix.
      * @return the Player Board
      */
     public int[][] getChosenPlayerBoard(){return this.chosenPlayerBoard;}
 
-    private int chosenPlayerScore;
+    private final int chosenPlayerScore;
     /**
      * Gets selected Player Score as an int.
      * @return the score number
@@ -23,14 +23,14 @@ public class UpdatePackage {
      */
     public int getChosenPlayerScore(){return this.chosenPlayerScore;}
 
-    private int[] chosenPlayerHand;
+    private final int[] chosenPlayerHand;
     /**
      * Gets selected Player Hand as an int array.
      * @return the hand
      */
     public int[] getChosenPlayerHand(){return this.chosenPlayerHand;}
 
-    private int[] publicCards;
+    private final int[] publicCards;
     /**
      * Gets Public or Common Cards updated after a turn.
      * @return the Cards as an int array
@@ -57,14 +57,14 @@ public class UpdatePackage {
      */
     public String toString()
     {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
-        result += chosenPlayerScore + "\n";
+        result.append(chosenPlayerScore).append("\n");
         for (String s : Arrays.asList(Arrays.toString(publicCards), Arrays.toString(chosenPlayerHand), Arrays.deepToString(chosenPlayerBoard))) {
-            result += s + "\n";
+            result.append(s).append("\n");
         }
 
-        return result;
+        return result.toString();
     }
 
 

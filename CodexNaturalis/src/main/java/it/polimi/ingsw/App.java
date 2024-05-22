@@ -36,7 +36,9 @@ public class App
 
                 try {
                     for(String number : SplitIp){
-                        if(Integer.parseInt(number)<0 || Integer.parseInt(number)>255 ){ ipSet = false; }
+                        if (Integer.parseInt(number) < 0 || Integer.parseInt(number) > 255) {
+                            ipSet = false;
+                        }
                     }
                 }catch (NumberFormatException e){ ipSet=false; }
 

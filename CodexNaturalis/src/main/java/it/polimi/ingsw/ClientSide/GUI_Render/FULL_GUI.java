@@ -157,7 +157,7 @@ public class FULL_GUI {
      */
     public static void renderGUI(Graphics g, GameStates scene)
     {
-        int index = 0;
+        int index;
 
         if(ClientConstants.getGUIHelper()){
             GUI[GUI.length-1].renderObject(g); }

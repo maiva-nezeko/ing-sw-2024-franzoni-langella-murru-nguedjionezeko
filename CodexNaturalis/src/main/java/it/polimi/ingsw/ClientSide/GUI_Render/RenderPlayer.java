@@ -35,10 +35,10 @@ public class RenderPlayer {
     /**
      * Renders the Points count for each and every Player.
      *
-     * @param gamePanel the full Game panel
+     * @param ignoredGamePanel the full Game panel
      * @param g the graphics of the game
      */
-    public static void render(GamePanel gamePanel, Graphics g)
+    public static void render(GamePanel ignoredGamePanel, Graphics g)
     {
         GameStates scene = Client_Game.getCurrentScene();
         //int playerCount = Client_IO.requestCurrentPlayerCount();

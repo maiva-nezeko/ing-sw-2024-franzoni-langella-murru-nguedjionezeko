@@ -45,11 +45,8 @@ public class TUI {
                 GridString[RowIndex][ColIndex] = " ";
             }
         }
-        filled = true;
     }
 
-
-    private static boolean filled = false;
 
     //private static boolean isFilled(){return filled;}
 
@@ -69,7 +66,7 @@ public class TUI {
     /**
      * Keeps track of what positions a Player can choose to Play a Card, as a 4-ciphered number.
      */
-    private static ArrayList<Integer> PlayableIDS = new ArrayList<>();
+    private static final ArrayList<Integer> PlayableIDS = new ArrayList<>();
 
     /**
      * Get playable Cards IDs as an array list.
@@ -140,25 +137,15 @@ public class TUI {
             else {
                 for (int character = 0; character < 15; character++) {
                     switch (character) {
-                        case 0 -> System.out.print("|");
-                        case 1 -> System.out.print("  ");
+                        case 0, 6, 12 -> System.out.print("|");
+                        case 1, 3, 5, 7, 9, 11, 13 -> System.out.print("  ");
                         case 2 -> printRow(HandCards[CardIndex], rowIndex, Hand[CardIndex] < 0);
-                        case 3 -> System.out.print("  ");
                         case 4 -> printRow(HandCards[CardIndex + 1], rowIndex, Hand[CardIndex + 1] < 0);
-                        case 5 -> System.out.print("  ");
-                        case 6 -> System.out.print("|");
 
-                        case 7 -> System.out.print("  ");
                         case 8 -> printRow(PublicCards[CardIndex], rowIndex, PublicSpaces[CardIndex] < 0);
-                        case 9 -> System.out.print("  ");
                         case 10 -> printRow(PublicCards[CardIndex + 1], rowIndex, PublicSpaces[CardIndex + 1] < 0);
-                        case 11 -> System.out.print("  ");
-                        case 12 -> System.out.print("|");
-                        case 13 -> System.out.print("  ");
 
-                        case 14 -> {
-                            printPlayerScores(line-2, PlayerScores);
-                        }
+                        case 14 -> printPlayerScores(line-2, PlayerScores);
 
                     }
                 }

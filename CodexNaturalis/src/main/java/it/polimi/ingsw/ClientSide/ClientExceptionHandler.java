@@ -13,7 +13,7 @@ public class ClientExceptionHandler {
     public static void ServerUnreachable(RuntimeException e){ HandleServerUnreachable(e); }
 
 
-    private static void HandleServerUnreachable(Exception e) {
+    private static void HandleServerUnreachable(Exception ignoredE) {
 
         try {
             if(ClientConstants.getSocket()){
