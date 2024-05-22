@@ -74,7 +74,9 @@ public class  Game {
         this.Players.add(new Player(username));
 
         ServerConstants.printMessage("New player joined:\n"+Players);
-        for(int i =0; i< Players.size(); i++){ ServerConstants.printMessage(Players.get(i).getUsername());}
+        for (Player player : Players) {
+            ServerConstants.printMessage(player.getUsername());
+        }
 
         if (this.getPlayers().size() == this.PlayerCount) {
             this.start();

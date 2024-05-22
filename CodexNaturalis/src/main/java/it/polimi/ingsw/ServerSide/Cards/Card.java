@@ -13,7 +13,7 @@ public abstract class Card {
     /**
      * The unique ID that identifies a Card among all the cards in the Deck.
      */
-    protected int ID;
+    protected final int ID;
 
     //Constructor
     /**

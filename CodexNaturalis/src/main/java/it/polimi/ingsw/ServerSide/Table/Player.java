@@ -1,7 +1,5 @@
 package main.java.it.polimi.ingsw.ServerSide.Table;
 
-import static java.lang.Math.abs;
-
 /**
  * This class represent a player. Each has private attributes.
  */

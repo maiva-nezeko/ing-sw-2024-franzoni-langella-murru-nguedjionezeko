@@ -7,8 +7,10 @@ import java.awt.*;
  */
 public abstract class GUI_object {
 
-    protected int xSize, ySize;
-    protected int xCoord, yCoord;
+    protected final int xSize;
+    protected final int ySize;
+    protected final int xCoord;
+    protected final int yCoord;
 
 
     /**

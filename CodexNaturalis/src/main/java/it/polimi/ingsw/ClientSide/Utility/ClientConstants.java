@@ -5,6 +5,7 @@ import java.awt.*;
 /**
  * Useful Client attributes and their getters/setters methods.
  */
+@SuppressWarnings("SameReturnValue")
 public class ClientConstants {
 
 

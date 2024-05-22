@@ -8,10 +8,8 @@ import main.java.it.polimi.ingsw.ServerSide.Table.Table;
 import main.java.it.polimi.ingsw.ServerSide.UpdateClasses.TableManager;
 import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
 import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
-import org.junit.Assert;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 

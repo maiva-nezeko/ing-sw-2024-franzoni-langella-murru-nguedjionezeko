@@ -48,12 +48,12 @@ public class GameServer implements Runnable{
     /**
      * Unit of time definition 'second' in conversion from nanoseconds (System. nano time)
      */
-    static double second = (1000000000.0);
+    static final double second = (1000000000.0);
     /*
      * The maximum Time per each player's turn. Once previousTime is greater
      * or equal to timePerTurn, the player skips that turn.
      */
-    static double timePerTurn = 120*second;
+    static final double timePerTurn = 120*second;
     /**
      * The Previous time tracking the time passed.
      */

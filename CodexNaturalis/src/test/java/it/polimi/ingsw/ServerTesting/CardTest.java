@@ -6,10 +6,7 @@ import main.java.it.polimi.ingsw.ServerSide.Cards.*;
 import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.*;
 import main.java.it.polimi.ingsw.ServerSide.Table.Deck;
 
-import org.junit.Test;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
 

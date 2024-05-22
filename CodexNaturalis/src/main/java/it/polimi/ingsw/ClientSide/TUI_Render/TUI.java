@@ -32,11 +32,11 @@ public class TUI {
     /**
      * The TUI grid sizes.
      */
-    static int[] TUIGridSizes = ClientConstants.getTUIGridSizes();
+    static final int[] TUIGridSizes = ClientConstants.getTUIGridSizes();
     /**
      * The Grid as a String matrix (to fill with Cards).
      */
-    static String[][] GridString = new String[TUIGridSizes[0]][TUIGridSizes[1]];
+    static final String[][] GridString = new String[TUIGridSizes[0]][TUIGridSizes[1]];
     private static void flushGridString() {
 
         for (int RowIndex = 0; RowIndex < GridString.length; RowIndex ++) {

@@ -116,7 +116,7 @@ public class TableTest extends TestCase {
 
     public void testTable_CorrectDeckOperations()
     {
-        ArrayList<Player> Players = new ArrayList<Player>();
+        ArrayList<Player> Players = new ArrayList<>();
         Players.add(new Player("TestPlayer"));
 
         Game testgame = new Game(1,Players, 1331);

@@ -54,7 +54,7 @@ public class Client_Game implements Runnable {
 
         if(ClientConstants.getGUI()){
             gamePanel = new GamePanel();
-            GameWindow gameWindow = new GameWindow(gamePanel);
+            new GameWindow(gamePanel);
 
             gamePanel.requestFocus();
             System.out.println("Constructing Window ");
@@ -231,7 +231,8 @@ public class Client_Game implements Runnable {
      */
     private void startGameLoop()
     {
-        GameClient socketClient = new GameClient(this, ClientConstants.getIp());
+        GameClient socketClient;
+        socketClient = new GameClient(this, ClientConstants.getIp());
         socketClient.start();
 
         Thread gameThread = new Thread(this);

@@ -10,7 +10,7 @@ public abstract class PlayableCard extends Card{
      * The Corners listed clockwise from the top left. The numbers indicate the resource or,
      * if not present, the type of corner (NO corner, White/Blank).
      */
-    protected int[] Corners; //CornerValues 0=No Corner, 1=Blank, 2=Red, 3=Blue, 4=Green, 5=Purple, 6=Feather, 7=Salt, 8=Paper
+    protected final int[] Corners; //CornerValues 0=No Corner, 1=Blank, 2=Red, 3=Blue, 4=Green, 5=Purple, 6=Feather, 7=Salt, 8=Paper
     /**
      * The Color associated with a card, useful for checking "same-as-card" PlayConditions.
      */

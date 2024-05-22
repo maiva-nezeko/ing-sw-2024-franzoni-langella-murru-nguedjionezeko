@@ -40,7 +40,7 @@ public interface Shortcuts {
 
     static void requestUsername(String additionalInfo) {
 
-        String userName = "";
+        String userName;
         userName = JOptionPane.showInputDialog(additionalInfo+": you may select a new username");
 
         boolean correctUsername = false;
@@ -61,7 +61,7 @@ public interface Shortcuts {
 
         if(Client_IO.getUsername()== null){requestUsername("No username selected");}
 
-        String port = null;
+        String port;
         port = JOptionPane.showInputDialog("Enter the port assigned to your previous game");
 
         boolean correctPort = false;

@@ -23,11 +23,11 @@ public class FULL_GUI {
     /**
      * The horizontal x Window Size.
      */
-    static int xWindowSize = ClientConstants.getxWindowSize();
+    static final int xWindowSize = ClientConstants.getxWindowSize();
     /**
      * The vertical y Window Size.
      */
-    static int yWindowSize = ClientConstants.getyWindowSize();
+    static final int yWindowSize = ClientConstants.getyWindowSize();
 
     /**
      * The horizontal Card size rendered in GUI depends on the Client's screen window dimensions.

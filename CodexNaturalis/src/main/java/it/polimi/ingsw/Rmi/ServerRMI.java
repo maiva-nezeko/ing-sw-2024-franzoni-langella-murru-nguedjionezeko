@@ -169,11 +169,11 @@ public interface ServerRMI extends Remote
     /**
      * Determines whether it's a given player's turn.
      *
-     * @param username the username to question
+     * @param ignoredUsername the username to question
      * @return the true a or false with a boolean
      * @throws RemoteException the remote exception in case any errors occur
      */
-    String isTurn(String username) throws RemoteException;
+    String isTurn(String ignoredUsername) throws RemoteException;
 
     boolean isClosed(int port) throws RemoteException;
 

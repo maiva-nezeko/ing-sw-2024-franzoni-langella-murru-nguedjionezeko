@@ -23,7 +23,7 @@ import static java.awt.event.MouseEvent.BUTTON3;
 public class MouseInputs implements MouseListener, MouseMotionListener {
     private final GamePanel gamePanel;
     private boolean chosenGoal_flag = false;
-    GUI_object[] GUI_Spaces = FULL_GUI.getGUI();
+    final GUI_object[] GUI_Spaces = FULL_GUI.getGUI();
 
     /**
      * Instantiates the mouse event.

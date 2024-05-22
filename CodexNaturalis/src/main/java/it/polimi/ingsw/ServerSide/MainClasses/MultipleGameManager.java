@@ -17,7 +17,7 @@ public class MultipleGameManager {
     /**
      * List of all current Games.
      */
-    static ArrayList<Game> CurrentGames = new ArrayList<>();
+    static final ArrayList<Game> CurrentGames = new ArrayList<>();
 
     /**
      * Creates a new game in a new port.

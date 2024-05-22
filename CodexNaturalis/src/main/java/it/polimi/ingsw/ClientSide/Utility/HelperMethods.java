@@ -16,7 +16,7 @@ public class HelperMethods {
     private static final int Columns = Client_IO.requestGridSizes()[1];
 
 
-    //private static int Scale = 0;
+    //private static int Scale = 0
 
     //private static final int[][] ScalingThresholds = new int[][]{{6,5}, {12,10}};
 

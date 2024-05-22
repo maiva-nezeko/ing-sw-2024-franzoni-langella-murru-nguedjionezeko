@@ -195,7 +195,8 @@ public class Table {
      * @param player unique username
      * */
     public void emptyGrid(int player)
-    {for(int Rowindex=0; Rowindex<ServerConstants.getNumOfRows(); Rowindex++){
+    {for(//noinspection SpellCheckingInspection
+            int Rowindex=0; Rowindex<ServerConstants.getNumOfRows(); Rowindex++){
         for(int ColumnIndex=0; ColumnIndex<ServerConstants.getNumOfRows()/2; ColumnIndex++)
         {this.OccupiedSpaces[player][Rowindex][ColumnIndex] = 0;}}}
 

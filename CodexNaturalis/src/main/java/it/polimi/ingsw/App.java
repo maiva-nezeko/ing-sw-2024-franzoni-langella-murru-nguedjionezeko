@@ -38,6 +38,7 @@ public class App
                     for(String number : SplitIp){
                         if (Integer.parseInt(number) < 0 || Integer.parseInt(number) > 255) {
                             ipSet = false;
+                            break;
                         }
                     }
                 }catch (NumberFormatException e){ ipSet=false; }

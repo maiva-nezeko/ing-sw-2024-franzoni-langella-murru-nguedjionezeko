@@ -6,6 +6,7 @@ import java.nio.file.FileSystems;
  * Contains constants used by the Server during a Game, such as the Number of Rows of a PlayBoard grid,
  * or a standard message to print.
  */
+@SuppressWarnings("SameReturnValue")
 public class ServerConstants {
     private  static final String MainDirPAth = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
 
