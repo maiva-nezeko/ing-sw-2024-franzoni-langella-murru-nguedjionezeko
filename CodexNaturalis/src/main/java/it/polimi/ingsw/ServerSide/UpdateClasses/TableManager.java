@@ -29,7 +29,9 @@ public class TableManager {
 
     //PlayerGrids
     /**
-     * Number of rows in Player's Grid.
+     * Number of rows in Player's Grid, from ServerConstants.
+     *
+     * @see ServerConstants#getNumOfRows()
      */
     private static final int NumOf_Rows = ServerConstants.getNumOfRows();
     /**
@@ -39,11 +41,21 @@ public class TableManager {
 
 
     /**
-     * Place starting card.
+     * Place starting card: if game is null, we simply exit the method; then, a player is initialized by calling for
+     * 'getPlayerNumber' in Game, the method gets the list of Players and initializes a Card from Deck, along with
+     * the Player's Grid. For a Player, first we get the ScoreBoard,then new points are added, finally we set the ScoreBoard
+     * and consume the Starting Card. In the end, it gets the Table and sets which spaces are now occupied, and the Card
+     * id is printed with a message.
      *
      * @param id       the unique card id
      * @param game     the game
      * @param username the username of the Player
+     *
+     * @see Game#getPlayerNumber(String)
+     * @see Game#getPlayers()
+     * @see Deck#getCardBYid(int)
+     * @see Game#getRelatedTable().getOccupiedSpaces
+     *
      */
     public static void PlaceStartingCard(int id, Game game, String username) {
         if (game == null) {
@@ -72,12 +84,19 @@ public class TableManager {
     }
 
     /**
-     * Places a card by using its index number.
+     * Places a card by using its index number: first it checks that the game exists, if not the Client is notified and the method returns false;
+     * then it gets the Player, his index number and the game's related Table at the Player index, so to get the Cards
+     * he already placed down. Eventually the Card can be set as flipped. It gets the Player's scores along with the resource
+     * count array and if a Card isn't playable based on the Client is yet again notified and the method returns false; finally it gets the Card
+     * corners and displays surrounding possible slots for future placements. All of this is also notified to the Player,
+     * then the new points given by the Card are calculated (if any), the Card is set in place and the resources count array is
+     * updated - along with the Score. The Game is then Saved.
      *
      * @param Row_index     the row index
      * @param Columns_index the columns index
      * @param id            the unique card id
      * @param username      the Player's username
+     *
      * @return the boolean for if a Card has been placed
      */
     public static boolean playCardByIndex(int Row_index, int Columns_index, int id, String username) {
@@ -153,12 +172,16 @@ public class TableManager {
     }
 
     /**
-     * After a Card is set in place, renders surrounding possible slots for Cards to be placed.
+     * After a Card is set in place, renders surrounding possible slots for Cards to be placed. It scans first for the
+     * slots before the index, both in bottom and top row, then for the slots after the specified row index, yet again
+     * both bottom and top row. If a slot is already full, it renders the Card in it, checking first if it's set as flipped
+     * (or not) and for the Card corners.
      *
      * @param occupiedSpaces the PlayBoard
      * @param row_index      the horizontal row index
      * @param columns_index  the vertical column index
      * @param playerIndex    the Player index number
+     *
      * @return the array Surrounding Corners
      */
     private static int[] getSurroundingCorners(int[][][] occupiedSpaces, int row_index, int columns_index, int playerIndex) {
@@ -224,13 +247,21 @@ public class TableManager {
     }
 
     /**
-     * After a Card has been placed, adjusts the Player's score and resources count in OldPoints array.
+     * After a Card has been placed, adjusts the Player's score and resources count in OldPoints array: first it gets
+     * the array with the Corners that surround the Card, along with printing the associated message, then it checks if
+     * the selected Card is the type to assign points based on the covered corners - in which case the points are calculated -
+     * and updates the scores. Finally, it checks for what phase the game is: once 20 points are reached by any player,
+     * the GameState changes from 'PLAYING' to 'LAST_TURN' and afterward Players play one last turn at the end of which
+     * the common Goal points are added. If neither of this option is applicable, is simply notifies the Player that a Card
+     * has been placed.
      *
      * @param Row_index     the row index
      * @param Columns_index the column index
      * @param Card          the Playable Card object
      * @param username      the Player's username
      * @param game          the Game
+     *
+     * @see Player#setScoreBoard(int[])
      */
     private static void AdjustScore(int Row_index, int Columns_index, PlayableCard Card, String username, Game game) {
         if (game == null) {
@@ -294,11 +325,16 @@ public class TableManager {
     }
 
     /**
-     * Adds Goal points.
+     * Adds Goal points, calculating them case by case: for Goal Cards that require a specific resource count, we can simply
+     * use the Score array; on the contrary for the Goal Cards that imply some sort of peculiar placement, specific method are
+     * implemented.
      *
      * @param chosenPlayer  the Player
      * @param player_index  the Player number/index
      * @param game          the Game
+     *
+     * @see TableManager#Stair_points(int, int, Game)
+     * @see TableManager#L_points(int, int, Game)
      */
     private static void AddGoalPoints(Player chosenPlayer, int player_index, Game game) {
 
@@ -378,7 +414,12 @@ public class TableManager {
 
 
     /**
-     * Controls or checks if a Card is of a given color.
+     * Controls or checks if a Card is of a given color. If the Card id is below 0 or bigger than 80, the Card simply
+     * doesn't exist; in any other case the Color, according to how the Card are indexed, the Color is found by diving
+     * the id by 10 and eventually subtracting 4 (as there are four colors, and Cards of the same color are divided by
+     * 40 numbers in between).
+     * The return value is determined by whether the color attributed and the calculated color 'Card_color' are the same
+     * number!
      *
      * @param id        the unique Card id
      * @param color     the Card color to compare to
@@ -399,7 +440,9 @@ public class TableManager {
     }
 
     /**
-     * Calculates Staircase type Goal Card points, according to the specified Card color.
+     * Calculates Staircase type Goal Card points, according to the specified Card color, in particular checking for Cards
+     * in all the PlayBoard, once one of the target color is found, the surrounding Cards, either in top right or bottom left,
+     * are immediately checked. Each time there's a successful tris of Cards that checks all conditions, a count is increased.
      *
      * @param color    the Card color
      * @param player   the player number
@@ -436,7 +479,7 @@ public class TableManager {
     }
 
     /**
-     * Calculates L type Goal Card points, according to the specified Card color.
+     * Calculates L type Goal Card points, according to the specified Card color, each different case implemented individually.
      *
      * @param color    the Card color
      * @param player   the player number

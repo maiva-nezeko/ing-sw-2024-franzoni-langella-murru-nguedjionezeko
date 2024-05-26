@@ -37,6 +37,10 @@ public class TUI {
      * The Grid as a String matrix (to fill with Cards).
      */
     static final String[][] GridString = new String[TUIGridSizes[0]][TUIGridSizes[1]];
+
+    /**
+     * Substitutes a possibly filled PlayBoard with an empty one.
+     */
     private static void flushGridString() {
 
         for (int RowIndex = 0; RowIndex < GridString.length; RowIndex ++) {
@@ -78,13 +82,16 @@ public class TUI {
     /**
      * Remove space.
      *
-     * @param formattedIndex the formatted index
+     * @param formattedIndex     the formatted index
      */
     public static void removeSpace(int formattedIndex) { PlayableIDS.remove((Integer) formattedIndex); }
 
     /**
-     * Prints all different parts of the Table, while also requesting private cards
-     * associated with a given Client.
+     * Prints and paints all different parts of the Table, while also requesting private cards associated with a given
+     * Client. In particular, when the grid isn't empty (null), if the Player is in 'SPECTATE_PLAYER' GameState, it gets
+     * notified of the Player that is being shown on his screen, then eventually the Grid will be erased and updates to
+     * show the Player's own grid, and the array with previously selected Cards is also flushed/erased.
+     * The TUI is now ready and waiting for new input.
      */
     public static void renderTUI()
     {
@@ -107,8 +114,11 @@ public class TUI {
     }
 
     /**
-     *  Prints Table borders and prepares the space for Common and Private Cards Placement,
-     *  that will be implemented by ClientCard class.
+     *  Prints Table borders and prepares the space for Common and Private Cards Placement, that will be implemented
+     *  by ClientCard class, requesting a Client's public Cards, Hand, and Scores for resources count. Finally, it
+     *  prints all of this information: the Player's Hand on the left, the Common Cards, Decks and Goal on the right,
+     *  separated by vertical dashes.
+     *  Note: if the current GameState is SPECTATE_PLAYER, we simply exit the method.
      */
     private static void paintInfo()
     {
@@ -161,11 +171,11 @@ public class TUI {
     }
 
     /**
-     * Prints Players followed by their scores; then prints Guide to Help the player
-     * navigate KeyBoard inputs.
+     * Prints Players followed by their scores, beside a Client's Table (on the right); then prints Guide to Help
+     * the player navigate KeyBoard inputs.
      *
-     * @param line where to display message
-     * @param Scores as an int array
+     * @param line     where to display message
+     * @param Scores   as an int array
      */
     private static void printPlayerScores(int line, int[] Scores)
     {
@@ -215,15 +225,14 @@ public class TUI {
     /**
      * Renders and colors a single row to print of a given card (6 rows total in general);
      *
-     * @param card the ID of the card to print
-     * @param row the current row being printed
-     * @param isFlipped a boolean stating if Card is flipped
+     * @param card       the ID of the card to print
+     * @param row        the current row being printed
+     * @param isFlipped  a boolean stating if Card is flipped
      */
     private static void printRow(ClientCard card, int row, boolean isFlipped)
     {
         if(card == null){
-            if(row==0 || row==5){System.out.print("         ");}
-            else{System.out.print("         ");}
+            System.out.print("         ");
             return;
         }
 
@@ -248,11 +257,13 @@ public class TUI {
 
     /**
      * Updates the PlayerBoard and insures a Card can be played in a certain position.
-     * @param Grid the Cards already played
-     * @param Row_pos the Row position
-     * @param Col_pos the Column position
-     * @param GridRow the Grid row
-     * @param GridCol the Grid column
+     * This method recursively calls for itself until no more rows are to be printed.
+     *
+     * @param Grid       the Cards already played
+     * @param Row_pos    the Row position
+     * @param Col_pos    the Column position
+     * @param GridRow    the Grid row
+     * @param GridCol    the Grid column
      */
     private static void updateGrid(int[][] Grid, int Row_pos, int Col_pos, int GridRow, int GridCol)
     {
@@ -293,12 +304,12 @@ public class TUI {
 
     /**
      * Calculates the coordinates of the different corners where a Player is able to play a Card;
-     * these coordinates will be used when in "placement mode".
-     * First number is the row, second is the column.
-     * @param RowPos the Row position
-     * @param ColPos the Column position
-     * @param RowIndex the Row index
-     * @param ColIndex the Column index
+     * these coordinates will be used when in "placement mode". First number is the row, second is the column.
+     *
+     * @param RowPos     the Row position
+     * @param ColPos     the Column position
+     * @param RowIndex   the Row index
+     * @param ColIndex   the Column index
      */
     private static void PaintNumber(int RowPos, int ColPos, int RowIndex, int ColIndex)
     {
@@ -314,7 +325,8 @@ public class TUI {
     }
 
     /**
-     * Prints Helper messages to guide the Player during a turn or End of Game messages.
+     * Prints Helper messages just below a Player's Table to guide the Player during a turn or simply prints
+     * End of Game messages 'you lost' and  'you win'.
      */
     private static void printSceneInfo()
     {

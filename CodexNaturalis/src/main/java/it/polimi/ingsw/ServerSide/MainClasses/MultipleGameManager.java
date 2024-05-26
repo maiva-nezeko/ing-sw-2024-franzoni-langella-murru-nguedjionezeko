@@ -23,8 +23,8 @@ public class MultipleGameManager {
      * Creates a new game in a new port.
      *
      * @param playerCount number of players in the game
-     * @param Players list of player that populates the game */
-
+     * @param Players list of player that populates the game
+     */
     public static Game addGame(int playerCount, List<Player> Players)
     {
 

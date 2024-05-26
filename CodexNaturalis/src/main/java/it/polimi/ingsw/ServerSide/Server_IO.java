@@ -26,7 +26,7 @@ public class Server_IO {
 
     /**
      * Gets usernames for every player and associates them with it unambiguously.
-     * @param game the game requesting the usernames
+     * @param game  the game requesting the usernames
      * @return the username string
      */
     public static String getUsernames(Game game)
@@ -46,16 +46,18 @@ public class Server_IO {
     //Modifiers
     /**
      * Flips the card located in a given position.
+     * In fact, calls for the homonymous method in Player.
      *
      * @param position the position of the card to flip
      * @param username the username of the player making the action
+     * @see Player#FlipCard(int)
      */
-
     public static void Flip(int position, String username){
         Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPlayerByUsername(username) .FlipCard(position);}
 
     /**
      * Plays a card by using the index for the final position.
+     * In fact, calls for the homonymous method in TableManager.
      *
      * @param rowIndex     the number indicating the row index
      * @param columnsIndex the number indicating the columns index
@@ -68,6 +70,8 @@ public class Server_IO {
 
     /**
      * Drawing a new card.
+     * In fact, calls for the homonymous method in Table, after getting the Game Instance from MultipleGameManager and
+     * the Table for the game. The turn timer is then reset because drawing is the last action in a turn.
      *
      * @param position the position of the Deck to draw from
      * @param username the username of the player requesting the action
@@ -82,6 +86,7 @@ public class Server_IO {
 
     /**
      * Places the starting card (flipped or not flipped) as the first card on the Player's board.
+     * In fact, calls for the homonymous method in TableManager, after getting the Game Instance from MultipleGameManager.
      *
      * @param selectedCard the selected starting card
      * @param username     the username of the player requesting the action
@@ -91,7 +96,9 @@ public class Server_IO {
         TableManager.PlaceStartingCard(selectedCard, game ,username); }
 
     /**
-     * Choose goal card from the once displayed in position 3 and 5.
+     * Chooses goal card from the once displayed in position 3 and 5.
+     * First, it gets the Game Instance from MultipleGameManager and the Player (required not null) from Game.
+     * No matter the choice, the Card will be set in position 3, while position 5 will remain empty.
      *
      * @param position the position in which the chosen card is situated
      * @param username the username of the player requesting the action
@@ -105,7 +112,7 @@ public class Server_IO {
 
     /**
      * Socket update string.
-     *
+     * As per usual, first it makes sure that neither the Game nor the Player are null.
      * @param username the username of the player associated with the update
      * @return the update as a string
      */
@@ -137,8 +144,9 @@ public class Server_IO {
 
     /**
      * Gets full GameBoard for a given game.
-     * @param game the game requesting a GameBoard
-     * @param PlayerNumber the number of Players
+     *
+     * @param game          the game requesting a GameBoard
+     * @param PlayerNumber  the number of Players
      * @return the GameBoard formatted as a string
      */
     public static String getGameBoard(Game game, int PlayerNumber)
@@ -158,9 +166,12 @@ public class Server_IO {
 
     /**
      * Gets a new port for a chosen player.
+     * In fact, it calls for getPort method from Game.
      *
-     * @param username the player identifier
+     * @param username  the player identifier
      * @return the port int number
+     *
+     * @see Game#getPort()
      */
     private static int getNewPort(String username)
     { return  Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPort();  }
@@ -214,8 +225,17 @@ public class Server_IO {
             Server_IO.PlaceStartingCard(selectedCard, username); }
 
 
-
-
+        /**
+         * Prints 'Join Game' response messages.
+         * It calls for the homonymous method in MultipleGameManager; according to the boolean reply to that method,
+         * a different message is printed from this method.
+         *
+         * @param username  the username of the player that wants to join
+         * @return a reply message according to a successful or unsuccessful attempt
+         * @throws RemoteException the remote exception in case any errors occur
+         *
+         * @see MultipleGameManager#JoinGame(String)
+         */
         public String JoinGame(String username) throws RemoteException
         {
             ServerConstants.printMessageLn(username);
@@ -223,6 +243,20 @@ public class Server_IO {
                 return "Connection attempt was successful, Joining"; }
             return "Connection failed";
         }
+
+        /**
+         * Prints 'Reconnect' response messages and gets desired Game Instance (if applicable).
+         * It calls for the homonymous method in MultipleGameManager; according to the boolean reply to that method,
+         * a different message is printed from this method.
+         * 
+         * @param username  the username used to reconnect
+         * @param port      last port assigned before disconnection
+         * @return a reply message according to a successful or unsuccessful attempt
+         * @throws RemoteException the remote exception in case any errors occur
+         * 
+         * @see MultipleGameManager#Reconnect(String, int)
+         * @see MultipleGameManager#getGameInstance(String) 
+         */
         public String Reconnect(String username, int port) throws RemoteException
         {
             if(MultipleGameManager.Reconnect(username, port) != null){ this.game = MultipleGameManager.getGameInstance(username);
@@ -230,6 +264,16 @@ public class Server_IO {
             return "Reconnection attempt failed: Username not found";
         }
 
+        /**
+         * Prints 'Reconnect' response messages and gets a new Game Instance (if applicable).
+         * It calls for the homonymous method in MultipleGameManager; according to the boolean reply to that method,
+         * a different message is printed from this method.
+         * 
+         * @param username    the username used to create and join the game
+         * @param playerCount the desired player count
+         * @return a reply message according to a successful or unsuccessful attempt
+         * @throws RemoteException the remote exception in case any errors occur
+         */
         public String CreateGame(String username, int playerCount) throws RemoteException
         {
             if(MultipleGameManager.CreateGame(username, playerCount)){ this.game = MultipleGameManager.getGameInstance(username);
@@ -238,6 +282,15 @@ public class Server_IO {
         }
         public int RMI_getNewPort(String username) throws RemoteException{  return getNewPort(username)  ;   }
 
+        /**
+         * Updates current turn, player count and UpdatePackage for rmi with respective getter methods in Game.
+         * @see Game#getCurrentPlayerTurn() 
+         * @see Game#getPlayerCount() 
+         * @see Game#sendUpdatePackage(String) 
+         * 
+         * @param username   the username of the client to update
+         * @throws RemoteException the remote exception in case any errors occur
+         */
         public void update(String username) throws RemoteException {
 
             ServerConstants.printMessageLn("Updating RMI at "+username);
@@ -247,14 +300,51 @@ public class Server_IO {
 
         }
 
+        /**
+         * First it gets the Game Instance from MultiplePlayerManager, then checks if the game is null and finally
+         * returns the same value from isGameStarted in Game.
+         * @see MultipleGameManager#getGameInstance(String) 
+         * 
+         * @param username  the username to question
+         * @return a boolean indicating if the Game has started
+         * @see Game#isGameStarted() 
+         */
         public boolean GameStarted(String username){ this.game = MultipleGameManager.getGameInstance(username);
             assert this.game != null;
             return (this.game.isGameStarted());}
 
+        /**
+         * Gets what Player has the turn currently.
+         * First it gets Player's list from game, then it gets the currentPlayerTurn still from Game,
+         * and finally it gets the Player's username from Player class.
+         *
+         * @param username  the username of the Player to question
+         * @return the username as a string
+         * @throws RemoteException the remote exception in case any errors occur
+         */
         public String isTurn(String username) throws RemoteException{return this.game.getPlayers().get(game.getCurrentPlayerTurn()).getUsername();}
 
+        /**
+         * Gets usernames for rmi.
+         * It calls for the homonymous method in Server_IO;
+         * @see Server_IO#getUsernames(Game)
+         *
+         * @return the usernames list
+         * @throws RemoteException the remote exception in case any errors occur
+         */
         public String RMI_getUsernames() throws RemoteException{ return getUsernames(this.game);}
 
+        /**
+         * Gets usernames for rmi.
+         * It first seeks for the Table related to the Game, then points to a particular player's grid calling for 'getOccupiedSpaces'
+         * in Table class.
+         *
+         * @see Game#getRelatedTable()
+         * @see Table#getOccupiedSpaces()
+         *
+         * @return the current Player's grid or PlayBoard or Table
+         * @throws RemoteException the remote exception in case any errors occur
+         */
         public int[][] RMI_getCurrentPlayerGrid() throws RemoteException{ return this.game.getRelatedTable().getOccupiedSpaces()[this.game.getCurrentPlayerTurn()]; }
 
 

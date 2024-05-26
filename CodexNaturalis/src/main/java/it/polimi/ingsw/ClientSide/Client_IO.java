@@ -31,8 +31,16 @@ public class Client_IO {
      */
     protected static ServerRMI UpdateObject;
 
+    /**
+     * RMI boolean used when socket communication isn't being used by the Client to check if RMI communication
+     * has already been set.
+     */
     protected static boolean RMI_Set=false;
+    /**
+     * Boolean that is set as true when it's the current Client's turn, therefore allowing him to play.
+     */
     protected static boolean MyTurn=false;
+
     private static int[][] lastUpdatedGrid = new int[80][40];
     private static int[] lastUpdatedScore = new int[4];
     private static int[] lastUpdatedPublicCards = new int[28];
@@ -44,7 +52,7 @@ public class Client_IO {
     public static String requestCurrentPlayerName() { return currentPlayer;  }
 
     /**
-     * Sets username.
+     * Sets username as a string.
      * @param user      the username
      */
     public static void setUsername(String user){username=user;}
@@ -55,8 +63,9 @@ public class Client_IO {
      */
     public static String getUsername(){return username;}
 
-
-
+    /**
+     * Collects game's usernames list.
+     */
     private static String[] game_usernames;
 
     /**
@@ -66,26 +75,28 @@ public class Client_IO {
     public static void setGame_usernames(String[] usernames){game_usernames=usernames;}
 
     /**
-     * Gets all us username for a Game.
+     * Gets all username for a Game.
      * @return the string array containing the usernames
      */
     public static String[] getGame_usernames(){return game_usernames;}
 
-    /**
-     * Request grid sizes.
-     * @return the sizes array
-     */
+
     //OnlyLocalGame
+    /**
+     * Requests grid or PlayBoard sizes.
+     * @return the fixed grid sizes array
+     */
     public static int[] requestGridSizes(){return new int[]{80,40};}
 
     /**
-     * Request current player count.
+     * Requests current player count.
      * @return the count as an int
      */
     public static int requestCurrentPlayerCount(){ return playerCount ;}
 
     /**
-     * Sets RMI communication.
+     * Sets RMI communication in port 1331, gets a new registry, initializes UpdateObject to allow for RMI
+     * updates and lastly modifies the boolean RMI_Set to true, to indicate that the RMI has been set.
      */
     private static void setRMI()
     {
@@ -102,7 +113,13 @@ public class Client_IO {
     //updaters
 
     /**
-     * Requests un update.
+     * Requests an update: ensures game has started and hasn't ended, then gets current turn and updates GUI -
+     * if present. If the used communication is Socket, calls for a socket update instead and exits this method,
+     * otherwise we proceed with the RMI update in this method (as a standard).
+     * @see Client_IO#requestSocketUpdate()
+     * The update request gets the new players count, the public cards, the current player's hand,
+     * the PlayBoard and the Player's score along with visible resources count.
+     * In the end, the gui render is also updated - if applicable.
      */
      public static void requestUpdate()
     {
@@ -170,7 +187,9 @@ public class Client_IO {
     }
 
     /**
-     * Requests for a socket update with updated Playercount, Public Cards, Hand, PlayBoard and Scores.
+     * Prints the response of a Socket Update request, specifically the new Playercount, the Public Cards, the Hand,
+     * the PlayBoard and the Scores along with visible resources count.
+     * Note: if the assigned Socket Update is null we simply exit the method.
      */
     private static void requestSocketUpdate(){
 
@@ -196,6 +215,13 @@ public class Client_IO {
 
     }
 
+    /**
+     * Gets current turn. In particular, requests the current Player through GameClient for Socket communication;
+     * Alternatively, in case of RMI communication requests the current Player from the UpdateObject.
+     *
+     * @return the username of the current player turn
+     * @see GameClient#listenForResponse
+     */
     private static boolean getCurrentTurn() {
         if(ClientConstants.getSocket()) { currentPlayer = GameClient.listenForResponse("SendCurrentTurn," + username); }
         else{ try { currentPlayer = UpdateObject.isTurn(username);}catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
@@ -212,20 +238,20 @@ public class Client_IO {
     public static int[] requestPublicCardsID(){return lastUpdatedPublicCards;}
 
     /**
-     * Requests Player's grid.
+     * Requests Player's grid or PlayBoard.
      * @return the last updated grid int matrix.
      */
     public static int[][] requestGrid(){return lastUpdatedGrid;}
 
     /**
-     * Requests player score int [ ].
-     * @return the int [ ]
+     * Requests current Player's score, including visible resources count.
+     * @return the scores array int[ ]
      */
     public static int[] requestPlayerScore(){ return lastUpdatedScore;}
 
     /**
-     * Request player hand int [ ].
-     * @return the int [ ]
+     * Request player hand cards list.
+     * @return the cards array int [ ]
      */
     public static int[] requestPlayerHand() { return lastUpdatedHand;}
 
@@ -233,8 +259,13 @@ public class Client_IO {
 
     //Modifiers
     /**
-     * Flips card in a given position.
-     * @param position   the Card position
+     * Flips card in a given position: first changes the current GameState accordingly, then requests the flip either
+     * for Socket or RMI communication - therefore calling for RMI_Flip - depending on ClientConstants, finally it
+     * requests un update in GUI (if applicable).
+     * Note: if the current scene is 'PLACE_STARTING' we simply exit the method.
+     *
+     * @param position      the position of the Card to flip
+     * @see ServerRMI#RMI_Flip(int, String)
      */
     public static void FlipCard_inPos(int position)
     {
@@ -249,8 +280,14 @@ public class Client_IO {
     //Server_IO.Flip(position, assignedNumber); requestUpdate();}
 
     /**
-     * Draws a Card from desired position.
-     * @param position       the position to draw the Card from
+     * Prints Drawing Card (from desired position) messages: first changes the current GameState accordingly, then requests
+     * the draw either for Socket or RMI communication - therefore calling for RMI_DrawCard - depending on ClientConstants,
+     * finally it requests un update in GUI (if applicable) and changes the GameState to 'SPECTATE_PLAYER' to allow a Client
+     * to see the other Players PlayBoards when it's their turn.
+     * Note: if the current scene is 'DRAW' we simply exit the method.
+     *
+     * @param position      the position to draw the Card from
+     * @see ServerRMI#RMI_DrawCard(int, String)
      */
     public static void DrawCard(int position)
     //{Server_IO.DrawCard(position, assignedNumber);  requestUpdate();}
@@ -266,8 +303,13 @@ public class Client_IO {
     }
 
     /**
-     * Places Starting Card in PlayBoard.
-     * @param selectedCard the selected card
+     * Places Starting Card in PlayBoard: first if the current GameState isn't 'PLACE_STARTING' we simply exit the method,
+     * otherwise the Server is notified that a Starting Card is being placed, and we proceed with placing the Card through
+     * Socket or RMI communication - therefore calling for RMI_PlaceStartingCard - depending on ClientConstants; finally it
+     * requests un update in GUI (if applicable) and then changes scene to 'PLAY' or 'SPECTATE_PLAYER' if it's not our turn.
+     *
+     * @param selectedCard   the starting card
+     * @see ServerRMI#RMI_PlaceStartingCard(int, String)
      */
     public static void PlaceStartingCard(int selectedCard)
     //{ Server_IO.PlaceStartingCard(selectedCard, assignedNumber);  requestUpdate();}
@@ -286,8 +328,15 @@ public class Client_IO {
     }
 
     /**
-     * Chooses goal card.
-     * @param position      the position of the chosen Card
+     * Chooses goal card: first if the current GameState isn't 'CHOOSE_GOAL' we simply exit the method, and the same goes
+     * if the chosen Card isn't in one of the two position where Personal Goal cards are places by default (position 3 or 5);
+     * otherwise the Server is notified that a GoalCard is being chosen, and we proceed with setting the Card through
+     * Socket or RMI communication - in which case RMI_ChooseGoalCard is called - depending on ClientConstants; finally it
+     * changes scene to 'PLACE_STARTING' and then requests un update in GUI (if applicable).
+     *
+     * @param position      the position of the chosen Goal Card
+     *
+     * @see ServerRMI#RMI_ChooseGoalCard(int, String)
      */
     public static void ChooseGoalCard(int position) {
 
@@ -303,12 +352,18 @@ public class Client_IO {
     }
 
     /**
-     * Plays a card by using their Deck index.
+     * Prints response for Playing a card by using its Deck index: first if the current GameState isn't 'PLAY' we simply exit
+     * the method, returning false, and the same goes if the Card can't be played, as the default return would be set as false
+     * - after calling for RMI_PlayCardByIndex, but eventually is later turned to true if playable. In that case, un update
+     * request is sent, and then a GUI update (if applicable). On the other hand, if the Card is calculated non-playable,
+     * the method checks if the game has ended and therefore proceeds to Calculate te winner.
      *
      * @param Row_index     the row index
      * @param Columns_index the columns index
      * @param id            the unique Card id
      * @return the boolean indicating if the Card has been placed successfully
+     *
+     * @see ServerRMI#RMI_PlayCardByIndex(int, int, int, String)
      */
     public static boolean playCardByIndex(int Row_index, int Columns_index, int id) {
         //System.out.println("RequestedPlay," + Row_index + "," + Columns_index + "," + id);
@@ -332,7 +387,11 @@ public class Client_IO {
     }
 
     /**
-     * Gets a new communication port.
+     * Prints response for method that gets a new communication port, either Socket or RMI, in which case RMI_getNewPort is called
+     * then sets RMI_Set boolean accordingly. The Client is notified through a simple message.
+     *
+     * @see ServerRMI#RMI_getNewPort(String)
+     * @see ClientConstants#setPort(int)
      */
     public static void getNewPort(){
         int NewPort = 0;
@@ -345,8 +404,13 @@ public class Client_IO {
     }
 
     /**
-     * Joins a game.
+     * Prints messages for when a Player joins a game, either via Socket or RMI. In the latter case, it checks if RMI_Set
+     * value is true, otherwise we call for setRMI, then either the reply from 'JoinGame' in ServerRMI interface is returned, or an
+     * error message is sent.
+     *
      * @return the string reply message
+     *
+     * @see ServerRMI#JoinGame(String)
      */
     public static String JoinGame()
     {
@@ -358,9 +422,14 @@ public class Client_IO {
     }
 
     /**
-     * Reconnects the Client to an existing Game.
+     * Reconnects the Client to an existing Game, either via Socket or RMI. In the latter case, it checks if RMI_Set
+     * value is true, otherwise we call for setRMI, then either the reply from 'Reconnect' in ServerRMI interface is returned, or an
+     * error message is sent.
+     *
      * @param port   the last port assigned before disconnection
      * @return the string reply message
+     *
+     * @see ServerRMI#Reconnect(String, int)
      */
     public static String Reconnect(int port)
     {
@@ -370,9 +439,13 @@ public class Client_IO {
     }
 
     /**
-     * Creates a new Game.
+     * Creates a new Game, either via Socket or RMI. In the latter case, it checks if RMI_Set value is true, otherwise it calls
+     * for setRMI, then either the reply from 'CreateGame' in ServerRMI interface is returned, or an error message is sent.
+     *
      * @param playerCount   the number of Players
      * @return the string reply message
+     *
+     * @see ServerRMI#CreateGame(String, int)
      */
     public static String CreateGame(int playerCount)
     {
@@ -382,8 +455,12 @@ public class Client_IO {
     }
 
     /**
-     * Gets usernames as a string.
+     * Gets usernames as a string, either via Socket or RMI. In the latter case, it checks if RMI_Set value is true, otherwise it calls
+     * for setRMI, then either the reply from 'RMI_getUsernames' in ServerRMI interface is returned, or an error message is sent.
+     *
      * @return reply message string
+     *
+     * @see ServerRMI#RMI_getUsernames()
      */
     public static String getUsernamesString()
     {
@@ -396,16 +473,27 @@ public class Client_IO {
      * Definition of a second converted from system.nanotime()
      */
     private static final double second = (1000000000.0);
+
     /**
      * The update time interval: un Update is send automatically every 10 seconds.
      */
     private static final double timePerUpdate = 10*second;
+
     private static long lastUpdateTime = System.nanoTime();
     private static int[][] lastPlayerGrid = null;
 
     /**
-     * Gets current Player PlayBoard or grid to place their Cards.
+     * Gets current Player PlayBoard or grid to place their Cards: first it makes sure that the current scene isn't
+     * 'SPECTATE_PLAYER', to be able to immediately return lastPlayerGrid, otherwise it checks
+     * if the update time has been exceeded, in which case the time is reset and a new update is requested; if it's no longer
+     * current Player's turn, it requests the grid either through Socket or RMI communication - in which case it calls for
+     * 'RMI_getCurrentPlayerGrid' - depending on ClientConstants, finally it requests un update in GUI (if applicable),
+     * changes scene to 'PLAY' and return lastPlayerGrid.
+     * Afterwards, a new update is requested and the GameState is changed to 'PLAY'.
+     *
      * @return updated Player Grid
+     *
+     * @see ServerRMI#RMI_getCurrentPlayerGrid()
      */
     public static int[][] getCurrentPlayerGrid()
     {

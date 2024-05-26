@@ -3,12 +3,13 @@ package main.java.it.polimi.ingsw.Rmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 /**
- * The interface Server RMI.
+ * The interface Server RMI, implemented in Server_IO.
+ * @see main.java.it.polimi.ingsw.ServerSide.Server_IO.ServerRMI_impl
  */
 public interface ServerRMI extends Remote
 {
     /**
-     * Get current player count.
+     * Gets current player count.
      *
      * @return the count as an int
      * @throws RemoteException the remote exception in case any errors occur
@@ -81,7 +82,7 @@ public interface ServerRMI extends Remote
     void RMI_DrawCard(int position, String username) throws RemoteException;
 
     /**
-     * Plays card by index.
+     * Plays card by Deck index.
      *
      * @param rowIndex     the number indicating the row index
      * @param columnsIndex the number indicating the columns index
@@ -92,7 +93,7 @@ public interface ServerRMI extends Remote
     boolean RMI_PlayCardByIndex(int rowIndex, int columnsIndex, int id, String username) throws RemoteException; //{return TableManager.playCardByIndex(rowIndex, columnsIndex, id, AssignedNumber);}
 
     /**
-     * Place starting card.
+     * Places starting card.
      *
      * @param selectedCard the selected starting card
      * @throws RemoteException the remote exception in case any errors occur
@@ -100,7 +101,7 @@ public interface ServerRMI extends Remote
     void RMI_PlaceStartingCard(int selectedCard, String username) throws RemoteException; //{ TableManager.PlaceStartingCard(selectedCard, assignedNumber); }
 
     /**
-     * Choose goal card.
+     * Chooses goal card.
      *
      * @param position the position chosen (between 3 and 5)
      * @throws RemoteException the remote exception in case any errors occur
@@ -118,7 +119,7 @@ public interface ServerRMI extends Remote
     void update(String username) throws RemoteException;
 
     /**
-     * Join game.
+     * Joins a game.
      *
      * @param username the username of the player that wants to join
      * @return the response message to display as a string
@@ -127,7 +128,7 @@ public interface ServerRMI extends Remote
     String JoinGame(String username) throws RemoteException;
 
     /**
-     * Reconnect to an existing game.
+     * Reconnects to an existing game.
      *
      * @param username the username used to reconnect
      * @param port last port assigned before disconnection
@@ -147,7 +148,7 @@ public interface ServerRMI extends Remote
     String CreateGame(String username, int playerCount) throws RemoteException;
 
     /**
-     * Get new port for a game and a client to communicate .
+     * Gets a new port for a game and a client to communicate .
      *
      * @param username the player's username
      * @return the port as an int
@@ -175,6 +176,15 @@ public interface ServerRMI extends Remote
      */
     String isTurn(String ignoredUsername) throws RemoteException;
 
+    /**
+     * Checks if a given port is closed or on the contrary if it can be used for communication.
+     *
+     * @param port  the port to inspect
+     * @return the boolean response
+     * @throws RemoteException the remote exception in case any errors occur
+     *
+     * @see main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager#getInstanceByPort(int)
+     */
     boolean isClosed(int port) throws RemoteException;
 
     String RMI_getUsernames() throws RemoteException;

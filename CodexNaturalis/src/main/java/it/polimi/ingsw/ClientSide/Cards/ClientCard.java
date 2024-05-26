@@ -16,6 +16,9 @@ import java.io.File;
 public class ClientCard {
 
 
+    /**
+     *
+     */
     String ImagePath;
 
     int[] Corners;

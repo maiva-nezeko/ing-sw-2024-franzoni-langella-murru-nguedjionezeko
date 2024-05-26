@@ -31,14 +31,14 @@ public class Client_Game implements Runnable {
     private static GameStates CurrentScene = GameStates.MAIN_MENU;
 
     /**
-     * Changes scene.
+     * Changes CurrentScene constant to displayed scene.
      *
      * @param scene the string referencing the new scene
      */
     public static void  ChangeScene(GameStates scene){CurrentScene = scene;}
 
     /**
-     * Gets the current scene as a string.
+     * Gets the current scene as a string from GameStates enumeration.
      *
      * @return the scene
      */
@@ -46,7 +46,8 @@ public class Client_Game implements Runnable {
 
 
     /**
-     * Instantiates a new Client game and calls for Game loop to start.
+     * Instantiates a new Client game, with a new GamePanel (a new window), sends the message that a window is being
+     * constructed and calls for Game loop to start, after filling all empty Card slots for the Client.
      */
     public Client_Game() {
 
@@ -74,7 +75,8 @@ public class Client_Game implements Runnable {
     }
 
     /**
-     * Sets username through Keyboard inputs when Joining.
+     * Sets username through Keyboard inputs when Joining: checks that the typed username doesn't contain special characters,
+     * then notifies that the username has been successfully set.
      *
      * @param additionalInfo the info to send to a Client that is joining a Game
      *                       The info sent could be a message that indicates if a username
@@ -136,7 +138,7 @@ public class Client_Game implements Runnable {
      * to Join an existing game or to Reconnect to a Game they were disconnected to (using the same
      * username they joined with).
      * JoinGame also gets a new Port for communication, requests updates and starts a turn timer before changing
-     * a scene in a successful Join attempt. Every step is notified to the Player.
+     * scene to 'CHOOSE_GOAL' in a successful Join attempt. Every step is notified to the Player.
      */
     public static void JoinGame()
     {
@@ -231,8 +233,7 @@ public class Client_Game implements Runnable {
      */
     private void startGameLoop()
     {
-        GameClient socketClient;
-        socketClient = new GameClient(this, ClientConstants.getIp());
+        GameClient socketClient = new GameClient(this, ClientConstants.getIp());
         socketClient.start();
 
         Thread gameThread = new Thread(this);
@@ -252,10 +253,9 @@ public class Client_Game implements Runnable {
         long previousTime = System.nanoTime();
         long lastCheck = System.currentTimeMillis();
 
-        int frames=0;
         double deltaFrames = 0;
 
-        while(true){
+        while (true) {
 
             long currentTime = System.nanoTime();
 
@@ -264,15 +264,15 @@ public class Client_Game implements Runnable {
 
             previousTime = currentTime;
 
-            if(deltaFrames>= 1){
-                if(ClientConstants.getGUI()){ gamePanel.repaint(); }
-                frames++; deltaFrames--;
+            if (deltaFrames >= 1) {
+                if (ClientConstants.getGUI()) {
+                    gamePanel.repaint();
+                }
+                deltaFrames--;
             }
 
-            if(System.currentTimeMillis() - lastCheck >= 1000)
-            {
+            if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                frames = 0;
             }
         }
 

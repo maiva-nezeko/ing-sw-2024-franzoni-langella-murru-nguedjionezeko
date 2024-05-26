@@ -77,7 +77,8 @@ public class GameServer implements Runnable{
 
 
     /**
-     * Starts a new Socket Server port communication.
+     * Starts a new Socket Server port communication and notifies the Client according to GameStates, connection
+     * attempts, update requests and more occurrences.
      */
     public void run() {
 

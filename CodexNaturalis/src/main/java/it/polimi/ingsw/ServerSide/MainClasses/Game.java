@@ -41,6 +41,11 @@ public class  Game {
     private GameServer gameServer;
 
     private GameStates GameState;
+
+    /**
+     *
+     * @return GameState
+     */
     public GameStates getGameState(){return GameState;}
 
     /**
@@ -55,12 +60,20 @@ public class  Game {
     public void setGameState(GameStates GS){GameState = GS;}
     private final int port;
 
+    /**
+     *
+     * @return port
+     */
     public int getPort() {
         return this.port;
     }
 
     private final List<Player> Players;
 
+    /**
+     *
+     * @return Players
+     */
     public List<Player> getPlayers() {
         return this.Players;
     }
@@ -100,7 +113,7 @@ public class  Game {
     }
 
     /**
-     * Reports the game started.
+     * Reports the game started: GameState is changed to 'PLAYING' and the GameStarted boolean is set as true.
      */
     public void start() {
         GameState = GameStates.PLAYING;
@@ -108,7 +121,9 @@ public class  Game {
     }
 
     /**
-     * Reports the game ended.
+     * Reports the game ended: a notification is sent and it calls for the method that shuts down GameServer.
+     *
+     * @see GameServer#shutDown()
      */
     public void end() {
 
@@ -126,6 +141,7 @@ public class  Game {
 
     /**
      * Gets Table related to the Game.
+     *
      * @return the table
      */
     public Table getRelatedTable() {
@@ -134,7 +150,7 @@ public class  Game {
 
 
     /**
-     * Starts actual Game.
+     * Starts actual Game: initializes a GameServer, initializes a gameThread and calls for the thread to start.
      */
     void startGameLoop() {
         gameServer = new GameServer(this.port, this);
@@ -150,7 +166,6 @@ public class  Game {
      * @param port        server port where the game is instantiated
      * @param Players     list of the player in the game
      */
-
     public Game(int playerCount, List<Player> Players, int port) {
         this.PlayerCount = playerCount;
         this.Players = Players;
@@ -161,6 +176,7 @@ public class  Game {
 
     /**
      * Gets the empty slot as in how many Players we are expecting for the game to start.
+     *
      * @return the remaining Players
      */
     public int getEmptySlot() {
@@ -171,6 +187,7 @@ public class  Game {
 
     /**
      * Gets a Player object through is username - as a unique identifier.
+     *
      * @param username the username of the Player to get
      * @return the Player
      */
@@ -225,6 +242,10 @@ public class  Game {
     //TurnManager
     private static int CurrentPlayerTurn = 0;
 
+    /**
+     *
+     * @return turn
+     */
     public int getCurrentPlayerTurn() {
         return CurrentPlayerTurn;
     }

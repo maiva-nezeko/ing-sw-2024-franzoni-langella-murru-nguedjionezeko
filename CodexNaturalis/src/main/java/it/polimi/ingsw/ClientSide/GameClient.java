@@ -8,7 +8,7 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Constants and methods used for communication with Server, from a Client's perspective: the IpAddress,
+ * Constants and methods used for Socket communication with Server, from a Client's perspective: the IpAddress,
  * the socket, sending and receiving data or messages, etc.
  * @author Edoardo Carlo Murru, Darelle Maiva Nguedjio Nezeko
  */
@@ -17,9 +17,9 @@ public class GameClient extends Thread{
     private static DatagramSocket socket;
 
     /**
-     * Instantiates a new Game client.
+     * Instantiates a new Game client by getting a new Socket along with the ip address.
      *
-     * @param ignoredGame          the game
+     * @param ignoredGame   the game
      * @param ipAddress_str the ip address string
      */
     public GameClient(Client_Game ignoredGame, String ipAddress_str)
@@ -63,7 +63,8 @@ public class GameClient extends Thread{
     }
 
     /**
-     * Controls if a given port is closed or can be used for communication.
+     * Controls if a given port is closed or can be used for communication by attempting to send and receive a
+     * trial message.
      *
      * @param message   the control message
      * @param port      the desired port
@@ -91,7 +92,7 @@ public class GameClient extends Thread{
 
 
     /**
-     * Sends data.
+     * Sends Socket data.
      *
      * @param data      the data
      * @throws RuntimeException for socket communication, in case of Runtime errors
