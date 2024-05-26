@@ -19,12 +19,19 @@ public class App
     {
         boolean ipSet= false;
         String response = "";
-
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Input server ip or leave it blank to host one yourself");
+
+        //Allow to enter the ip in configuration window
+
+        if(args[0] != null)
+        {
+            ipSet = true;
+            ClientConstants.setIP(args[0]);
+        }
 
         //sets the server IP assuming that the client knows exactly what it is
         while(!ipSet) {
+            System.out.println("Input server ip ");
             response = scanner.nextLine();
 
             if(Objects.equals(response, "")){ break; }
@@ -46,32 +53,11 @@ public class App
             }
 
             if(!ipSet){ System.out.println("The address you committed was not valid, try again");  }
-        }
-
-        if(!ipSet)
-        {
-            Server_IO.ServerRMI_impl UpdatedRMI;
-
-            GameServer mainServer = new GameServer(1330, null);
-            Thread mainGameThread = new Thread(mainServer);
-            mainGameThread.start();
-
-            try {
-                Registry reg = LocateRegistry.createRegistry(1331);
-
-                UpdatedRMI = new Server_IO.ServerRMI_impl();
-                reg.bind("GetUpdates", UpdatedRMI);
-
-            } catch (RemoteException | AlreadyBoundException e) {
-                throw new RuntimeException(e);
+            else {
+                ClientConstants.setIP(response);
             }
-
-            PersistenceManager.RestoreGames();
         }
 
-        else {
-            ClientConstants.setIP(response);
-        }
 
         new Client_Game();
 

@@ -205,7 +205,8 @@ public class Client_Game implements Runnable {
         {
             if(System.nanoTime() == previousTime+timePerTurn)
             { previousTime = System.nanoTime(); System.out.print("Waiting for game to start: ");
-                Client_IO.requestUpdate();}
+                Client_IO.requestUpdate();
+            }
 
         }
 

@@ -158,8 +158,13 @@ public class UpdateTest extends TestCase {
         //check if game has advanced
         assertEquals(GameStates.LAST_TURN, testGame.getGameState());
         testGame.changePlayerTurn();
+
+        assertNotNull(MultipleGameManager.getGameInstance("TestPlayer"));
+
         assertEquals(GameStates.LAST_TURN, testGame.getGameState());
         testGame.changePlayerTurn();
+
         assertFalse(testGame.isGameStarted());
+        assertNull(MultipleGameManager.getGameInstance("TestPlayer"));
     }
 }
