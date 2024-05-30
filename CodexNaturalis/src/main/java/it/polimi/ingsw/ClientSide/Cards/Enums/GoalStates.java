@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ClientSide.Cards.Enums;
+package it.polimi.ingsw.ClientSide.Cards.Enums;
 
 
 /**

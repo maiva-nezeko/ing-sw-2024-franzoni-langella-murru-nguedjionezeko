@@ -1,17 +1,13 @@
-package main.java.it.polimi.ingsw.ServerSide;
+package it.polimi.ingsw.ServerSide;
 
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import main.java.it.polimi.ingsw.ServerSide.Utility.ClientHandler;
-import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import it.polimi.ingsw.ServerSide.MainClasses.Game;
+import it.polimi.ingsw.ServerSide.UpdateClasses.ClientHandler;
+import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
-import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * The Game server as in the mean for the Server communication via Socket.

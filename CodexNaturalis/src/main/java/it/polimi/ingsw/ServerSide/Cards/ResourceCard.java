@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ServerSide.Cards;
+package it.polimi.ingsw.ServerSide.Cards;
 
 /**
  * The PlayableCard type Resource card. It's just like a PlayableCard, but it's not abstract.

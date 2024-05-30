@@ -1,13 +1,13 @@
-package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
+package it.polimi.ingsw.ClientSide.GUI_Render;
 
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
+import static it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
 /**
  * Collects all images for GUI rendering excluding Cards and Helper messages;
  * these images include the main menu, the secondary menu with the options for the

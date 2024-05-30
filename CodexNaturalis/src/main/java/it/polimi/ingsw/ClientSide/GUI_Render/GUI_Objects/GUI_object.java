@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects;
+package it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects;
 
 import java.awt.*;
 

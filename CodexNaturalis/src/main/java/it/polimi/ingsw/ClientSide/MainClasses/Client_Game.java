@@ -1,13 +1,13 @@
-package main.java.it.polimi.ingsw.ClientSide.MainClasses;
+package it.polimi.ingsw.ClientSide.MainClasses;
 
-import main.java.it.polimi.ingsw.ClientSide.Client_IO;
-import main.java.it.polimi.ingsw.ClientSide.Controller.Shortcuts;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GameWindow;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
-import main.java.it.polimi.ingsw.ClientSide.GameClient;
-import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.Client_IO;
+import it.polimi.ingsw.ClientSide.Controller.Shortcuts;
+import it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
+import it.polimi.ingsw.ClientSide.GUI_Render.GameWindow;
+import it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
+import it.polimi.ingsw.ClientSide.GameClient;
+import it.polimi.ingsw.ClientSide.TUI_Render.TUI;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import javax.swing.*;
 import java.nio.file.FileSystems;
@@ -146,7 +146,9 @@ public class Client_Game implements Runnable {
         String userName = "";
          // Create a Scanner object
         Scanner scanner = new Scanner(System.in);
+        String response = "";
         System.out.println(MainDirPAth);
+        boolean reconnected = true;
 
         SetUsername("First you need to insert your Username: ");
 
@@ -159,28 +161,36 @@ public class Client_Game implements Runnable {
         {
 
             if(JoinStatus.toLowerCase().contains("connection failed")){
-                System.out.println("Would you like to create a new game? y/n");
-                String response = scanner.nextLine();
-                if(response.contains("y")){
-                    System.out.println("Insert a playerCount between 1 and 4:");
-                    response = scanner.nextLine();
-                    JoinStatus = Client_IO.CreateGame(Integer.parseInt(response));
-
-                    if(JoinStatus.toLowerCase().contains("username")){SetUsername("Username already present, please set a new one:");}
-
-                }
-                else{
+                if(JoinStatus.toLowerCase().contains("username"))
+                {
                     System.out.println("Would you like to reconnect to a previous game? y/n");
                     response = scanner.nextLine();
                     if(response.contains("y")){
                         System.out.println("Insert the port number that was given to you when you connected to the previous game: ");
                         response = scanner.nextLine();
 
-                        try{ int lastPort = Integer.parseInt(response); JoinStatus = Client_IO.Reconnect(lastPort);}
+                        try{ int lastPort = Integer.parseInt(response); JoinStatus = Client_IO.Reconnect(lastPort); reconnected = !JoinStatus.toLowerCase().contains("failed");}
                         catch (NumberFormatException e){ System.out.println("Please insert a recognizable number"); }
                     }
-
+                    else
+                    {
+                        SetUsername("Change your username please");
+                    }
                 }
+                else {
+                    System.out.println("Would you like to create a new game? y/n");
+                    response = scanner.nextLine();
+                    if (response.contains("y")) {
+                        System.out.println("Insert a playerCount between 1 and 4:");
+                        response = scanner.nextLine();
+                        JoinStatus = Client_IO.CreateGame(Integer.parseInt(response));
+
+                        if (JoinStatus.toLowerCase().contains("username")) {
+                            SetUsername("Username already present, please set a new one:");
+                        }
+                    }
+                }
+
 
             }
             else {
@@ -214,14 +224,30 @@ public class Client_Game implements Runnable {
         {
             Client_IO.requestUpdate();
             ChangeScene(GameStates.CHOOSE_GOAL);
+            if(reconnected){ detectScene(); }
         }
         else
         {
             ChangeScene(GameStates.CHOOSE_GOAL);
+            if(reconnected){ detectScene(); }
+
             Client_IO.requestUpdate();
             TUI.renderTUI();
         }
 
+
+    }
+
+    private static void detectScene() {
+        int[] Hand = Client_IO.requestPlayerHand();
+
+        if(Hand.length == 6)
+        {
+            if(Hand[5] != 0 ){ ChangeScene(GameStates.CHOOSE_GOAL);  }
+            else if(Hand[4] != 0){ ChangeScene(GameStates.PLACE_STARTING); }
+            else if(Hand[0] == 0 || Hand[1] == 0 || Hand[2] == 0){ ChangeScene(GameStates.DRAW); }
+            else{ ChangeScene(GameStates.PLAY); }
+        }
 
     }
 
@@ -298,7 +324,7 @@ public class Client_Game implements Runnable {
             else {
                 System.out.println("You won last game, would you like to play some more? y/n");
                 String response = scanner.nextLine();
-                if(response.contains("y")){ ChangeScene(GameStates.MAIN_MENU); JoinGame();    return;}
+                if(response.contains("y")){ ChangeScene(GameStates.MAIN_MENU); JoinGame(); return;}
             }
         }
         else

@@ -1,9 +1,9 @@
-package main.java.it.polimi.ingsw.ClientSide.Utility;
+package it.polimi.ingsw.ClientSide.Utility;
 
-import main.java.it.polimi.ingsw.ClientSide.Client_IO;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
+import it.polimi.ingsw.ClientSide.Client_IO;
+import it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
+import it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
+import it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
 
 /**
  * The Helper methods for Game basic settings and operations such as "Select Card",

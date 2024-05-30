@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ServerSide.Cards.Enums;
+package it.polimi.ingsw.ServerSide.Cards.Enums;
 
 /**
  * The enumeration of all the different conditions in which playing a given Gold Card

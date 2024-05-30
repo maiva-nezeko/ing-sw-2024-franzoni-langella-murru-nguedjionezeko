@@ -1,10 +1,10 @@
-package main.java.it.polimi.ingsw;
+package it.polimi.ingsw;
 
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
-import main.java.it.polimi.ingsw.ServerSide.GameServer;
-import main.java.it.polimi.ingsw.ServerSide.Server_IO;
-import main.java.it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ServerSide.GameServer;
+import it.polimi.ingsw.ServerSide.Server_IO;
+import it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -23,7 +23,7 @@ public class App
 
         //Allow to enter the ip in configuration window
 
-        if(args[0] != null)
+        if(args.length>0 && args[0] != null)
         {
             ipSet = true;
             ClientConstants.setIP(args[0]);

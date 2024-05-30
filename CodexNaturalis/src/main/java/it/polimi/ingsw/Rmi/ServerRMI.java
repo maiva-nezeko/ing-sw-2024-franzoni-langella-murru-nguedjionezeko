@@ -1,10 +1,10 @@
-package main.java.it.polimi.ingsw.Rmi;
+package it.polimi.ingsw.Rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 /**
  * The interface Server RMI, implemented in Server_IO.
- * @see main.java.it.polimi.ingsw.ServerSide.Server_IO.ServerRMI_impl
+ * @see it.polimi.ingsw.ServerSide.Server_IO.ServerRMI_impl
  */
 public interface ServerRMI extends Remote
 {
@@ -183,7 +183,7 @@ public interface ServerRMI extends Remote
      * @return the boolean response
      * @throws RemoteException the remote exception in case any errors occur
      *
-     * @see main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager#getInstanceByPort(int)
+     * @see it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager#getInstanceByPort(int)
      */
     boolean isClosed(int port) throws RemoteException;
 

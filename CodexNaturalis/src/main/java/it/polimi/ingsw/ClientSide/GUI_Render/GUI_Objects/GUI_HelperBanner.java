@@ -1,6 +1,6 @@
-package main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects;
+package it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects;
 
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -1,10 +1,10 @@
-package main.java.it.polimi.ingsw.ServerSide.MainClasses;
+package it.polimi.ingsw.ServerSide.MainClasses;
 
-import main.java.it.polimi.ingsw.ServerSide.GameServer;
-import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
-import main.java.it.polimi.ingsw.ServerSide.Table.Player;
-import main.java.it.polimi.ingsw.ServerSide.Table.Table;
-import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
+import it.polimi.ingsw.ServerSide.GameServer;
+import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import it.polimi.ingsw.ServerSide.Table.Player;
+import it.polimi.ingsw.ServerSide.Table.Table;
+import it.polimi.ingsw.ServerSide.Utility.GameStates;
 
 import java.util.Arrays;
 import java.util.List;

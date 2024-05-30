@@ -1,10 +1,10 @@
-package main.java.it.polimi.ingsw.ClientSide.Controller;
+package it.polimi.ingsw.ClientSide.Controller;
 
-import main.java.it.polimi.ingsw.ClientSide.Client_IO;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import it.polimi.ingsw.ClientSide.Client_IO;
+import it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
+import it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 
 import javax.swing.*;
 
@@ -74,7 +74,7 @@ public interface Shortcuts {
 
         }
 
-        if(Client_IO.Reconnect(Integer.parseInt(port)).contains("Reconnecting")){ FULL_GUI.updateGUI(); Client_Game.ChangeScene(GameStates.PLAY);  return; }
+        if( !Client_IO.Reconnect(Integer.parseInt(port)).contains("failed") ){ FULL_GUI.updateGUI(); Client_Game.ChangeScene(GameStates.PLAY);  return; }
 
         Shortcuts.BackToMenu("The server has not accepted your reconnection attempt", gamePanel);
 

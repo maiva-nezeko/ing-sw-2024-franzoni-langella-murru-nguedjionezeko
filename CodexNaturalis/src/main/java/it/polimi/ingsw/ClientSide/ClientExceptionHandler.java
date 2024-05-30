@@ -1,8 +1,8 @@
-package main.java.it.polimi.ingsw.ClientSide;
+package it.polimi.ingsw.ClientSide;
 
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import javax.swing.*;
 import java.rmi.RemoteException;
@@ -37,7 +37,6 @@ public class ClientExceptionHandler {
             }
 
             Client_Game.ChangeScene(GameStates.MAIN_MENU);
-
         }
 
     }

@@ -1,13 +1,13 @@
-package test.java.it.polimi.ingsw.ServerTesting;
+package it.polimi.ingsw.ServerTesting;
 
 import junit.framework.TestCase;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import main.java.it.polimi.ingsw.ServerSide.Table.Player;
-import main.java.it.polimi.ingsw.ServerSide.Table.Table;
-import main.java.it.polimi.ingsw.ServerSide.UpdateClasses.TableManager;
-import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
-import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import it.polimi.ingsw.ServerSide.MainClasses.Game;
+import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import it.polimi.ingsw.ServerSide.Table.Player;
+import it.polimi.ingsw.ServerSide.Table.Table;
+import it.polimi.ingsw.ServerSide.UpdateClasses.TableManager;
+import it.polimi.ingsw.ServerSide.Utility.GameStates;
+import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,10 @@
-package main.java.it.polimi.ingsw.ClientSide.Controller;
+package it.polimi.ingsw.ClientSide.Controller;
 
-import main.java.it.polimi.ingsw.ClientSide.Client_IO;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.Client_IO;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import it.polimi.ingsw.ClientSide.TUI_Render.TUI;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.Scanner;
 
@@ -23,6 +23,11 @@ public interface TUI_Inputs {
      * cards or manage the view through scaling or a manual update.
      */
     static void waitForInput() {
+
+        if(Client_Game.getCurrentScene().equals(GameStates.MAIN_MENU)){
+            Client_Game.JoinGame();
+            return;
+        }
 
         if(Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){
             TUI.renderTUI();
@@ -49,8 +54,8 @@ public interface TUI_Inputs {
                 case "5" -> {if(Client_Game.getCurrentScene().equals(GameStates.DRAW)){Client_IO.DrawCard(5); InputResolved=true;}}
 
                 //Goal cards
-                case "8" -> {Client_IO.ChooseGoalCard(3); Client_Game.ChangeScene(GameStates.PLACE_STARTING);  InputResolved=true;}
-                case "9" -> {Client_IO.ChooseGoalCard(5); Client_Game.ChangeScene(GameStates.PLACE_STARTING);  InputResolved=true;}
+                case "8" -> {if(Client_Game.getCurrentScene().equals(GameStates.CHOOSE_GOAL)){Client_IO.ChooseGoalCard(3); InputResolved=true;}}
+                case "9" -> {if(Client_Game.getCurrentScene().equals(GameStates.CHOOSE_GOAL)){Client_IO.ChooseGoalCard(5); InputResolved=true;}}
 
                 //select
                 case "q" -> {ClientConstants.SelectedCard = Client_IO.requestPlayerHand()[0]; SelectedSpace = 0;}

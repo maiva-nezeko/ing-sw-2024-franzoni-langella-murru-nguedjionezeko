@@ -1,8 +1,9 @@
-package main.java.it.polimi.ingsw.ServerSide.Utility;
+package it.polimi.ingsw.ServerSide.UpdateClasses;
 
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import main.java.it.polimi.ingsw.ServerSide.Server_IO;
+import it.polimi.ingsw.ServerSide.MainClasses.Game;
+import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import it.polimi.ingsw.ServerSide.Server_IO;
+import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -158,7 +159,7 @@ public class ClientHandler implements Runnable{
                 if (MultipleGameManager.Reconnect(username, Integer.parseInt(message[2])) != null) {
                     response = "Joining";
                 } else {
-                    response = "Username Not Present";
+                    response = "Connection failed: Username Not Present";
                 }
 
                 sendData(response.getBytes(), packet.getAddress(), packet.getPort());

@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ClientSide.MainClasses;
+package it.polimi.ingsw.ClientSide.MainClasses;
 
 /**
  * The enumeration of all possible GameStates, including End of Game for losing or winning.

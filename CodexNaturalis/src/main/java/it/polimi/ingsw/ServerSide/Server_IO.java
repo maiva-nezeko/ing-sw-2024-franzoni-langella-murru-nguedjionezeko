@@ -1,14 +1,14 @@
-package main.java.it.polimi.ingsw.ServerSide;
+package it.polimi.ingsw.ServerSide;
 
 
-import  main.java.it.polimi.ingsw.Rmi.ServerRMI;
-import  main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
-import  main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import  main.java.it.polimi.ingsw.ServerSide.MainClasses.UpdatePackage;
-import  main.java.it.polimi.ingsw.ServerSide.Table.Player;
-import  main.java.it.polimi.ingsw.ServerSide.Table.Table;
-import  main.java.it.polimi.ingsw.ServerSide.UpdateClasses.TableManager;
-import  main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import  it.polimi.ingsw.Rmi.ServerRMI;
+import  it.polimi.ingsw.ServerSide.MainClasses.Game;
+import  it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import  it.polimi.ingsw.ServerSide.MainClasses.UpdatePackage;
+import  it.polimi.ingsw.ServerSide.Table.Player;
+import  it.polimi.ingsw.ServerSide.Table.Table;
+import  it.polimi.ingsw.ServerSide.UpdateClasses.TableManager;
+import  it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -241,6 +241,10 @@ public class Server_IO {
             ServerConstants.printMessageLn(username);
             if(MultipleGameManager.JoinGame(username)){ this.game = MultipleGameManager.getGameInstance(username);
                 return "Connection attempt was successful, Joining"; }
+            if(MultipleGameManager.getGameInstance(username)!=null)
+            {
+                return "Connection failed, username already present";
+            }
             return "Connection failed";
         }
 

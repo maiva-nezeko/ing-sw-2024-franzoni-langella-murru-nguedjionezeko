@@ -1,6 +1,6 @@
-package main.java.it.polimi.ingsw.ServerSide.Cards;
+package it.polimi.ingsw.ServerSide.Cards;
 
-import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.StartingPoints;
+import it.polimi.ingsw.ServerSide.Cards.Enums.StartingPoints;
 
 /**
  * A PlayableCard type Starting card, the first card each Player puts on the board.

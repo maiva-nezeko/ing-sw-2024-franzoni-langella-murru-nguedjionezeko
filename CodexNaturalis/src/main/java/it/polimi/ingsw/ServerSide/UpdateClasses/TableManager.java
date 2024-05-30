@@ -1,18 +1,18 @@
-package main.java.it.polimi.ingsw.ServerSide.UpdateClasses;
+package it.polimi.ingsw.ServerSide.UpdateClasses;
 
 
-import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
-import main.java.it.polimi.ingsw.ServerSide.Cards.GoalCard;
-import main.java.it.polimi.ingsw.ServerSide.Cards.GoldCard;
-import main.java.it.polimi.ingsw.ServerSide.Cards.PlayableCard;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import main.java.it.polimi.ingsw.ServerSide.Table.Deck;
-import main.java.it.polimi.ingsw.ServerSide.Table.Player;
-import main.java.it.polimi.ingsw.ServerSide.Table.Table;
-import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
-import main.java.it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
-import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
+import it.polimi.ingsw.ServerSide.Cards.GoalCard;
+import it.polimi.ingsw.ServerSide.Cards.GoldCard;
+import it.polimi.ingsw.ServerSide.Cards.PlayableCard;
+import it.polimi.ingsw.ServerSide.MainClasses.Game;
+import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import it.polimi.ingsw.ServerSide.Table.Deck;
+import it.polimi.ingsw.ServerSide.Table.Player;
+import it.polimi.ingsw.ServerSide.Table.Table;
+import it.polimi.ingsw.ServerSide.Utility.GameStates;
+import it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
+import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.util.Arrays;
 import java.util.List;
@@ -303,9 +303,9 @@ public class TableManager {
             ServerConstants.printMessageLn(Arrays.toString(OldPoints));
         }
 
-        if (game.getGameState().equals(GameStates.LAST_TURN) && playerIndex == game.getLastPlayer()) {
-            int player_index = 0;
+        if (game.getGameState().equals(GameStates.LAST_TURN) && playerIndex == 0) {
 
+            int player_index = 0;
             for (Player player_iterator : game.getPlayers()) {
                 AddGoalPoints(player_iterator, player_index, game);
                 player_index++;
