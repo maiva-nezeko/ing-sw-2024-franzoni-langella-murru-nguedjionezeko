@@ -34,10 +34,10 @@ public class GUI_HelperBanner extends GUI_object{
     {
         super(_xSize, _ySize, _xCoord, _yCoord);
 
-        File path = new File(System.getProperty("user.dir")+"\\CodexNaturalis\\res\\MenuIcons\\InfoBanner.png");
+        File path = new File(System.getProperty("user.dir")+"\\CodexNaturalis\\res\\MenuIcons\\AllBanners.png");
 
         BufferedImage rI = null;
-        int ySourceSize = 720;
+        int ySourceSize = 2160;
 
         try {
             rI = ImageIO.read(new File(String.valueOf(path)));
@@ -50,7 +50,7 @@ public class GUI_HelperBanner extends GUI_object{
 
         for( int yCoord=0; yCoord < ySourceSize; yCoord+=ySourceSize/10 )
         {
-            this.referenceImages.add(rI.getSubimage(0, yCoord, 360, ySourceSize/10));
+            this.referenceImages.add(rI.getSubimage(0, yCoord, 1280, ySourceSize/10));
         }
 
     }

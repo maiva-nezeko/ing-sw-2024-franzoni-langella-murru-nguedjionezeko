@@ -67,16 +67,19 @@ public class FULL_GUI {
      */
     private static final Image[] MenuImages = ImagesCollection.getMenu_GUI_Images();
 
+    private static final Image[] BackgroundImages = ImagesCollection.getGUIBackgrounds();
+    private static final GUI_Image MainBackground = new GUI_Image(xWindowSize, yWindowSize, 0, 0, BackgroundImages[0]);
+
     /**
      * All GUI objects/images listed with sizes to place slots for Decks, Common Playable Cards, Common Goal Cards,
      * Playable Hand Cards, Personal Goal Cards, Menus, Message Banners and PointBoards.
      */
     private static final GUI_object[] GUI = {
             //0-3
-            new GUI_Image(xWindowSize/6,xWindowSize/3,xWindowSize/2,yWindowSize/2 - xWindowSize/6, null), //DrawScene_deck
+            new GUI_Image(xWindowSize/6,xWindowSize/3,xWindowSize/2,yWindowSize/2 - xWindowSize/6, BackgroundImages[1]), //DrawScene_deck
             new GUI_Image(xWindowSize/6,xWindowSize/3,xWindowSize/2 - xWindowSize/6,yWindowSize/2 - xWindowSize/6, pointBoardImage), //DrawScene_pointBoard
             new GUI_Image(0,0, 0,0, null), //Bg_PlayerBoard
-            new GUI_Image(xWindowSize/2,yWindowSize/6,xWindowSize/4,yWindowSize -yWindowSize/6, null),//DrawScene_PlayerHand
+            new GUI_Image(xWindowSize/2,yWindowSize/6,xWindowSize/4,yWindowSize -yWindowSize/6, BackgroundImages[2]),//DrawScene_PlayerHand
 
             //4-5
             new GUI_Card(CardXSize, CardYSize, BG_CommonGoal1_XPos, BG_CommonGoal1_YPos + CardYDelta + CardYSize/2, null), //BG_GoldDeck_Space
@@ -101,10 +104,10 @@ public class FULL_GUI {
 
 
             //16-19
-            new GUI_Image(xWindowSize/6,xWindowSize/3,xWindowSize-xWindowSize/6,0, null), //PlayScene_deck
+            new GUI_Image(xWindowSize/6,xWindowSize/3,xWindowSize-xWindowSize/6,0, BackgroundImages[1]), //PlayScene_deck
             new GUI_Image(xWindowSize/6,xWindowSize/3,xWindowSize - 2*xWindowSize/6,0, pointBoardImage), //PlayScene_pointBoard
-            new GUI_Image(xWindowSize - xWindowSize/3,yWindowSize, 0,0, null), //PlayScene_PlayerBoard
-            new GUI_Image(xWindowSize/3,yWindowSize - xWindowSize/3,(2*xWindowSize)/3,xWindowSize/3 , null),//PlayScene_PlayerHand
+            new GUI_Image(xWindowSize - xWindowSize/3,yWindowSize, 0,0, BackgroundImages[4]), //PlayScene_PlayerBoard
+            new GUI_Image(xWindowSize/3,yWindowSize - xWindowSize/3,(2*xWindowSize)/3,xWindowSize/3 , BackgroundImages[3]),//PlayScene_PlayerHand
 
             //20-21
             new GUI_Card(CardXSize, CardYSize, Hand_CommonGoal1_XPos, Hand_CommonGoal1_YPos + CardYDelta + CardYSize/2, null), //PlayScene_GoldDeck_Space
@@ -135,12 +138,13 @@ public class FULL_GUI {
             new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2+xWindowSize/40 , 3*yWindowSize/4 - yWindowSize/5, MenuImages[3]), //Quit
 
             //38-40
-            new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/10, yWindowSize/4, MenuImages[4] ),//2PlayersButton_local
-            new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/10, 2*yWindowSize/4 - yWindowSize/10, MenuImages[5]),//3PlayersButton_local
-            new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/10, 3*yWindowSize/4 - yWindowSize/5, MenuImages[6]),//4PlayersButton_local
+            new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/20, yWindowSize/4, MenuImages[4] ),//2PlayersButton_local
+            new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/20, 2*yWindowSize/4 - yWindowSize/10, MenuImages[5]),//3PlayersButton_local
+            new GUI_Image(xWindowSize/10, yWindowSize/10, xWindowSize/2-xWindowSize/20, 3*yWindowSize/4 - yWindowSize/5, MenuImages[6]),//4PlayersButton_local
 
             new GUI_HelperBanner(xWindowSize/3, yWindowSize/10, xWindowSize/3, 0)//help banner, this need to remain the last one
     };
+
 
     /**
      * Gets full GUI as a GUI_objects array.
@@ -159,25 +163,36 @@ public class FULL_GUI {
     {
         int index;
 
+        switch(scene)
+        {
+            case MAIN_MENU:
+                MainBackground.renderObject(g);
+                for(index=34; index<38; index++){GUI[index].renderObject(g);}
+                break;
+
+            case PLAYER_SELECTION:
+                MainBackground.renderObject(g);
+                for(index=38; index<41; index++){GUI[index].renderObject(g);}
+                break;
+
+
+            case DRAW:
+                MainBackground.renderObject(g);
+                for(index=0; index<16; index++){GUI[index].renderObject(g);}
+                break;
+
+            case PLAY, CHOOSE_GOAL, PLACE_STARTING:
+                for(index=16; index<34; index++){GUI[index].renderObject(g);}
+                break;
+
+            case SPECTATE_PLAYER:
+                for(index=16; index<28; index++){GUI[index].renderObject(g);}
+                break;
+        }
+
         if(ClientConstants.getGUIHelper()){
             GUI[GUI.length-1].renderObject(g); }
 
-        switch(scene)
-        {
-            case MAIN_MENU: for(index=34; index<38; index++){GUI[index].renderObject(g);}
-                break;
-            case PLAYER_SELECTION: for(index=38; index<41; index++){GUI[index].renderObject(g);}
-                break;
-
-
-            case DRAW: for(index=0; index<16; index++){GUI[index].renderObject(g);}
-                break;
-            case PLAY, CHOOSE_GOAL, PLACE_STARTING: for(index=16; index<34; index++){GUI[index].renderObject(g);}
-                break;
-
-            case SPECTATE_PLAYER: for(index=16; index<28; index++){GUI[index].renderObject(g);}
-                break;
-        }
     }
 
     /**

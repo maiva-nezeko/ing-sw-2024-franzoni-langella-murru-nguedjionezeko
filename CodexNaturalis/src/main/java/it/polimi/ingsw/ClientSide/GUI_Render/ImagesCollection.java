@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import static it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
+import static it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
+
 /**
  * Collects all images for GUI rendering excluding Cards and Helper messages;
  * these images include the main menu, the secondary menu with the options for the
@@ -30,6 +32,9 @@ public class ImagesCollection {
      */
     public static Image[] getMenu_GUI_Images() { return Menu_GUI_Images; }
 
+    private static final Image[] GUIBackgrounds = LoadBackgrounds();
+    public static Image[] getGUIBackgrounds() { return GUIBackgrounds; }
+
     /**
      * Gets the image of the PointBoard.
      *
@@ -39,10 +44,9 @@ public class ImagesCollection {
 
         Image rI = null;
 
-        try {rI = ImageIO.read(new File(ClientConstants.getMainDirPAth() + "/res/Board.png")); }
-        catch (java.io.IOException e) {System.out.println("error");}
-
+        rI = loadImage("/res/Board.png");
         assert rI != null;
+
         return rI.getScaledInstance(xWindowSize/6,xWindowSize/3,Image.SCALE_DEFAULT);
     }
 
@@ -58,24 +62,70 @@ public class ImagesCollection {
         BufferedImage rI = null;
         Image[] Menu_GUI_Images = new Image[7];
 
-        try {
-            rI = ImageIO.read(new File(ClientConstants.getMainDirPAth() + "/res/MenuIcons/IconeMenuProvvisorie.png"));
-        } catch (java.io.IOException e) {
-            System.out.println("error");
-        }
-
+        rI = loadImage("/res/MenuIcons/buttons.png");
         assert rI != null;
+
+
         Menu_GUI_Images[0] = rI.getSubimage(0, 0, 960, 216); //NewGame
         Menu_GUI_Images[1] = rI.getSubimage(0, 216, 960, 216); //NewLocalGame
         Menu_GUI_Images[2] = rI.getSubimage(0, 432, 384, 216); //Options
         Menu_GUI_Images[3] = rI.getSubimage(384, 432, 384, 216); //Quit
 
-        Menu_GUI_Images[4] = rI.getSubimage(0, 648, 384, 216);
-        Menu_GUI_Images[5] = rI.getSubimage(384, 648, 384, 216);
-        Menu_GUI_Images[6] = rI.getSubimage(768, 648, 384, 216);
+        rI = loadImage("/res/MenuIcons/players.png");
+        assert rI != null;
+
+
+        Menu_GUI_Images[4] = rI.getSubimage(0, 0, 384, 216);
+        Menu_GUI_Images[5] = rI.getSubimage(0, 216, 384, 216);
+        Menu_GUI_Images[6] = rI.getSubimage(0, 432, 384, 216);
 
         return Menu_GUI_Images;
     }
 
+    private static Image[] LoadBackgrounds() {
+
+        BufferedImage rI = null;
+        Image[] GUI_Backgrounds = new Image[7];
+
+        rI = loadImage("/res/MenuIcons/MainMenu.png");
+        assert rI != null;
+
+        GUI_Backgrounds[0] = rI.getScaledInstance(xWindowSize,yWindowSize,Image.SCALE_DEFAULT);
+
+        rI = loadImage("/res/MenuIcons/Backgrounds/DeckBackground.png");
+        assert rI != null;
+
+        GUI_Backgrounds[1] = rI.getScaledInstance(640,1920,Image.SCALE_DEFAULT);
+
+        rI = loadImage("/res/MenuIcons/Backgrounds/HandBackgroundDraw.png");
+        assert rI != null;
+
+        GUI_Backgrounds[2] = rI.getScaledInstance(1280,880,Image.SCALE_DEFAULT);
+
+        rI = loadImage("/res/MenuIcons/Backgrounds/HandBackgroundPlay.png");
+        assert rI != null;
+
+        GUI_Backgrounds[3] = rI.getScaledInstance(1920,640,Image.SCALE_DEFAULT);
+
+        rI = loadImage("/res/MenuIcons/Backgrounds/HandBackground.png");
+        assert rI != null;
+
+        GUI_Backgrounds[4] = rI.getScaledInstance(2560,2160,Image.SCALE_DEFAULT);
+
+        return GUI_Backgrounds;
+    }
+
+    private static BufferedImage loadImage(String RelativePath)
+    {
+        BufferedImage rI = null;
+
+        try {
+            rI = ImageIO.read(new File(ClientConstants.getMainDirPAth() + RelativePath));
+        } catch (java.io.IOException e) {
+            System.out.println("error");
+        }
+
+        return rI;
+    }
 
 }
