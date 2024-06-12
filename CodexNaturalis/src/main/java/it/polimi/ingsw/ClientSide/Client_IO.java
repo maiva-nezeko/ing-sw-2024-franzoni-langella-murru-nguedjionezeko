@@ -194,24 +194,18 @@ public class Client_IO {
     private static void requestSocketUpdate(){
 
         String[] SocketUpdate = GameClient.listenForResponse("SendUpdate," + username).split(";");
-        System.out.println("UpdateReceived");
 
         if(SocketUpdate[0].equals("null") || SocketUpdate.length!=5){return;}
 
         playerCount = Integer.parseInt(SocketUpdate[0]);
-        System.out.println("updatedPlayerCount: " +playerCount);
 
         lastUpdatedPublicCards = HelperMethods.FormattedStringToArray(SocketUpdate[1]);
-        System.out.println("lastUpdatedPublicCards: " + Arrays.toString(lastUpdatedPublicCards));
 
         lastUpdatedHand = HelperMethods.FormattedStringToArray(SocketUpdate[2]);
-        System.out.println("lastUpdatedHand: " + Arrays.toString(lastUpdatedHand));
 
         lastUpdatedGrid = HelperMethods.FormattedStringToMatrix(SocketUpdate[3]);
-        System.out.println("lastUpdatedGrid: " + Arrays.deepToString(lastUpdatedGrid));
 
         lastUpdatedScore = HelperMethods.FormattedStringToArray(SocketUpdate[4]);
-        System.out.println("lastUpdatedScore: " + Arrays.toString(lastUpdatedScore));
 
     }
 
