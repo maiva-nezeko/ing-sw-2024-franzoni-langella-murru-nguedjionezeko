@@ -47,17 +47,6 @@ public class KeyboardInputs implements KeyListener {
                     Shortcuts.CreateLoop(1, gamePanel);
                 }
                 break;
-            case KeyEvent.VK_DOWN:
-                if(ClientConstants.getGUI()){
-                    System.out.println("Down key was pressed");
-                    Client_Game.ChangeScene(GameStates.DRAW);}
-                break;
-            case KeyEvent.VK_UP:
-                if(ClientConstants.getGUI()){
-                    System.out.println("Up key was pressed");
-                    Client_Game.ChangeScene(GameStates.PLAY);}
-                break;
-            //END OF _Only for Debug Purposes
 
             case KeyEvent.VK_TAB: //not implemented
                 System.out.println("TAB key pressed, Chat toggled");

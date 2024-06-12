@@ -148,7 +148,7 @@ public class Client_Game implements Runnable {
         Scanner scanner = new Scanner(System.in);
         String response = "";
         System.out.println(MainDirPAth);
-        boolean reconnected = true;
+        boolean reconnected = false;
 
         SetUsername("First you need to insert your Username: ");
 
@@ -169,7 +169,10 @@ public class Client_Game implements Runnable {
                         System.out.println("Insert the port number that was given to you when you connected to the previous game: ");
                         response = scanner.nextLine();
 
-                        try{ int lastPort = Integer.parseInt(response); JoinStatus = Client_IO.Reconnect(lastPort); reconnected = !JoinStatus.toLowerCase().contains("failed");}
+                        try{
+                            int lastPort = Integer.parseInt(response); JoinStatus = Client_IO.Reconnect(lastPort);
+                            reconnected = !JoinStatus.toLowerCase().contains("failed");
+                        }
                         catch (NumberFormatException e){ System.out.println("Please insert a recognizable number"); }
                     }
                     else
