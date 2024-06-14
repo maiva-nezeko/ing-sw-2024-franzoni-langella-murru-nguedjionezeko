@@ -27,6 +27,9 @@ public class GUI_Card extends GUI_object{
         this.Card = card; this.isFlipped = false;
     }
 
+    /**
+     * Gets the card
+     * @return the concerning card */
     public ClientCard getCard(){return this.Card;}
 
     /**
@@ -54,6 +57,10 @@ public class GUI_Card extends GUI_object{
 
     /**
      * Renders the object.
+     * Gets the card by picking the reference of image from its coordinates
+     * (that correspond at the exact card chosen), and resize it.
+     * Or draws a specific rectangle if the reference of the image is null.
+     *
      * @param g the graphics of the game
      */
     public void renderObject(Graphics g){

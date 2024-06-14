@@ -360,7 +360,8 @@ public class Server_IO {
     //OnlyServerSide
 
     /**
-     * Send grid dimensions.
+     * Send grid dimensions through a two size array of int;
+     * dimension are already fixed.
      *
      * @return the dimensions as an int [ ]
      * @deprecated
