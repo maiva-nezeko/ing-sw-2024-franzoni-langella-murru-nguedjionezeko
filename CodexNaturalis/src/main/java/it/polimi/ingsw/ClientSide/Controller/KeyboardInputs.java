@@ -12,6 +12,7 @@ import java.awt.event.KeyListener;
 
 /**
  * Manages all the input from the Player through the keyboard.
+ * Let the player play from the keyboard combining inputs with actions.
  * @author Edoardo Carlo MUrru.
  * */
 
