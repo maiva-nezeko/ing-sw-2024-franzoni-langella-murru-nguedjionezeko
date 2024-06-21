@@ -427,9 +427,19 @@ public class Client_IO {
      */
     public static String Reconnect(int port)
     {
-        if(ClientConstants.getSocket()) { return GameClient.listenForResponse("AttemptingReconnection,"+username+","+port);}
-        else{ if(!RMI_Set){setRMI();} try{ return UpdateObject.Reconnect(username, port); } catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
-        return "Client_Failed";
+        String returnValue = "Client_Failed";
+        if(ClientConstants.getSocket()) { returnValue = GameClient.listenForResponse("AttemptingReconnection,"+username+","+port);}
+        else{ if(!RMI_Set){setRMI();} try{ returnValue = UpdateObject.Reconnect(username, port); } catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
+
+
+        if(!returnValue.contains("failed"))
+        {
+            requestUpdate();
+            if(MyTurn){  Client_Game.ChangeScene(GameStates.PLAY); }
+            else{Client_Game.ChangeScene(GameStates.SPECTATE_PLAYER);}
+        }
+
+        return returnValue;
     }
 
     /**

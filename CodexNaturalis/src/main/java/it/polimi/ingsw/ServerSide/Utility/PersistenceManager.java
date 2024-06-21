@@ -101,7 +101,11 @@ public interface PersistenceManager {
                 for(Player player: restoredGame.getPlayers()){
                     player.setScoreBoard(RestoredScoreBoards[player_index]);
 
-                    for (int i=0; i<6; i++){player.setCard(i, RestoredHands[player_index][i]);}
+                    for (int i=0; i<6; i++){
+                        player.setCard(i, RestoredHands[player_index][i]);
+                        if(player.getPrivateCardsID()[i] == 0){
+                            restoredGame.getRelatedTable().drawRandom(player.getUsername()); }
+                    }
 
                     restoredGame.modifyPlayer(player_index, player);
                     player_index++;}
@@ -120,7 +124,7 @@ public interface PersistenceManager {
      */
     static void SaveGame(Game game)
     {
-        if(!game.isGameStarted()){return;}
+        if(!game.isGameStarted() || game.getPlayerCount()==1){return;}
 
         StringBuilder GameUsernames = new StringBuilder();
         for(Player player : game.getPlayers()){GameUsernames.append(player.getUsername()).append("_");}

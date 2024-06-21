@@ -74,7 +74,7 @@ public interface Shortcuts {
 
         }
 
-        if( !Client_IO.Reconnect(Integer.parseInt(port)).contains("failed") ){ FULL_GUI.updateGUI(); Client_Game.ChangeScene(GameStates.PLAY);  return; }
+        if( !Client_IO.Reconnect(Integer.parseInt(port)).contains("failed") ){ FULL_GUI.updateGUI(); return; }
 
         Shortcuts.BackToMenu("The server has not accepted your reconnection attempt", gamePanel);
 

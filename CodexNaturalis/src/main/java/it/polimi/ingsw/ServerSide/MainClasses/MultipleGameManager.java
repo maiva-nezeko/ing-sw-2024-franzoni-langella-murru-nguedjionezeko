@@ -146,7 +146,7 @@ public class MultipleGameManager {
         for(Player player : game.getPlayers()){GameUsernames.append(player.getUsername()).append("_");}
 
         String filename = game.getPlayerCount() + "_" + GameUsernames + game.getPort() + ".txt";
-        Path SavePath = Path.of(System.getProperty("user.dir")+ "\\CodexNaturalis\\res\\SavedGames\\"+filename);
+        Path SavePath = Path.of(System.getProperty("user.dir")+ "\\res\\SavedGames\\"+filename);
 
         for(int index=0; index<CurrentGames.size(); index++){ if(CurrentGames.get(index).equals(game)){ CurrentGames.remove(index); break; } }
 

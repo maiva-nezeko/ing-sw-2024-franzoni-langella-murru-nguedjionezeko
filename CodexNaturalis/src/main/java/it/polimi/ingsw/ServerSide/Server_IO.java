@@ -263,7 +263,17 @@ public class Server_IO {
          */
         public String Reconnect(String username, int port) throws RemoteException
         {
-            if(MultipleGameManager.Reconnect(username, port) != null){ this.game = MultipleGameManager.getGameInstance(username);
+            if(MultipleGameManager.Reconnect(username, port) != null){
+                this.game = MultipleGameManager.getGameInstance(username);
+
+                assert this.game!=null;
+                int[] hand = this.game.getPlayerByUsername(username).getPrivateCardsID();
+
+                for(int i=0; i<3; i++)
+                {
+                    if(hand[i] == 0){ this.game.getRelatedTable().drawRandom(username);  }
+                }
+
                 return "Reconnecting to previous game"; }
             return "Reconnection attempt failed: Username not found";
         }

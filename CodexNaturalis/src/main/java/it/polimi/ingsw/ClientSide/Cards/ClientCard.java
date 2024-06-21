@@ -66,10 +66,10 @@ public class ClientCard {
     private static final String ANSI_YELLOW = "\u001B[33m";
     private static final String[] Colors = new String[]{ANSI_RED, ANSI_BLUE, ANSI_GREEN, ANSI_PURPLE, ANSI_YELLOW, ANSI_RESET };
 
-    private static final String back_ANSI_RED = "\u001B[31m";
-    private static final String back_ANSI_GREEN = "\u001B[32m";
-    private static final String back_ANSI_BLUE = "\u001B[34m";
-    private static final String back_ANSI_PURPLE = "\u001B[35m";
+    private static final String back_ANSI_RED = "\u001B[41m";
+    private static final String back_ANSI_GREEN = "\u001B[42m";
+    private static final String back_ANSI_BLUE = "\u001B[44m";
+    private static final String back_ANSI_PURPLE = "\u001B[45m";
 
     /**
      * Instantiates a new Client card.
@@ -340,45 +340,45 @@ public class ClientCard {
             case TWO_FOR_THREE_BUTTERFLY ->     Text[2] = new String[]{ Emojis[10]," ", NumberEmojis[2], " ", "x", NumberEmojis[3], Emojis[5], " ", Emojis[10] };
 
             case TWO_FOR_RED_STAIRCASE ->       {
-                Text[1] = new String[]{ Emojis[10]," ", " ", " ", " ",back_ANSI_RED+" "+ANSI_RESET, " ", " ", Emojis[10] };
-                Text[2] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_RED+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[3] = new String[]{ Emojis[10]," ", " ",back_ANSI_RED+" "+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
+                Text[1] = new String[]{ Emojis[10]," ", " ", " ", " ",back_ANSI_RED+"."+ANSI_RESET, " ", " ", Emojis[10] };
+                Text[2] = new String[]{ Emojis[10]," ", "2", "x",back_ANSI_RED+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[3] = new String[]{ Emojis[10]," ", " ",back_ANSI_RED+"."+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
             }
             case TWO_FOR_BLUE_STAIRCASE ->      {
-                Text[1] = new String[]{ Emojis[10]," ", " ", " ", " ",back_ANSI_BLUE+" "+ANSI_RESET, " ", " ", Emojis[10] };
-                Text[2] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_BLUE+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[3] = new String[]{ Emojis[10]," ", " ",back_ANSI_BLUE+" "+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
+                Text[1] = new String[]{ Emojis[10]," ", " ", " ", " ",back_ANSI_BLUE+"."+ANSI_RESET, " ", " ", Emojis[10] };
+                Text[2] = new String[]{ Emojis[10]," ", "2", "x",back_ANSI_BLUE+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[3] = new String[]{ Emojis[10]," ", " ",back_ANSI_BLUE+"."+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
             }
             case TWO_FOR_GREEN_STAIRCASE ->     {
-                Text[1] = new String[]{ Emojis[10]," ", " ",back_ANSI_GREEN+" "+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
-                Text[2] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_GREEN+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[3] = new String[]{ Emojis[10]," ", " ", " ", " ",back_ANSI_GREEN+" "+ANSI_RESET, " ", " ", Emojis[10] };
+                Text[1] = new String[]{ Emojis[10]," ", " ",back_ANSI_GREEN+"."+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
+                Text[2] = new String[]{ Emojis[10]," ", "2", "x",back_ANSI_GREEN+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[3] = new String[]{ Emojis[10]," ", " ", " ", " ",back_ANSI_GREEN+"."+ANSI_RESET, " ", " ", Emojis[10] };
             }
             case TWO_FOR_PURPLE_STAIRCASE ->    {
-                Text[1] = new String[]{ Emojis[10]," ", " ",back_ANSI_PURPLE+" "+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
-                Text[2] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_PURPLE+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[3] = new String[]{ Emojis[10]," ", " ", " ", " ",back_ANSI_PURPLE+" "+ANSI_RESET, " ", " ", Emojis[10] };
+                Text[1] = new String[]{ Emojis[10]," ", " ",back_ANSI_PURPLE+"."+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
+                Text[2] = new String[]{ Emojis[10]," ", "2", "x",back_ANSI_PURPLE+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[3] = new String[]{ Emojis[10]," ", " ", " ", " ",back_ANSI_PURPLE+"."+ANSI_RESET, " ", " ", Emojis[10] };
             }
 
             case THREE_FOR_RED_L ->             {
-                Text[1] = new String[]{ Emojis[10]," ", " "," ",back_ANSI_RED+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[2] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_RED+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[3] = new String[]{ Emojis[10]," ", " ", " "," ",back_ANSI_GREEN+" "+ANSI_RESET, " ", " ", Emojis[10] };
+                Text[1] = new String[]{ Emojis[10]," ", " "," ",back_ANSI_RED+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[2] = new String[]{ Emojis[10]," ", "3", "x",back_ANSI_RED+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[3] = new String[]{ Emojis[10]," ", " ", " "," ",back_ANSI_GREEN+"."+ANSI_RESET, " ", " ", Emojis[10] };
             }
             case THREE_FOR_BLUE_L ->            {
-                Text[1] = new String[]{ Emojis[10]," ", " "," ", back_ANSI_GREEN+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[2] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_GREEN+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[3] = new String[]{ Emojis[10]," ", " ", back_ANSI_PURPLE+" "+ANSI_RESET, " "," ", " ", " ", Emojis[10] };
+                Text[1] = new String[]{ Emojis[10]," ", " "," ", back_ANSI_GREEN+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[2] = new String[]{ Emojis[10]," ", "3", "x",back_ANSI_GREEN+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[3] = new String[]{ Emojis[10]," ", " ", back_ANSI_PURPLE+"."+ANSI_RESET, " "," ", " ", " ", Emojis[10] };
             }
             case THREE_FOR_GREEN_L ->           {
-                Text[1] = new String[]{ Emojis[10]," ", " "," ", " ", back_ANSI_RED+" "+ANSI_RESET, " ", " ", Emojis[10] };
-                Text[2] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_BLUE+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[3] = new String[]{ Emojis[10]," ", " ", " ", back_ANSI_BLUE+" "+ANSI_RESET," ", " ", " ", Emojis[10] };
+                Text[1] = new String[]{ Emojis[10]," ", " "," ", " ", back_ANSI_RED+"."+ANSI_RESET, " ", " ", Emojis[10] };
+                Text[2] = new String[]{ Emojis[10]," ", "3", "x",back_ANSI_BLUE+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[3] = new String[]{ Emojis[10]," ", " ", " ", back_ANSI_BLUE+"."+ANSI_RESET," ", " ", " ", Emojis[10] };
             }
             case THREE_FOR_PURPLE_L ->          {
-                Text[1] = new String[]{ Emojis[10]," ", " ",back_ANSI_BLUE+" "+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
-                Text[2] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_PURPLE+" "+ANSI_RESET, " ", " ", " ", Emojis[10] };
-                Text[3] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_PURPLE+" "+ANSI_RESET," ", " ", " ", Emojis[10] };
+                Text[1] = new String[]{ Emojis[10]," ", " ",back_ANSI_BLUE+"."+ANSI_RESET, " ", " ", " ", " ", Emojis[10] };
+                Text[2] = new String[]{ Emojis[10]," ", "3", "x",back_ANSI_PURPLE+"."+ANSI_RESET, " ", " ", " ", Emojis[10] };
+                Text[3] = new String[]{ Emojis[10]," ", " ", " ",back_ANSI_PURPLE+"."+ANSI_RESET," ", " ", " ", Emojis[10] };
             }
         }
 
