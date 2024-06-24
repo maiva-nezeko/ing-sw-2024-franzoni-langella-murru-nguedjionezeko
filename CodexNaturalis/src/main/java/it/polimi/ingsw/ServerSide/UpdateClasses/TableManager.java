@@ -1,18 +1,18 @@
-package it.polimi.ingsw.ServerSide.UpdateClasses;
+package main.java.it.polimi.ingsw.ServerSide.UpdateClasses;
 
 
-import it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
-import it.polimi.ingsw.ServerSide.Cards.GoalCard;
-import it.polimi.ingsw.ServerSide.Cards.GoldCard;
-import it.polimi.ingsw.ServerSide.Cards.PlayableCard;
-import it.polimi.ingsw.ServerSide.MainClasses.Game;
-import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import it.polimi.ingsw.ServerSide.Table.Deck;
-import it.polimi.ingsw.ServerSide.Table.Player;
-import it.polimi.ingsw.ServerSide.Table.Table;
-import it.polimi.ingsw.ServerSide.Utility.GameStates;
-import it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
-import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
+import main.java.it.polimi.ingsw.ServerSide.Cards.GoalCard;
+import main.java.it.polimi.ingsw.ServerSide.Cards.GoldCard;
+import main.java.it.polimi.ingsw.ServerSide.Cards.PlayableCard;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import main.java.it.polimi.ingsw.ServerSide.Table.Deck;
+import main.java.it.polimi.ingsw.ServerSide.Table.Player;
+import main.java.it.polimi.ingsw.ServerSide.Table.Table;
+import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
+import main.java.it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
+import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.util.Arrays;
 import java.util.List;

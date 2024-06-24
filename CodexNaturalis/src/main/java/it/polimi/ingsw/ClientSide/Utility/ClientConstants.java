@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ClientSide.Utility;
+package main.java.it.polimi.ingsw.ClientSide.Utility;
 
 import java.awt.*;
 

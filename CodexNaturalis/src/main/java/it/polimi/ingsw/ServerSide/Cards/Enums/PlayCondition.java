@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ServerSide.Cards.Enums;
+package main.java.it.polimi.ingsw.ServerSide.Cards.Enums;
 
 /**
  * The enumeration of all possible Play conditions of a Playable Card, grouped

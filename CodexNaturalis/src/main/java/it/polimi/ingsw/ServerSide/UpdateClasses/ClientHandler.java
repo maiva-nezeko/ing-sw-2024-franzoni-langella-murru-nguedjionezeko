@@ -1,9 +1,9 @@
-package it.polimi.ingsw.ServerSide.UpdateClasses;
+package main.java.it.polimi.ingsw.ServerSide.UpdateClasses;
 
-import it.polimi.ingsw.ServerSide.MainClasses.Game;
-import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import it.polimi.ingsw.ServerSide.Server_IO;
-import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import main.java.it.polimi.ingsw.ServerSide.Server_IO;
+import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

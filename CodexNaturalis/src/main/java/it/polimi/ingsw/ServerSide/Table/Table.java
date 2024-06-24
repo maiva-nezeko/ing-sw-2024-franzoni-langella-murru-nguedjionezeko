@@ -1,12 +1,12 @@
-package it.polimi.ingsw.ServerSide.Table;
+package main.java.it.polimi.ingsw.ServerSide.Table;
 
 
-import it.polimi.ingsw.ServerSide.Cards.GoalCard;
-import it.polimi.ingsw.ServerSide.Cards.PlayableCard;
-import it.polimi.ingsw.ServerSide.MainClasses.Game;
-import it.polimi.ingsw.ServerSide.Utility.CardRandomizer;
-import it.polimi.ingsw.ServerSide.Utility.GameStates;
-import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import main.java.it.polimi.ingsw.ServerSide.Cards.GoalCard;
+import main.java.it.polimi.ingsw.ServerSide.Cards.PlayableCard;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
+import main.java.it.polimi.ingsw.ServerSide.Utility.CardRandomizer;
+import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
+import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.util.Arrays;
 import java.util.List;

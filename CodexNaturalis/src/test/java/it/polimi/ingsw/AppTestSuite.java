@@ -1,11 +1,11 @@
-package it.polimi.ingsw;
+package test.java.it.polimi.ingsw;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import it.polimi.ingsw.ServerTesting.CardTest;
-import it.polimi.ingsw.ServerTesting.TableTest;
-import it.polimi.ingsw.ServerTesting.UpdateTest;
-import it.polimi.ingsw.ServerTesting.UtilityTest;
+import test.java.it.polimi.ingsw.ServerTesting.CardTest;
+import test.java.it.polimi.ingsw.ServerTesting.TableTest;
+import test.java.it.polimi.ingsw.ServerTesting.UpdateTest;
+import test.java.it.polimi.ingsw.ServerTesting.UtilityTest;
 
 
 @RunWith(Suite.class)

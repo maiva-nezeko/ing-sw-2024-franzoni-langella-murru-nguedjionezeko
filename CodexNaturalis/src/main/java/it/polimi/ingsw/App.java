@@ -1,15 +1,9 @@
-package it.polimi.ingsw;
+package main.java.it.polimi.ingsw;
 
-import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
-import it.polimi.ingsw.ServerSide.GameServer;
-import it.polimi.ingsw.ServerSide.Server_IO;
-import it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
-import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+
 import java.util.Objects;
 import java.util.Scanner;
 

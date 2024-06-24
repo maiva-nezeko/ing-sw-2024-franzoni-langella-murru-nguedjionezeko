@@ -1,11 +1,11 @@
-package it.polimi.ingsw.ClientSide.GUI_Render;
+package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
 
 
-import it.polimi.ingsw.ClientSide.Cards.Deck;
-import it.polimi.ingsw.ClientSide.Client_IO;
-import it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.*;
-import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import main.java.it.polimi.ingsw.ClientSide.Cards.Deck;
+import main.java.it.polimi.ingsw.ClientSide.Client_IO;
+import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.*;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.awt.*;
 

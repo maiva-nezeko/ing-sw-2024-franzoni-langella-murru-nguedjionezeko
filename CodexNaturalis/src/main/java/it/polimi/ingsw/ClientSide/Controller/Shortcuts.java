@@ -1,25 +1,24 @@
-package it.polimi.ingsw.ClientSide.Controller;
+package main.java.it.polimi.ingsw.ClientSide.Controller;
 
-import it.polimi.ingsw.ClientSide.Client_IO;
-import it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
-import it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
-import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import main.java.it.polimi.ingsw.ClientSide.Client_IO;
+import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
+import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
 
 import javax.swing.*;
 
 /**
- * interface contains useful methods for the controller
- * to manage all the action before the game  */
+ * This interface contains useful methods in order for the controller to manage all the actions before the game  */
 
 public interface Shortcuts {
 
     /**
-     * loop where the controller wait the player to join in the game.
-     * player has to select the username and the controller
-     * check if it is already taken or not.
-     * ok: the state changes
-     * not ok: insert a new username
+     * Loop where the controller waits for the player to join the game.
+     * Player has to select the username and the controller checks if it is already taken or not.
+     * In the first case, it notifies the player that the username is unavailable, in the latter it takes
+     * the Player to the choose goal scene if the join status is 'joining', otherwise the Player is taken
+     * to the Player selection screen.
      * **/
     static void JoinLoop()
     {
@@ -31,13 +30,13 @@ public interface Shortcuts {
     }
 
     /**
-     * method create a loop;
-     * it waits during the dialog between client and server about
-     * create a new game of a certain number of player.
-     * method based on the answer decides if change the state or remaining in the loop
+     * The loop of the create function: it waits for a successful game creation, which would cause
+     * the game to get a new port, change scene and request an update, or remain in the loop
+     * in case of unsuccessful create game request.
      *
      * @param gamePanel     the panel of the game
-     * @param playerCount   number of player in the game
+     * @param playerCount   number of players in the game
+     *
      */
     static void CreateLoop(int playerCount, GamePanel gamePanel)
     {
@@ -51,7 +50,8 @@ public interface Shortcuts {
     }
 
     /**
-     * command to get back to the main menu
+     * Command to get back to the main menu.
+     *
      * @param gamePanel   the panel of the game
      * @param Reason      message that appears on the screen
      * */
@@ -62,9 +62,8 @@ public interface Shortcuts {
     }
 
     /**
-     * check, after the player inserts his username, if it's correct or not:
-     * asking for a new one if it is invalid or
-     * set the username for the player if it is valid
+     * Checks, after the player inserts his username, if it's valid , in which case it sets the username
+     * or otherwise asking for a new one.
      *
      * @param additionalInfo   a string containing info
      * */
@@ -89,10 +88,11 @@ public interface Shortcuts {
     }
 
     /**
-     * manage the request of the port by the player;
-     * after entering the port name, method checks if the port is correct (not empty, negative value)
-     * and chose to reconnect the player to the game or get him back to the menu*/
-
+     * Manages the request of the port from the player;
+     * After entering the port number, method checks if the port is correct (not empty, negative value)
+     * and either reconnects the player to the game or takes him back to the menu.
+     *
+     */
     static void requestPort(GamePanel gamePanel) {
 
         if(Client_IO.getUsername()== null){requestUsername("No username selected");}

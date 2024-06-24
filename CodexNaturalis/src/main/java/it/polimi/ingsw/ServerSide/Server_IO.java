@@ -1,14 +1,14 @@
-package it.polimi.ingsw.ServerSide;
+package main.java.it.polimi.ingsw.ServerSide;
 
 
-import  it.polimi.ingsw.Rmi.ServerRMI;
-import  it.polimi.ingsw.ServerSide.MainClasses.Game;
-import  it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import  it.polimi.ingsw.ServerSide.MainClasses.UpdatePackage;
-import  it.polimi.ingsw.ServerSide.Table.Player;
-import  it.polimi.ingsw.ServerSide.Table.Table;
-import  it.polimi.ingsw.ServerSide.UpdateClasses.TableManager;
-import  it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import  main.java.it.polimi.ingsw.Rmi.ServerRMI;
+import  main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
+import  main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import  main.java.it.polimi.ingsw.ServerSide.MainClasses.UpdatePackage;
+import  main.java.it.polimi.ingsw.ServerSide.Table.Player;
+import  main.java.it.polimi.ingsw.ServerSide.Table.Table;
+import  main.java.it.polimi.ingsw.ServerSide.UpdateClasses.TableManager;
+import  main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

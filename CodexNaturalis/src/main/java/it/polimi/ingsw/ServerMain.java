@@ -1,8 +1,8 @@
-package it.polimi.ingsw;
+package main.java.it.polimi.ingsw;
 
-import it.polimi.ingsw.ServerSide.GameServer;
-import it.polimi.ingsw.ServerSide.Server_IO;
-import it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
+import main.java.it.polimi.ingsw.ServerSide.GameServer;
+import main.java.it.polimi.ingsw.ServerSide.Server_IO;
+import main.java.it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;

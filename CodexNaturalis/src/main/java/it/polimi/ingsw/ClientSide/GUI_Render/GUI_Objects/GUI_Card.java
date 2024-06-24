@@ -1,6 +1,6 @@
-package it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects;
+package main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects;
 
-import it.polimi.ingsw.ClientSide.Cards.ClientCard;
+import main.java.it.polimi.ingsw.ClientSide.Cards.ClientCard;
 
 import java.awt.*;
 /**
@@ -15,11 +15,11 @@ public class GUI_Card extends GUI_object{
     /**
      * Gui card initialization with its parameters.
      *
-     * @param _xSize length of the image int
-     * @param _ySize width of the image int
-     * @param _xCoord horizontal coordinate of the image int
-     * @param _yCoord vertical coordinate of the image int
-     * @param card the ClientCard type associated
+     * @param _xSize    length of the image int
+     * @param _ySize    width of the image int
+     * @param _xCoord   horizontal coordinate of the image int
+     * @param _yCoord   vertical coordinate of the image int
+     * @param card      the ClientCard type associated
      */
     public GUI_Card(int _xSize, int _ySize, int _xCoord, int _yCoord, ClientCard card)
     {
@@ -28,13 +28,16 @@ public class GUI_Card extends GUI_object{
     }
 
     /**
-     * Gets the card
-     * @return the concerning card */
+     * Gets a card.
+     *
+     * @return the concerning card
+     */
     public ClientCard getCard(){return this.Card;}
 
     /**
      * Sets the card (in a Card Space).
-     * @param card the card ID as an int
+     *
+     * @param card      the card ID as an int
      * @param isFlipped the boolean indicating if the card is flipped
      */
     public void setCard(ClientCard card, boolean isFlipped) {
@@ -43,9 +46,9 @@ public class GUI_Card extends GUI_object{
 
     /**
      * Gets the reference as an image.
-     * @param isFlipped boolean
-     * @return the image being referenced
      *
+     * @param isFlipped     boolean
+     * @return the image being referenced
      */
     private Image getReferenceImage(boolean isFlipped) {
 
@@ -76,7 +79,7 @@ public class GUI_Card extends GUI_object{
     }
 
     /**
-     * See if the card is flipped as a boolean.
+     * Checks if the card is flipped as a boolean.
      *
      * @return  the boolean
      */

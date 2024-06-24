@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ServerSide.MainClasses;
+package main.java.it.polimi.ingsw.ServerSide.MainClasses;
 
 import java.util.Arrays;
 

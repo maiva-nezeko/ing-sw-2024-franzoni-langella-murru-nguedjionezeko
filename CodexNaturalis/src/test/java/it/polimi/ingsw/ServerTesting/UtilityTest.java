@@ -1,15 +1,15 @@
-package it.polimi.ingsw.ServerTesting;
+package test.java.it.polimi.ingsw.ServerTesting;
 
 import junit.framework.TestCase;
-import it.polimi.ingsw.ServerSide.Cards.GoalCard;
-import it.polimi.ingsw.ServerSide.Cards.PlayableCard;
-import it.polimi.ingsw.ServerSide.MainClasses.Game;
-import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import it.polimi.ingsw.ServerSide.Table.Player;
-import it.polimi.ingsw.ServerSide.Utility.CardRandomizer;
-import it.polimi.ingsw.ServerSide.Utility.GameStates;
-import it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
-import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import main.java.it.polimi.ingsw.ServerSide.Cards.GoalCard;
+import main.java.it.polimi.ingsw.ServerSide.Cards.PlayableCard;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
+import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import main.java.it.polimi.ingsw.ServerSide.Table.Player;
+import main.java.it.polimi.ingsw.ServerSide.Utility.CardRandomizer;
+import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
+import main.java.it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
+import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.util.ArrayList;
 import java.util.List;

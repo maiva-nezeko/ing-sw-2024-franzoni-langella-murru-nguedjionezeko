@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ServerSide.Table;
+package main.java.it.polimi.ingsw.ServerSide.Table;
 
 /**
  * This class represent a player. Each has private attributes.

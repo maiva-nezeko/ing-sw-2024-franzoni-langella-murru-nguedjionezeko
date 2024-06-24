@@ -1,9 +1,9 @@
-package it.polimi.ingsw.ServerSide.MainClasses;
+package main.java.it.polimi.ingsw.ServerSide.MainClasses;
 
-import it.polimi.ingsw.ServerSide.Server_IO;
-import it.polimi.ingsw.ServerSide.Table.Player;
-import it.polimi.ingsw.ServerSide.Utility.GameStates;
-import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import main.java.it.polimi.ingsw.ServerSide.Server_IO;
+import main.java.it.polimi.ingsw.ServerSide.Table.Player;
+import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
+import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

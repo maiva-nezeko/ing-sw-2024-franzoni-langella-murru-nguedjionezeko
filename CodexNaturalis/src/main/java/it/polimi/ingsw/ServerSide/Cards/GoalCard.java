@@ -1,6 +1,6 @@
-package it.polimi.ingsw.ServerSide.Cards;
+package main.java.it.polimi.ingsw.ServerSide.Cards;
 
-import it.polimi.ingsw.ServerSide.Cards.Enums.GoalStates;
+import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.GoalStates;
 
 /**
  * The abstract Card type Goal Card class.

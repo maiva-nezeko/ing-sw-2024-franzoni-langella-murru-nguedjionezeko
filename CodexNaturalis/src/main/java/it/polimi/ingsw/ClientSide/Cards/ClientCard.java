@@ -1,7 +1,7 @@
-package it.polimi.ingsw.ClientSide.Cards;
+package main.java.it.polimi.ingsw.ClientSide.Cards;
 
 
-import it.polimi.ingsw.ClientSide.Cards.Enums.*;
+import main.java.it.polimi.ingsw.ClientSide.Cards.Enums.*;
 
 
 import javax.imageio.ImageIO;

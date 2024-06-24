@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Server" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ServerMain" />
-    <module name="PSP039" />
+    <module name="ing-sw-2024-franzoni-langella-murru-nguedjionezeko" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

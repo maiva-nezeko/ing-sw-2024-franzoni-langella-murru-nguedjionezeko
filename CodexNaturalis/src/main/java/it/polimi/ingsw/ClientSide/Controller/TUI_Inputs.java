@@ -1,10 +1,10 @@
-package it.polimi.ingsw.ClientSide.Controller;
+package main.java.it.polimi.ingsw.ClientSide.Controller;
 
-import it.polimi.ingsw.ClientSide.Client_IO;
-import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import it.polimi.ingsw.ClientSide.TUI_Render.TUI;
-import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import main.java.it.polimi.ingsw.ClientSide.Client_IO;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
+import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.Scanner;
 
@@ -12,6 +12,7 @@ import java.util.Scanner;
  * All the commands a player can choose are managed here, such as drawing cards, choosing the position
  * in the board, selecting a goal card and checking if the space in the board you chose is valid
  * or if you can play the card.
+ *
  * @author Edoardo Carlo Murru, Darelle Maiva Nguedjio Nezeko
  */
 public interface TUI_Inputs {

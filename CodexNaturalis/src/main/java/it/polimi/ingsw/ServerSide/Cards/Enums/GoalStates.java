@@ -1,7 +1,7 @@
-package it.polimi.ingsw.ServerSide.Cards.Enums;
+package main.java.it.polimi.ingsw.ServerSide.Cards.Enums;
 
 /**
- * The enumeration of all 16 Goal cards present in the game.
+ * The enumeration of all 16 Goal cards present in the game - ServerSide.
  */
 public enum GoalStates {
     //goals

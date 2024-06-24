@@ -1,9 +1,9 @@
-package it.polimi.ingsw.ClientSide.GUI_Render;
+package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
 
 
-import it.polimi.ingsw.ClientSide.Controller.KeyboardInputs;
-import it.polimi.ingsw.ClientSide.Controller.MouseInputs;
-import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import main.java.it.polimi.ingsw.ClientSide.Controller.KeyboardInputs;
+import main.java.it.polimi.ingsw.ClientSide.Controller.MouseInputs;
+import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import javax.swing.*;
 import java.awt.*;

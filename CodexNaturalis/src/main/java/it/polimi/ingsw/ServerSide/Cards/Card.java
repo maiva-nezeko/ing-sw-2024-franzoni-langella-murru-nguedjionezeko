@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ServerSide.Cards;
+package main.java.it.polimi.ingsw.ServerSide.Cards;
 
 /**
  * The abstract type Card, the "template" for all different

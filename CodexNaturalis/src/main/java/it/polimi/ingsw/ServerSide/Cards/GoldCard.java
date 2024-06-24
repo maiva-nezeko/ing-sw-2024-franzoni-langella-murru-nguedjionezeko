@@ -1,8 +1,8 @@
-package it.polimi.ingsw.ServerSide.Cards;
+package main.java.it.polimi.ingsw.ServerSide.Cards;
 
 
-import it.polimi.ingsw.ServerSide.Cards.Enums.PlayCondition;
-import it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
+import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PlayCondition;
+import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
 
 /**
  * The Gold or Golden Playable Cards require a PlayCondition to be placed down, and paired with also a

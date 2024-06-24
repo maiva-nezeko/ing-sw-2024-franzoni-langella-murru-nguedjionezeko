@@ -1,14 +1,14 @@
-package it.polimi.ingsw.ClientSide.GUI_Render;
+package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
 
-import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import static it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
-import static it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
+import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
+import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
 
 /**
  * Collects all images for GUI rendering excluding Cards and Helper messages;

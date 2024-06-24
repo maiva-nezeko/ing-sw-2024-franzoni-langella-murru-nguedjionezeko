@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ServerSide.Cards.Enums;
+package main.java.it.polimi.ingsw.ServerSide.Cards.Enums;
 
 /**
  * The enumeration of all 6 Starting Cards.

@@ -1,18 +1,18 @@
-package it.polimi.ingsw.ClientSide.GUI_Render;
+package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
 
-import it.polimi.ingsw.ClientSide.Cards.Deck;
-import it.polimi.ingsw.ClientSide.Client_IO;
-import it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
-import it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
-import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import main.java.it.polimi.ingsw.ClientSide.Cards.Deck;
+import main.java.it.polimi.ingsw.ClientSide.Client_IO;
+import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
+import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
-import static it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
+import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
+import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
 
 /**
  * Renders player's view, details the secondary scene, where the previously placed Cards can be seen.
