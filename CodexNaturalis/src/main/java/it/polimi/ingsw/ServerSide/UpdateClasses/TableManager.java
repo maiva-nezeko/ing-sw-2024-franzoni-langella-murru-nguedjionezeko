@@ -1,18 +1,18 @@
-package main.java.it.polimi.ingsw.ServerSide.UpdateClasses;
+package it.polimi.ingsw.ServerSide.UpdateClasses;
 
 
-import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
-import main.java.it.polimi.ingsw.ServerSide.Cards.GoalCard;
-import main.java.it.polimi.ingsw.ServerSide.Cards.GoldCard;
-import main.java.it.polimi.ingsw.ServerSide.Cards.PlayableCard;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import main.java.it.polimi.ingsw.ServerSide.Table.Deck;
-import main.java.it.polimi.ingsw.ServerSide.Table.Player;
-import main.java.it.polimi.ingsw.ServerSide.Table.Table;
-import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
-import main.java.it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
-import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import it.polimi.ingsw.ServerSide.Cards.Enums.PointCondition;
+import it.polimi.ingsw.ServerSide.Cards.GoalCard;
+import it.polimi.ingsw.ServerSide.Cards.GoldCard;
+import it.polimi.ingsw.ServerSide.Cards.PlayableCard;
+import it.polimi.ingsw.ServerSide.MainClasses.Game;
+import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import it.polimi.ingsw.ServerSide.Table.Deck;
+import it.polimi.ingsw.ServerSide.Table.Player;
+import it.polimi.ingsw.ServerSide.Table.Table;
+import it.polimi.ingsw.ServerSide.Utility.GameStates;
+import it.polimi.ingsw.ServerSide.Utility.PersistenceManager;
+import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.util.Arrays;
 import java.util.List;
@@ -139,8 +139,10 @@ public class TableManager {
         int[] SurroundingCorners = getSurroundingCorners(OccupiedSpaces, Row_index, Columns_index, playerIndex);
 
 
-        if (/*TlCheck*/( SurroundingCorners[0] > CornerValue[0]) /*TrCheck*/ || (SurroundingCorners[1] > CornerValue[1])
-                /*BlCheck*/ || (SurroundingCorners[2] > CornerValue[2]) /*BrCheck*/ || (SurroundingCorners[3] > CornerValue[3])) {
+        if (/*TlCheck*/( SurroundingCorners[0] > CornerValue[0] && SurroundingCorners[0]!=-1)
+                /*TrCheck*/ || (SurroundingCorners[1] > CornerValue[1] && SurroundingCorners[1]!=-1)
+                /*BlCheck*/ || (SurroundingCorners[2] > CornerValue[2] && SurroundingCorners[2]!=-1)
+                /*BrCheck*/ || (SurroundingCorners[3] > CornerValue[3] && SurroundingCorners[3]!=-1)) {
 
             OccupiedSpaces[playerIndex][Row_index][Columns_index] = id;
             chosenPlayer.consumeCard(id);
@@ -226,20 +228,20 @@ public class TableManager {
         int[] SurroundingCorners = {-1, -1, -1, -1};
         if (Tl_Card != null) {
             Tl_Card.setFlipped(Tl_space < 0);
-            SurroundingCorners[0] = Tl_Card.getCorners()[3];
+            SurroundingCorners[0] = min(Tl_Card.getCorners()[3] ,2);
         }
         if (Tr_Card != null) {
             Tr_Card.setFlipped(Tr_Space < 0);
-            SurroundingCorners[1] = Tr_Card.getCorners()[2];
+            SurroundingCorners[1] = min(Tr_Card.getCorners()[2], 2);
         }
 
         if (Bl_Card != null) {
             Bl_Card.setFlipped(Bl_Space < 0);
-            SurroundingCorners[2] = Bl_Card.getCorners()[1];
+            SurroundingCorners[2] = min(Bl_Card.getCorners()[1], 2);
         }
         if (Br_Card != null) {
             Br_Card.setFlipped(Br_Space < 0);
-            SurroundingCorners[3] = Br_Card.getCorners()[0];
+            SurroundingCorners[3] = min(Br_Card.getCorners()[0], 2);
         }
 
         return SurroundingCorners;

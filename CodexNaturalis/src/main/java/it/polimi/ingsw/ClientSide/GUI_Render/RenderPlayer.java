@@ -1,18 +1,18 @@
-package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
+package it.polimi.ingsw.ClientSide.GUI_Render;
 
-import main.java.it.polimi.ingsw.ClientSide.Cards.Deck;
-import main.java.it.polimi.ingsw.ClientSide.Client_IO;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.Cards.Deck;
+import it.polimi.ingsw.ClientSide.Client_IO;
+import it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_Card;
+import it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
-import static main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
+import static it.polimi.ingsw.ClientSide.Utility.ClientConstants.xWindowSize;
+import static it.polimi.ingsw.ClientSide.Utility.ClientConstants.yWindowSize;
 
 /**
  * Renders player's view, details the secondary scene, where the previously placed Cards can be seen.
@@ -155,7 +155,7 @@ public class RenderPlayer {
     /**
      * Starting scale level.
      */
-    private static int ScaleLevel=1;
+    private static double ScaleLevel=1;
 
     /**
      *  Fill the empty space of the grid/PlayBoard with new GUI Card placed.
@@ -185,17 +185,17 @@ public class RenderPlayer {
     public static void ScaleGrid(boolean up)
     {
         if(up){
-            if(ScaleLevel >= 4){return;}
-            ScaleLevel++;
+            if(ScaleLevel >= 3){return;}
+            ScaleLevel+=0.5;
         }
         else
         {
             if(ScaleLevel <= 1){return;}
-            ScaleLevel--;
+            ScaleLevel-=0.5;
         }
 
-        Card_Width = originalCardWidth /ScaleLevel;
-        Card_Height = originalCardHeight /ScaleLevel ;
+        Card_Width = (int) (originalCardWidth /ScaleLevel);
+        Card_Height = (int) (originalCardHeight /ScaleLevel);
 
         fillEmpty_Grid();
     }

@@ -1,8 +1,8 @@
-package main.java.it.polimi.ingsw.ServerSide.Utility;
+package it.polimi.ingsw.ServerSide.Utility;
 
-import main.java.it.polimi.ingsw.ServerSide.Cards.GoalCard;
-import main.java.it.polimi.ingsw.ServerSide.Cards.PlayableCard;
-import main.java.it.polimi.ingsw.ServerSide.Table.Deck;
+import it.polimi.ingsw.ServerSide.Cards.GoalCard;
+import it.polimi.ingsw.ServerSide.Cards.PlayableCard;
+import it.polimi.ingsw.ServerSide.Table.Deck;
 
 import java.util.ArrayList;
 import java.util.Collections;

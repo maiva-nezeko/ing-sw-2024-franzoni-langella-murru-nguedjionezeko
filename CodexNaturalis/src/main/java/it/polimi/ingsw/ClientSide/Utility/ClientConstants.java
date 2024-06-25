@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ClientSide.Utility;
+package it.polimi.ingsw.ClientSide.Utility;
 
 import java.awt.*;
 
@@ -101,7 +101,7 @@ public class ClientConstants {
     /**
      * Fixed main directory path string.
      */
-    private static final String MainDirPAth = "CodexNaturalis";
+    private static final String MainDirPAth = System.getProperty("user.dir");
 
     /**
      * Gets main directory path as a string.

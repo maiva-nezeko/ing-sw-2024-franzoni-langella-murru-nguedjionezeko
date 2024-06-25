@@ -1,6 +1,6 @@
-package main.java.it.polimi.ingsw.ServerSide.Cards;
+package it.polimi.ingsw.ServerSide.Cards;
 
-//import main.java.it.polimi.ingsw.ServerSide.Cards.Card;
+//import it.polimi.ingsw.ServerSide.Cards.Card;
 /**
  * The Card type Playable card. A Card that the Players are able to play on their board.
  */

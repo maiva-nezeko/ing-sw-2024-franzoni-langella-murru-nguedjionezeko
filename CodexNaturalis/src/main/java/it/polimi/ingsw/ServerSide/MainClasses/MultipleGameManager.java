@@ -1,9 +1,9 @@
-package main.java.it.polimi.ingsw.ServerSide.MainClasses;
+package it.polimi.ingsw.ServerSide.MainClasses;
 
-import main.java.it.polimi.ingsw.ServerSide.Server_IO;
-import main.java.it.polimi.ingsw.ServerSide.Table.Player;
-import main.java.it.polimi.ingsw.ServerSide.Utility.GameStates;
-import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import it.polimi.ingsw.ServerSide.Server_IO;
+import it.polimi.ingsw.ServerSide.Table.Player;
+import it.polimi.ingsw.ServerSide.Utility.GameStates;
+import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -146,7 +146,7 @@ public class MultipleGameManager {
         for(Player player : game.getPlayers()){GameUsernames.append(player.getUsername()).append("_");}
 
         String filename = game.getPlayerCount() + "_" + GameUsernames + game.getPort() + ".txt";
-        Path SavePath = Path.of(System.getProperty("user.dir")+ "\\res\\SavedGames\\"+filename);
+        Path SavePath = Path.of(System.getProperty("user.dir")+ "\\src\\main\\resources\\SavedGames\\"+filename);
 
         for(int index=0; index<CurrentGames.size(); index++){ if(CurrentGames.get(index).equals(game)){ CurrentGames.remove(index); break; } }
 

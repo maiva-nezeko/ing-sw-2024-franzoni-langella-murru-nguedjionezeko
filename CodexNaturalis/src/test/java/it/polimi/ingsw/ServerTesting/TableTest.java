@@ -1,12 +1,12 @@
-package test.java.it.polimi.ingsw.ServerTesting;
+package it.polimi.ingsw.ServerTesting;
 
 import junit.framework.TestCase;
-import main.java.it.polimi.ingsw.ServerSide.Cards.*;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
-import main.java.it.polimi.ingsw.ServerSide.Table.*;
+import it.polimi.ingsw.ServerSide.Cards.*;
+import it.polimi.ingsw.ServerSide.MainClasses.Game;
+import it.polimi.ingsw.ServerSide.Table.*;
 
 
-import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.util.ArrayList;
 

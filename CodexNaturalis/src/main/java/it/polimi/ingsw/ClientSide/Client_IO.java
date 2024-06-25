@@ -1,11 +1,11 @@
-package main.java.it.polimi.ingsw.ClientSide;
+package it.polimi.ingsw.ClientSide;
 
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
-import main.java.it.polimi.ingsw.ClientSide.Utility.HelperMethods;
-import main.java.it.polimi.ingsw.Rmi.ServerRMI;
+import it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.Utility.HelperMethods;
+import it.polimi.ingsw.Rmi.ServerRMI;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ClientSide.GUI_Render;
+package it.polimi.ingsw.ClientSide.GUI_Render;
 
 
 import javax.swing.*;

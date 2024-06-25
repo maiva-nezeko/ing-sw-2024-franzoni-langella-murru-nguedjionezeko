@@ -1,12 +1,12 @@
-package main.java.it.polimi.ingsw.ClientSide.Controller;
+package it.polimi.ingsw.ClientSide.Controller;
 
-import main.java.it.polimi.ingsw.ClientSide.Client_IO;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import main.java.it.polimi.ingsw.ClientSide.Utility.*;
+import it.polimi.ingsw.ClientSide.Client_IO;
+import it.polimi.ingsw.ClientSide.GUI_Render.FULL_GUI;
+import it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects.GUI_object;
+import it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import it.polimi.ingsw.ClientSide.Utility.*;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

@@ -1,8 +1,8 @@
-package main.java.it.polimi.ingsw.ServerSide.Utility;
+package it.polimi.ingsw.ServerSide.Utility;
 
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import main.java.it.polimi.ingsw.ServerSide.Table.Player;
+import it.polimi.ingsw.ServerSide.MainClasses.Game;
+import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import it.polimi.ingsw.ServerSide.Table.Player;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -24,7 +24,7 @@ public interface PersistenceManager {
      */
     static void RestoreGames()
     {
-        File path = new File(System.getProperty("user.dir")+"\\res\\SavedGames");
+        File path = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\SavedGames");
 
         File [] files = path.listFiles();
         if(files==null) {
@@ -50,7 +50,7 @@ public interface PersistenceManager {
                 try{ content = new String(Files.readAllBytes(Path.of(file.getPath()))) ; }
                 catch (Exception e){return;}
 
-                //reset game boards
+                //src/main/resourceset game boards
                 int NumOf_Rows = ServerConstants.getNumOfRows();
                 int NumOf_Columns = NumOf_Rows/2;
 
@@ -138,7 +138,7 @@ public interface PersistenceManager {
         try {
 
             String filename = game.getPlayerCount()+"_"+GameUsernames+game.getPort()+".txt";
-            FileWriter FW = new FileWriter(System.getProperty("user.dir")+ "\\res\\SavedGames\\"+filename);
+            FileWriter FW = new FileWriter(System.getProperty("user.dir")+ "\\src\\main\\resources\\SavedGames\\"+filename);
             FW.write(GameBoard);
             FW.close();
 

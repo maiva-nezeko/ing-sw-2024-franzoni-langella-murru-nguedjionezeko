@@ -1,7 +1,7 @@
-package main.java.it.polimi.ingsw.ClientSide.Cards;
+package it.polimi.ingsw.ClientSide.Cards;
 
-import main.java.it.polimi.ingsw.ClientSide.Cards.Enums.*;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.Cards.Enums.*;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import static java.lang.Math.abs;
 
@@ -17,20 +17,20 @@ import static java.lang.Math.abs;
  */
 public class Deck {
 
-    private static final String RedImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/RedResources-1.png";
-    private static final String Red_GoldImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/RedGolden-1.png";
+    private static final String RedImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/RedResources-1.png";
+    private static final String Red_GoldImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/RedGolden-1.png";
 
-    private static final String BlueImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/BlueResources-1.png";
-    private static final String Blue_GoldImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/BlueGolden-1.png";
+    private static final String BlueImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/BlueResources-1.png";
+    private static final String Blue_GoldImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/BlueGolden-1.png";
 
-    private static final String GreenImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/GreenResources-1.png";
-    private static final String Green_GoldImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/GreenGolden-1.png";
+    private static final String GreenImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/GreenResources-1.png";
+    private static final String Green_GoldImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/GreenGolden-1.png";
 
-    private static final String PurpleImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/PurpleResources-1.png";
-    private static final String Purple_GoldImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/PurpleGolden-1.png";
+    private static final String PurpleImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/PurpleResources-1.png";
+    private static final String Purple_GoldImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/PurpleGolden-1.png";
 
-    private static final String GoalCards_ImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/GoalDeck-1.png";
-    private static final String StartingCards_ImagePath = ClientConstants.getMainDirPAth() + "/res/Cards/Front-Back-Start-2.png";
+    private static final String GoalCards_ImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/GoalDeck-1.png";
+    private static final String StartingCards_ImagePath = ClientConstants.getMainDirPAth() + "/src/main/resources/Cards/Front-Back-Start-2.png";
 
 
     /**

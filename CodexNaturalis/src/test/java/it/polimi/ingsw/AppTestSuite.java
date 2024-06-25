@@ -1,15 +1,13 @@
-package test.java.it.polimi.ingsw;
+package it.polimi.ingsw;
 
+import it.polimi.ingsw.ServerTesting.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import test.java.it.polimi.ingsw.ServerTesting.CardTest;
-import test.java.it.polimi.ingsw.ServerTesting.TableTest;
-import test.java.it.polimi.ingsw.ServerTesting.UpdateTest;
-import test.java.it.polimi.ingsw.ServerTesting.UtilityTest;
 
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({CardTest.class, TableTest.class, UtilityTest.class, UpdateTest.class})
+@Suite.SuiteClasses({CardTest.class, TableTest.class, UtilityTest.class,
+        UpdateTest.class, UpdatePackageTest.class, GameTest.class, MultipleGameTest.class})
 public class AppTestSuite
 {
 

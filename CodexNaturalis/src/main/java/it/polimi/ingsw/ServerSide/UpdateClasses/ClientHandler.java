@@ -1,9 +1,9 @@
-package main.java.it.polimi.ingsw.ServerSide.UpdateClasses;
+package it.polimi.ingsw.ServerSide.UpdateClasses;
 
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.Game;
-import main.java.it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import main.java.it.polimi.ingsw.ServerSide.Server_IO;
-import main.java.it.polimi.ingsw.ServerSide.Utility.ServerConstants;
+import it.polimi.ingsw.ServerSide.MainClasses.Game;
+import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
+import it.polimi.ingsw.ServerSide.Server_IO;
+import it.polimi.ingsw.ServerSide.Utility.ServerConstants;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -46,7 +46,7 @@ public class ClientHandler implements Runnable{
         }
     }
 
-    private void handleCommand(DatagramPacket packet) {
+    public void handleCommand(DatagramPacket packet) {
 
         int integerInString = 0;
 
@@ -187,7 +187,7 @@ public class ClientHandler implements Runnable{
                 response = Server_IO.getGameBoard(game, game.getCurrentPlayerTurn());
                 sendData(response.getBytes(), packet.getAddress(), packet.getPort());
                 break;
-            case "isClosed":
+            case "CLi":
                 if (MultipleGameManager.getGameInstance(username) == null) {
                     sendData("yes".getBytes(), packet.getAddress(), packet.getPort());
                 } else {

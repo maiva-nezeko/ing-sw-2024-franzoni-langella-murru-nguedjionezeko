@@ -1,4 +1,4 @@
-package main.java.it.polimi.ingsw.ServerSide.MainClasses;
+package it.polimi.ingsw.ServerSide.MainClasses;
 
 import java.util.Arrays;
 
@@ -19,7 +19,6 @@ public class UpdatePackage {
     /**
      * Gets selected Player Score as an int.
      * @return the score number
-     * @deprecated - Client_IO has a 'requestPlayerScore' method
      */
     public int getChosenPlayerScore(){return this.chosenPlayerScore;}
 
@@ -45,7 +44,7 @@ public class UpdatePackage {
      * @param chosenPlayerScore     personal player score
      * @param publicCards the cards in the table that players can draw
      * */
-    UpdatePackage(int[][] chosenPlayerBoard, int chosenPlayerScore, int[] chosenPlayerHand, int[] publicCards)
+    public UpdatePackage(int[][] chosenPlayerBoard, int chosenPlayerScore, int[] chosenPlayerHand, int[] publicCards)
     {
         this.chosenPlayerBoard = chosenPlayerBoard; this.chosenPlayerScore = chosenPlayerScore;
         this.chosenPlayerHand = chosenPlayerHand; this.publicCards = publicCards;

@@ -1,11 +1,11 @@
-package main.java.it.polimi.ingsw.ClientSide.Controller;
+package it.polimi.ingsw.ClientSide.Controller;
 
-import main.java.it.polimi.ingsw.ClientSide.Client_IO;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
-import main.java.it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.Client_IO;
+import it.polimi.ingsw.ClientSide.GUI_Render.GamePanel;
+import it.polimi.ingsw.ClientSide.GUI_Render.RenderPlayer;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -1,10 +1,10 @@
-package main.java.it.polimi.ingsw.ClientSide.Controller;
+package it.polimi.ingsw.ClientSide.Controller;
 
-import main.java.it.polimi.ingsw.ClientSide.Client_IO;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.GameStates;
-import main.java.it.polimi.ingsw.ClientSide.TUI_Render.TUI;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.Client_IO;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.GameStates;
+import it.polimi.ingsw.ClientSide.TUI_Render.TUI;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.util.Scanner;
 

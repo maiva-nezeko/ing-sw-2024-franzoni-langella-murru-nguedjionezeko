@@ -1,10 +1,10 @@
-package test.java.it.polimi.ingsw.ServerTesting;
+package it.polimi.ingsw.ServerTesting;
 
 
 import junit.framework.TestCase;
-import main.java.it.polimi.ingsw.ServerSide.Cards.*;
-import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.*;
-import main.java.it.polimi.ingsw.ServerSide.Table.Deck;
+import it.polimi.ingsw.ServerSide.Cards.*;
+import it.polimi.ingsw.ServerSide.Cards.Enums.*;
+import it.polimi.ingsw.ServerSide.Table.Deck;
 
 import java.util.ArrayList;
 

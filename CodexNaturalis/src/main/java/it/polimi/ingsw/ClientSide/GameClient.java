@@ -1,7 +1,7 @@
-package main.java.it.polimi.ingsw.ClientSide;
+package it.polimi.ingsw.ClientSide;
 
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
-import main.java.it.polimi.ingsw.ClientSide.Utility.ClientConstants;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 import java.io.IOException;
 import java.net.*;

@@ -1,7 +1,7 @@
-package main.java.it.polimi.ingsw.ServerSide.Table;
+package it.polimi.ingsw.ServerSide.Table;
 
-import main.java.it.polimi.ingsw.ServerSide.Cards.*;
-import main.java.it.polimi.ingsw.ServerSide.Cards.Enums.*;
+import it.polimi.ingsw.ServerSide.Cards.*;
+import it.polimi.ingsw.ServerSide.Cards.Enums.*;
 
 import static java.lang.Math.abs;
 

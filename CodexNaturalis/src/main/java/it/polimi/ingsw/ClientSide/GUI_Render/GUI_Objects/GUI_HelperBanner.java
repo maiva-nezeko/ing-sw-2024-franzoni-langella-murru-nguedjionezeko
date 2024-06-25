@@ -1,6 +1,6 @@
-package main.java.it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects;
+package it.polimi.ingsw.ClientSide.GUI_Render.GUI_Objects;
 
-import main.java.it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
+import it.polimi.ingsw.ClientSide.MainClasses.Client_Game;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -34,7 +34,7 @@ public class GUI_HelperBanner extends GUI_object{
     {
         super(_xSize, _ySize, _xCoord, _yCoord);
 
-        File path = new File(System.getProperty("user.dir")+"\\CodexNaturalis\\res\\MenuIcons\\AllBanners.png");
+        File path = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\MenuIcons\\AllBanners.png");
 
         BufferedImage rI = null;
         int ySourceSize = 2160;
@@ -68,12 +68,18 @@ public class GUI_HelperBanner extends GUI_object{
 
         switch (Client_Game.getCurrentScene())
         {
-            case DRAW -> reference = referenceImages.get(0);
-            case PLAY -> reference = referenceImages.get(1);
-            case CHOOSE_GOAL -> reference = referenceImages.get(2);
-            case PLACE_STARTING -> reference = referenceImages.get(3);
-            case YOU_WIN -> reference = referenceImages.get(4);
-            case YOU_LOSE -> reference = referenceImages.get(5);
+            case MAIN_MENU -> reference = referenceImages.get(0);
+            case DRAW -> reference = referenceImages.get(1);
+            case PLAY -> reference = referenceImages.get(2);
+
+            case PLAYER_SELECTION -> reference = referenceImages.get(4);
+
+            case CHOOSE_GOAL -> reference = referenceImages.get(5);
+            case PLACE_STARTING -> reference = referenceImages.get(6);
+            case YOU_WIN -> reference = referenceImages.get(7);
+            case YOU_LOSE -> reference = referenceImages.get(8);
+
+            case SPECTATE_PLAYER -> reference = referenceImages.get(9);
         }
 
         if(reference!=null){g.drawImage(reference.getScaledInstance(this.xSize, this.ySize, Image.SCALE_DEFAULT), this.xCoord, this.yCoord, null); }
