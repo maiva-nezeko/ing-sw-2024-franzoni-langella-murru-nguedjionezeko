@@ -13,16 +13,15 @@ The following game gives the possibility to the client (player) to play one sing
 ## Implemented features
 | Feature               | Status |
 |-----------------------|--------|
-| UML(high level)       |   ⌛   |
-| Model(complete rules) |   ⌛   |
-| Networking            |   ⌛   |
-| Controller            |   ⌛   |
+| UML(high level)       |   ✅   |
+| Model(complete rules) |   ✅   |
+| Networking            |   ✅   |
+| Controller            |   ✅   |
 | TUI                   |   ✅   |
 | GUI                   |   ✅   |
 | Persistence           |   ✅   |
 | Multiple Games        |   ✅   |
 | Connection resilience |   ✅   |
-| Chat                  |   ❌   |
 
 
 ## Testing
