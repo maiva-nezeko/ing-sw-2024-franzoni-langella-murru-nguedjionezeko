@@ -52,7 +52,7 @@ public class ClientHandler implements Runnable{
 
         String[] message = new String(packet.getData()).trim().split(",");
         ServerConstants.printMessageLn(Arrays.toString(message));
-        ServerConstants.printMessage("Client [" + packet.getAddress() + " " + packet.getPort() + "] > " + Arrays.toString(message));
+        ServerConstants.printMessageLn("Client [" + packet.getAddress() + " " + packet.getPort() + "] > " + Arrays.toString(message));
 
         String ack = "ack";
         String username = message[1];
@@ -105,7 +105,6 @@ public class ClientHandler implements Runnable{
                 integerInString = Integer.parseInt(message[2]);
                 Server_IO.DrawCard(integerInString, username);
                 sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
-                game.changePlayerTurn();
                 break;
 
             case "ChooseGoalCard":
@@ -158,6 +157,9 @@ public class ClientHandler implements Runnable{
 
                 if (MultipleGameManager.Reconnect(username, Integer.parseInt(message[2])) != null) {
                     response = "Joining";
+
+                    Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getRelatedTable().drawRandom(username);
+
                 } else {
                     response = "Connection failed: Username Not Present";
                 }

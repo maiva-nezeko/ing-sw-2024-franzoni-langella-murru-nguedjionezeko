@@ -277,7 +277,7 @@ public class Client_Game implements Runnable {
     public void run()
     {
         //duration of each frame in nanoseconds
-        int FPS_SET = 30;
+        int FPS_SET = 15;
         double timePerFrame = (1000000000.0) / FPS_SET;
 
         long previousTime = System.nanoTime();

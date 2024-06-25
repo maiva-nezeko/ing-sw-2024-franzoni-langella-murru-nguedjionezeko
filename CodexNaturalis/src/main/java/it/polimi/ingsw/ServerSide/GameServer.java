@@ -55,6 +55,8 @@ public class GameServer implements Runnable{
      * The Previous time tracking the time passed.
      */
     static long previousTime;
+
+
     public void resetTimer(boolean fromGameServer){
         previousTime = System.nanoTime();
 
@@ -67,9 +69,10 @@ public class GameServer implements Runnable{
         }
 
         if( ( this.game.getPlayerCount()>1 )
-                && ( TimeoutNumber == this.game.getPlayerCount()-1 ) ){
+                && ( TimeoutNumber == this.game.getPlayerCount()-1 +10) ){
             System.out.println("Playercount: "+this.game.getPlayerCount()+" Timeout: "+TimeoutNumber);
-            this.game.end();}
+            this.game.end();
+        }
     }
 
 

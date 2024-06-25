@@ -55,7 +55,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                     if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[34])) {
                         Shortcuts.JoinLoop();
                     }
-                    if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[35])) { Shortcuts.requestPort(gamePanel);
+                    if (HelperMethods.is_Inside(xPos, yPos, GUI_Spaces[35])) {
+                        Shortcuts.requestPort(gamePanel);
                         System.out.println("Reconnecting");
                     }
 

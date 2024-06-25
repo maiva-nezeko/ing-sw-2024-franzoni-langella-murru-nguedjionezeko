@@ -206,9 +206,22 @@ public class Table {
      * @param username the username of Player requesting draw.
      */
     public void drawRandom(String username) {
+
+        Player chosenPlayer = relatedGame.getPlayerByUsername(username);
+        if(chosenPlayer==null){return;}
+
+        int EmptyHandSlot = chosenPlayer.getEmptySlot();
+        if(EmptyHandSlot != -1 && relatedGame.getCurrentPlayerTurn() == relatedGame.getPlayerNumber(username))
+        {
+            relatedGame.changePlayerTurn();
+        };
+
+
+
         for (int index=0; index<6; index++){
             if(PublicSpacesID[index]!=0){ DrawCard(index, username); break; }
         }
+
     }
 }
 

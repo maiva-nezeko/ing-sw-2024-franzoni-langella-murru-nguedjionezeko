@@ -274,5 +274,6 @@ public class  Game {
 
         else{CurrentPlayerTurn++;} }
 
-    public void resetTimer() { gameServer.resetTimer(false); }
+    public void resetTimer() { changePlayerTurn();
+        gameServer.resetTimer(false); }
 }

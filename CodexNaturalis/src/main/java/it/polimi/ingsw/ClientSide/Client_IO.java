@@ -430,9 +430,11 @@ public class Client_IO {
         if(ClientConstants.getSocket()) { returnValue = GameClient.listenForResponse("AttemptingReconnection,"+username+","+port);}
         else{ if(!RMI_Set){setRMI();} try{ returnValue = UpdateObject.Reconnect(username, port); } catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
 
+        System.out.println(returnValue);
 
         if(!returnValue.contains("failed"))
         {
+            if(ClientConstants.getSocket()) { ClientConstants.setPort(port); }
             requestUpdate();
             if(MyTurn){  Client_Game.ChangeScene(GameStates.PLAY); }
             else{Client_Game.ChangeScene(GameStates.SPECTATE_PLAYER);}

@@ -81,7 +81,6 @@ public class Server_IO {
         Table table = game.getRelatedTable();
         table.DrawCard(position, username);
         game.resetTimer();
-
     }
 
     /**
@@ -217,7 +216,7 @@ public class Server_IO {
         public void RMI_Flip(int position, String username) throws RemoteException{
             Server_IO.Flip(position, username);}
         public void RMI_DrawCard(int position, String username) throws RemoteException{
-            Server_IO.DrawCard(position, username); this.game.changePlayerTurn();}
+            Server_IO.DrawCard(position, username);}
         public boolean RMI_PlayCardByIndex(int rowIndex, int columnsIndex, int id, String username) throws RemoteException{
             return Server_IO.PlayCardByIndex(rowIndex, columnsIndex, id, username);}
         public void RMI_ChooseGoalCard(int position, String username){ ChooseGoalCard(position , username);}
