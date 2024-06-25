@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ServerTesting;
+package it.polimi.ingsw.ModelTesting;
 
 import junit.framework.TestCase;
 import it.polimi.ingsw.ServerSide.Cards.*;

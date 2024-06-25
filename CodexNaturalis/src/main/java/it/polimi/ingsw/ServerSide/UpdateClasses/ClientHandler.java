@@ -47,28 +47,37 @@ public class ClientHandler implements Runnable{
     }
 
     public void handleCommand(DatagramPacket packet) {
-
-        int integerInString = 0;
-
+        
         String[] message = new String(packet.getData()).trim().split(",");
         ServerConstants.printMessageLn(Arrays.toString(message));
         ServerConstants.printMessageLn("Client [" + packet.getAddress() + " " + packet.getPort() + "] > " + Arrays.toString(message));
 
+        String out = getOutput(message);
+        sendData(out.getBytes(), packet.getAddress(), packet.getPort());
+
+        
+
+    }
+    
+    public String getOutput(String[] message)
+    {
+        int integerInString = 0;
         String ack = "ack";
         String username = message[1];
-        String response;
+        String response = "";
 
         switch (message[0]) {
 
+            
             case "SendUpdate":
                 if (this.game == null) {
                     break;
                 }
-                String Update = Server_IO.SocketUpdate(username);
+                response = Server_IO.SocketUpdate(username);
                 if (ServerConstants.getDebug()) {
-                    ServerConstants.printMessageLn("Update:\n" + Update);
+                    ServerConstants.printMessageLn("Update:\n" + response);
                 }
-                sendData(Update.getBytes(), packet.getAddress(), packet.getPort());
+                
                 break;
 
             case "GameStartedStatus":
@@ -76,9 +85,9 @@ public class ClientHandler implements Runnable{
                     break;
                 }
                 if (game.isGameStarted()) {
-                    sendData("true".getBytes(), packet.getAddress(), packet.getPort());
+                    response = "true";
                 } else {
-                    sendData("false".getBytes(), packet.getAddress(), packet.getPort());
+                    response = "false";
                 }
                 break;
 
@@ -87,14 +96,13 @@ public class ClientHandler implements Runnable{
                     break;
                 }
                 response = game.getPlayers().get(game.getCurrentPlayerTurn()).getUsername();
-                sendData(response.getBytes(), packet.getAddress(), packet.getPort());
                 break;
 
             //modifiers
             case "Flip":
                 integerInString = Integer.parseInt(message[2]);
                 Server_IO.Flip(integerInString, username);
-                sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
+                response = ack;
                 break;
 
             case "Draw":
@@ -104,40 +112,39 @@ public class ClientHandler implements Runnable{
 
                 integerInString = Integer.parseInt(message[2]);
                 Server_IO.DrawCard(integerInString, username);
-                sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
+                response = ack;
                 break;
 
             case "ChooseGoalCard":
                 integerInString = Integer.parseInt(message[2]);
                 Server_IO.ChooseGoalCard(integerInString, username);
-                sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
+                response = ack;
                 break;
 
             case "PlaceStartingCard":
                 integerInString = Integer.parseInt(message[2]);
                 ServerConstants.printMessageLn("Placed StartingCard");
                 Server_IO.PlaceStartingCard(integerInString, username);
-                sendData(ack.getBytes(), packet.getAddress(), packet.getPort());
+                response = ack;
                 break;
 
             case "playCardByIndex":
                 ServerConstants.printMessageLn("Requested Play " + message[2] + " " + message[3] + " " + message[4]);
-                String returnValue = "false";
+                response = "false";
 
                 //BigInteger flag = BigInteger.valueOf(0);
                 if (Server_IO.PlayCardByIndex(Integer.parseInt(message[2]), Integer.parseInt(message[3]),
                         Integer.parseInt(message[4]), username)) {
-                    returnValue = "true";
+                    response = "true";
                 }
-
-                sendData(returnValue.getBytes(), packet.getAddress(), packet.getPort());
+                
                 break;
 
             case "getNewPort":
                 String newPort = "" + Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPort();
 
                 ServerConstants.printMessageLn("NewSocketPort = " + newPort);
-                sendData(newPort.getBytes(), packet.getAddress(), packet.getPort());
+                response = newPort;
                 break;
 
 
@@ -150,7 +157,7 @@ public class ClientHandler implements Runnable{
                         response = "Joining";
                     }
                 }
-                sendData(response.getBytes(), packet.getAddress(), packet.getPort());
+                
                 break;
 
             case "AttemptingReconnection":
@@ -160,8 +167,7 @@ public class ClientHandler implements Runnable{
                 } else {
                     response = "Connection failed: Username Not Present";
                 }
-
-                sendData(response.getBytes(), packet.getAddress(), packet.getPort());
+                
                 break;
 
             case "CreateGame":
@@ -170,12 +176,11 @@ public class ClientHandler implements Runnable{
                 } else {
                     response = "Creation attempt failed: Server Error or wrong PlayerCount";
                 }
-                sendData(response.getBytes(), packet.getAddress(), packet.getPort());
+
                 break;
 
             case "getUsernames":
                 response = Server_IO.getUsernames(MultipleGameManager.getGameInstance(username));
-                sendData(response.getBytes(), packet.getAddress(), packet.getPort());
                 break;
 
             case "getCurrentPlayerGrid":
@@ -184,16 +189,17 @@ public class ClientHandler implements Runnable{
                 }
 
                 response = Server_IO.getGameBoard(game, game.getCurrentPlayerTurn());
-                sendData(response.getBytes(), packet.getAddress(), packet.getPort());
                 break;
+
             case "CLi":
                 if (MultipleGameManager.getGameInstance(username) == null) {
-                    sendData("yes".getBytes(), packet.getAddress(), packet.getPort());
+                    response = "yes";
                 } else {
-                    sendData("no".getBytes(), packet.getAddress(), packet.getPort());
+                    response ="no";
                 }
                 break;
         }
-
+        
+        return response;
     }
 }

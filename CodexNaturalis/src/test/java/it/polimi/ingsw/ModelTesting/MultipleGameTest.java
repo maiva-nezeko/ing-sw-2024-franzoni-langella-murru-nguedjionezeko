@@ -1,11 +1,8 @@
-package it.polimi.ingsw.ServerTesting;
+package it.polimi.ingsw.ModelTesting;
 
 import it.polimi.ingsw.ServerSide.MainClasses.Game;
 import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
-import it.polimi.ingsw.ServerSide.Table.Player;
 import junit.framework.TestCase;
-
-import java.util.ArrayList;
 
 public class MultipleGameTest extends TestCase {
 

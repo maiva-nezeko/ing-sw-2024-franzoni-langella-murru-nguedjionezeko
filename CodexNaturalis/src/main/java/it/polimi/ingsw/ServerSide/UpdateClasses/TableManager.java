@@ -339,7 +339,7 @@ public class TableManager {
      * @see TableManager#Stair_points(int, int, Game)
      * @see TableManager#L_points(int, int, Game)
      */
-    private static void AddGoalPoints(Player chosenPlayer, int player_index, Game game) {
+    public static void AddGoalPoints(Player chosenPlayer, int player_index, Game game) {
 
         int[] OldScoreBoard = chosenPlayer.getScoreBoard();
         Table chosenTable = game.getRelatedTable();
@@ -458,17 +458,21 @@ public class TableManager {
         int[][] OccupiedSpaces = table.getOccupiedSpaces()[player];
 
 
-        for (int Row_index = 3; Row_index < NumOf_Rows; Row_index++) {
-            for (int Column_index = 0; Column_index < NumOf_Columns - 3; Column_index++) {
-
-                if (color == 0 || color == 1) {
+        if (color == 0 || color == 1) {
+            for (int Row_index = 2; Row_index < NumOf_Rows; Row_index++) {
+                for (int Column_index = 0; Column_index < NumOf_Columns - 3; Column_index++) {
                     if (checkCardColor(OccupiedSpaces[Row_index][Column_index], color) &&
-                            checkCardColor(OccupiedSpaces[Row_index + 1][Column_index + 1], color) && checkCardColor(OccupiedSpaces[Row_index + 2][Column_index + 2], color)) {
+                            checkCardColor(OccupiedSpaces[Row_index - 1][Column_index + 1], color) && checkCardColor(OccupiedSpaces[Row_index - 2][Column_index + 2], color)) {
                         count++;
                     }
-                } else {
+                }
+            }
+        }
+        else {
+            for (int Row_index = 0; Row_index < NumOf_Rows-2; Row_index++) {
+                for (int Column_index = 0; Column_index < NumOf_Columns - 2; Column_index++) {
                     if (checkCardColor(OccupiedSpaces[Row_index][Column_index], color) &&
-                            checkCardColor(OccupiedSpaces[Row_index - 1][Column_index - 1], color) && checkCardColor(OccupiedSpaces[Row_index - 2][Column_index - 2], color)) {
+                            checkCardColor(OccupiedSpaces[Row_index + 1][Column_index + 1], color) && checkCardColor(OccupiedSpaces[Row_index + 2][Column_index + 2], color)) {
                         count++;
                     }
                 }

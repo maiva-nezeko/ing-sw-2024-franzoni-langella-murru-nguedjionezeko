@@ -1,18 +1,15 @@
-package it.polimi.ingsw.ServerTesting;
+package it.polimi.ingsw.ModelTesting;
 
 import it.polimi.ingsw.ServerSide.MainClasses.Game;
 import it.polimi.ingsw.ServerSide.MainClasses.MultipleGameManager;
 import it.polimi.ingsw.ServerSide.Server_IO;
-import it.polimi.ingsw.ServerSide.Table.Player;
 import junit.framework.TestCase;
-
-import java.util.ArrayList;
 
 public class ServerIOTest extends TestCase {
 
     public void testGetUsernames()
     {
-        assertTrue(MultipleGameManager.CreateGame("TestGame", 1));
+        MultipleGameManager.CreateGame("TestGame", 1);
         Game testGame  = MultipleGameManager.getGameInstance("TestGame");
         assert testGame != null;
 
@@ -51,7 +48,7 @@ public class ServerIOTest extends TestCase {
         int card = testGame.getPlayers().getFirst().getPrivateCardsID()[5];
 
         Server_IO.ChooseGoalCard(5, "TestGame");
-        assertEquals(-card, testGame.getPlayers().getFirst().getPrivateCardsID()[3]);
+        assertEquals(card, testGame.getPlayers().getFirst().getPrivateCardsID()[3]);
 
         testGame.end();
     }

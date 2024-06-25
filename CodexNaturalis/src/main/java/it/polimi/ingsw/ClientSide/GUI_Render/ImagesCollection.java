@@ -43,7 +43,7 @@ public class ImagesCollection {
 
         Image rI = null;
 
-        rI = loadImage("\\src\\main\\resources\\Board.png");
+        rI = loadImage("/src/main/resources/Board.png");
         assert rI != null;
 
         return rI.getScaledInstance(xWindowSize/6,xWindowSize/3,Image.SCALE_DEFAULT);

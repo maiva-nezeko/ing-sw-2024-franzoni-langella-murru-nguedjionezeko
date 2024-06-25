@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ServerTesting;
+package it.polimi.ingsw.ModelTesting;
 
 import it.polimi.ingsw.ServerSide.MainClasses.UpdatePackage;
 import junit.framework.TestCase;

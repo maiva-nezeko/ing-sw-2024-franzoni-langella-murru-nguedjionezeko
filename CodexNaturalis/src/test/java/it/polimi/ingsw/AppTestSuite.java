@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.ServerTesting.*;
+import it.polimi.ingsw.ModelTesting.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -8,7 +8,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({CardTest.class, TableTest.class, UtilityTest.class,
         UpdateTest.class, UpdatePackageTest.class, GameTest.class, MultipleGameTest.class,
-        ServerIOTest.class})
+        ServerIOTest.class, TAbleManagerTest.class, ClientHandleTest.class})
 public class AppTestSuite
 {
 

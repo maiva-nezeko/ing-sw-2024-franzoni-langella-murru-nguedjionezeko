@@ -23,7 +23,7 @@ public class Deck {
             new ResourceCard(new int[]{2,5,8,0}, 7), new ResourceCard(new int[]{1,2,1,0},8),
             new ResourceCard(new int[]{2,0,1,1}, 9), new ResourceCard(new int[]{0,1,2,1},10),
 
-            //purple cards
+            //blue cards
             new ResourceCard(new int[]{3,3,1,0},11), new ResourceCard(new int[]{0,1,3,3},12),
             new ResourceCard(new int[]{3,0,3,1},13), new ResourceCard(new int[]{1,3,0,3},14),
             new ResourceCard(new int[]{0,5,7,3},15), new ResourceCard(new int[]{4,3,0,8},16),
