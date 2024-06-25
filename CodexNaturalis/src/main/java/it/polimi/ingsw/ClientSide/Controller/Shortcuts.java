@@ -26,7 +26,10 @@ public interface Shortcuts {
         String JoinStatus = Client_IO.JoinGame();
         if(JoinStatus.contains("username")){ requestUsername("Server already has that name connected, try a new one"); }
         else if(!JoinStatus.contains("Joining")){ Client_Game.ChangeScene(GameStates.PLAYER_SELECTION); }
-        else {  Client_Game.ChangeScene(GameStates.CHOOSE_GOAL);    }
+        else {
+            Client_IO.getNewPort();
+            Client_Game.ChangeScene(GameStates.CHOOSE_GOAL);
+        }
     }
 
     /**

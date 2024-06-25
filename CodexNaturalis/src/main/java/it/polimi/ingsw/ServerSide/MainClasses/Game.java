@@ -55,11 +55,6 @@ public class  Game {
     public GameStates getGameState(){return GameState;}
 
     /**
-     * Switches sequentially between GameStates.
-     */
-    public void nextPhase(){ if(GameStates.advanceState(GameState) != null){GameState = GameStates.advanceState(GameState);} }
-
-    /**
      * Sets Game State.
      * @param GS    the new GameState
      */
@@ -268,7 +263,11 @@ public class  Game {
 
         if(CurrentPlayerTurn+1== this.getPlayerCount())
         {
-            if(GameState == GameStates.LAST_TURN){ GameState = GameStates.GAME_ENDED; this.end(); }
+            if( GameState.equals(GameStates.LAST_TURN) ){
+                GameState = GameStates.GAME_ENDED;
+                System.out.println("\n\nGame end via last turn condition\n");
+                this.end();
+            }
             CurrentPlayerTurn=0;
         }
 

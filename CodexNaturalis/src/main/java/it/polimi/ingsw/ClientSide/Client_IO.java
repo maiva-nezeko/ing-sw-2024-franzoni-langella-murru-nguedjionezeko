@@ -369,8 +369,11 @@ public class Client_IO {
         if (ClientConstants.getSocket())
         { returnValue = GameClient.listenForResponse("playCardByIndex," + username +","+ Row_index + "," + Columns_index + "," + id).contains("true"); }
         else{
-            try { returnValue = UpdateObject.RMI_PlayCardByIndex(Row_index, Columns_index, id, username);
-                if(!returnValue){ if( UpdateObject.isClosed( ClientConstants.getPort() )){ ClientExceptionHandler.CalculateWinner(); } }
+            try {
+                returnValue = UpdateObject.RMI_PlayCardByIndex(Row_index, Columns_index, id, username);
+
+                if(!returnValue){
+                    if( UpdateObject.isClosed( ClientConstants.getPort() )){ ClientExceptionHandler.CalculateWinner(); } }
             }
             catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
 
@@ -390,6 +393,7 @@ public class Client_IO {
         int NewPort = 0;
         if(ClientConstants.getSocket()) { NewPort = Integer.parseInt(GameClient.listenForResponse("getNewPort," +username)); }
         else{ try { NewPort = UpdateObject.RMI_getNewPort(username); setRMI(); }catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
+
         ClientConstants.setPort(NewPort);
         System.out.println("NewPort = " + NewPort);
 
@@ -434,9 +438,13 @@ public class Client_IO {
 
         if(!returnValue.contains("failed"))
         {
-            if(ClientConstants.getSocket()) { ClientConstants.setPort(port); }
+            ClientConstants.setPort(port);
+
             requestUpdate();
-            if(MyTurn){  Client_Game.ChangeScene(GameStates.PLAY); }
+
+            if(lastUpdatedHand[5]!=0){ Client_Game.ChangeScene(GameStates.CHOOSE_GOAL);}
+            else if(lastUpdatedHand[4]!=0){ Client_Game.ChangeScene(GameStates.PLACE_STARTING);}
+            else if(MyTurn){  Client_Game.ChangeScene(GameStates.PLAY); }
             else{Client_Game.ChangeScene(GameStates.SPECTATE_PLAYER);}
         }
 

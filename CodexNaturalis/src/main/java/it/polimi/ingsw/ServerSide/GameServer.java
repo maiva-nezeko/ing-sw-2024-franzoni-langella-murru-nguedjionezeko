@@ -89,10 +89,10 @@ public class GameServer implements Runnable{
 
             if (this.game != null && this.game.isGameStarted()) {
                 if (System.nanoTime() >= previousTime + timePerTurn) {
+                    previousTime = System.nanoTime();
                     ServerConstants.printMessageLn("Turn timer Expired");
-                    if (TimeoutNumber >= 0) {
-                        game.changePlayerTurn();
-                    }
+
+                    game.changePlayerTurn();
                     resetTimer(true);
 
                 }

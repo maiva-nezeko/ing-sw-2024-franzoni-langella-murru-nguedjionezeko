@@ -151,9 +151,10 @@ public class Table {
             AutoFillSpaces();
 
             if(PublicSpacesID[0]==0 && PublicSpacesID[1]==0 && relatedGame.getGameState().equals(GameStates.PLAYING))
-            { relatedGame.nextPhase(); relatedGame.setLastPlayer(relatedGame.getPlayerNumber(username));}
+            { relatedGame.setGameState(GameStates.LAST_TURN); relatedGame.setLastPlayer(relatedGame.getPlayerNumber(username));}
 
             if(ServerConstants.getDebug()){ ServerConstants.printMessageLn("Player: "+username+" draw: "+PublicSpacesID[position] + " in position: " +position); }
+
 
         }
 
@@ -206,17 +207,6 @@ public class Table {
      * @param username the username of Player requesting draw.
      */
     public void drawRandom(String username) {
-
-        Player chosenPlayer = relatedGame.getPlayerByUsername(username);
-        if(chosenPlayer==null){return;}
-
-        int EmptyHandSlot = chosenPlayer.getEmptySlot();
-        if(EmptyHandSlot != -1 && relatedGame.getCurrentPlayerTurn() == relatedGame.getPlayerNumber(username))
-        {
-            relatedGame.changePlayerTurn();
-        };
-
-
 
         for (int index=0; index<6; index++){
             if(PublicSpacesID[index]!=0){ DrawCard(index, username); break; }

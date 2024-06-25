@@ -176,6 +176,39 @@ public class Server_IO {
     { return  Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getPort();  }
 
 
+
+
+    public static boolean ReconnectCheck(String username, int port) {
+        boolean drawFlag = false;
+
+        if (MultipleGameManager.Reconnect(username, port) != null) {
+
+            Game game = MultipleGameManager.getGameInstance(username);
+            assert game != null;
+
+            int[] hand = game.getPlayerByUsername(username).getPrivateCardsID();
+
+            for (int i = 0; i < 3; i++) {
+                if (hand[i] == 0) {
+                    game.getRelatedTable().drawRandom(username);
+                    drawFlag = true;
+                }
+            }
+
+            if (drawFlag && game.getCurrentPlayerTurn() == game.getPlayerNumber(username)) {
+                game.changePlayerTurn();
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
+
     /**
      * The implementation of the Server rmi. Further documentations is found in ServerRMI interface.
      */
@@ -262,18 +295,10 @@ public class Server_IO {
          */
         public String Reconnect(String username, int port) throws RemoteException
         {
-            if(MultipleGameManager.Reconnect(username, port) != null){
+            if(ReconnectCheck(username, port)){
                 this.game = MultipleGameManager.getGameInstance(username);
-
-                assert this.game!=null;
-                int[] hand = this.game.getPlayerByUsername(username).getPrivateCardsID();
-
-                for(int i=0; i<3; i++)
-                {
-                    if(hand[i] == 0){ this.game.getRelatedTable().drawRandom(username);  }
-                }
-
-                return "Reconnecting to previous game"; }
+                return "Reconnecting to previous game";
+            }
             return "Reconnection attempt failed: Username not found";
         }
 

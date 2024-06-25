@@ -11,13 +11,6 @@ PLAYER_JOINING,
     GAME_ENDED,
     RESTORED;
 
-public static GameStates advanceState(GameStates old_state){
-    return switch (old_state) {
-        case PLAYER_JOINING -> PLAYING;
-        case PLAYING -> LAST_TURN;
-        default -> null;
-    };
-
 }
-                                                                    }
+
 

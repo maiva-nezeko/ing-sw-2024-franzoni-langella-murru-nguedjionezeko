@@ -305,7 +305,7 @@ public class TableManager {
             ServerConstants.printMessageLn(Arrays.toString(OldPoints));
         }
 
-        if (game.getGameState().equals(GameStates.LAST_TURN) && playerIndex == 0) {
+        if (game.getGameState().equals(GameStates.LAST_TURN) && playerIndex == game.getPlayerCount()-1) {
 
             int player_index = 0;
             for (Player player_iterator : game.getPlayers()) {
@@ -313,12 +313,13 @@ public class TableManager {
                 player_index++;
             }
 
-            game.end();
+
+
             return;
         }
 
         if (OldPoints[0] >= 20 && game.getGameState().equals(GameStates.PLAYING)) {
-            game.nextPhase();
+            game.setGameState(GameStates.LAST_TURN);
             game.setLastPlayer(playerIndex);
             ServerConstants.printMessageLn("Last turn Started");
         }

@@ -117,7 +117,7 @@ public class UpdateTest extends TestCase {
         testPlayers.add(new Player("TestPlayer"));
         Game testGame = new Game(1, testPlayers, 1331);
         Table testTable = testGame.getRelatedTable();
-        testGame.nextPhase();
+        testGame.setGameState(GameStates.LAST_TURN);
 
 
         for(int cardsDrawn = 0; cardsDrawn<80; cardsDrawn++){

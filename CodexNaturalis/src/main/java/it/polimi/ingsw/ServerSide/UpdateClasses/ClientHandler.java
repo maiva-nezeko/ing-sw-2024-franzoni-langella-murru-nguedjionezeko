@@ -155,11 +155,8 @@ public class ClientHandler implements Runnable{
 
             case "AttemptingReconnection":
 
-                if (MultipleGameManager.Reconnect(username, Integer.parseInt(message[2])) != null) {
+                if (Server_IO.ReconnectCheck(username, Integer.parseInt(message[2]))) {
                     response = "Joining";
-
-                    Objects.requireNonNull(MultipleGameManager.getGameInstance(username)).getRelatedTable().drawRandom(username);
-
                 } else {
                     response = "Connection failed: Username Not Present";
                 }
