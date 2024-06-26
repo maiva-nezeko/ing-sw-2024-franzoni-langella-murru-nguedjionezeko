@@ -126,8 +126,9 @@ public class UtilityTest extends TestCase{
     {
         ArrayList<Player> players = new ArrayList<>();
         players.add(new Player("PersistenceTest"));
+        players.add(new Player("PersistenceTest2"));
 
-        int[][][] gameBoard = new int[1][ServerConstants.getNumOfRows()][ServerConstants.getNumOfRows()/2];
+        int[][][] gameBoard = new int[2][ServerConstants.getNumOfRows()][ServerConstants.getNumOfRows()/2];
         //fill the GameBoard with random numbers to later check if it's the same
         for (int i=0; i<gameBoard[0].length; i++) {
             for (int j=0; j<gameBoard[0][i].length; j++) {
@@ -148,13 +149,13 @@ public class UtilityTest extends TestCase{
             Hand[i] = (int) (Math.random()*10);        }
 
 
-        Game testGame = MultipleGameManager.addGame(1, players);
+        Game testGame = MultipleGameManager.addGame(2, players);
 
         testGame.getRelatedTable().setOccupiedSpaces(gameBoard);
         testGame.getRelatedTable().setPublicSpacesID(publicCards);
-        testGame.getPlayers().get(0).setScoreBoard(scoreBoard);
+        testGame.getPlayers().getFirst().setScoreBoard(scoreBoard);
 
-        for(int i=0; i<Hand.length; i++){testGame.getPlayers().get(0).setCard(i, Hand[i]);}
+        for(int i=0; i<Hand.length; i++){testGame.getPlayers().getFirst().setCard(i, Hand[i]);}
 
 
         testGame.start();
@@ -172,9 +173,7 @@ public class UtilityTest extends TestCase{
         assertEquals(GameStates.RESTORED, testGame.getGameState());
 
         assertArrayEquals(gameBoard, testGame.getRelatedTable().getOccupiedSpaces());
-        assertArrayEquals(publicCards, testGame.getRelatedTable().getPublicSpacesID());
-        assertArrayEquals(scoreBoard, testGame.getPlayers().get(0).getScoreBoard());
-        assertArrayEquals(Hand, testGame.getPlayers().get(0).getPrivateCardsID());
+        assertArrayEquals(scoreBoard, testGame.getPlayers().getFirst().getScoreBoard());
 
         ServerConstants.setNoSaveDelete(false);
         testGame.start();

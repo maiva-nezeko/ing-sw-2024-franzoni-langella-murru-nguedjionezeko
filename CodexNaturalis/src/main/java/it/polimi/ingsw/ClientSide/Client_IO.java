@@ -105,8 +105,11 @@ public class Client_IO {
             reg = LocateRegistry.getRegistry(ClientConstants.getIp(), RMI_port);
             UpdateObject = (ServerRMI) reg.lookup("GetUpdates");
             RMI_Set=true;
+            System.out.println("RMI set");
         }
-        catch (Exception e){e.printStackTrace();}
+        catch (Exception e){
+            ClientExceptionHandler.ServerUnreachable(e);
+        }
     }
 
     //updaters
@@ -267,6 +270,7 @@ public class Client_IO {
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("Flip," +username +","+ position);}
         else{ try { UpdateObject.RMI_Flip(position, username); }catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
 
+        if(ClientExceptionHandler.ServerUnreachable){return;}
         if(ClientConstants.getGUI()){ requestUpdate(); }
     }
 
@@ -291,6 +295,7 @@ public class Client_IO {
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("Draw," +username +","+ position);}
         else{try {UpdateObject.RMI_DrawCard(position, username);} catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
 
+        if(ClientExceptionHandler.ServerUnreachable){return;}
         if(ClientConstants.getGUI()){ requestUpdate(); }
         Client_Game.ChangeScene(GameStates.SPECTATE_PLAYER);
     }
@@ -312,6 +317,8 @@ public class Client_IO {
         System.out.println("PlaceStartingCard," +username +","+ selectedCard);
         if(ClientConstants.getSocket()) {GameClient.listenForResponse("PlaceStartingCard," +username +","+ selectedCard);}
         else{try { UpdateObject.RMI_PlaceStartingCard(selectedCard, username);}catch (RemoteException e){ClientExceptionHandler.ServerUnreachable(e);}}
+
+        if(ClientExceptionHandler.ServerUnreachable){return;}
 
         if(ClientConstants.getGUI()){ requestUpdate(); }
 
@@ -411,11 +418,15 @@ public class Client_IO {
      */
     public static String JoinGame()
     {
+        String response = "Client_Failed";
         if(ClientConstants.getSocket())
-        { return GameClient.listenForResponse("JoinPackage,"+username);}
+        { response = GameClient.listenForResponse("JoinPackage,"+username);}
         else{ if(!RMI_Set){setRMI();}
-            try{ return UpdateObject.JoinGame(username);} catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
-        return "Client_Failed";
+            try{
+                response = UpdateObject.JoinGame(username);
+                ClientExceptionHandler.ServerUnreachable = false;
+            } catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
+        return response;
     }
 
     /**
@@ -431,8 +442,14 @@ public class Client_IO {
     public static String Reconnect(int port)
     {
         String returnValue = "Client_Failed";
+
         if(ClientConstants.getSocket()) { returnValue = GameClient.listenForResponse("AttemptingReconnection,"+username+","+port);}
-        else{ if(!RMI_Set){setRMI();} try{ returnValue = UpdateObject.Reconnect(username, port); } catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
+        else{ if(!RMI_Set){setRMI();}
+            try{
+                returnValue = UpdateObject.Reconnect(username, port);
+                ClientExceptionHandler.ServerUnreachable = false;
+            }
+            catch (RemoteException e ){ClientExceptionHandler.ServerUnreachable(e);}}
 
         System.out.println(returnValue);
 
@@ -446,6 +463,7 @@ public class Client_IO {
             else if(lastUpdatedHand[4]!=0){ Client_Game.ChangeScene(GameStates.PLACE_STARTING);}
             else if(MyTurn){  Client_Game.ChangeScene(GameStates.PLAY); }
             else{Client_Game.ChangeScene(GameStates.SPECTATE_PLAYER);}
+
         }
 
         return returnValue;
@@ -511,6 +529,7 @@ public class Client_IO {
     public static int[][] getCurrentPlayerGrid()
     {
         if(!Client_Game.getCurrentScene().equals(GameStates.SPECTATE_PLAYER)){return lastUpdatedGrid;}
+
 
         if((System.nanoTime() >= lastUpdateTime + timePerUpdate))
         {

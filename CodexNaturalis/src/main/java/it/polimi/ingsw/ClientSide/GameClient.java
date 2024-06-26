@@ -46,16 +46,26 @@ public class GameClient extends Thread{
         byte[] data = new byte[1024*10];
         DatagramPacket packet = new DatagramPacket(data, data.length);
 
+        Long currentTime = System.nanoTime();
+
+
         try {
+
             sendData(message.getBytes());
+
+            socket.setSoTimeout(20*1000);
+
             socket.receive(packet);
+            ClientExceptionHandler.ServerUnreachable = false;
+
 
             String Response_message = new String (packet.getData(), StandardCharsets.UTF_8);
             //System.out.println("Server >" + Response_message.trim());
 
             return Response_message.trim();
 
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             ClientExceptionHandler.ServerUnreachable(new RuntimeException(e));
         }
 
@@ -78,6 +88,7 @@ public class GameClient extends Thread{
         DatagramPacket sendPacket = new DatagramPacket(data, data.length, ipAddress, port);
         try {
 
+            socket.setSoTimeout(20*1000);
             socket.send(sendPacket);
             socket.receive(packet);
 
@@ -85,7 +96,11 @@ public class GameClient extends Thread{
 
             return Response_message.trim();
 
-        } catch (IOException e) {
+        }
+        catch (SocketTimeoutException e1) {
+            return ("Unable to reach main server");
+        }
+        catch (IOException e) {
             return ("Unable to reach server");
         }
     }

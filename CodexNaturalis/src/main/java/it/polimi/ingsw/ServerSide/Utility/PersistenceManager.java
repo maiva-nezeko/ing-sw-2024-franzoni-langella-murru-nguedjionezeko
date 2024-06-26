@@ -28,8 +28,17 @@ public interface PersistenceManager {
 
         File [] files = path.listFiles();
         if(files==null) {
-            ServerConstants.printMessageLn("Saved Games Directory Empty, no games to restore");
-            return;
+
+
+            path = new File(System.getProperty("user.dir")+"\\CodexNaturalis\\src\\main\\resources\\SavedGames");
+
+            files = path.listFiles();
+
+            if(files == null) {
+
+                ServerConstants.printMessageLn("Saved Games Directory Empty, no games to restore");
+                return;
+            }
         }
 
         for (File file : files) {
@@ -134,10 +143,11 @@ public interface PersistenceManager {
         int NumOf_Columns = NumOf_Rows/2;
 
         String GameBoard = getGameBoard(game.getRelatedTable().getOccupiedSpaces(), NumOf_Rows, NumOf_Columns, game);
+        String filename = game.getPlayerCount()+"_"+GameUsernames+game.getPort()+".txt";
 
         try {
 
-            String filename = game.getPlayerCount()+"_"+GameUsernames+game.getPort()+".txt";
+
             FileWriter FW = new FileWriter(System.getProperty("user.dir")+ "\\src\\main\\resources\\SavedGames\\"+filename);
             FW.write(GameBoard);
             FW.close();
@@ -145,8 +155,25 @@ public interface PersistenceManager {
             if(ServerConstants.getDebug()){ ServerConstants.printMessageLn("Saved"); }
 
 
-        } catch (Exception e){ e.printStackTrace();}
+        } catch (Exception e) {
 
+            try {
+
+                FileWriter FW = new FileWriter(System.getProperty("user.dir") + "\\CodexNaturalis\\src\\main\\resources\\SavedGames\\" + filename);
+                FW.write(GameBoard);
+                FW.close();
+
+                if (ServerConstants.getDebug()) {
+                    ServerConstants.printMessageLn("Saved");
+                }
+
+
+            } catch (Exception e1) {
+
+                e1.printStackTrace();
+
+            }
+        }
     }
 
 
