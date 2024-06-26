@@ -137,6 +137,10 @@ public class TableManager {
 
 
         int[] SurroundingCorners = getSurroundingCorners(OccupiedSpaces, Row_index, Columns_index, playerIndex);
+        for(int i=0; i<4; i++)
+        {
+            SurroundingCorners[i] = min(SurroundingCorners[i], 2 );
+        }
 
 
         if (/*TlCheck*/( SurroundingCorners[0] > CornerValue[0] && SurroundingCorners[0]!=-1)
