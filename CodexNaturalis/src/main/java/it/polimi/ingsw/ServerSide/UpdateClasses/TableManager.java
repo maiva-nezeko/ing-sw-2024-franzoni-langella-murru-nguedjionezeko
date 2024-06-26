@@ -156,6 +156,7 @@ public class TableManager {
 
             chosenPlayer.setScoreBoard(Card.addPoints(Points));
             game.modifyPlayer(game.getPlayerNumber(chosenPlayer.getUsername()), chosenPlayer);
+
             game.getRelatedTable().setOccupiedSpaces(OccupiedSpaces);
 
 
@@ -228,20 +229,20 @@ public class TableManager {
         int[] SurroundingCorners = {-1, -1, -1, -1};
         if (Tl_Card != null) {
             Tl_Card.setFlipped(Tl_space < 0);
-            SurroundingCorners[0] = min(Tl_Card.getCorners()[3] ,2);
+            SurroundingCorners[0] = Tl_Card.getCorners()[3];
         }
         if (Tr_Card != null) {
             Tr_Card.setFlipped(Tr_Space < 0);
-            SurroundingCorners[1] = min(Tr_Card.getCorners()[2], 2);
+            SurroundingCorners[1] = Tr_Card.getCorners()[2];
         }
 
         if (Bl_Card != null) {
             Bl_Card.setFlipped(Bl_Space < 0);
-            SurroundingCorners[2] = min(Bl_Card.getCorners()[1], 2);
+            SurroundingCorners[2] = Bl_Card.getCorners()[1];
         }
         if (Br_Card != null) {
             Br_Card.setFlipped(Br_Space < 0);
-            SurroundingCorners[3] = min(Br_Card.getCorners()[0], 2);
+            SurroundingCorners[3] = Br_Card.getCorners()[0];
         }
 
         return SurroundingCorners;
