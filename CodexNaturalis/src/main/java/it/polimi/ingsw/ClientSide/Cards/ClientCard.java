@@ -2,12 +2,15 @@ package it.polimi.ingsw.ClientSide.Cards;
 
 
 import it.polimi.ingsw.ClientSide.Cards.Enums.*;
+import it.polimi.ingsw.ClientSide.Utility.ClientConstants;
 
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+
+import static it.polimi.ingsw.ClientSide.GUI_Render.ImagesCollection.loadImage;
 
 /**
  * Client card works alongside the TUI class to ensure Cards are rendered correctly.
@@ -88,13 +91,8 @@ public class ClientCard {
 
 
         BufferedImage rI = null;
-
-
-        try {
-            rI = ImageIO.read(new File(ImagePath));
-        } catch (java.io.IOException e) {
-            System.out.println("error");
-        }
+        rI = loadImage(ImagePath);
+        if(rI==null){ rI = loadImage("/CodexNaturalis"+ImagePath); }
 
         int SubImg_yCoord;
 

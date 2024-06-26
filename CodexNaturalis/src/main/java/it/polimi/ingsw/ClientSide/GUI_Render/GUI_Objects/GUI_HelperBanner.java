@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
+import static it.polimi.ingsw.ClientSide.GUI_Render.ImagesCollection.loadImage;
+
 /**
  * Constructs and renders a banner in the top part of the screen to help
  * the player navigate his turn.
@@ -34,16 +36,16 @@ public class GUI_HelperBanner extends GUI_object{
     {
         super(_xSize, _ySize, _xCoord, _yCoord);
 
-        File path = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\MenuIcons\\AllBanners.png");
-
         BufferedImage rI = null;
         int ySourceSize = 2160;
 
-        try {
-            rI = ImageIO.read(new File(String.valueOf(path)));
-        } catch (java.io.IOException e) {
-            System.out.println("error");
-        }
+        rI = loadImage("/src/main/resources/MenuIcons/AllBanners.png");
+
+        if(rI==null){
+                rI = loadImage("/CodexNaturalis/src/main/resources/MenuIcons/AllBanners.png");
+            }
+
+
 
 
         assert rI != null;

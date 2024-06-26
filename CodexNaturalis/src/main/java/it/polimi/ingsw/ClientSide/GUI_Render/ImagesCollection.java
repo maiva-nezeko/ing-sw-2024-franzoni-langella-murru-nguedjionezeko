@@ -44,6 +44,7 @@ public class ImagesCollection {
         Image rI = null;
 
         rI = loadImage("/src/main/resources/Board.png");
+        if(rI == null){ rI = loadImage("/CodexNaturalis/src/main/resources/Board.png");}
         assert rI != null;
 
         return rI.getScaledInstance(xWindowSize/6,xWindowSize/3,Image.SCALE_DEFAULT);
@@ -62,6 +63,8 @@ public class ImagesCollection {
         Image[] Menu_GUI_Images = new Image[7];
 
         rI = loadImage("/src/main/resources/MenuIcons/buttons.png");
+        if(rI == null){ rI = loadImage("/CodexNaturalis/src/main/resources/MenuIcons/buttons.png");}
+
         assert rI != null;
 
 
@@ -71,6 +74,8 @@ public class ImagesCollection {
         Menu_GUI_Images[3] = rI.getSubimage(384, 432, 384, 216); //Quit
 
         rI = loadImage("/src/main/resources/MenuIcons/players.png");
+        if(rI == null){ rI = loadImage("/CodexNaturalis/src/main/resources/MenuIcons/players.png");}
+
         assert rI != null;
 
 
@@ -87,26 +92,31 @@ public class ImagesCollection {
         Image[] GUI_Backgrounds = new Image[7];
 
         rI = loadImage("/src/main/resources/MenuIcons/MainMenu.png");
+        if(rI == null){ rI = loadImage("/CodexNaturalis/src/main/resources/MenuIcons/MainMenu.png");}
         assert rI != null;
 
         GUI_Backgrounds[0] = rI.getScaledInstance(xWindowSize,yWindowSize,Image.SCALE_DEFAULT);
 
         rI = loadImage("/src/main/resources/MenuIcons/Backgrounds/DeckBackground.png");
+        if(rI == null){ rI = loadImage("/CodexNaturalis/src/main/resources/MenuIcons/Backgrounds/DeckBackground.png");}
         assert rI != null;
 
         GUI_Backgrounds[1] = rI.getScaledInstance(640,1920,Image.SCALE_DEFAULT);
 
         rI = loadImage("/src/main/resources/MenuIcons/Backgrounds/HandBackgroundDraw.png");
+        if(rI == null){ rI = loadImage("/CodexNaturalis/src/main/resources/MenuIcons/Backgrounds/HandBackgroundDraw.png");}
         assert rI != null;
 
         GUI_Backgrounds[2] = rI.getScaledInstance(1280,880,Image.SCALE_DEFAULT);
 
         rI = loadImage("/src/main/resources/MenuIcons/Backgrounds/HandBackgroundPlay.png");
+        if(rI == null){ rI = loadImage("/CodexNaturalis/src/main/resources/MenuIcons/Backgrounds/HandBackgroundPlay.png");}
         assert rI != null;
 
         GUI_Backgrounds[3] = rI.getScaledInstance(1920,640,Image.SCALE_DEFAULT);
 
         rI = loadImage("/src/main/resources/MenuIcons/Backgrounds/HandBackground.png");
+        if(rI == null){ rI = loadImage("/CodexNaturalis/src/main/resources/MenuIcons/Backgrounds/HandBackground.png");}
         assert rI != null;
 
         GUI_Backgrounds[4] = rI.getScaledInstance(2560,2160,Image.SCALE_DEFAULT);
@@ -114,7 +124,7 @@ public class ImagesCollection {
         return GUI_Backgrounds;
     }
 
-    private static BufferedImage loadImage(String RelativePath)
+    public static BufferedImage loadImage(String RelativePath)
     {
         BufferedImage rI = null;
 
