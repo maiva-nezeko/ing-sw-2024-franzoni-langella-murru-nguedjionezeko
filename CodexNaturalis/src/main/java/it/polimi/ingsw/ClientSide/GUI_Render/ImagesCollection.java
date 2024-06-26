@@ -131,7 +131,7 @@ public class ImagesCollection {
         try {
             rI = ImageIO.read(new File(ClientConstants.getMainDirPAth() + RelativePath));
         } catch (java.io.IOException e) {
-            System.out.println("error");
+            System.out.println("fetching correct path");
         }
 
         return rI;
