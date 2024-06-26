@@ -122,7 +122,7 @@ public class ClientCard {
         if(altCorners!=null){this.AltCorners = altCorners;}
         else{this.AltCorners = new int[]{1,1,1,1}; }
 
-        if(pointCond == null && (this.id-1)%10>=7 ){pointCond = PointCondition.ONE_POINT_FLAT;}
+        if(pointCond == null && (this.id-1)%10>=7 && this.id<100 ){pointCond = PointCondition.ONE_POINT_FLAT;}
 
         setText(goalState, pointCond, playCond, startingPoints);
 

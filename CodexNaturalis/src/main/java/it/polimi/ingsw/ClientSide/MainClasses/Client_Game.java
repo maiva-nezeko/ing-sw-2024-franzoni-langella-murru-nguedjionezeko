@@ -184,9 +184,33 @@ public class Client_Game implements Runnable {
                     System.out.println("Would you like to create a new game? y/n");
                     response = scanner.nextLine();
                     if (response.contains("y")) {
-                        System.out.println("Insert a playerCount between 1 and 4:");
+                        System.out.println("Insert a playerCount between 2 and 4:");
+
+                        int number = 0;
                         response = scanner.nextLine();
-                        JoinStatus = Client_IO.CreateGame(Integer.parseInt(response));
+
+                        try{
+                            number = Integer.parseInt(response);
+                        }catch (NumberFormatException e)
+                        {
+                            number = 0;
+                        }
+
+                        while(number<2 || number>4)
+                        {
+                            System.out.println("Insert a playerCount between 2 and 4:");
+
+                            response = scanner.nextLine();
+                            try{
+                                number = Integer.parseInt(response);
+                            }catch (NumberFormatException e)
+                            {
+                                number = 0;
+                            }
+
+                        }
+
+                        JoinStatus = Client_IO.CreateGame(number);
 
                         if (JoinStatus.toLowerCase().contains("username")) {
                             SetUsername("Username already present, please set a new one:");
