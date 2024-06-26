@@ -53,7 +53,14 @@ public class GameClient extends Thread{
 
             sendData(message.getBytes());
 
-            socket.setSoTimeout(20*1000);
+            if(message.contains("CreateGame")){
+                System.out.println("Create Game waiting");
+                socket.setSoTimeout(200*1000);
+            }
+            else
+            {
+                socket.setSoTimeout(20*1000);
+            }
 
             socket.receive(packet);
             ClientExceptionHandler.ServerUnreachable = false;
