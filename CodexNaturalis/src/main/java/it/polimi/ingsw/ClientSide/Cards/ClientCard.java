@@ -45,7 +45,7 @@ public class ClientCard {
     /**
      * The resources found on the Cards associated to a symbol, listed in an array.
      */
-    final String[] Emojis = {" ", "\033[0;107m"+"0"+ANSI_RESET, ANSI_RED+"&"+ANSI_RESET, ANSI_BLUE+"$"+ANSI_RESET, ANSI_GREEN+"%"+ANSI_RESET, ANSI_PURPLE+"#"+ANSI_RESET,
+    final String[] Emojis = {" ", "\u001B[107m"+"0"+ANSI_RESET, ANSI_RED+"&"+ANSI_RESET, ANSI_BLUE+"$"+ANSI_RESET, ANSI_GREEN+"%"+ANSI_RESET, ANSI_PURPLE+"#"+ANSI_RESET,
             ANSI_YELLOW+"~"+ANSI_RESET, ANSI_YELLOW+"*"+ANSI_RESET, ANSI_YELLOW+"@"+ANSI_RESET,
             "-", "|", ".", "+" };
     //empty, blank⬜, mushroom🍄‍, wolf🐺, leaf🍃, butterfly🦋, feather🕊️, salt🧂, paper📜, Dash, UPDash, point, plus
@@ -59,7 +59,6 @@ public class ClientCard {
      * The Number associated with a resource - for calculating scorePoints, listed in an int array.
      */
     final String[] NumberEmojis = {"0", "1", "2", "3", "4", "5"};
-
 
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
