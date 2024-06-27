@@ -40,4 +40,5 @@ Almost all model and controller classes have a class and method coverage of 100%
 ## Requirements
 In order to successfully execute the .jar applications, which can be found here, both Windows and Java 21 are required.
 If you wish to compile the project independently, it is necessary to download the GitHub repository:
-Afterwards, it can be compiled using your IDE of choice, provided with the required dependencies, java-21-openjdk and javafx-sdk-21.0.1.
+Afterward, it can be compiled using your IDE of choice, provided with the required dependencies, java-21-openjdk and javafx-sdk-21.0.1.
+
