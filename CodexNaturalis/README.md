@@ -47,29 +47,37 @@ Download or alternatively open the ‘CodexNaturalis’ folder ONLY with the pre
 
 ### HOW TO PLAY
 
-*Before running for  first time:* Download one of the fonts from ‘CodexNaturalis/src/main/resources/Fonts’ folder. 
+*Before running for the first time:* Download one of the fonts from ‘CodexNaturalis/src/main/resources/Fonts’ folder. 
 Install the font by opening the .ttf file and follow the instructions on screen – for Windows, simply click the install button after opening the font. 
-First of all, in order to play, you have to access the control prompt; you should click on the drop down menu. After this, you can click on settings. After having found” advanced settings” in the default settings, you will find additional settings by scrolling down. After having clicked on “Aspect” on the new window, you have to tick the following item “Show all the types of font” and chose one of the three fonts which have been previously downloaded (which is Codex Fabulous 3, Codex Fairy Tale 4, Codex Fantaisie). Afterwards, you must save the settings on the tick  “Save”.
- As a consequence, you have to check if the folder “SavedGames” exists under the CodexNaturalis\src\main\resources one. If the first folder doesn’t exist, you have to create and rename it by adopting the same exact name.<br>
 
-**Pay attention** It is necessary to name the SavedGames folder in order to allow the proper functioning of the game.
+⚠ It is necessary to ensure that you have the SavedGames folder in order to ensure the proper functioning of the Restore game feature, so you need to make sure that the “SavedGames” folder exists under the 'CodexNaturalis\src\main\resources' one. If not, you have to create it. It's essential to keep the spelling as shown
+ ```properties
+SavedGames
+```
+ <br>
 
 In order to start a Game, a Server needs to be started through running Server.jar (or ServerMain.java class if you want to run on code).
 Then, you can start connecting a Client to the Server by running Client.jar (or App.java class if directly on source code). 
 
-To start the game using Command Prompt, you go on and copy the full path that leads you to the “CodexNaturalis” folder. After this, you continue by accessing to the command prompt and change the directory on the base of the following instructions. An example is below:
+**Running with command line**
+If you are running the game on a Windows 10 machine you need to acces the  file registry by writing "regedit" in the search bar, in the Registry editor window you need to open the console tab, scroll down to find "VirtualTerminalLevel" (or create a new 32-bit Dword via the edit tab) and make sure that the value is set to "1".
+
+Now you can access the control prompt; you should click on the drop down menu. After this, you can click on settings. After having found "advanced settings” in the default settings, you will find additional settings by scrolling down. After having clicked on “Aspect” on the new window, you have to tick the following item “Show all the types of font” and choose one of the three fonts which have been previously downloaded (which is Codex Fabulous 3, Codex Fairy Tale 4, Codex Fantaisie). Afterwards, you must save the settings by clicking “Save”.
+To start the game using Command Prompt, you go on and copy the full path that leads to the “CodexNaturalis” folder. After this, you continue by accessing the command prompt and changing the directory on the base of the following instructions.
+
+An example is below:
 
 ```properties
-cd C:\Users\lange\Desktop\ing-sw-2024-franzoni-langella-murru-nguedjionezeko\CodexNaturalis
+cd C:\"your-path"\ing-sw-2024-franzoni-langella-murru-nguedjionezeko\CodexNaturalis
 ```
-If you need to run Server.jar, firstly you need to add deliverables\final\jar\Server.jar inside the path previously copied, the one that was leading you to the CodexNaturalis Folder. Lastly, for creating the Sever, you need to type the following command mentioned below:
+ In order to run a Server, you need to type the following command:
 ```properties
-java -jar C:\Users\lange\Desktop\ing-sw-2024-franzoni-langella-murru-nguedjionezeko\CodexNaturalis\deliverables\final\jar\Server.jar
+java -jar C:\"your-path"\ing-sw-2024-franzoni-langella-murru-nguedjionezeko\CodexNaturalis\deliverables\final\jar\Server.jar
 ```
-Once that you are in possession of the Sever, you have to launch/run the Client.jar file. In order to do this, you have to add deliverables\final\jar\Client.jar” inside the path previously copied and pasted which led you to the CodexNaturalis folder.
+Once you have a Sever, you can launch/run the Client.jar file. In order to do this, you have to add deliverables\final\jar\Client.jar” inside the path that leads to the CodexNaturalis folder.
 In the end, type the following command:
 ```properties
-java -jar C:\Users\lange\Desktop\ing-sw-2024-franzoni-langella-murru-nguedjionezeko\CodexNaturalis\deliverables\final\jar\Client.jar
+java -jar C:\"your-path"\ing-sw-2024-franzoni-langella-murru-nguedjionezeko\CodexNaturalis\deliverables\final\jar\Client.jar
 ```
 Reminder: All Clients and the Server need to share the same internet  connection, whether via cable or Wi-Fi.
 The console will pop up and you will be asked to input the IP address of the hosting Server, then press enter. After that you can choose Socket or RMI – by pressing  “1” or “2” followed by enter key – and then  GUI or TUI – still by pressing "1”or “2” followed by enter key.
